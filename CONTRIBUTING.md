@@ -142,11 +142,11 @@ cd /home/ralf/projects/github.com/datazuul/dazeos
 file artifacts/dazeos-amd64.iso
 sha256sum -c artifacts/dazeos-amd64.iso.sha256
 
-# BIOS smoke test with QEMU:
-qemu-system-x86_64 -enable-kvm -m 2048 -cdrom artifacts/dazeos-amd64.iso
+# BIOS smoke test with QEMU (with USB tablet for seamless mouse integration):
+qemu-system-x86_64 -enable-kvm -m 2048 -usb -device usb-tablet -cdrom artifacts/dazeos-amd64.iso
 
 # UEFI smoke test with QEMU & OVMF:
-qemu-system-x86_64 -enable-kvm -m 2048 -bios /usr/share/ovmf/OVMF.fd -cdrom artifacts/dazeos-amd64.iso
+qemu-system-x86_64 -enable-kvm -m 2048 -bios /usr/share/ovmf/OVMF.fd -usb -device usb-tablet -cdrom artifacts/dazeos-amd64.iso
 ```
 
 The exact package list, build directory, ISO filename, boot parameters, and QEMU options must be committed with the image pipeline when they become stable. Do not report `lb build`, ISO booting, BIOS support, UEFI support, or Java window-manager tests as complete until those tests have actually been run and their results recorded.

@@ -2,170 +2,117 @@
 
 This document describes the development environment that is already configured and separates it from work that is only planned.
 
-## Repository locations
+## Repository location
 
-The repository is located on the Windows filesystem at:
-
-```text
-C:\Laufwerk_D\projects-ext\github.com\datazuul\dazeOS
-```
-
-The same directory is accessed from Debian under WSL2 as:
+The repository is located at:
 
 ```text
-/mnt/c/Laufwerk_D/projects-ext/github.com/datazuul/dazeOS
+/home/ralf/projects/github.com/datazuul/dazeos
 ```
-
-Work directly in the WSL path. Do not create a second working copy inside the Linux filesystem for normal development. This keeps the checkout at its intended Windows location and makes it available to the surrounding Windows tools.
 
 ## Already configured environment
 
-The verified environment is:
+The verified development environment is:
 
-- WSL2 running the `Debian` distribution
-- Debian GNU/Linux 13 (trixie)
+- Native Linux (Debian 13 trixie or Ubuntu 25.10 x86_64)
 - Linux user `ralf`
-- Java/OpenJDK 21, including `java` and `javac`
-- Git 2.47.3
-- Gradle 9.3.1, available from `/mnt/c/Laufwerk_D/dev/gradle-9.3.1/bin/gradle`
-- native build tools `gcc` and `make`
-- Debian image tools `debootstrap`, `lb` (live-build), `xorriso`, and `grub-mkrescue`
-- `qemu-system-x86_64` for planned virtual-machine boot tests
+- Java/OpenJDK 21+ (`java`, `javac`)
+- Git 2.47+
+- Gradle (via `/snap/bin/gradle` or local installation)
+- Native build tools `build-essential` (`gcc`, `make`)
+- Debian live image tools `debootstrap`, `lb` (live-build), `xorriso`, `squashfs-tools`, `mtools`, `grub-pc-bin`, `grub-efi-amd64-bin`
+- Virtual machine testing: `qemu-system-x86_64`, `ovmf`
+- X11 testing tools: `xvfb`, `x11-utils`, `xterm`
 
-The tool commands above were found in the configured environment. The repository currently has Git initialized on branch `main`; it has no commits yet. At the time this document was written, the checkout contained the initial uncommitted files, including `README.md` and `.gitignore`.
+## Native Linux setup (Debian / Ubuntu)
 
-The active `/etc/wsl.conf` is:
+To set up a fresh native Linux host for DazeOS development and live image building:
 
-```ini
-[boot]
-systemd=true
-
-[automount]
-options=metadata
-```
-
-`systemd=true` enables systemd inside the Debian WSL instance. `options=metadata` enables Linux metadata handling for automatically mounted Windows drives, which improves permission and executable-bit behavior for Git and build tools.
-
-## Recreating the WSL2 setup
-
-The following commands describe the setup used for this checkout. Run the Windows commands in PowerShell and the Linux commands in the Debian WSL shell. The commands are included for reproducibility; they do not need to be repeated on the already configured instance.
-
-### Install or start Debian under WSL2
-
-From PowerShell:
-
-```powershell
-wsl.exe --status
-wsl.exe --list --verbose
-
-# Only if Debian is not installed yet:
-wsl.exe --install -d Debian
-
-wsl.exe -d Debian
-```
-
-The configured distribution is Debian GNU/Linux 13 (trixie), running as WSL2 user `ralf`.
-
-### Configure WSL filesystem metadata
-
-The checkout intentionally remains on the Windows-mounted path. WSL filesystem metadata is therefore enabled in `/etc/wsl.conf`:
+### 1. Install image build and virtualization prerequisites
 
 ```bash
-sudo sh -c "printf '%s\\n' '[boot]' 'systemd=true' '[automount]' 'options=metadata' > /etc/wsl.conf"
+sudo apt-get update
+sudo apt-get install -y \
+    build-essential \
+    ca-certificates \
+    live-build \
+    debootstrap \
+    xorriso \
+    squashfs-tools \
+    mtools \
+    grub-pc-bin \
+    grub-efi-amd64-bin \
+    syslinux-utils \
+    qemu-system-x86 \
+    ovmf
 ```
 
-Restart from PowerShell:
-
-```powershell
-wsl.exe --shutdown
-wsl.exe -d Debian --user ralf
-```
-
-### Initialize the existing checkout
-
-The empty Windows directory was recreated and initialized directly from WSL; no Linux-side copy was made:
+### 2. Install Java and Gradle
 
 ```bash
-cd /mnt/c/Laufwerk_D/projects-ext/github.com/datazuul/dazeOS
-git init -b main
+sudo apt-get install -y openjdk-21-jdk
 ```
 
-If creating a new checkout directory, do not remove a non-empty directory automatically. Verify its contents first and use the normal Git clone workflow where possible.
-
-### Install the current build prerequisites
-
-The following commands were used in the configured Debian instance. The first command was run as WSL root to install Git before the repository was initialized:
-
-```powershell
-wsl.exe -d Debian --user root -- apt-get update
-wsl.exe -d Debian --user root -- apt-get install --yes git
+If Gradle is not provided by your distribution's packages or you prefer snap:
+```bash
+sudo snap install --classic gradle
+# or: sudo apt-get install -y gradle
 ```
 
-The image-build and test toolchain was then installed:
+### 3. Install X11 inspection and headless testing tools
 
-```powershell
-wsl.exe -d Debian --user root -- apt-get install --yes build-essential ca-certificates live-build debootstrap xorriso squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools qemu-system-x86 ovmf openjdk-21-jdk
+For developing and testing the Java window manager without taking over your main desktop:
+```bash
+sudo apt-get install -y \
+    xvfb \
+    x11-utils \
+    x11-apps \
+    xterm \
+    libx11-dev
 ```
 
-The installed Java baseline is OpenJDK 21. A future project decision may pin another JDK baseline, but the image and application builds must then be updated together.
+* `xvfb`: Provides a virtual framebuffer X server for headless tests and automated testing of the window manager.
+* `x11-utils` (`xdpyinfo`, `xwininfo`, `xprop`): Inspects X11 window tree, properties, and events.
+* `xterm` / `x11-apps`: Lightweight test client applications to test window placement, focus, and lifecycle.
+* `libx11-dev`: Header files and shared libraries for validating JNA / native bindings.
 
-## Applying WSL configuration changes
+## File permissions and Git executable flags
 
-After changing `/etc/wsl.conf`, terminate the distribution from Windows PowerShell and start it again:
+All shell scripts and hooks (`build.sh`, `scripts/build-image.sh`, chroot hooks in `config/hooks/`, and session scripts in `config/includes.chroot/`) must have their executable bit preserved in Git.
 
-```powershell
-wsl.exe --terminate Debian
-wsl.exe -d Debian
+On Linux/Unix:
+```bash
+# Make the file executable locally
+chmod +x build.sh
+
+# Record the executable permission bit (100755) in Git's index
+git update-index --chmod=+x build.sh
 ```
 
-A full WSL restart can be used when required:
+Git records file modes as either `100644` (regular file) or `100755` (executable file). Committing with `--chmod=+x` ensures that checkouts and fresh clones on any Linux machine will automatically have executable permissions.
 
-```powershell
-wsl.exe --shutdown
-```
+## Development verification
 
-The configuration change and restart have already been applied for the current environment. Contributors changing their own WSL configuration must restart the distribution before relying on the new settings.
-
-## Basic verification
-
-From Debian WSL2:
+Verify tool availability before starting a build:
 
 ```bash
 whoami                         # ralf
 . /etc/os-release && echo "$PRETTY_NAME ($VERSION_CODENAME)"
-java -version                  # OpenJDK 21
+java -version                  # OpenJDK 21+
 javac -version
 git --version
 gradle --version
-cd /mnt/c/Laufwerk_D/projects-ext/github.com/datazuul/dazeOS
+cd /home/ralf/projects/github.com/datazuul/dazeos
 git status --short --branch
-```
-
-The expected distribution identifier is `Debian GNU/Linux 13 (trixie)`. The expected WSL configuration contains `systemd=true` and `[automount] options=metadata`. Verify tool availability before starting a build:
-
-```bash
 command -v git gcc make lb debootstrap xorriso grub-mkrescue qemu-system-x86_64 java javac gradle
 ```
 
-## Working on the Windows-mounted checkout
-
-The checkout is intentionally under `/mnt/c`. This is already the configured workflow, but mounted Windows filesystems have limitations compared with a native Linux filesystem:
-
-- metadata and permission behavior depend on the WSL automount options;
-- file operations, directory traversal, and builds can be slower;
-- Linux file notifications and locking semantics are not identical to native Linux filesystems;
-- executable bits, symlinks, case sensitivity, and filename handling can differ from a Linux-native checkout;
-- tools that expect native Linux filesystem semantics may fail or behave inconsistently;
-- concurrent access from Windows and Linux tools can create locking or generated-file conflicts.
-
-Keep generated output out of the source tree where practical, avoid running competing builds from both Windows and WSL, and do not treat a successful WSL build as proof that the image boots on real hardware. The `build.sh` live-image pipeline keeps the Git checkout on `/mnt/c` but copies only its generated live-build configuration to a temporary native WSL2 workspace, by default `/tmp/dazeos-live-build`. Override this location with `DAZEOS_BUILD_ROOT` when required. This is a temporary build workspace, not a second source checkout.
-
 ## Git workflow
 
-The repository was initialized with Git in the existing directory rather than copied elsewhere. From WSL:
+Work directly in the repository:
 
 ```bash
-cd /mnt/c/Laufwerk_D/projects-ext/github.com/datazuul/dazeOS
+cd /home/ralf/projects/github.com/datazuul/dazeos
 git status
 git switch -c <topic-name>
 ```
@@ -174,34 +121,32 @@ Use focused commits and do not commit generated ISO images, VM disks, build cach
 
 ## Build and test status
 
-The source repository now contains the first Java prototype and an initial `build.sh` live-image entrypoint. The image pipeline is still an early implementation and has not yet been validated by a successful ISO build or boot test.
+The source repository contains the Java prototype and the `build.sh` live-image entrypoint.
 
 ```bash
-cd /mnt/c/Laufwerk_D/projects-ext/github.com/datazuul/dazeOS
+cd /home/ralf/projects/github.com/datazuul/dazeos
 
 # Run the Java tests and build the first live ISO.
 gradle clean test
 ./build.sh
 ```
 
-The first live-build attempt showed that running the generated rootfs build
-directly on `/mnt/c` can fail during tar extraction. `build.sh` therefore uses
-the native WSL2 temporary workspace described above while keeping source files
-in the configured checkout.
+`build.sh` builds the JAR, sets up the live-build tree, and executes `live-build` in a temporary workspace (by default `/tmp/dazeos-live-build`, configurable via `DAZEOS_BUILD_ROOT`).
 
-The build currently embeds the Swing demonstration and the Xorg/OpenJDK package
-set. It does not yet start the Java window manager automatically. Once an ISO
-has been built, inspect and test it with:
+The build currently embeds the Swing demonstration and the Xorg/OpenJDK package set. It does not yet start the Java window manager automatically. Once an ISO has been built, inspect and test it with:
 
 ```bash
-cd /mnt/c/Laufwerk_D/projects-ext/github.com/datazuul/dazeOS
+cd /home/ralf/projects/github.com/datazuul/dazeos
 
 # Inspect the generated artifact.
 file artifacts/dazeos-amd64.iso
 sha256sum -c artifacts/dazeos-amd64.iso.sha256
 
-# Planned/first smoke test; use a matching QEMU acceleration setup if available.
+# BIOS smoke test with QEMU:
 qemu-system-x86_64 -enable-kvm -m 2048 -cdrom artifacts/dazeos-amd64.iso
+
+# UEFI smoke test with QEMU & OVMF:
+qemu-system-x86_64 -enable-kvm -m 2048 -bios /usr/share/ovmf/OVMF.fd -cdrom artifacts/dazeos-amd64.iso
 ```
 
 The exact package list, build directory, ISO filename, boot parameters, and QEMU options must be committed with the image pipeline when they become stable. Do not report `lb build`, ISO booting, BIOS support, UEFI support, or Java window-manager tests as complete until those tests have actually been run and their results recorded.

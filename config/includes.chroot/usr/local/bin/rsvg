@@ -1,0 +1,13 @@
+#!/bin/sh
+# Compatibility wrapper for legacy rsvg syntax using rsvg-convert
+for last; do true; done
+count=$#
+i=1
+args=""
+while [ $i -lt $count ]; do
+    eval arg=\${$i}
+    args="$args \"$arg\""
+    i=$((i + 1))
+done
+eval exec rsvg-convert $args -o \"$last\"
+

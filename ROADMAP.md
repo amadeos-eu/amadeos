@@ -27,9 +27,10 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - The application JAR has an executable manifest pointing to `SwingDemoApplication`.
 - The repository contains an initial Debian `live-build` configuration for trixie and amd64.
 - The image configuration includes Xorg, OpenJDK 21 JRE, fonts, certificates, and the demo JAR.
-- The build script keeps the source checkout on `/mnt/c` but moves generated live-build work to a native WSL filesystem such as `/tmp/dazeos-live-build`.
-- The build script creates a planned ISO destination and SHA-256 checksum when `live-build` completes successfully.
-- WSL2/Debian, the Java toolchain, live-build prerequisites, QEMU, and the documented development workflow are available in the configured environment.
+- The build script uses a dedicated temporary build workspace such as `/tmp/dazeos-live-build`.
+- The build script creates `artifacts/dazeos-amd64.iso` and SHA-256 checksum when `live-build` completes successfully.
+- A bootable Debian 13 (Trixie) live ISO (`artifacts/dazeos-amd64.iso`, 414 MiB) was successfully built on native Linux, and its SHA-256 checksum verified (`OK`).
+- Native Linux, the Java toolchain, live-build prerequisites, QEMU, and the documented development workflow are available in the configured environment.
 
 ### In progress or incomplete
 
@@ -37,27 +38,23 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - Client lifecycle handling, focus handling, close requests, transient windows, and ICCCM/EWMH support are not implemented.
 - The Swing demo is an application demonstration; it does not manage the host desktop.
 - The live image does not yet start a Java window manager automatically.
-- The first live-build attempt on `/mnt/c` failed during root filesystem extraction; the build was moved to native WSL storage as a mitigation.
-- The native-storage build reached package installation but failed because the chroot reported all requested packages as unavailable, including `live-boot`, `xserver-xorg`, `openjdk-21-jre`, and `ca-certificates`.
-- The cause of the chroot APT/package-index failure has not yet been established.
+- The build configuration has been updated for native Linux with Debian mode, explicit mirrors, and corrected font package names.
 
 ### Not yet verified
 
-- No successful `dazeos-amd64.iso` is currently available in `artifacts/`.
-- ISO contents and checksum verification have not been completed.
-- BIOS boot has not been tested.
-- UEFI boot has not been tested.
+- BIOS boot has not been tested in QEMU.
+- UEFI boot has not been tested in QEMU.
 - QEMU smoke tests have not been completed.
 - Xorg startup and `startx` behavior inside the generated image have not been validated.
 - Swing/AWT behavior on the target live image has not been validated.
 - Real hardware, graphics acceleration, firmware, WLAN, audio, suspend/resume, multiple displays, and USB boot have not been tested.
 - Security updates, image signing, rollback, persistence, installation, and release procedures are not defined.
 
-## Next milestones
+## Milestones
 
-### M0 — Restore a reproducible build
+### M0 — Restore a reproducible build (Completed)
 
-**Goal:** Produce the first inspectable ISO from a clean checkout.
+**Goal:** Produce the first inspectable ISO from a clean checkout. (Achieved 2026-10-09)
 
 1. Inspect the generated live-build configuration immediately after the archive/chroot archive stages:
    - `chroot/etc/apt/sources.list*`
@@ -66,7 +63,7 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 2. From the generated chroot, check APT visibility with `apt-cache policy` for representative packages such as `xserver-xorg`, `openjdk-21-jre`, and `live-boot`.
 3. Verify that the configured Debian mirror, distribution (`trixie`), archive areas, DNS, and proxy handling are available inside the chroot.
 4. Make the smallest configuration fix required. Prefer explicit mirror and archive configuration over undocumented host-specific behavior.
-5. Run `./build.sh` from a clean native WSL build directory and retain the relevant log output.
+5. Run `./build.sh` and retain the relevant log output.
 6. Verify the resulting artifact:
 
    ```bash

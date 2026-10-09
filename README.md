@@ -20,8 +20,7 @@ adapter is logging-only: it makes no X11 or native calls and therefore does not
 manage the host desktop. Details and limitations are documented in
 [`java-wm/README.md`](java-wm/README.md).
 
-Run the unit tests with `gradle test` (or `gradlew.bat test` when a wrapper is
-provided) and the Swing demo with `gradle run`.
+Run the unit tests with `gradle test` and the Swing demo with `gradle run`.
 
 The first Debian live-build entrypoint is `./build.sh`. It builds the JAR,
 embeds it into the live root filesystem, and invokes `live-build` to create
@@ -41,10 +40,10 @@ and still needs BIOS/UEFI and QEMU validation.
 
 ## Development environment
 
-The project is developed directly in Debian under WSL2 at:
+The project is developed in a native Linux environment (Debian / Ubuntu) at:
 
 ```text
-/mnt/c/Laufwerk_D/projects-ext/github.com/datazuul/dazeOS
+/home/ralf/projects/github.com/datazuul/dazeos
 ```
 
 Build tooling and the first image pipeline will be added incrementally.

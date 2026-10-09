@@ -1,5 +1,17 @@
-# Package installation is performed in 020-dazeos-packages.chroot after an
-# explicit apt-get update. Keeping this list empty avoids a live-build
-# package-list pass that can run before the chroot package indexes are ready.
-
-
+live-boot
+live-config
+live-config-systemd
+systemd-sysv
+isolinux
+syslinux-common
+syslinux-utils
+xserver-xorg
+xserver-xorg-input-all
+xserver-xorg-video-all
+xinit
+dbus-x11
+x11-xserver-utils
+openjdk-21-jre
+fontconfig
+fonts-dejavu-core
+ca-certificates

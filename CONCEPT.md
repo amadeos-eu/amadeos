@@ -88,7 +88,7 @@ The initial image pipeline is planned around Debian live-build and related Debia
 - **Java compatibility:** The selected JDK version affects Swing/AWT behavior, FFM availability, fonts, HiDPI rendering, module access, and native-library loading. The supported Java baseline must be pinned and tested with representative Swing applications.
 - **X11 behavior:** ICCCM/EWMH conventions, transient windows, focus, override-redirect windows, client quirks, multiple monitors, and compositing can expose gaps in a minimal window manager. Non-reparenting behavior must be validated against both Swing and ordinary X clients.
 - **Native boundaries:** JNA/libX11, FFM, or JNI/XCB can fail through ABI mismatches, pointer/lifetime errors, missing libraries, and architecture assumptions. Native access must be isolated and tested on the supported x86-64 image.
-- **WSL2 limitations:** WSL2 is suitable for source work and early build experiments, but it is not a substitute for booting the produced image on hardware. USB boot, firmware behavior, graphics acceleration, and some device tests require a VM or physical system.
+- **Virtualization vs. bare metal:** Testing inside virtual machines (QEMU) is essential for fast iteration, but it is not a substitute for booting the produced image on physical hardware. USB boot, firmware behavior, graphics acceleration, Wi-Fi drivers, and power management require testing on physical BIOS and UEFI systems.
 
 These risks make the first goal a small, inspectable booting prototype rather than a claim of production readiness. Decisions above describe the current direction; implementation evidence and compatibility tests may revise them in later milestones.
 

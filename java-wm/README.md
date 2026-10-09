@@ -9,12 +9,11 @@ no native library or JNA binding is used yet.
 
 From the repository root:
 
-```text
-./gradlew test
-./gradlew run
+```bash
+gradle test
+gradle run
 ```
 
-On Windows, use `gradlew.bat` when a Gradle wrapper is available, or `gradle`.
 The Swing demo presents the core state and simulates managed windows. It does not
 manage the host desktop.
 

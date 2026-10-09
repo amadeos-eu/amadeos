@@ -2,12 +2,16 @@ live-boot
 live-config
 live-config-systemd
 systemd-sysv
+user-setup
+sudo
+locales
 isolinux
 syslinux-common
 syslinux-utils
 xserver-xorg
 xserver-xorg-input-all
 xserver-xorg-video-all
+xserver-xorg-legacy
 xinit
 dbus-x11
 x11-xserver-utils

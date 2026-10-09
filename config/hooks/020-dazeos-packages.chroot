@@ -9,12 +9,16 @@ apt-get install --yes --no-install-recommends \
     live-config \
     live-config-systemd \
     systemd-sysv \
+    user-setup \
+    sudo \
+    locales \
     isolinux \
     syslinux-common \
     syslinux-utils \
     xserver-xorg \
     xserver-xorg-input-all \
     xserver-xorg-video-all \
+    xserver-xorg-legacy \
     xinit \
     dbus-x11 \
     x11-xserver-utils \
@@ -22,6 +26,12 @@ apt-get install --yes --no-install-recommends \
     fontconfig \
     fonts-dejavu-core \
     ca-certificates
+
+# Configure locales
+if [ -f /etc/locale.gen ]; then
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+    locale-gen || true
+fi
 
 # Ensure syslinux/isolinux binaries and modules are available for bootloader creation
 mkdir -p /usr/lib/syslinux

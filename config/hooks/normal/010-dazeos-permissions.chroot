@@ -10,5 +10,8 @@ mkdir -p /opt/dazeos
 if [ -f /opt/dazeos/dazeos-demo.jar ]; then
     chmod 0644 /opt/dazeos/dazeos-demo.jar
 fi
+if [ -f /etc/X11/Xwrapper.config ]; then
+    sed -i 's/allowed_users=.*/allowed_users=anybody/' /etc/X11/Xwrapper.config 2>/dev/null || true
+fi
 
 

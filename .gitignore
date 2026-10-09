@@ -4,7 +4,14 @@ build/
 image/cache/
 image/chroot/
 image/binary/
-image/auto/
+config/includes.chroot/opt/dazeos/*.jar
+
+# live-build output in the repository root
+chroot/
+binary/
+cache/
+.build/
+config/auto/
 
 # Java and Gradle
 .gradle/

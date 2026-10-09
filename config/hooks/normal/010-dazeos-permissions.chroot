@@ -1,0 +1,11 @@
+#!/bin/sh
+set -eu
+
+chmod 0755 /usr/local/bin/dazeos-session
+chmod 0755 /etc/skel/.xinitrc
+mkdir -p /opt/dazeos
+if [ -f /opt/dazeos/dazeos-demo.jar ]; then
+    chmod 0644 /opt/dazeos/dazeos-demo.jar
+fi
+
+

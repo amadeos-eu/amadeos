@@ -158,7 +158,7 @@ The checkout is intentionally under `/mnt/c`. This is already the configured wor
 - tools that expect native Linux filesystem semantics may fail or behave inconsistently;
 - concurrent access from Windows and Linux tools can create locking or generated-file conflicts.
 
-Keep generated output out of the source tree where practical, avoid running competing builds from both Windows and WSL, and do not treat a successful WSL build as proof that the image boots on real hardware. If a tool later demonstrates a mounted-filesystem incompatibility, use a separate Linux-native build workspace only as a documented exception; the repository's configured source checkout remains the `/mnt/c` path above.
+Keep generated output out of the source tree where practical, avoid running competing builds from both Windows and WSL, and do not treat a successful WSL build as proof that the image boots on real hardware. The `build.sh` live-image pipeline keeps the Git checkout on `/mnt/c` but copies only its generated live-build configuration to a temporary native WSL2 workspace, by default `/tmp/dazeos-live-build`. Override this location with `DAZEOS_BUILD_ROOT` when required. This is a temporary build workspace, not a second source checkout.
 
 ## Git workflow
 
@@ -174,27 +174,34 @@ Use focused commits and do not commit generated ISO images, VM disks, build cach
 
 ## Build and test status
 
-The source repository currently contains the concept and initial README material; the complete image pipeline is not yet implemented. The following commands are planned rather than verified project build commands:
+The source repository now contains the first Java prototype and an initial `build.sh` live-image entrypoint. The image pipeline is still an early implementation and has not yet been validated by a successful ISO build or boot test.
 
 ```bash
 cd /mnt/c/Laufwerk_D/projects-ext/github.com/datazuul/dazeOS
 
-# Validate the already installed Debian live-build inputs.
-command -v lb debootstrap xorriso grub-mkrescue qemu-system-x86_64 java javac
+# Run the Java tests and build the first live ISO.
+gradle clean test
+./build.sh
 ```
 
-The complete image pipeline is not implemented yet. Once it exists, the planned build flow will be:
+The first live-build attempt showed that running the generated rootfs build
+directly on `/mnt/c` can fail during tar extraction. `build.sh` therefore uses
+the native WSL2 temporary workspace described above while keeping source files
+in the configured checkout.
+
+The build currently embeds the Swing demonstration and the Xorg/OpenJDK package
+set. It does not yet start the Java window manager automatically. Once an ISO
+has been built, inspect and test it with:
 
 ```bash
 cd /mnt/c/Laufwerk_D/projects-ext/github.com/datazuul/dazeOS
 
-# Planned: once the project provides a live-build configuration.
-lb config
-lb build
+# Inspect the generated artifact.
+file artifacts/dazeos-amd64.iso
+sha256sum -c artifacts/dazeos-amd64.iso.sha256
 
-# Planned: inspect the generated artifact and test it in a VM.
-file live-image-amd64.hybrid.iso
-qemu-system-x86_64 -enable-kvm -m 2048 -cdrom live-image-amd64.hybrid.iso
+# Planned/first smoke test; use a matching QEMU acceleration setup if available.
+qemu-system-x86_64 -enable-kvm -m 2048 -cdrom artifacts/dazeos-amd64.iso
 ```
 
 The exact package list, build directory, ISO filename, boot parameters, and QEMU options must be committed with the image pipeline when they become stable. Do not report `lb build`, ISO booting, BIOS support, UEFI support, or Java window-manager tests as complete until those tests have actually been run and their results recorded.

@@ -1,0 +1,5 @@
+# Package installation is performed in 020-dazeos-packages.chroot after an
+# explicit apt-get update. Keeping this list empty avoids a live-build
+# package-list pass that can run before the chroot package indexes are ready.
+
+

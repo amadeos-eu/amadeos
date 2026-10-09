@@ -1,0 +1,28 @@
+# Build output
+artifacts/
+build/
+image/cache/
+image/chroot/
+image/binary/
+image/auto/
+
+# Java and Gradle
+.gradle/
+**/.gradle/
+**/build/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# Logs and temporary files
+*.log
+*.tmp
+.DS_Store
+
+# Local configuration
+.env
+.env.*
+!.env.example
+

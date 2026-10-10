@@ -1,0 +1,49 @@
+#!/bin/sh
+set -e
+
+echo "[dazeos-dm] Initializing DazeOS Display Manager on vt7..."
+
+# Start Xorg server on vt7 if not already active
+if [ ! -e "/tmp/.X11-unix/X0" ]; then
+    echo "[dazeos-dm] Starting Xorg display server on vt7..."
+    Xorg :0 vt7 -nolisten tcp -background none >/var/log/dazeos-xorg.log 2>&1 &
+    XORG_PID=$!
+
+    # Wait for Xorg to be ready and accept connections
+    READY=0
+    for i in $(seq 1 60); do
+        if [ -e "/tmp/.X11-unix/X0" ]; then
+            if command -v xset >/dev/null 2>&1; then
+                if xset -q -display :0 >/dev/null 2>&1; then
+                    echo "[dazeos-dm] Xorg is ready and responding on :0 (iteration $i)"
+                    READY=1
+                    break
+                fi
+            else
+                READY=1
+                break
+            fi
+        fi
+        sleep 0.1
+    done
+
+    if [ "$READY" -eq 0 ]; then
+        echo "[dazeos-dm] Warning: Xorg socket wait timed out, proceeding..."
+    fi
+
+    # Switch console to VT7 so user sees the graphical display
+    if command -v chvt >/dev/null 2>&1; then
+        chvt 7 2>/dev/null || true
+    fi
+fi
+
+export DISPLAY=:0
+export LANG=en_US.UTF-8
+
+JAVA_BIN="/usr/lib/jvm/java-21-openjdk-amd64/bin/java"
+if [ ! -x "$JAVA_BIN" ]; then
+    JAVA_BIN="$(command -v java || true)"
+fi
+
+echo "[dazeos-dm] Launching Java Display Manager daemon..."
+exec "$JAVA_BIN" --enable-native-access=ALL-UNNAMED -jar /opt/dazeos/dazeos-demo.jar dm :0

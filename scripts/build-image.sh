@@ -45,6 +45,8 @@ elif [ "${DAZEOS_QUICK:-0}" = "1" ] || [ "${DAZEOS_REPACK_ROOTFS:-0}" = "1" ]; t
     fi
     echo "[build-image] Quick repack mode: syncing includes into chroot and rebuilding squashfs..."
     $SUDO cp -a "$CONFIG_DIR/includes.chroot/." "$BUILD_ROOT/chroot/"
+    $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/dazeos-dm" 2>/dev/null || true
+    $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/dazeos-session" 2>/dev/null || true
     $SUDO rm -f "$BUILD_ROOT/binary/live/filesystem.squashfs"
     $SUDO mksquashfs "$BUILD_ROOT/chroot" "$BUILD_ROOT/binary/live/filesystem.squashfs" -comp xz -noappend
     cd "$BUILD_ROOT"

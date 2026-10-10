@@ -8,7 +8,7 @@ Wants=systemd-logind.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/java --enable-native-access=ALL-UNNAMED -jar /opt/dazeos/dazeos-demo.jar dm :0
+ExecStart=/usr/local/bin/dazeos-dm
 Restart=always
 RestartSec=2s
 StandardOutput=journal+console
@@ -18,5 +18,5 @@ Environment=LANG=en_US.UTF-8
 
 [Install]
 Alias=display-manager.service
-WantedBy=graphical.target
+WantedBy=graphical.target multi-user.target
 

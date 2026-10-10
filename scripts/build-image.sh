@@ -33,7 +33,7 @@ else
     SUDO="sudo"
 fi
 
-BOOTAPPEND="boot=live components username=dazeos hostname=dazeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,sudo,input"
+BOOTAPPEND="boot=live components username=dazeos user-password=dazeos hostname=dazeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,sudo,input"
 
 if [ "${DAZEOS_PACKAGE_ONLY:-0}" = "1" ]; then
     echo "[build-image] Package-only mode requested; packaging existing $BUILD_ROOT/binary..."

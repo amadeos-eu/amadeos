@@ -1,0 +1,22 @@
+[Unit]
+Description=DazeOS Java Display Manager & Login Greeter
+Documentation=https://github.com/datazuul/dazeos
+After=systemd-user-sessions.service plymouth-quit-wait.service
+After=getty.target systemd-logind.service
+Conflicts=getty@tty7.service
+Wants=systemd-logind.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/java --enable-native-access=ALL-UNNAMED -jar /opt/dazeos/dazeos-demo.jar dm :0
+Restart=always
+RestartSec=2s
+StandardOutput=journal+console
+StandardError=journal+console
+Environment=DISPLAY=:0
+Environment=LANG=en_US.UTF-8
+
+[Install]
+Alias=display-manager.service
+WantedBy=graphical.target
+

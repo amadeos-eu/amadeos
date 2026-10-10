@@ -1,6 +1,11 @@
 #!/bin/sh
 # DazeOS X11 Launcher with Session & Power Lifecycle Management (Milestone M6)
 
+# If DazeOS Display Manager is present or active, defer graphical session to graphical.target
+if [ -f /etc/systemd/system/dazeos-dm.service ] || [ -f /etc/systemd/system/display-manager.service ]; then
+    return 0 2>/dev/null || exit 0
+fi
+
 if [ -z "${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
     while true; do
         ACTION_FILE="${HOME:-/tmp}/.dazeos-session-action"

@@ -42,7 +42,7 @@ flowchart LR
     M5 --> M6["M6: Power & Lifecycle (Done)"]
     M6 --> M7["M7: Reparenting & Decorations (Done)"]
     M7 --> M8["M8: Desktop Shell & Themes (Done)"]
-    M8 --> M9["M9: Java Display Manager"]
+    M8 --> M9["M9: Java Display Manager (Done)"]
     M9 --> M10["M10: Release Hardening"]
 ```
 
@@ -65,13 +65,14 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - Central Desktop Theme Engine (M8): `DesktopTheme` and `ThemeManager` with unified warm Motif `#CEC2BB` palette, 5 built-in themes, and real-time cross-process synchronization via the X11 root window property `_DAZEOS_THEME`.
 - Freedesktop.org Icon Theme Compliance (M8): `IconManager` supporting standard XDG search paths, `index.theme` inheritance, standard icon names (`utilities-terminal`, `system-file-manager`, etc.), and Java2D vector fallback.
 - Dedicated Desktop Settings App & Wallpaper Management (M8): `DazeSettingsApplication` and `WallpaperManager` supporting scaling modes (Fill, Fit, Stretch, Tile, Center), solid color matte, and direct X11 root window pixmap rendering.
+- Java Display Manager & PAM Greeter (M9): `DazeDisplayManager`, `DazeLoginGreeter`, and `PamAuthenticator` providing full Linux PAM authentication (`libpam.so.0`), root privilege dropping via `runuser`/POSIX, systemd unit `dazeos-dm.service`, and default live credentials (`dazeos` / `dazeos`).
 - Session configuration manifest (`/etc/dazeos/session.conf`), drop-in autostart (`/etc/dazeos/autostart.d/`), and background WM watchdog supervision.
 - Incremental packaging mode `DAZEOS_QUICK=1` updating chroot and squashfs in under 30 seconds.
 - Session lifecycle & power management (M6): Session & Power Dialog offering Log Out, Exit to Shell (breaking out of the `startx` loop), Shut Down, and Reboot.
 
 ### In progress or next
 
-- Java Display Manager & PAM Login Greeter (M9): `dazeos-dm.service` running as root, starting Xorg, presenting a graphical Java login greeter, authenticating via PAM, and dropping privileges to spawn `dazeos-session`.
+- Compatibility, security, and release hardening (M10): font tests, keyboard layouts, packaging validation, and final live release verification.
 
 ### Not yet verified
 
@@ -254,26 +255,32 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** A permanent CDE front panel rests docked at the screen bottom, minimized windows park as Motif tiles in the top-left corner, global themes synchronize in real time, and wallpapers render directly to the X11 root window. (Achieved 2026-10-10)
 
-### M9 — Java display manager & login greeter
+### M9 — Java display manager & login greeter (Completed)
 
-**Goal:** Replace console autologin with a dedicated graphical Display Manager implemented in Java with PAM authentication.
+**Goal:** Replace console autologin with a dedicated graphical Display Manager implemented in Java with PAM authentication. (Achieved 2026-10-10)
 
 1. **System Service (`dazeos-dm.service`):**
    - Systemd service running as `root` targeting `graphical.target`.
-   - Launches dedicated Xorg display server instance (`Xorg :0 vt7 -novtswitch -nolisten tcp`).
-2. **Greeter GUI (Java Swing):**
-   - Renders a full-screen greeter interface before any user session exists.
-   - Features DazeOS branding, username and password input fields, session selector, and shutdown/reboot controls.
-3. **PAM Authentication via JNA:**
-   - JNA binding to Linux PAM (`libpam.so`):
-     - `pam_start`, `pam_authenticate`, `pam_acct_mgmt`, `pam_setcred`, `pam_open_session`.
-4. **Session Spawning & Reset:**
-   - Resolves user UID, GID, and `$HOME` (`getpwnam`).
-   - Drops root privileges: `initgroups`, `setgid`, `setuid`.
-   - Initializes session environment (`XDG_SESSION_TYPE=x11`, `DBUS_SESSION_BUS_ADDRESS`, etc.) and executes `/usr/local/bin/dazeos-session`.
-   - On user logout, Display Manager catches session exit and cleanly resets to the login greeter.
+   - Dedicated display manager launcher supporting automatic Xorg server startup on `:0 vt7` (`Xorg :0 vt7 -novtswitch -nolisten tcp`).
+2. **Greeter GUI (`DazeLoginGreeter`):**
+   - Authentic full-screen Motif workstation greeter interface (`#CEC2BB` with 3D chiseled card).
+   - Features workstation title, hostname banner, real-time clock, pre-filled username `dazeos`, masked password entry, session selector, and power buttons (Shut Down, Reboot).
+3. **PAM Authentication via JNA (`PamAuthenticator`, `LibPam`):**
+   - JNA binding to Linux PAM (`libpam.so.0`):
+     - `pam_start`, `pam_authenticate`, `pam_acct_mgmt`, `pam_setcred`, `pam_open_session`, `pam_close_session`, `pam_end`.
+     - Secure C-allocated conversation reply buffers (`LibC.calloc`, `LibC.strdup`) eliminating memory corruption.
+     - Dual mode: real PAM in live OS + developer fallback (`DAZEOS_MOCK_PAM=1`) for local Xephyr testing.
+4. **Session Spawning & Privilege Dropping (`SessionLauncher`):**
+   - Resolves user UID, GID, home directory, and default shell via POSIX `getpwnam`.
+   - Drops root privileges via `runuser -u <user>` or POSIX user switching.
+   - Initializes complete session environment (`USER`, `HOME`, `SHELL`, `DISPLAY`, `XDG_SESSION_TYPE=x11`, `XDG_CURRENT_DESKTOP=DazeOS`) and spawns `/usr/local/bin/dazeos-session`.
+   - On user logout or session termination, Display Manager catches exit, cleans up PAM credentials, handles action requests (`poweroff`/`reboot`), and cleanly re-arms the login greeter.
+5. **System Configuration:**
+   - Dedicated PAM service manifest `/etc/pam.d/dazeos-dm`.
+   - Live boot credentials configured in `scripts/build-image.sh` and `/etc/live/config.conf` (`username=dazeos user-password=dazeos`).
+   - Console autologin on tty1 gracefully yields to `dazeos-dm.service`.
 
-**Exit criteria:** Machine boots to a graphical Java login greeter, authenticates system users via PAM, and hands off execution to the user desktop session.
+**Exit criteria:** Machine boots to a graphical Java login greeter, authenticates system users via PAM, and hands off execution to the user desktop session. (Achieved 2026-10-10)
 
 ### M10 — Compatibility, security, and release hardening
 

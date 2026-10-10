@@ -17,4 +17,13 @@ needs_root_rights=yes
 EOF
 chmod 0644 /etc/X11/Xwrapper.config
 
+if [ -f /etc/systemd/system/dazeos-dm.service ]; then
+    chmod 0644 /etc/systemd/system/dazeos-dm.service
+    systemctl enable dazeos-dm.service 2>/dev/null || true
+    systemctl set-default graphical.target 2>/dev/null || true
+fi
+if [ -f /etc/pam.d/dazeos-dm ]; then
+    chmod 0644 /etc/pam.d/dazeos-dm
+fi
+
 

@@ -29,6 +29,9 @@ config/auto/
 # Logs and temporary files
 *.log
 *.tmp
+*~
+.*~
+.LCK*
 .DS_Store
 
 # Local configuration

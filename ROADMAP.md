@@ -39,9 +39,9 @@ flowchart LR
     M2 --> M3["M3: Native X11 (Done)"]
     M3 --> M4["M4: Floating WM (Done)"]
     M4 --> M5["M5: Integrated Session (Done)"]
-    M5 --> M6["M6: Power & Lifecycle"]
-    M6 --> M7["M7: Reparenting & Decorations"]
-    M7 --> M8["M8: Desktop Shell & Panel"]
+    M5 --> M6["M6: Power & Lifecycle (Done)"]
+    M6 --> M7["M7: Reparenting & Decorations (Done)"]
+    M7 --> M8["M8: Desktop Shell & Themes (Done)"]
     M8 --> M9["M9: Java Display Manager"]
     M9 --> M10["M10: Release Hardening"]
 ```
@@ -58,16 +58,20 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - Native X11 integration via JNA (`LibX11`, `NativeX11Adapter`, `X11WindowManagerService`) claiming root window with `SubstructureRedirectMask`.
 - Click-to-focus and click-to-raise with dynamic button grab/ungrab on active windows (zero click latency or grab interference).
 - ICCCM `WM_TAKE_FOCUS` protocol support eliminating Java AWT/Swing focus delays; graceful close via `WM_DELETE_WINDOW`.
-- EWMH compliance: `_NET_SUPPORTING_WM_CHECK`, `_NET_WM_NAME`, `_NET_SUPPORTED`, `_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`.
-- Transient modal dialog detection (`XGetTransientForHint`) and automatic parent-relative centering.
-- Multi-window Swing application with document frames, transient dialogs, external non-Java client launcher (`xterm`), and in-app diagnostics log viewer.
-- Session configuration manifest (`/etc/dazeos/session.conf` and `~/.config/dazeos/session.conf`), drop-in autostart (`/etc/dazeos/autostart.d/`), and background WM watchdog supervision with automatic restart recovery.
+- EWMH compliance: `_NET_SUPPORTING_WM_CHECK`, `_NET_WM_NAME`, `_NET_SUPPORTED`, `_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`, `_NET_WM_WINDOW_TYPE_DOCK`, and `_NET_WM_STRUT`.
+- Reparenting Window Manager (M7) with authentic Motif 3D beveled borders, titlebars, maximize/restore/minimize buttons, corner grab handles, and 8-directional border resizing.
+- Desktop Icon Tiles (M8): Minimized windows park neatly in top-left corner stacked vertically with zero spacing, featuring dynamic reflow and double-click restore.
+- CDE Front Panel Dock (M8): Centered bottom panel with modular `DockWidget` architecture (digital Clock, Memory gauge, 4-way Workspace Switcher pad with activity LEDs and power dialog trigger, and Slide-up Drawers with subpanel popups).
+- Central Desktop Theme Engine (M8): `DesktopTheme` and `ThemeManager` with unified warm Motif `#CEC2BB` palette, 5 built-in themes, and real-time cross-process synchronization via the X11 root window property `_DAZEOS_THEME`.
+- Freedesktop.org Icon Theme Compliance (M8): `IconManager` supporting standard XDG search paths, `index.theme` inheritance, standard icon names (`utilities-terminal`, `system-file-manager`, etc.), and Java2D vector fallback.
+- Dedicated Desktop Settings App & Wallpaper Management (M8): `DazeSettingsApplication` and `WallpaperManager` supporting scaling modes (Fill, Fit, Stretch, Tile, Center), solid color matte, and direct X11 root window pixmap rendering.
+- Session configuration manifest (`/etc/dazeos/session.conf`), drop-in autostart (`/etc/dazeos/autostart.d/`), and background WM watchdog supervision.
 - Incremental packaging mode `DAZEOS_QUICK=1` updating chroot and squashfs in under 30 seconds.
 - Session lifecycle & power management (M6): Session & Power Dialog offering Log Out, Exit to Shell (breaking out of the `startx` loop), Shut Down, and Reboot.
 
-### In progress or incomplete
+### In progress or next
 
-- Reparenting window manager & server-side decorations (M7): `XReparentWindow`, server-side titlebars, drag-to-move, border resizing, and minimize/maximize buttons.
+- Java Display Manager & PAM Login Greeter (M9): `dazeos-dm.service` running as root, starting Xorg, presenting a graphical Java login greeter, authenticating via PAM, and dropping privileges to spawn `dazeos-session`.
 
 ### Not yet verified
 
@@ -210,29 +214,45 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** Windows have visible server-side titlebars with minimize/maximize/close buttons and can be smoothly moved and resized by dragging with the mouse. (Achieved 2026-10-10)
 
-### M8 — DazeOS desktop shell & panel
+### M8 — DazeOS desktop shell, panel & themes (Completed)
 
-**Goal:** Create a persistent desktop dock with an application launcher, taskbar window list, and status tray.
+**Goal:** Create a persistent desktop dock, minimized window desktop icon tiles, central theme engine, Freedesktop icon support, desktop settings app, and native X11 wallpaper management. (Achieved 2026-10-10)
 
-1. **EWMH Dock Integration:**
-   - Standalone Swing process `dazeos-panel` setting `_NET_WM_WINDOW_TYPE = _NET_WM_WINDOW_TYPE_DOCK`.
-   - Sets `_NET_WM_STRUT` / `_NET_WM_STRUT_PARTIAL` reserving $36\text{px}$ dock height at the screen edge.
-   - Java WM automatically respects dock struts during window cascade, floating placement, and maximization.
-2. **Application Launcher (Start Menu):**
-   - Quick-access menu categorized into *Applications* (Terminal, Text Editor, File Browser), *System Tools* (Diagnostics Log Viewer, Settings), and *Session Controls* (Logout, Power Off, Reboot).
-   - Configurable via `/etc/dazeos/applications.conf` or standard `.desktop` entries.
-3. **Taskbar Window List:**
-   - Listens for root window EWMH properties (`_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`).
-   - Displays clickable task items for all open windows:
-     - Clicking inactive window focuses and raises it.
-     - Clicking active window minimizes it.
-     - Clicking minimized window restores and focuses it.
-4. **Status Tray & Clock:**
-   - Real-time digital clock and calendar widget.
-   - JVM and system RAM utilization gauge.
-   - Quick notification / status indicators.
+1. **Centered CDE Front Panel Dock:**
+   - Standalone Swing process `DazeDesktopPanel` with authentic 3D chiseled container.
+   - Sets `_NET_WM_WINDOW_TYPE = _NET_WM_WINDOW_TYPE_DOCK` and reserves bottom dock height via `_NET_WM_STRUT` / `_NET_WM_STRUT_PARTIAL`.
+   - Pre-map dock property registration and single-instance lock file (`~/.dazeos-panel.lock`) to eliminate reparenting race conditions.
+2. **Modular `DockWidget` Architecture (`org.datazuul.dazeos.wm.panel.widget`):**
+   - Externalized widgets inheriting from `AbstractDockWidget` with theme-reactive 3D borders:
+     - `ClockDockWidget`: Digital clock (`HH:mm:ss`) and date (`MMM dd`).
+     - `MemoryDockWidget`: JVM/system memory utilization gauge with activity LED bar.
+     - `WorkspaceSwitcherDockWidget`: Iconic CDE 4-button switcher pad ("One", "Two", "Three", "Four"), activity LEDs, and lock/power dialog triggers.
+     - `DrawerDockWidget`: Modular drawer slots with slide-up arrow tabs (`▲`) and popup subpanels for tool categories.
+3. **Minimized Window Desktop Icon Tiles (`DesktopIconTile`):**
+   - Minimized windows unmap frame and spawn authentic Motif 3D beveled icon boxes (64x64) parked neatly in the top-left corner stacked vertically with zero spacing.
+   - Recessed sunken title plate, 32px theme pixmap, dynamic reflow on restore/minimize, and single/double-click restore.
+4. **Central Desktop Theme Engine (`DesktopTheme`, `ThemeManager`):**
+   - Unified Warm Motif `#CEC2BB` color palette across window frames, dock, icon tiles, and control panel.
+   - 5 built-in themes: *Warm Motif*, *CDE Brocade* (Teal), *CDE Desert* (Sand), *Classic Gray*, *Dark Slate*.
+   - Real-time cross-process synchronization via the X11 root window property `_DAZEOS_THEME`.
+5. **Freedesktop.org Icon Theme Compliance (`IconManager`):**
+   - Full compliance with Freedesktop Icon Theme & Icon Naming specifications.
+   - Cascading search: XDG paths (`~/.local/share/icons`, `/usr/share/icons`), `index.theme` inheritance, `/usr/share/pixmaps`, classpath `/themes/`, and Java2D vector fallback.
+6. **Dedicated Desktop Settings Application (`DazeSettingsApplication`):**
+   - 4-tab control center: Color Themes (with hex swatch preview), Freedesktop Icon Themes, Wallpaper & Backdrop, and Window Manager behavior.
+7. **Desktop Wallpaper Management (`WallpaperManager`):**
+   - Scaling modes: *Fill Screen (Crop)*, *Fit to Screen (Letterbox)*, *Stretch to Screen*, *Tile Pattern*, *Center*, plus solid color matte.
+   - Persistence in `~/.config/dazeos/wallpaper.conf`.
+8. **Architectural Decision: Native X11 Root Window Background vs. Fullscreen Swing Window:**
+   - **Decision:** Retain native X11 root window background rendering via `XSetWindowBackgroundPixmap` and EWMH root pixmap export (`_XROOTPMAP_ID`, `ESETROOT_PMAP_ID`), rather than mapping a fullscreen Swing desktop window.
+   - **Rationale:**
+     - *Zero Idle Overhead:* The X server retains the background pixmap in video/server memory without background Java paint loops or JVM heap memory consumption.
+     - *Impenetrable Z-Order Stacking:* The physical root window can never accidentally cover client windows, steal focus, or cause z-order flicker.
+     - *Native Root Menus:* Clicks on empty desktop space deliver native `ButtonPress` events to the Window Manager daemon for the classic Motif desktop root menu.
+     - *Compatibility:* Native X11 applications with pseudo-transparency (`xterm -tr`, `urxvt`, `conky`) work out of the box.
+     - *Future Expansion:* An interactive Swing desktop surface window (`_NET_WM_WINDOW_TYPE_DESKTOP`) is deferred until freeform drag-and-drop desktop icons or desklets/widgets are required.
 
-**Exit criteria:** A permanent panel rests docked at the screen edge, offering a functional application launcher and interactive taskbar managing running and minimized windows.
+**Exit criteria:** A permanent CDE front panel rests docked at the screen bottom, minimized windows park as Motif tiles in the top-left corner, global themes synchronize in real time, and wallpapers render directly to the X11 root window. (Achieved 2026-10-10)
 
 ### M9 — Java display manager & login greeter
 

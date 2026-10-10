@@ -2,17 +2,49 @@
 
 This roadmap records the verified project status and the next implementation steps. It deliberately separates completed work, work in progress, and work that still requires evidence. No milestone is considered complete merely because the corresponding files or scripts exist.
 
-Status date: 2026-10-09
+Status date: 2026-10-10
 
 ## Project direction
 
-DazeOS is a free, European, Java-centred desktop system based on a minimal Debian x86-64 live image. The first desktop target is:
+DazeOS is a free, European, Java-centred desktop system based on a minimal Debian x86-64 live image. The system architecture progresses toward a complete Java Desktop Environment:
 
-- Linux and Debian userland for hardware support and low-level system services
-- Xorg/X11 for the initial display stack
-- a Java non-reparenting floating window manager
-- separate Swing/AWT applications
-- a bootable ISO for BIOS and UEFI systems
+```mermaid
+flowchart TD
+    subgraph System ["System Layer (systemd / root)"]
+        DM["DazeOS Display Manager (Java + PAM)<br>dazeos-dm.service"]
+        Xorg["Xorg Server (:0)"]
+    end
+
+    subgraph UserSession ["User Session Layer (user: dazeos)"]
+        Session["dazeos-session (Supervisor)"]
+        WM["DazeOS Window Manager (Java / JNA)<br>Reparenting, Decorations, Moving, Resizing"]
+        Panel["DazeOS Desktop Panel (Java Swing)<br>Taskbar, App Menu, Clock, Tray"]
+        Apps["Client Applications<br>Swing Apps, xterm, Editors"]
+        PowerDlg["Session & Power Dialog<br>Logout, Shell, Poweroff, Reboot"]
+    end
+
+    DM -->|Starts| Xorg
+    DM -->|Authenticates & Spawns| Session
+    Session -->|Supervises| WM
+    Session -->|Launches| Panel
+    Session -->|Launches| Apps
+    Panel -->|Triggers| PowerDlg
+    Panel -->|Manages via EWMH| WM
+    WM -->|Frames & Decorates| Apps
+```
+
+```mermaid
+flowchart LR
+    M1["M1: Boot & UEFI (Done)"] --> M2["M2: Session (Done)"]
+    M2 --> M3["M3: Native X11 (Done)"]
+    M3 --> M4["M4: Floating WM (Done)"]
+    M4 --> M5["M5: Integrated Session (Done)"]
+    M5 --> M6["M6: Power & Lifecycle"]
+    M6 --> M7["M7: Reparenting & Decorations"]
+    M7 --> M8["M8: Desktop Shell & Panel"]
+    M8 --> M9["M9: Java Display Manager"]
+    M9 --> M10["M10: Release Hardening"]
+```
 
 The architectural decisions and rejected alternatives are documented in [`CONCEPT.md`](CONCEPT.md).
 
@@ -20,27 +52,21 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 ### Verified and available
 
-- The repository contains the initial Java window-manager model and Swing demonstration.
-- The Java code separates pure window registry/layout logic from the `X11Adapter` boundary.
-- `LoggingX11Adapter` provides a safe, non-native adapter for the current prototype.
-- The Java build has been run successfully with OpenJDK 21 and the existing unit tests passed.
-- The application JAR has an executable manifest pointing to `SwingDemoApplication`.
-- The repository contains an initial Debian `live-build` configuration for trixie and amd64.
-- The image configuration includes Xorg, OpenJDK 21 JRE, fonts, certificates, and the demo JAR.
-- The build script uses a dedicated temporary build workspace such as `/tmp/dazeos-live-build`.
-- The build script creates `artifacts/dazeos-amd64.iso` and SHA-256 checksum when `live-build` completes successfully.
-- A bootable Debian 13 (Trixie) live ISO (`artifacts/dazeos-amd64.iso`, 414 MiB) was successfully built on native Linux, and its SHA-256 checksum verified (`OK`).
-- BIOS boot in QEMU verified (`artifacts/dazeos-amd64.iso` boots cleanly to Xorg).
-- Automatic autologin on tty1, automatic Xorg start, and launcher execution of `dazeos-session` verified.
-- Swing demo application and mouse pointer interaction (including button clicks) verified running inside QEMU.
-- Native Linux, the Java toolchain, live-build prerequisites, QEMU, and the documented development workflow are available in the configured environment.
-- Native X11 integration via JNA (`net.java.dev.jna:jna:5.14.0`) verified: root-window acquisition with `SubstructureRedirectMask`, window query/scan, `MapRequest` interception, `ConfigureRequest` geometry handling, `UnmapNotify`/`DestroyNotify` lifecycle, and clean shutdown verified against real Xvfb server in automated integration tests.
-- Fat JAR packaging and unified session launcher (`dazeos-session` starting WM daemon and application) implemented.
-- Dual-firmware (UEFI + BIOS) hybrid ISO generation via GRUB 2 x86_64 EFI standalone image and xorriso verified in QEMU under both legacy BIOS (Isolinux) and UEFI firmware (`/usr/share/ovmf/OVMF.fd`).
+- The repository contains the Java window-manager core, native X11 adapter, and Swing desktop suite.
+- Clean Debian 13 (Trixie) live ISO generation verified with SHA-256 integrity (`artifacts/dazeos-amd64.iso`).
+- Dual-firmware boot (UEFI via OVMF and legacy BIOS via Isolinux) empirically verified in QEMU.
+- Native X11 integration via JNA (`LibX11`, `NativeX11Adapter`, `X11WindowManagerService`) claiming root window with `SubstructureRedirectMask`.
+- Click-to-focus and click-to-raise with dynamic button grab/ungrab on active windows (zero click latency or grab interference).
+- ICCCM `WM_TAKE_FOCUS` protocol support eliminating Java AWT/Swing focus delays; graceful close via `WM_DELETE_WINDOW`.
+- EWMH compliance: `_NET_SUPPORTING_WM_CHECK`, `_NET_WM_NAME`, `_NET_SUPPORTED`, `_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`.
+- Transient modal dialog detection (`XGetTransientForHint`) and automatic parent-relative centering.
+- Multi-window Swing application with document frames, transient dialogs, external non-Java client launcher (`xterm`), and in-app diagnostics log viewer.
+- Session configuration manifest (`/etc/dazeos/session.conf` and `~/.config/dazeos/session.conf`), drop-in autostart (`/etc/dazeos/autostart.d/`), and background WM watchdog supervision with automatic restart recovery.
+- Incremental packaging mode `DAZEOS_QUICK=1` updating chroot and squashfs in under 30 seconds.
 
 ### In progress or incomplete
 
-- Client focus handling, close requests, transient windows, and ICCCM/EWMH support are in progress (M4).
+- Session lifecycle & power management (M6): unified dialog offering Logout, Drop to Shell, Shutdown, and Reboot.
 
 ### Not yet verified
 
@@ -140,9 +166,91 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** A booted image starts a usable Java-based session without manual process orchestration. (Achieved 2026-10-10)
 
-### M6 — Compatibility, security, and release hardening
+### M6 — Session lifecycle & power management
 
-**Goal:** Establish whether the prototype can be maintained and tested as a real distribution experiment.
+**Goal:** Provide controlled session exit, preventing unconditional kiosk restart loops and offering clean power options.
+
+1. **Session & Power Dialog:**
+   - Interactive Swing dialog triggered from session controls:
+     - **Log Out:** Exits X session and cleanly breaks out of the `startx` restart loop.
+     - **Exit to Shell:** Drops cleanly to the `dazeos@dazeos:~$` interactive bash prompt on `tty1`.
+     - **Power Off:** Invokes `systemctl poweroff` (or `loginctl poweroff`) via systemd/polkit.
+     - **Reboot:** Invokes `systemctl reboot` (or `loginctl reboot`) via systemd/polkit.
+     - **Cancel:** Dismisses the dialog without terminating the session.
+2. **Break Out of Debian Live Kiosk Loop:**
+   - Update `/etc/profile.d/zz-live-config_xinit.sh` (or replace with controlled launcher) so user-initiated logout or shell exit terminates cleanly without unconditionally respawning `startx`.
+3. **Graceful Multi-App Teardown:**
+   - On session exit, send `WM_DELETE_WINDOW` to all open client windows, allowing applications to exit cleanly before X server teardown.
+
+**Exit criteria:** User can cleanly log out to a working `tty1` console or trigger shutdown/reboot directly from the Java desktop.
+
+### M7 — Reparenting window manager & server-side decorations
+
+**Goal:** Transform the Java Window Manager into a reparenting WM with native titlebars, minimize/maximize/close buttons, and interactive drag-to-move and border-resize capabilities.
+
+1. **Reparenting Architecture (`XReparentWindow`):**
+   - Intercept `MapRequest`: create an outer frame window `F` for each top-level client window `C`.
+   - Reparent client: `XReparentWindow(display, C, F, border_width, title_height)`.
+   - Frame window `F` hosts server-side titlebar and 8 border resize zones ($N, S, E, W, NW, NE, SW, SE$).
+2. **Server-Side Titlebar & Window Controls:**
+   - Render window title dynamically from `_NET_WM_NAME` or `WM_NAME`.
+   - **Close Button (`[X]`):** sends `WM_DELETE_WINDOW` client message under `WM_PROTOCOLS`.
+   - **Maximize / Restore Button (`[□]`):** toggles full screen geometry (excluding dock struts) and sets EWMH `_NET_WM_STATE_MAXIMIZED_HORZ`/`VERT`.
+   - **Minimize Button (`[-]`):** unmaps frame window and transitions `WM_STATE` to `IconicState`.
+3. **Interactive Mouse Dragging & Resizing:**
+   - **Titlebar Dragging:** left-click drag grabs pointer with `XGrabPointer` (`move_cursor`), calculates $(x+dx, y+dy)$ on `MotionNotify`, and moves frame via `XMoveWindow`.
+   - **Border Resizing:** cursor dynamically changes to direction cursors over frame borders; drag adjusts $(w+dw, h+dh)$ according to `WM_NORMAL_HINTS` and resizes frame and client via `XResizeWindow`.
+
+**Exit criteria:** Windows have visible server-side titlebars with minimize/maximize/close buttons and can be smoothly moved and resized by dragging with the mouse.
+
+### M8 — DazeOS desktop shell & panel
+
+**Goal:** Create a persistent desktop dock with an application launcher, taskbar window list, and status tray.
+
+1. **EWMH Dock Integration:**
+   - Standalone Swing process `dazeos-panel` setting `_NET_WM_WINDOW_TYPE = _NET_WM_WINDOW_TYPE_DOCK`.
+   - Sets `_NET_WM_STRUT` / `_NET_WM_STRUT_PARTIAL` reserving $36\text{px}$ dock height at the screen edge.
+   - Java WM automatically respects dock struts during window cascade, floating placement, and maximization.
+2. **Application Launcher (Start Menu):**
+   - Quick-access menu categorized into *Applications* (Terminal, Text Editor, File Browser), *System Tools* (Diagnostics Log Viewer, Settings), and *Session Controls* (Logout, Power Off, Reboot).
+   - Configurable via `/etc/dazeos/applications.conf` or standard `.desktop` entries.
+3. **Taskbar Window List:**
+   - Listens for root window EWMH properties (`_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`).
+   - Displays clickable task items for all open windows:
+     - Clicking inactive window focuses and raises it.
+     - Clicking active window minimizes it.
+     - Clicking minimized window restores and focuses it.
+4. **Status Tray & Clock:**
+   - Real-time digital clock and calendar widget.
+   - JVM and system RAM utilization gauge.
+   - Quick notification / status indicators.
+
+**Exit criteria:** A permanent panel rests docked at the screen edge, offering a functional application launcher and interactive taskbar managing running and minimized windows.
+
+### M9 — Java display manager & login greeter
+
+**Goal:** Replace console autologin with a dedicated graphical Display Manager implemented in Java with PAM authentication.
+
+1. **System Service (`dazeos-dm.service`):**
+   - Systemd service running as `root` targeting `graphical.target`.
+   - Launches dedicated Xorg display server instance (`Xorg :0 vt7 -novtswitch -nolisten tcp`).
+2. **Greeter GUI (Java Swing):**
+   - Renders a full-screen greeter interface before any user session exists.
+   - Features DazeOS branding, username and password input fields, session selector, and shutdown/reboot controls.
+3. **PAM Authentication via JNA:**
+   - JNA binding to Linux PAM (`libpam.so`):
+     - `pam_start`, `pam_authenticate`, `pam_acct_mgmt`, `pam_setcred`, `pam_open_session`.
+4. **Session Spawning & Reset:**
+   - Resolves user UID, GID, and `$HOME` (`getpwnam`).
+   - Drops root privileges: `initgroups`, `setgid`, `setuid`.
+   - Initializes session environment (`XDG_SESSION_TYPE=x11`, `DBUS_SESSION_BUS_ADDRESS`, etc.) and executes `/usr/local/bin/dazeos-session`.
+   - On user logout, Display Manager catches session exit and cleanly resets to the login greeter.
+
+**Exit criteria:** Machine boots to a graphical Java login greeter, authenticates system users via PAM, and hands off execution to the user desktop session.
+
+### M10 — Compatibility, security, and release hardening
+
+**Goal:** Establish whether the complete desktop environment can be maintained and tested as a reproducible distribution.
 
 - Pin and document the supported Java baseline and correct documentation inconsistencies.
 - Test fonts, HiDPI scaling, keyboard layouts, focus/modality, clipboard behavior, and representative Swing/AWT applications.
@@ -156,19 +264,17 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 ## Deferred by design
 
-The following are intentionally outside the first bootable prototype:
+The following are intentionally outside the scope of current milestones:
 
 - replacing the Linux kernel or Debian low-level userland
-- a Wayland compositor
-- compositing effects and server-side window decorations
-- reparenting windows
-- a full desktop environment and application suite
+- a Wayland compositor (reassessed post-M10)
+- compositing effects and 3D visual effects (drop shadows, blur, transparency)
 - persistence and installation to disk
 - Secure Boot signing
 - broad hardware certification
 - automatic runtime package updates
 
-These items may become future projects, but they must not obscure the immediate goals of a reproducible image and a small, testable Java/X11 desktop.
+*(Note: Server-side window decorations, reparenting WM, desktop panel/taskbar, and display manager were originally deferred, but are now scheduled in active milestones M6 through M9).*
 
 ## Working agreement for status updates
 

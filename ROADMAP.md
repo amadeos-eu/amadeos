@@ -43,7 +43,7 @@ flowchart LR
     M6 --> M7["M7: Reparenting & Decorations (Done)"]
     M7 --> M8["M8: Desktop Shell & Themes (Done)"]
     M8 --> M9["M9: Java Display Manager (Done)"]
-    M9 --> M10["M10: XDG App Discovery & .deb Apps"]
+    M9 --> M10["M10: XDG App Discovery & .deb Apps (Done)"]
     M10 --> M11["M11: Virtual Workspaces & Root Menu"]
     M11 --> M12["M12: Release Hardening"]
 ```
@@ -71,10 +71,10 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - Session configuration manifest (`/etc/amadeos/session.conf`), drop-in autostart (`/etc/amadeos/autostart.d/`), and background WM watchdog supervision.
 - Incremental packaging mode `AMADEOS_QUICK=1` updating chroot and squashfs in under 30 seconds.
 - Session lifecycle & power management (M6): Session & Power Dialog offering Log Out, Exit to Shell (breaking out of the `startx` loop), Shut Down, and Reboot.
+- XDG Application Discovery & Debian App Ecosystem (M10): Freedesktop `.desktop` parser (`XdgDesktopEntryParser`), category mapping (`XdgCategory`), and app indexer (`XdgApplicationManager`). CDE Front Panel drawers dynamically populated by category with primary launcher actions. Drop-in `.deb` package support in `config/packages.chroot/`. First independent app [`amade-pad`](https://github.com/datazuul/amade-pad) built and packaged as Debian `.deb`.
 
 ### In progress or next
 
-- **XDG application discovery & Debian `.deb` app ecosystem (M10):** Decouple user applications from the core desktop shell. User-space applications are maintained in independent repositories, packaged as Debian `.deb` packages (installed via `config/packages.chroot/`), while amadeOS parses XDG `.desktop` entries to dynamically populate Front Panel drawers by category.
 - **Virtual workspaces & desktop root window menu (M11):** EWMH 4-desktop switching (`_NET_NUMBER_OF_DESKTOPS` / `_NET_CURRENT_DESKTOP` / `_NET_WM_DESKTOP`) linked to CDE Front Panel pad, authentic Motif 3D right-click desktop root menu, and root cursor/backdrop polish.
 - **Compatibility, security, and release hardening (M12):** font tests, keyboard layouts, packaging validation, and final live release verification.
 
@@ -286,9 +286,9 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** Machine boots to a graphical Java login greeter, authenticates system users via PAM, and hands off execution to the user desktop session. (Achieved 2026-10-10)
 
-### M10 — XDG application discovery & Debian app ecosystem
+### M10 — XDG application discovery & Debian app ecosystem (Completed)
 
-**Goal:** Decouple user-space applications from the core desktop shell. User applications (e.g. file manager, text editor, terminal, calculators) are developed in independent repositories, packaged as standard Debian `.deb` packages, and installed via Debian package management (`dpkg`, `apt`, or `config/packages.chroot/`). amadeOS provides dynamic XDG discovery and execution.
+**Goal:** Decouple user-space applications from the core desktop shell. User applications (e.g. file manager, text editor, terminal, calculators) are developed in independent repositories, packaged as standard Debian `.deb` packages, and installed via Debian package management (`dpkg`, `apt`, or `config/packages.chroot/`). amadeOS provides dynamic XDG discovery and execution. (Achieved 2026-10-10)
 
 1. **Freedesktop.org `.desktop` Parser & Indexer:**
    - Implement an XDG Desktop Entry Specification parser reading `/usr/share/applications/`, `/usr/local/share/applications/`, and `~/.local/share/applications/`.
@@ -306,8 +306,11 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 3. **Debian Package Integration:**
    - Enable drop-in `.deb` package support via `config/packages.chroot/` so custom user apps are installed automatically into the live ISO during `./build.sh`.
    - Establish standard Debian packaging guidelines for independent amadeOS apps (JReleaser, Gradle `ospackage`, or Debian `dpkg-deb`).
+4. **First Independent Application (`amade-pad`):**
+   - Bootstrapped independent repository [`datazuul/amade-pad`](https://github.com/datazuul/amade-pad) with Java 21, Swing Motif look-and-feel, tabbed documents, line numbers, and find/replace.
+   - Created `./gradlew deb` and `./gradlew installToAmadeOs` tasks building `amade-pad_0.1.0_all.deb` via `dpkg-deb` and dropping it into `amadeos/config/packages.chroot/`.
 
-**Exit criteria:** Installing any Debian `.deb` application containing a valid `.desktop` file automatically populates the corresponding CDE Front Panel drawer and launches cleanly.
+**Exit criteria:** Installing any Debian `.deb` application containing a valid `.desktop` file automatically populates the corresponding CDE Front Panel drawer and launches cleanly. (Achieved 2026-10-10)
 
 ### M11 — Virtual workspaces & desktop root window menu
 

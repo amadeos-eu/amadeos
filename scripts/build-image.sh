@@ -4,9 +4,9 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONFIG_DIR="$ROOT_DIR/config"
 ARTIFACT_DIR="$ROOT_DIR/artifacts"
-JAR_PATH="$CONFIG_DIR/includes.chroot/opt/dazeos/dazeos-demo.jar"
-ISO_PATH="$ARTIFACT_DIR/dazeos-amd64.iso"
-BUILD_ROOT="${DAZEOS_BUILD_ROOT:-${TMPDIR:-/tmp}/dazeos-live-build}"
+JAR_PATH="$CONFIG_DIR/includes.chroot/opt/amadeos/amadeos.jar"
+ISO_PATH="$ARTIFACT_DIR/amadeos-amd64.iso"
+BUILD_ROOT="${AMADEOS_BUILD_ROOT:-${DAZEOS_BUILD_ROOT:-${TMPDIR:-/tmp}/amadeos-live-build}}"
 
 cd "$ROOT_DIR"
 
@@ -21,9 +21,10 @@ command -v lb >/dev/null 2>&1 || { echo "live-build (lb) is required" >&2; exit 
 
 mkdir -p "$ARTIFACT_DIR" "$(dirname "$JAR_PATH")"
 "$GRADLE_BIN" clean jar
-cp build/libs/dazeos-*.jar "$JAR_PATH"
+cp build/libs/amadeos-*.jar "$JAR_PATH"
+cp "$JAR_PATH" "$CONFIG_DIR/includes.chroot/opt/amadeos/amadeos-demo.jar" 2>/dev/null || true
 if [ -n "${SUDO_USER:-}" ]; then
-    chown -R "$SUDO_USER:" "$ROOT_DIR/build" "$JAR_PATH" "$ARTIFACT_DIR" 2>/dev/null || true
+    chown -R "$SUDO_USER:" "$ROOT_DIR/build" "$(dirname "$JAR_PATH")" "$ARTIFACT_DIR" 2>/dev/null || true
 fi
 
 if [ "$(id -u)" -eq 0 ]; then
@@ -33,24 +34,24 @@ else
     SUDO="sudo"
 fi
 
-BOOTAPPEND="boot=live components username=dazeos user-password=dazeos keyboard-layouts=de hostname=dazeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,sudo,input"
+BOOTAPPEND="boot=live components username=amadeos user-password=amadeos keyboard-layouts=de hostname=amadeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,sudo,input"
 
-if [ "${DAZEOS_PACKAGE_ONLY:-0}" = "1" ]; then
+if [ "${AMADEOS_PACKAGE_ONLY:-${DAZEOS_PACKAGE_ONLY:-0}}" = "1" ]; then
     echo "[build-image] Package-only mode requested; packaging existing $BUILD_ROOT/binary..."
     cd "$BUILD_ROOT"
-elif [ "${DAZEOS_QUICK:-0}" = "1" ] || [ "${DAZEOS_REPACK_ROOTFS:-0}" = "1" ]; then
+elif [ "${AMADEOS_QUICK:-${DAZEOS_QUICK:-0}}" = "1" ] || [ "${AMADEOS_REPACK_ROOTFS:-${DAZEOS_REPACK_ROOTFS:-0}}" = "1" ]; then
     if [ ! -d "$BUILD_ROOT/chroot" ] || [ ! -d "$BUILD_ROOT/binary" ]; then
         echo "[build-image] Quick repack mode requires existing $BUILD_ROOT/chroot and $BUILD_ROOT/binary. Run full build first." >&2
         exit 1
     fi
     echo "[build-image] Quick repack mode: syncing includes into chroot and rebuilding squashfs..."
     $SUDO cp -a "$CONFIG_DIR/includes.chroot/." "$BUILD_ROOT/chroot/"
-    $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/dazeos-dm" 2>/dev/null || true
-    $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/dazeos-session" 2>/dev/null || true
-    # Update bootloader live.cfg kernel cmdline with user-password=dazeos, keyboard-layouts=de, and locales=de_DE.UTF-8
+    $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/amadeos-dm" 2>/dev/null || true
+    $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/amadeos-session" 2>/dev/null || true
+    # Update bootloader live.cfg kernel cmdline with user-password=amadeos, keyboard-layouts=de, and locales=de_DE.UTF-8
     if [ -f "$BUILD_ROOT/binary/isolinux/live.cfg" ]; then
-        $SUDO sed -i 's/username=dazeos/username=dazeos user-password=dazeos keyboard-layouts=de locales=de_DE.UTF-8/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
-        $SUDO sed -i 's/user-password=dazeos user-password=dazeos/user-password=dazeos/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
+        $SUDO sed -i 's/username=[a-zA-Z0-9]*/username=amadeos user-password=amadeos keyboard-layouts=de locales=de_DE.UTF-8/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
+        $SUDO sed -i 's/user-password=amadeos user-password=amadeos/user-password=amadeos/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
         $SUDO sed -i 's/keyboard-layouts=de keyboard-layouts=de/keyboard-layouts=de/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
         $SUDO sed -i 's/locales=de_DE.UTF-8 locales=de_DE.UTF-8/locales=de_DE.UTF-8/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
     fi
@@ -75,7 +76,9 @@ else
     $SUDO rm -rf "$BUILD_ROOT"
     mkdir -p "$BUILD_ROOT"
     cp -a "$CONFIG_DIR" "$BUILD_ROOT/config"
-    cp -a "$JAR_PATH" "$BUILD_ROOT/config/includes.chroot/opt/dazeos/dazeos-demo.jar"
+    mkdir -p "$BUILD_ROOT/config/includes.chroot/opt/amadeos"
+    cp -a "$JAR_PATH" "$BUILD_ROOT/config/includes.chroot/opt/amadeos/amadeos.jar"
+    cp -a "$JAR_PATH" "$BUILD_ROOT/config/includes.chroot/opt/amadeos/amadeos-demo.jar" 2>/dev/null || true
 
     cd "$BUILD_ROOT"
     rm -rf chroot binary cache
@@ -159,12 +162,12 @@ set timeout=5
 
 search --file --no-floppy --set=root /live/vmlinuz
 
-menuentry "DazeOS Live (amd64 UEFI)" {
+menuentry "amadeOS Live (amd64 UEFI)" {
     linux /live/vmlinuz $BOOTAPPEND
     initrd /live/initrd.img
 }
 
-menuentry "DazeOS Live (amd64 UEFI failsafe)" {
+menuentry "amadeOS Live (amd64 UEFI failsafe)" {
     linux /live/vmlinuz $BOOTAPPEND memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal
     initrd /live/initrd.img
 }
@@ -199,7 +202,7 @@ EOF
 
     # Create FAT EFI boot image
     truncate -s 16M "$BUILD_ROOT/efi.img"
-    mkfs.fat -F 16 -n "DAZEOS_EFI" "$BUILD_ROOT/efi.img"
+    mkfs.fat -F 16 -n "AMADEOS_EFI" "$BUILD_ROOT/efi.img"
     mmd -i "$BUILD_ROOT/efi.img" ::/EFI ::/EFI/BOOT
     mcopy -i "$BUILD_ROOT/efi.img" "$BUILD_ROOT/BOOTX64.EFI" ::/EFI/BOOT/BOOTX64.EFI
     cp "$BUILD_ROOT/efi.img" "$BUILD_ROOT/binary/boot/grub/efi.img"
@@ -221,9 +224,9 @@ EOF
         xorriso -as mkisofs \
             -iso-level 3 \
             -full-iso9660-filenames \
-            -volid "dazeos" \
-            -appid "DazeOS Live" \
-            -publisher "DazeOS" \
+            -volid "amadeos" \
+            -appid "amadeOS Live" \
+            -publisher "amadeOS" \
             -isohybrid-mbr "$ISOHDPFX" \
             -eltorito-boot isolinux/isolinux.bin \
             -eltorito-catalog isolinux/boot.cat \

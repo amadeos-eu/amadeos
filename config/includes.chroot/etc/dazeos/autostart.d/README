@@ -1,3 +1,0 @@
-# Drop-in autostart directory for DazeOS desktop session.
-# Executable files (.sh or binaries) placed here will be executed concurrently at session startup.
-

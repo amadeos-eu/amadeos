@@ -2,5 +2,5 @@
 set -eu
 
 xsetroot -cursor_name left_ptr &
-exec /usr/local/bin/dazeos-session
+exec /usr/local/bin/amadeos-session
 

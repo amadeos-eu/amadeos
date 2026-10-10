@@ -6,6 +6,7 @@ build.root*/
 image/cache/
 image/chroot/
 image/binary/
+config/includes.chroot/opt/amadeos/*.jar
 config/includes.chroot/opt/dazeos/*.jar
 
 # live-build output in the repository root

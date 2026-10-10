@@ -1,6 +1,6 @@
-# DazeOS concept
+# amadeOS concept
 
-DazeOS (Digital Autonomy, Zero Lock-in, Empowerment) is a free, European, Java-centred desktop operating system concept. The initial technical target is a bootable x86-64 Debian-based USB image that can run on ordinary BIOS and UEFI hardware. The project is intended to provide an understandable, reproducible desktop stack with Java as the principal application and desktop-extension language, without claiming that every operating-system component must be written in Java.
+amadeOS (Digital Autonomy, Zero Lock-in, Empowerment) is a free, European, Java-centred desktop operating system concept. The initial technical target is a bootable x86-64 Debian-based USB image that can run on ordinary BIOS and UEFI hardware. The project is intended to provide an understandable, reproducible desktop stack with Java as the principal application and desktop-extension language, without claiming that every operating-system component must be written in Java.
 
 ## Initial target and boundaries
 
@@ -12,7 +12,7 @@ The first usable system is deliberately modest:
 - a Java-based, non-reparenting, floating window manager
 - Swing applications as the first-class example application model
 
-The kernel, device drivers, firmware interfaces, libc, boot loader, and most low-level utilities remain established native software. DazeOS is a distribution and desktop-system experiment first; replacing all of Linux is not an initial requirement.
+The kernel, device drivers, firmware interfaces, libc, boot loader, and most low-level utilities remain established native software. amadeOS is a distribution and desktop-system experiment first; replacing all of Linux is not an initial requirement.
 
 ## Architectural choices
 
@@ -83,7 +83,7 @@ The initial image pipeline is planned around Debian live-build and related Debia
 
 ## Risks and decisions still requiring validation
 
-- **Updates and security:** Debian security updates, the JDK, JNA/native libraries, Xorg, and DazeOS code all have separate release cadences. A defined update channel, signed artifacts, rollback/recovery story, and vulnerability-response process are still required; a live image is not automatically secure merely because its base is Debian.
+- **Updates and security:** Debian security updates, the JDK, JNA/native libraries, Xorg, and amadeOS code all have separate release cadences. A defined update channel, signed artifacts, rollback/recovery story, and vulnerability-response process are still required; a live image is not automatically secure merely because its base is Debian.
 - **Hardware:** Linux support is broad but not universal. GPU acceleration, input devices, wireless firmware, suspend/resume, unusual displays, BIOS/UEFI differences, and proprietary firmware can affect the desktop. Hardware testing must include real BIOS and UEFI machines, not only a virtual machine.
 - **Java compatibility:** The selected JDK version affects Swing/AWT behavior, FFM availability, fonts, HiDPI rendering, module access, and native-library loading. The supported Java baseline must be pinned and tested with representative Swing applications.
 - **X11 behavior:** ICCCM/EWMH conventions, transient windows, focus, override-redirect windows, client quirks, multiple monitors, and compositing can expose gaps in a minimal window manager. Non-reparenting behavior must be validated against both Swing and ordinary X clients.

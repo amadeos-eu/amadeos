@@ -2,7 +2,11 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ISO="${1:-$ROOT_DIR/artifacts/dazeos-amd64.iso}"
+DEFAULT_ISO="$ROOT_DIR/artifacts/amadeos-amd64.iso"
+if [[ ! -f "$DEFAULT_ISO" && -f "$ROOT_DIR/artifacts/dazeos-amd64.iso" ]]; then
+    DEFAULT_ISO="$ROOT_DIR/artifacts/dazeos-amd64.iso"
+fi
+ISO="${1:-$DEFAULT_ISO}"
 RAM="${QEMU_RAM:-1024}"
 
 if [[ ! -f "$ISO" ]]; then

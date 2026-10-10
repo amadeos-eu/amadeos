@@ -1,0 +1,33 @@
+#!/bin/sh
+set -eu
+
+chmod 0755 /usr/local/bin/amadeos-session
+chmod 0755 /usr/local/bin/amadeos-dm 2>/dev/null || true
+if [ -f /usr/local/bin/rsvg ]; then
+    chmod 0755 /usr/local/bin/rsvg
+fi
+chmod 0755 /etc/skel/.xinitrc
+mkdir -p /opt/amadeos
+if [ -f /opt/amadeos/amadeos.jar ]; then
+    chmod 0644 /opt/amadeos/amadeos.jar
+fi
+if [ -f /opt/amadeos/amadeos-demo.jar ]; then
+    chmod 0644 /opt/amadeos/amadeos-demo.jar
+fi
+mkdir -p /etc/X11
+cat > /etc/X11/Xwrapper.config << 'EOF'
+allowed_users=anybody
+needs_root_rights=yes
+EOF
+chmod 0644 /etc/X11/Xwrapper.config
+
+if [ -f /etc/systemd/system/amadeos-dm.service ]; then
+    chmod 0644 /etc/systemd/system/amadeos-dm.service
+    systemctl enable amadeos-dm.service 2>/dev/null || true
+    systemctl set-default graphical.target 2>/dev/null || true
+fi
+if [ -f /etc/pam.d/amadeos-dm ]; then
+    chmod 0644 /etc/pam.d/amadeos-dm
+fi
+
+

@@ -1,14 +1,14 @@
 #!/bin/sh
-# DazeOS X11 Launcher with Session & Power Lifecycle Management (Milestone M6)
+# amadeOS X11 Launcher with Session & Power Lifecycle Management (Milestone M6)
 
-# If DazeOS Display Manager is present or active, defer graphical session to graphical.target
-if [ -f /etc/systemd/system/dazeos-dm.service ] || [ -f /etc/systemd/system/display-manager.service ]; then
+# If amadeOS Display Manager is present or active, defer graphical session to graphical.target
+if [ -f /etc/systemd/system/amadeos-dm.service ] || [ -f /etc/systemd/system/dazeos-dm.service ] || [ -f /etc/systemd/system/display-manager.service ]; then
     return 0 2>/dev/null || exit 0
 fi
 
 if [ -z "${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
     while true; do
-        ACTION_FILE="${HOME:-/tmp}/.dazeos-session-action"
+        ACTION_FILE="${HOME:-/tmp}/.amadeos-session-action"
         rm -f "$ACTION_FILE"
 
         if grep -qs quiet /proc/cmdline; then
@@ -22,19 +22,19 @@ if [ -z "${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
 
         case "$ACTION" in
             poweroff)
-                echo "[DazeOS] Shutting down system..."
+                echo "[amadeOS] Shutting down system..."
                 systemctl poweroff 2>/dev/null || sudo poweroff 2>/dev/null || poweroff
                 break
                 ;;
             reboot)
-                echo "[DazeOS] Rebooting system..."
+                echo "[amadeOS] Rebooting system..."
                 systemctl reboot 2>/dev/null || sudo reboot 2>/dev/null || reboot
                 break
                 ;;
             shell)
                 echo ""
                 echo "=========================================================="
-                echo " DazeOS X11 Desktop Session Ended."
+                echo " amadeOS X11 Desktop Session Ended."
                 echo " You are now in the interactive console shell (tty1)."
                 echo " - Type 'startx' to launch the desktop session again."
                 echo " - Type 'sudo poweroff' to shut down."
@@ -44,7 +44,7 @@ if [ -z "${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
                 break
                 ;;
             restart|*)
-                echo "[DazeOS] Desktop session ended. Restarting session..."
+                echo "[amadeOS] Desktop session ended. Restarting session..."
                 sleep 0.5
                 ;;
         esac

@@ -1,4 +1,4 @@
-# DazeOS roadmap
+# amadeOS roadmap
 
 This roadmap records the verified project status and the next implementation steps. It deliberately separates completed work, work in progress, and work that still requires evidence. No milestone is considered complete merely because the corresponding files or scripts exist.
 
@@ -6,19 +6,19 @@ Status date: 2026-10-10
 
 ## Project direction
 
-DazeOS is a free, European, Java-centred desktop system based on a minimal Debian x86-64 live image. The system architecture progresses toward a complete Java Desktop Environment:
+amadeOS is a free, European, Java-centred desktop system based on a minimal Debian x86-64 live image. The system architecture progresses toward a complete Java Desktop Environment:
 
 ```mermaid
 flowchart TD
     subgraph System ["System Layer (systemd / root)"]
-        DM["DazeOS Display Manager (Java + PAM)<br>dazeos-dm.service"]
+        DM["amadeOS Display Manager (Java + PAM)<br>amadeos-dm.service"]
         Xorg["Xorg Server (:0)"]
     end
 
-    subgraph UserSession ["User Session Layer (user: dazeos)"]
-        Session["dazeos-session (Supervisor)"]
-        WM["DazeOS Window Manager (Java / JNA)<br>Reparenting, Decorations, Moving, Resizing"]
-        Panel["DazeOS Desktop Panel (Java Swing)<br>Taskbar, App Menu, Clock, Tray"]
+    subgraph UserSession ["User Session Layer (user: amadeos)"]
+        Session["amadeos-session (Supervisor)"]
+        WM["amadeOS Window Manager (Java / JNA)<br>Reparenting, Decorations, Moving, Resizing"]
+        Panel["amadeOS Desktop Panel (Java Swing)<br>Taskbar, App Menu, Clock, Tray"]
         Apps["Client Applications<br>Swing Apps, xterm, Editors"]
         PowerDlg["Session & Power Dialog<br>Logout, Shell, Poweroff, Reboot"]
     end
@@ -55,7 +55,7 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 ### Verified and available
 
 - The repository contains the Java window-manager core, native X11 adapter, and Swing desktop suite.
-- Clean Debian 13 (Trixie) live ISO generation verified with SHA-256 integrity (`artifacts/dazeos-amd64.iso`).
+- Clean Debian 13 (Trixie) live ISO generation verified with SHA-256 integrity (`artifacts/amadeos-amd64.iso`).
 - Dual-firmware boot (UEFI via OVMF and legacy BIOS via Isolinux) empirically verified in QEMU.
 - Native X11 integration via JNA (`LibX11`, `NativeX11Adapter`, `X11WindowManagerService`) claiming root window with `SubstructureRedirectMask`.
 - Click-to-focus and click-to-raise with dynamic button grab/ungrab on active windows (zero click latency or grab interference).
@@ -64,17 +64,17 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - Reparenting Window Manager (M7) with authentic Motif 3D beveled borders, titlebars, maximize/restore/minimize buttons, corner grab handles, and 8-directional border resizing.
 - Desktop Icon Tiles (M8): Minimized windows park neatly in top-left corner stacked vertically with zero spacing, featuring dynamic reflow and double-click restore.
 - CDE Front Panel Dock (M8): Centered bottom panel with modular `DockWidget` architecture (digital Clock, Memory gauge, 4-way Workspace Switcher pad with activity LEDs and power dialog trigger, and Slide-up Drawers with subpanel popups).
-- Central Desktop Theme Engine (M8): `DesktopTheme` and `ThemeManager` with unified warm Motif `#CEC2BB` palette, 5 built-in themes, and real-time cross-process synchronization via the X11 root window property `_DAZEOS_THEME`.
+- Central Desktop Theme Engine (M8): `DesktopTheme` and `ThemeManager` with unified warm Motif `#CEC2BB` palette, 5 built-in themes, and real-time cross-process synchronization via the X11 root window property `_AMADEOS_THEME`.
 - Freedesktop.org Icon Theme Compliance (M8): `IconManager` supporting standard XDG search paths, `index.theme` inheritance, standard icon names (`utilities-terminal`, `system-file-manager`, etc.), and Java2D vector fallback.
-- Dedicated Desktop Settings App & Wallpaper Management (M8): `DazeSettingsApplication` and `WallpaperManager` supporting scaling modes (Fill, Fit, Stretch, Tile, Center), solid color matte, and direct X11 root window pixmap rendering.
-- Java Display Manager & PAM Greeter (M9): `DazeDisplayManager`, `DazeLoginGreeter`, and `PamAuthenticator` providing full Linux PAM authentication (`libpam.so.0`), root privilege dropping via `runuser`/POSIX, systemd unit `dazeos-dm.service`, and default live credentials (`dazeos` / `dazeos`).
-- Session configuration manifest (`/etc/dazeos/session.conf`), drop-in autostart (`/etc/dazeos/autostart.d/`), and background WM watchdog supervision.
-- Incremental packaging mode `DAZEOS_QUICK=1` updating chroot and squashfs in under 30 seconds.
+- Dedicated Desktop Settings App & Wallpaper Management (M8): `AmadeSettingsApplication` and `WallpaperManager` supporting scaling modes (Fill, Fit, Stretch, Tile, Center), solid color matte, and direct X11 root window pixmap rendering.
+- Java Display Manager & PAM Greeter (M9): `AmadeDisplayManager`, `AmadeLoginGreeter`, and `PamAuthenticator` providing full Linux PAM authentication (`libpam.so.0`), root privilege dropping via `runuser`/POSIX, systemd unit `amadeos-dm.service`, and default live credentials (`amadeos` / `amadeos`).
+- Session configuration manifest (`/etc/amadeos/session.conf`), drop-in autostart (`/etc/amadeos/autostart.d/`), and background WM watchdog supervision.
+- Incremental packaging mode `AMADEOS_QUICK=1` updating chroot and squashfs in under 30 seconds.
 - Session lifecycle & power management (M6): Session & Power Dialog offering Log Out, Exit to Shell (breaking out of the `startx` loop), Shut Down, and Reboot.
 
 ### In progress or next
 
-- **XDG application discovery & Debian `.deb` app ecosystem (M10):** Decouple user applications from the core desktop shell. User-space applications are maintained in independent repositories, packaged as Debian `.deb` packages (installed via `config/packages.chroot/`), while DazeOS parses XDG `.desktop` entries to dynamically populate Front Panel drawers by category.
+- **XDG application discovery & Debian `.deb` app ecosystem (M10):** Decouple user applications from the core desktop shell. User-space applications are maintained in independent repositories, packaged as Debian `.deb` packages (installed via `config/packages.chroot/`), while amadeOS parses XDG `.desktop` entries to dynamically populate Front Panel drawers by category.
 - **Virtual workspaces & desktop root window menu (M11):** EWMH 4-desktop switching (`_NET_NUMBER_OF_DESKTOPS` / `_NET_CURRENT_DESKTOP` / `_NET_WM_DESKTOP`) linked to CDE Front Panel pad, authentic Motif 3D right-click desktop root menu, and root cursor/backdrop polish.
 - **Compatibility, security, and release hardening (M12):** font tests, keyboard layouts, packaging validation, and final live release verification.
 
@@ -100,8 +100,8 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 6. Verify the resulting artifact:
 
    ```bash
-   file artifacts/dazeos-amd64.iso
-   sha256sum -c artifacts/dazeos-amd64.iso.sha256
+   file artifacts/amadeos-amd64.iso
+   sha256sum -c artifacts/amadeos-amd64.iso.sha256
    ```
 
 **Exit criteria:** A clean build creates a non-empty ISO and its checksum verifies. The build result and any required environment assumptions are documented.
@@ -112,19 +112,19 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 1. **BIOS boot in QEMU (Verified):**
    ```bash
-   qemu-system-x86_64 -enable-kvm -m 2048 -usb -device usb-tablet -cdrom artifacts/dazeos-amd64.iso
+   qemu-system-x86_64 -enable-kvm -m 2048 -usb -device usb-tablet -cdrom artifacts/amadeos-amd64.iso
    ```
    - Boots via Isolinux menu to live Linux 6.12 kernel.
-   - Automatically logs in as `dazeos` on tty1.
-   - Automatically starts Xorg and launches `dazeos-session`.
+   - Automatically logs in as `amadeos` on tty1.
+   - Automatically starts Xorg and launches `amadeos-session`.
    - Displays `SwingDemoApplication` with fully functional mouse pointer tracking and interactive button clicks.
 2. **UEFI boot in QEMU (Verified):**
    ```bash
-   qemu-system-x86_64 -enable-kvm -m 2048 -bios /usr/share/ovmf/OVMF.fd -usb -device usb-tablet -cdrom artifacts/dazeos-amd64.iso
+   qemu-system-x86_64 -enable-kvm -m 2048 -bios /usr/share/ovmf/OVMF.fd -usb -device usb-tablet -cdrom artifacts/amadeos-amd64.iso
    ```
    - Generated standalone 64-bit EFI bootloader (`BOOTX64.EFI`) using `grub-mkstandalone` with embedded memdisk and search/linux modules.
    - Embedded FAT16 EFI boot image (`/boot/grub/efi.img`) and configured El Torito EFI boot catalog with `xorriso -isohybrid-gpt-basdat`.
-   - OVMF loads GRUB 2 EFI directly, boots Linux 6.12 kernel, logs in as `dazeos`, and renders desktop session.
+   - OVMF loads GRUB 2 EFI directly, boots Linux 6.12 kernel, logs in as `amadeos`, and renders desktop session.
 3. Live root filesystem usable, Java runtime and Xorg package set confirmed functional under both BIOS and UEFI.
 
 **Exit criteria:** Dual-firmware (BIOS + UEFI/OVMF) boot evidenced, live root filesystem usable, Java runtime and Xorg package set confirmed functional. (Achieved 2026-10-10)
@@ -133,8 +133,8 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Goal:** Provide a predictable Xorg session entrypoint before native WM integration.
 
-1. Validated the relationship between `live-config`, `agetty` autologin on tty1, `/etc/skel/.xinitrc`, `dazeos-session`, and `startx`.
-2. `dazeos-session` validates Java runtime and application JAR availability, writes structured diagnostics to `~/.dazeos-session.log`, and launches a fallback `xterm` with diagnostic output if components are missing.
+1. Validated the relationship between `live-config`, `agetty` autologin on tty1, `/etc/skel/.xinitrc`, `amadeos-session`, and `startx`.
+2. `amadeos-session` validates Java runtime and application JAR availability, writes structured diagnostics to `~/.amadeos-session.log`, and launches a fallback `xterm` with diagnostic output if components are missing.
 3. Included `xterm` in image package lists as a debugging and client test terminal.
 
 **Exit criteria:** The documented session launcher starts the desktop cleanly and reports actionable diagnostics on failure. (Achieved 2026-10-10)
@@ -145,7 +145,7 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 1. Pinned JNA with `net.java.dev.jna:jna:5.14.0` as the native X11 binding layer and configured fat JAR packaging.
 2. Implemented `LibX11` JNA interface, `NativeX11Adapter`, and `X11WindowManagerService` handling `SubstructureRedirectMask`, `MapRequest`, `ConfigureRequest`, `UnmapNotify`, and `DestroyNotify`.
-3. Separated the WM daemon process (`dazeos-session` launches `DazeWindowManagerMain` as a background daemon) from Swing applications (`SwingDemoApplication`).
+3. Separated the WM daemon process (`amadeos-session` launches `AmadeWindowManagerMain` as a background daemon) from Swing applications (`SwingDemoApplication`).
 4. Automated integration testing against `Xvfb` verified that `X11WindowManagerService` claims the root window and manages real client windows (`xmessage`).
 
 **Exit criteria:** The Java process can claim the root-window WM role, observe client lifecycle events, and manage a controlled test client without crashing. (Achieved 2026-10-10)
@@ -166,13 +166,13 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 ### M5 — Integrate the WM and applications into the image (Completed)
 
-**Goal:** Turn the prototype into the first end-to-end DazeOS desktop session.
+**Goal:** Turn the prototype into the first end-to-end amadeOS desktop session.
 
-1. Separated WM daemon and application processes with independent logging (`~/.dazeos-wm.log` and `~/.dazeos-session.log`).
-2. Implemented background WM daemon watchdog/supervision in `dazeos-session` with automatic restart recovery and clean signal-trapped session teardown.
-3. Created configurable session manifest (`/etc/dazeos/session.conf` and `~/.config/dazeos/session.conf`) and drop-in autostart directories (`/etc/dazeos/autostart.d/`).
+1. Separated WM daemon and application processes with independent logging (`~/.amadeos-wm.log` and `~/.amadeos-session.log`).
+2. Implemented background WM daemon watchdog/supervision in `amadeos-session` with automatic restart recovery and clean signal-trapped session teardown.
+3. Created configurable session manifest (`/etc/amadeos/session.conf` and `~/.config/amadeos/session.conf`) and drop-in autostart directories (`/etc/amadeos/autostart.d/`).
 4. Added GUI diagnostics: `SwingDemoApplication` features an interactive "View Session Logs" dialog with live reload and structured session exit/logout confirmation.
-5. Added `DAZEOS_QUICK=1` incremental live-build support to rebuild squashfs in under 30 seconds.
+5. Added `AMADEOS_QUICK=1` incremental live-build support to rebuild squashfs in under 30 seconds.
 
 **Exit criteria:** A booted image starts a usable Java-based session without manual process orchestration. (Achieved 2026-10-10)
 
@@ -183,12 +183,12 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 1. **Session & Power Dialog:**
    - Interactive Swing dialog triggered from session controls:
      - **Log Out:** Exits X session and cleanly breaks out of the `startx` restart loop.
-     - **Exit to Shell:** Drops cleanly to the `dazeos@dazeos:~$` interactive bash prompt on `tty1`.
+     - **Exit to Shell:** Drops cleanly to the `amadeos@amadeos:~$` interactive bash prompt on `tty1`.
      - **Power Off:** Invokes `systemctl poweroff` (or `loginctl poweroff`) via systemd/polkit.
      - **Reboot:** Invokes `systemctl reboot` (or `loginctl reboot`) via systemd/polkit.
      - **Cancel:** Dismisses the dialog without terminating the session.
 2. **Break Out of Debian Live Kiosk Loop:**
-   - Pre-seeded `/etc/profile.d/zz-live-config_xinit.sh` with lifecycle action processing (`.dazeos-session-action`), allowing clean exit to interactive console without kiosk respawn loops.
+   - Pre-seeded `/etc/profile.d/zz-live-config_xinit.sh` with lifecycle action processing (`.amadeos-session-action`), allowing clean exit to interactive console without kiosk respawn loops.
 3. **Graceful Multi-App Teardown:**
    - On session exit, cleans up WM daemon PID file, terminates supervisor, and shuts down X server cleanly.
 
@@ -219,15 +219,15 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** Windows have visible server-side titlebars with minimize/maximize/close buttons and can be smoothly moved and resized by dragging with the mouse. (Achieved 2026-10-10)
 
-### M8 — DazeOS desktop shell, panel & themes (Completed)
+### M8 — amadeOS desktop shell, panel & themes (Completed)
 
 **Goal:** Create a persistent desktop dock, minimized window desktop icon tiles, central theme engine, Freedesktop icon support, desktop settings app, and native X11 wallpaper management. (Achieved 2026-10-10)
 
 1. **Centered CDE Front Panel Dock:**
-   - Standalone Swing process `DazeDesktopPanel` with authentic 3D chiseled container.
+   - Standalone Swing process `AmadeDesktopPanel` with authentic 3D chiseled container.
    - Sets `_NET_WM_WINDOW_TYPE = _NET_WM_WINDOW_TYPE_DOCK` and reserves bottom dock height via `_NET_WM_STRUT` / `_NET_WM_STRUT_PARTIAL`.
-   - Pre-map dock property registration and single-instance lock file (`~/.dazeos-panel.lock`) to eliminate reparenting race conditions.
-2. **Modular `DockWidget` Architecture (`org.datazuul.dazeos.wm.panel.widget`):**
+   - Pre-map dock property registration and single-instance lock file (`~/.amadeos-panel.lock`) to eliminate reparenting race conditions.
+2. **Modular `DockWidget` Architecture (`org.datazuul.amadeos.wm.panel.widget`):**
    - Externalized widgets inheriting from `AbstractDockWidget` with theme-reactive 3D borders:
      - `ClockDockWidget`: Digital clock (`HH:mm:ss`) and date (`MMM dd`).
      - `MemoryDockWidget`: JVM/system memory utilization gauge with activity LED bar.
@@ -239,15 +239,15 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 4. **Central Desktop Theme Engine (`DesktopTheme`, `ThemeManager`):**
    - Unified Warm Motif `#CEC2BB` color palette across window frames, dock, icon tiles, and control panel.
    - 5 built-in themes: *Warm Motif*, *CDE Brocade* (Teal), *CDE Desert* (Sand), *Classic Gray*, *Dark Slate*.
-   - Real-time cross-process synchronization via the X11 root window property `_DAZEOS_THEME`.
+   - Real-time cross-process synchronization via the X11 root window property `_AMADEOS_THEME`.
 5. **Freedesktop.org Icon Theme Compliance (`IconManager`):**
    - Full compliance with Freedesktop Icon Theme & Icon Naming specifications.
    - Cascading search: XDG paths (`~/.local/share/icons`, `/usr/share/icons`), `index.theme` inheritance, `/usr/share/pixmaps`, classpath `/themes/`, and Java2D vector fallback.
-6. **Dedicated Desktop Settings Application (`DazeSettingsApplication`):**
+6. **Dedicated Desktop Settings Application (`AmadeSettingsApplication`):**
    - 4-tab control center: Color Themes (with hex swatch preview), Freedesktop Icon Themes, Wallpaper & Backdrop, and Window Manager behavior.
 7. **Desktop Wallpaper Management (`WallpaperManager`):**
    - Scaling modes: *Fill Screen (Crop)*, *Fit to Screen (Letterbox)*, *Stretch to Screen*, *Tile Pattern*, *Center*, plus solid color matte.
-   - Persistence in `~/.config/dazeos/wallpaper.conf`.
+   - Persistence in `~/.config/amadeos/wallpaper.conf`.
 8. **Architectural Decision: Native X11 Root Window Background vs. Fullscreen Swing Window:**
    - **Decision:** Retain native X11 root window background rendering via `XSetWindowBackgroundPixmap` and EWMH root pixmap export (`_XROOTPMAP_ID`, `ESETROOT_PMAP_ID`), rather than mapping a fullscreen Swing desktop window.
    - **Rationale:**
@@ -263,32 +263,32 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Goal:** Replace console autologin with a dedicated graphical Display Manager implemented in Java with PAM authentication. (Achieved 2026-10-10)
 
-1. **System Service (`dazeos-dm.service`):**
+1. **System Service (`amadeos-dm.service`):**
    - Systemd service running as `root` targeting `graphical.target`.
    - Dedicated display manager launcher supporting automatic Xorg server startup on `:0 vt7` (`Xorg :0 vt7 -novtswitch -nolisten tcp`).
-2. **Greeter GUI (`DazeLoginGreeter`):**
+2. **Greeter GUI (`AmadeLoginGreeter`):**
    - Authentic full-screen Motif workstation greeter interface (`#CEC2BB` with 3D chiseled card).
-   - Features workstation title, hostname banner, real-time clock, pre-filled username `dazeos`, masked password entry, session selector, and power buttons (Shut Down, Reboot).
+   - Features workstation title, hostname banner, real-time clock, pre-filled username `amadeos`, masked password entry, session selector, and power buttons (Shut Down, Reboot).
 3. **PAM Authentication via JNA (`PamAuthenticator`, `LibPam`):**
    - JNA binding to Linux PAM (`libpam.so.0`):
      - `pam_start`, `pam_authenticate`, `pam_acct_mgmt`, `pam_setcred`, `pam_open_session`, `pam_close_session`, `pam_end`.
      - Secure C-allocated conversation reply buffers (`LibC.calloc`, `LibC.strdup`) eliminating memory corruption.
-     - Dual mode: real PAM in live OS + developer fallback (`DAZEOS_MOCK_PAM=1`) for local Xephyr testing.
+     - Dual mode: real PAM in live OS + developer fallback (`AMADEOS_MOCK_PAM=1`) for local Xephyr testing.
 4. **Session Spawning & Privilege Dropping (`SessionLauncher`):**
    - Resolves user UID, GID, home directory, and default shell via POSIX `getpwnam`.
    - Drops root privileges via `runuser -u <user>` or POSIX user switching.
-   - Initializes complete session environment (`USER`, `HOME`, `SHELL`, `DISPLAY`, `XDG_SESSION_TYPE=x11`, `XDG_CURRENT_DESKTOP=DazeOS`) and spawns `/usr/local/bin/dazeos-session`.
+   - Initializes complete session environment (`USER`, `HOME`, `SHELL`, `DISPLAY`, `XDG_SESSION_TYPE=x11`, `XDG_CURRENT_DESKTOP=amadeOS`) and spawns `/usr/local/bin/amadeos-session`.
    - On user logout or session termination, Display Manager catches exit, cleans up PAM credentials, handles action requests (`poweroff`/`reboot`), and cleanly re-arms the login greeter.
 5. **System Configuration:**
-   - Dedicated PAM service manifest `/etc/pam.d/dazeos-dm`.
-   - Live boot credentials configured in `scripts/build-image.sh` and `/etc/live/config.conf` (`username=dazeos user-password=dazeos`).
-   - Console autologin on tty1 gracefully yields to `dazeos-dm.service`.
+   - Dedicated PAM service manifest `/etc/pam.d/amadeos-dm`.
+   - Live boot credentials configured in `scripts/build-image.sh` and `/etc/live/config.conf` (`username=amadeos user-password=amadeos`).
+   - Console autologin on tty1 gracefully yields to `amadeos-dm.service`.
 
 **Exit criteria:** Machine boots to a graphical Java login greeter, authenticates system users via PAM, and hands off execution to the user desktop session. (Achieved 2026-10-10)
 
 ### M10 — XDG application discovery & Debian app ecosystem
 
-**Goal:** Decouple user-space applications from the core desktop shell. User applications (e.g. file manager, text editor, terminal, calculators) are developed in independent repositories, packaged as standard Debian `.deb` packages, and installed via Debian package management (`dpkg`, `apt`, or `config/packages.chroot/`). DazeOS provides dynamic XDG discovery and execution.
+**Goal:** Decouple user-space applications from the core desktop shell. User applications (e.g. file manager, text editor, terminal, calculators) are developed in independent repositories, packaged as standard Debian `.deb` packages, and installed via Debian package management (`dpkg`, `apt`, or `config/packages.chroot/`). amadeOS provides dynamic XDG discovery and execution.
 
 1. **Freedesktop.org `.desktop` Parser & Indexer:**
    - Implement an XDG Desktop Entry Specification parser reading `/usr/share/applications/`, `/usr/local/share/applications/`, and `~/.local/share/applications/`.
@@ -305,7 +305,7 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
    - Clean command execution supporting `Terminal=true` wrapping and environment preservation.
 3. **Debian Package Integration:**
    - Enable drop-in `.deb` package support via `config/packages.chroot/` so custom user apps are installed automatically into the live ISO during `./build.sh`.
-   - Establish standard Debian packaging guidelines for independent DazeOS apps (JReleaser, Gradle `ospackage`, or Debian `dpkg-deb`).
+   - Establish standard Debian packaging guidelines for independent amadeOS apps (JReleaser, Gradle `ospackage`, or Debian `dpkg-deb`).
 
 **Exit criteria:** Installing any Debian `.deb` application containing a valid `.desktop` file automatically populates the corresponding CDE Front Panel drawer and launches cleanly.
 

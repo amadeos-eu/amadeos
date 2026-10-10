@@ -1,5 +1,5 @@
 # /etc/default/keyboard
-# DazeOS Keyboard Layout Configuration
+# amadeOS Keyboard Layout Configuration
 # Defaults to German (QWERTZ) with US (QWERTY) fallback, switchable via Alt+Shift
 XKBMODEL="pc105"
 XKBLAYOUT="de,us"

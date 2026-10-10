@@ -1,4 +1,4 @@
-# Contributing to DazeOS
+# Contributing to amadeOS
 
 This document describes the development environment that is already configured and separates it from work that is only planned.
 
@@ -7,7 +7,7 @@ This document describes the development environment that is already configured a
 The repository is located at:
 
 ```text
-/home/ralf/projects/github.com/datazuul/dazeos
+/home/ralf/projects/github.com/datazuul/amadeos
 ```
 
 ## Already configured environment
@@ -26,7 +26,7 @@ The verified development environment is:
 
 ## Native Linux setup (Debian / Ubuntu)
 
-To set up a fresh native Linux host for DazeOS development and live image building:
+To set up a fresh native Linux host for amadeOS development and live image building:
 
 ### 1. Install image build and virtualization prerequisites
 
@@ -102,7 +102,7 @@ java -version                  # OpenJDK 21+
 javac -version
 git --version
 gradle --version
-cd /home/ralf/projects/github.com/datazuul/dazeos
+cd /home/ralf/projects/github.com/datazuul/amadeos
 git status --short --branch
 command -v git gcc make lb debootstrap xorriso grub-mkrescue qemu-system-x86_64 java javac gradle
 ```
@@ -112,7 +112,7 @@ command -v git gcc make lb debootstrap xorriso grub-mkrescue qemu-system-x86_64 
 Work directly in the repository:
 
 ```bash
-cd /home/ralf/projects/github.com/datazuul/dazeos
+cd /home/ralf/projects/github.com/datazuul/amadeos
 git status
 git switch -c <topic-name>
 ```
@@ -124,29 +124,29 @@ Use focused commits and do not commit generated ISO images, VM disks, build cach
 The source repository contains the Java prototype and the `build.sh` live-image entrypoint.
 
 ```bash
-cd /home/ralf/projects/github.com/datazuul/dazeos
+cd /home/ralf/projects/github.com/datazuul/amadeos
 
 # Run the Java tests and build the first live ISO.
 gradle clean test
 ./build.sh
 ```
 
-`build.sh` builds the JAR, sets up the live-build tree, and executes `live-build` in a temporary workspace (by default `/tmp/dazeos-live-build`, configurable via `DAZEOS_BUILD_ROOT`).
+`build.sh` builds the JAR, sets up the live-build tree, and executes `live-build` in a temporary workspace (by default `/tmp/amadeos-live-build`, configurable via `AMADEOS_BUILD_ROOT`).
 
 The build currently embeds the Swing demonstration and the Xorg/OpenJDK package set. It does not yet start the Java window manager automatically. Once an ISO has been built, inspect and test it with:
 
 ```bash
-cd /home/ralf/projects/github.com/datazuul/dazeos
+cd /home/ralf/projects/github.com/datazuul/amadeos
 
 # Inspect the generated artifact.
-file artifacts/dazeos-amd64.iso
-sha256sum -c artifacts/dazeos-amd64.iso.sha256
+file artifacts/amadeos-amd64.iso
+sha256sum -c artifacts/amadeos-amd64.iso.sha256
 
 # BIOS smoke test with QEMU (with USB tablet for seamless mouse integration):
-qemu-system-x86_64 -enable-kvm -m 2048 -usb -device usb-tablet -cdrom artifacts/dazeos-amd64.iso
+qemu-system-x86_64 -enable-kvm -m 2048 -usb -device usb-tablet -cdrom artifacts/amadeos-amd64.iso
 
 # UEFI smoke test with QEMU & OVMF:
-qemu-system-x86_64 -enable-kvm -m 2048 -bios /usr/share/ovmf/OVMF.fd -usb -device usb-tablet -cdrom artifacts/dazeos-amd64.iso
+qemu-system-x86_64 -enable-kvm -m 2048 -bios /usr/share/ovmf/OVMF.fd -usb -device usb-tablet -cdrom artifacts/amadeos-amd64.iso
 ```
 
 The exact package list, build directory, ISO filename, boot parameters, and QEMU options must be committed with the image pipeline when they become stable. Do not report `lb build`, ISO booting, BIOS support, UEFI support, or Java window-manager tests as complete until those tests have actually been run and their results recorded.

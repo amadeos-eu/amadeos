@@ -1,4 +1,4 @@
-# DazeOS Java Window Manager prototype
+# amadeOS Java Window Manager prototype
 
 This module is the first executable MVP slice: a Java 17 Gradle application with a
 pure window registry/layout core and an explicitly isolated X11 adapter boundary.

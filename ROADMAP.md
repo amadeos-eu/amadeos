@@ -34,12 +34,12 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - Automatic autologin on tty1, automatic Xorg start, and launcher execution of `dazeos-session` verified.
 - Swing demo application and mouse pointer interaction (including button clicks) verified running inside QEMU.
 - Native Linux, the Java toolchain, live-build prerequisites, QEMU, and the documented development workflow are available in the configured environment.
+- Native X11 integration via JNA (`net.java.dev.jna:jna:5.14.0`) verified: root-window acquisition with `SubstructureRedirectMask`, window query/scan, `MapRequest` interception, `ConfigureRequest` geometry handling, `UnmapNotify`/`DestroyNotify` lifecycle, and clean shutdown verified against real Xvfb server in automated integration tests.
+- Fat JAR packaging and unified session launcher (`dazeos-session` starting WM daemon and application) implemented.
 
 ### In progress or incomplete
 
-- The window manager has no real X11 connection, native binding, root-window ownership, or event loop.
-- Client lifecycle handling, focus handling, close requests, transient windows, and ICCCM/EWMH support are not implemented.
-- The Swing demo is an application demonstration; it does not manage the host desktop.
+- Client focus handling, close requests, transient windows, and ICCCM/EWMH support are in progress (M4).
 - Dual-firmware (UEFI) boot via GRUB EFI / xorriso is not yet embedded.
 
 ### Not yet verified
@@ -103,19 +103,16 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** The documented session launcher starts the desktop cleanly and reports actionable diagnostics on failure. (Achieved 2026-10-10)
 
-### M3 — Implement the native X11 boundary
+### M3 — Implement the native X11 boundary (Completed)
 
 **Goal:** Connect the Java WM prototype to a real X11 server without mixing native concerns into the pure model.
 
-1. Choose and pin the initial binding strategy, currently JNA with `libX11` is the preferred prototype route.
-2. Add the native dependency and verify that it is available in both the development environment and the live image.
-3. Implement connection open/close, root-window discovery, event-mask selection, and error handling.
-4. Implement a narrow event loop for `MapRequest`, `ConfigureRequest`, `UnmapNotify`, and `DestroyNotify`.
-5. Keep the WM in a separate JVM process from Swing applications.
-6. Add integration tests that run against a disposable X server such as Xvfb where practical.
-7. Add explicit handling for native resource lifetime, architecture assumptions, and shutdown.
+1. Pinned JNA with `net.java.dev.jna:jna:5.14.0` as the native X11 binding layer and configured fat JAR packaging.
+2. Implemented `LibX11` JNA interface, `NativeX11Adapter`, and `X11WindowManagerService` handling `SubstructureRedirectMask`, `MapRequest`, `ConfigureRequest`, `UnmapNotify`, and `DestroyNotify`.
+3. Separated the WM daemon process (`dazeos-session` launches `DazeWindowManagerMain` as a background daemon) from Swing applications (`SwingDemoApplication`).
+4. Automated integration testing against `Xvfb` verified that `X11WindowManagerService` claims the root window and manages real client windows (`xmessage`).
 
-**Exit criteria:** The Java process can claim the root-window WM role, observe client lifecycle events, and manage a controlled test client without crashing.
+**Exit criteria:** The Java process can claim the root-window WM role, observe client lifecycle events, and manage a controlled test client without crashing. (Achieved 2026-10-10)
 
 ### M4 — Implement the minimum usable floating WM
 

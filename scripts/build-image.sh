@@ -11,11 +11,16 @@ BUILD_ROOT="${DAZEOS_BUILD_ROOT:-${TMPDIR:-/tmp}/dazeos-live-build}"
 cd "$ROOT_DIR"
 
 export PATH="$PATH:/snap/bin"
-command -v gradle >/dev/null 2>&1 || { echo "gradle is required" >&2; exit 1; }
+if [ -x "$ROOT_DIR/gradlew" ]; then
+    GRADLE_BIN="$ROOT_DIR/gradlew"
+else
+    command -v gradle >/dev/null 2>&1 || { echo "gradle is required" >&2; exit 1; }
+    GRADLE_BIN="gradle"
+fi
 command -v lb >/dev/null 2>&1 || { echo "live-build (lb) is required" >&2; exit 1; }
 
 mkdir -p "$ARTIFACT_DIR" "$(dirname "$JAR_PATH")"
-gradle clean jar
+"$GRADLE_BIN" clean jar
 cp build/libs/dazeos-*.jar "$JAR_PATH"
 
 if [ "$(id -u)" -eq 0 ]; then

@@ -38,5 +38,19 @@ if [ ! -f "$JAR_PATH" ]; then
     report_error_and_fallback "DazeOS application JAR not found at $JAR_PATH."
 fi
 
-echo "[dazeos-session] Launching Java application: $JAR_PATH using $JAVA_BIN"
-exec "$JAVA_BIN" -jar "$JAR_PATH" "$@"
+echo "[dazeos-session] Starting DazeOS Window Manager..."
+"$JAVA_BIN" -jar "$JAR_PATH" wm >> "${HOME:-/tmp}/.dazeos-wm.log" 2>&1 &
+WM_PID=$!
+echo "[dazeos-session] Window Manager started (PID $WM_PID)"
+
+cleanup() {
+    echo "[dazeos-session] Terminating session..."
+    kill "$WM_PID" 2>/dev/null || true
+}
+trap cleanup EXIT INT TERM
+
+# Brief delay to allow the window manager to claim the root window
+sleep 0.5
+
+echo "[dazeos-session] Starting DazeOS application..."
+"$JAVA_BIN" -jar "$JAR_PATH" demo "$@"

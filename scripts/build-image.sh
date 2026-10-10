@@ -22,6 +22,9 @@ command -v lb >/dev/null 2>&1 || { echo "live-build (lb) is required" >&2; exit 
 mkdir -p "$ARTIFACT_DIR" "$(dirname "$JAR_PATH")"
 "$GRADLE_BIN" clean jar
 cp build/libs/dazeos-*.jar "$JAR_PATH"
+if [ -n "${SUDO_USER:-}" ]; then
+    chown -R "$SUDO_USER:" "$ROOT_DIR/build" "$JAR_PATH" "$ARTIFACT_DIR" 2>/dev/null || true
+fi
 
 if [ "$(id -u)" -eq 0 ]; then
     SUDO=""

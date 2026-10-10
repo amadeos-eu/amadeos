@@ -60,14 +60,6 @@ if id amadeos >/dev/null 2>&1; then
     fi
 fi
 
-# Fallback for dazeos user if present
-if id dazeos >/dev/null 2>&1; then
-    echo 'dazeos:$6$1xsQWb3aVS24Y0d3$hLitNURnkFyQQkuwtsUm22cS0WOWkwuiAb9J.woJ8MC9WGM9cTWvZ8Hhu7rsFoA8s4R5.ci60U/w1tj6RIS3T1' | chpasswd -e 2>/dev/null || true
-    if [ -d /home/dazeos ]; then
-        chown -R dazeos:dazeos /home/dazeos 2>/dev/null || true
-    fi
-fi
-
 # Configure keyboard layout (German primary with US fallback)
 if command -v setxkbmap >/dev/null 2>&1; then
     echo "[amadeos-dm] Applying keyboard layout (de,us)..."

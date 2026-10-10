@@ -6,7 +6,7 @@ CONFIG_DIR="$ROOT_DIR/config"
 ARTIFACT_DIR="$ROOT_DIR/artifacts"
 JAR_PATH="$CONFIG_DIR/includes.chroot/opt/amadeos/amadeos.jar"
 ISO_PATH="$ARTIFACT_DIR/amadeos-amd64.iso"
-BUILD_ROOT="${AMADEOS_BUILD_ROOT:-${DAZEOS_BUILD_ROOT:-${TMPDIR:-/tmp}/amadeos-live-build}}"
+BUILD_ROOT="${AMADEOS_BUILD_ROOT:-${TMPDIR:-/tmp}/amadeos-live-build}"
 
 cd "$ROOT_DIR"
 
@@ -36,10 +36,10 @@ fi
 
 BOOTAPPEND="boot=live components username=amadeos user-password=amadeos keyboard-layouts=de hostname=amadeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,sudo,input"
 
-if [ "${AMADEOS_PACKAGE_ONLY:-${DAZEOS_PACKAGE_ONLY:-0}}" = "1" ]; then
+if [ "${AMADEOS_PACKAGE_ONLY:-0}" = "1" ]; then
     echo "[build-image] Package-only mode requested; packaging existing $BUILD_ROOT/binary..."
     cd "$BUILD_ROOT"
-elif [ "${AMADEOS_QUICK:-${DAZEOS_QUICK:-0}}" = "1" ] || [ "${AMADEOS_REPACK_ROOTFS:-${DAZEOS_REPACK_ROOTFS:-0}}" = "1" ]; then
+elif [ "${AMADEOS_QUICK:-0}" = "1" ] || [ "${AMADEOS_REPACK_ROOTFS:-0}" = "1" ]; then
     if [ ! -d "$BUILD_ROOT/chroot" ] || [ ! -d "$BUILD_ROOT/binary" ]; then
         echo "[build-image] Quick repack mode requires existing $BUILD_ROOT/chroot and $BUILD_ROOT/binary. Run full build first." >&2
         exit 1

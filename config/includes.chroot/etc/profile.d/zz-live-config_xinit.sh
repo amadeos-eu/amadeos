@@ -2,7 +2,7 @@
 # amadeOS X11 Launcher with Session & Power Lifecycle Management (Milestone M6)
 
 # If amadeOS Display Manager is present or active, defer graphical session to graphical.target
-if [ -f /etc/systemd/system/amadeos-dm.service ] || [ -f /etc/systemd/system/dazeos-dm.service ] || [ -f /etc/systemd/system/display-manager.service ]; then
+if [ -f /etc/systemd/system/amadeos-dm.service ] || [ -f /etc/systemd/system/display-manager.service ]; then
     return 0 2>/dev/null || exit 0
 fi
 

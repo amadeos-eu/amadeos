@@ -76,6 +76,133 @@ sudo apt-get install -y \
 * `xterm` / `x11-apps`: Lightweight test client applications to test window placement, focus, and lifecycle.
 * `libx11-dev`: Header files and shared libraries for validating JNA / native bindings.
 
+## Developing independent applications (.deb)
+
+User-space applications (e.g. text editors, file managers, calculators, system monitors) are developed in **independent repositories** and packaged as standard Debian `.deb` packages, rather than being hardcoded into the base OS.
+
+Example reference implementation: [`datazuul/amade-pad`](https://github.com/datazuul/amade-pad).
+
+### 1. Application standards & Motif 3D styling
+
+- **Platform baseline:** Java 21+ with Swing / Java2D.
+- **Motif 3D aesthetic:** Avoid default Swing/Metal "Ocean" blue gradients. Applications should use the warm Motif `#CEC2BB` palette with 3D chiseled beveled borders matching the amadeOS window buttons:
+  - Base color: `#CEC2BB`
+  - Highlight / Soft Highlight: `#FFFFFF` / `#EAE5E2`
+  - Shadow / Dark Shadow: `#8C827A` / `#423B35`
+  - Sunken / Pressed: `#BAAFA8` (with $+1\text{px}$ text/icon shift on click)
+- **Central Look-and-Feel:** Call `AmadeUI.install()` or rely on system-wide `swing.properties` (`swing.defaultlaf=com.sun.java.swing.plaf.motif.MotifLookAndFeel`) so all buttons, dialogs, scrollbars, and menus use authentic Motif 3D styling.
+
+### 2. Debian package filesystem layout
+
+Every independent application `.deb` package should install to standard system locations:
+
+| Path | Mode | Description |
+| :--- | :--- | :--- |
+| `/usr/bin/<app-name>` | `0755` | Shell wrapper script (`exec /usr/bin/java -jar /opt/<app>/<app>.jar "$@"`) |
+| `/opt/<app-name>/<app-name>.jar` | `0644` | Application fat JAR |
+| `/usr/share/applications/<app-name>.desktop` | `0644` | Freedesktop desktop entry |
+| `/usr/share/icons/hicolor/48x48/apps/<app-name>.png` | `0644` | Application icon |
+
+### 3. XDG desktop entry & Front Panel drawer mapping
+
+amadeOS uses dynamic XDG desktop entry discovery (`XdgApplicationManager`). The `Categories` field in your `.desktop` file automatically binds your application to the corresponding CDE Front Panel drawer:
+
+| Front Panel Drawer | Primary Categories |
+| :--- | :--- |
+| 📁 **File Manager** | `Categories=FileManager;System;` |
+| 📝 **Text Editor** | `Categories=TextEditor;Utility;` |
+| 📟 **Terminal** | `Categories=TerminalEmulator;System;` |
+| 📋 **Diagnostics & Monitor** | `Categories=Monitor;System;` |
+| ⚙️ **Settings & Tools** | `Categories=Settings;DesktopSettings;` |
+
+Example `amade-pad.desktop`:
+```ini
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=amadeOS Text Editor
+GenericName=Text Editor
+Comment=Lightweight Motif/CDE-style text editor
+Icon=amade-pad
+Exec=/usr/bin/amade-pad %F
+Terminal=false
+Categories=Utility;TextEditor;
+MimeType=text/plain;text/x-java;text/x-c;text/x-shellscript;
+```
+
+### 4. Gradle Debian packaging reference
+
+In your application's `build.gradle`, you can use `dpkg-deb` to build standard rootless packages and drop them into amadeOS:
+
+```groovy
+tasks.register('deb') {
+    dependsOn jar
+    group = 'distribution'
+    doLast {
+        def buildDirFile = layout.buildDirectory.get().asFile
+        def stagingDir = new File(buildDirFile, "deb-staging")
+        delete(stagingDir)
+
+        def optDir = new File(stagingDir, "opt/amade-pad")
+        def binDir = new File(stagingDir, "usr/bin")
+        def appDir = new File(stagingDir, "usr/share/applications")
+        def iconDir = new File(stagingDir, "usr/share/icons/hicolor/48x48/apps")
+        def debianDir = new File(stagingDir, "DEBIAN")
+        def distDir = new File(buildDirFile, "distributions")
+
+        [optDir, binDir, appDir, iconDir, debianDir, distDir]*.mkdirs()
+
+        // 1. Copy JAR
+        copy { from jar.archiveFile; into optDir; rename { 'amade-pad.jar' } }
+
+        // 2. Launcher script
+        def launcher = new File(binDir, "amade-pad")
+        launcher.text = "#!/bin/sh\nexec /usr/bin/java -jar /opt/amade-pad/amade-pad.jar \"\$@\"\n"
+        launcher.setExecutable(true, false)
+
+        // 3. Desktop entry and icons
+        copy { from "src/main/resources/amade-pad.desktop"; into appDir }
+        copy { from "src/main/resources/icons/amade-pad.png"; into iconDir }
+
+        // 4. DEBIAN/control
+        new File(debianDir, "control").text = """Package: amade-pad
+Version: ${project.version}
+Section: editors
+Priority: optional
+Architecture: all
+Depends: default-jre | openjdk-21-jre | java21-runtime
+Maintainer: amadeOS Project <developers@datazuul.com>
+Description: Authentic Motif/CDE-styled text editor for amadeOS
+"""
+
+        // 5. Build .deb package
+        def debFile = new File(distDir, "amade-pad_${project.version}_all.deb")
+        new ProcessBuilder("dpkg-deb", "--root-owner-group", "--build", stagingDir.absolutePath, debFile.absolutePath)
+                .inheritIO().start().waitFor()
+    }
+}
+
+// Automated drop-in deployment to amadeOS
+tasks.register('installToAmadeOs') {
+    dependsOn 'deb'
+    doLast {
+        def targetDir = file("../amadeos/config/packages.chroot")
+        targetDir.mkdirs()
+        def debFile = new File(layout.buildDirectory.get().asFile, "distributions/amade-pad_${project.version}_all.deb")
+        copy { from debFile; into targetDir }
+    }
+}
+```
+
+### 5. Testing in amadeOS
+
+1. In your application repo, run `./gradlew installToAmadeOs`.
+2. The package is staged in `amadeos/config/packages.chroot/`.
+3. Rebuild the live image:
+   - Full build: `sudo ./build.sh`
+   - Quick repack: `sudo AMADEOS_QUICK=1 ./build.sh`
+4. Test in QEMU: `./run-qemu.sh`. Your application will be installed and appear in the CDE Front Panel drawer.
+
 ## File permissions and Git executable flags
 
 All shell scripts and hooks (`build.sh`, `scripts/build-image.sh`, chroot hooks in `config/hooks/`, and session scripts in `config/includes.chroot/`) must have their executable bit preserved in Git.

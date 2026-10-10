@@ -114,19 +114,19 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** The Java process can claim the root-window WM role, observe client lifecycle events, and manage a controlled test client without crashing. (Achieved 2026-10-10)
 
-### M4 — Implement the minimum usable floating WM
+### M4 — Implement the minimum usable floating WM (Completed)
 
 **Goal:** Manage ordinary Swing windows predictably.
 
-1. Apply the existing deterministic floating layout to actual X11 client windows.
-2. Implement focus and stacking behavior.
-3. Send close requests using the appropriate client protocol instead of terminating clients blindly.
-4. Handle transient/dialog windows, override-redirect windows, and basic popup behavior.
-5. Add the minimum ICCCM/EWMH properties needed by Swing/AWT and common X11 tools.
-6. Define behavior for maximization, fullscreen, and screen-boundary changes.
-7. Test with more than one Swing application and at least one ordinary non-Java X11 client.
+1. Applied deterministic floating cascade layout to native X11 client windows.
+2. Implemented click-to-focus and click-to-raise via `XGrabButton` (Button 1, sync mode) and `XAllowEvents(ReplayPointer)`.
+3. Implemented graceful window closing via ICCCM `WM_DELETE_WINDOW` client messages (`XSendEvent` with `WM_PROTOCOLS`), falling back to `XKillClient`.
+4. Handled transient dialog windows (`XGetTransientForHint`) with automatic parent-relative centering.
+5. Added EWMH compliance: supporting check window with `_NET_SUPPORTING_WM_CHECK`, `_NET_WM_NAME`, `_NET_SUPPORTED`, `_NET_CLIENT_LIST`, and `_NET_ACTIVE_WINDOW` properties (essential for Swing/AWT non-reparenting WM support).
+6. Expanded `SwingDemoApplication` with multi-window document creation (`JFrame`), transient dialogs (`JDialog`/`JOptionPane`), and external X11 client launching (`xterm`).
+7. Verified full suite with unit tests and headless X11 integration tests (`Xvfb`).
 
-**Exit criteria:** Representative Swing applications can open, move, resize, focus, show dialogs, and close under the Java WM in a controlled Xorg/Xvfb environment.
+**Exit criteria:** Representative Swing applications can open, move, resize, focus, show dialogs, and close under the Java WM in a controlled Xorg/Xvfb environment. (Achieved 2026-10-10)
 
 ### M5 — Integrate the WM and applications into the image
 

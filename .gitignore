@@ -1,6 +1,7 @@
 # Build output
 artifacts/
 build/
+build.root/
 /bin/
 image/cache/
 image/chroot/

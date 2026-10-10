@@ -8,3 +8,4 @@ JAVA_BIN="${JAVA_BIN:-$(command -v java 2>/dev/null || true)}"
 if [ -n "$JAVA_BIN" ] && [ -f "$DAZEOS_JAR" ]; then
     "$JAVA_BIN" $JAVA_OPTS -jar "$DAZEOS_JAR" panel &
 fi
+

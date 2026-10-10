@@ -185,24 +185,30 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** User can cleanly log out to a working `tty1` console or trigger shutdown/reboot directly from the Java desktop. (Achieved 2026-10-10)
 
-### M7 — Reparenting window manager & server-side decorations
+### M7 — Reparenting window manager & server-side decorations (Completed)
 
 **Goal:** Transform the Java Window Manager into a reparenting WM with native titlebars, minimize/maximize/close buttons, and interactive drag-to-move and border-resize capabilities.
 
-1. **Reparenting Architecture (`XReparentWindow`):**
-   - Intercept `MapRequest`: create an outer frame window `F` for each top-level client window `C`.
-   - Reparent client: `XReparentWindow(display, C, F, border_width, title_height)`.
-   - Frame window `F` hosts server-side titlebar and 8 border resize zones ($N, S, E, W, NW, NE, SW, SE$).
-2. **Server-Side Titlebar & Window Controls:**
-   - Render window title dynamically from `_NET_WM_NAME` or `WM_NAME`.
-   - **Close Button (`[X]`):** sends `WM_DELETE_WINDOW` client message under `WM_PROTOCOLS`.
-   - **Maximize / Restore Button (`[□]`):** toggles full screen geometry (excluding dock struts) and sets EWMH `_NET_WM_STATE_MAXIMIZED_HORZ`/`VERT`.
-   - **Minimize Button (`[-]`):** unmaps frame window and transitions `WM_STATE` to `IconicState`.
+1. **Modernized Motif 3D Beveled Theme (Java2D Renderer):**
+   - High-performance `Graphics2D` rendering into off-screen `BufferedImage` blitted via `XPutImage`.
+   - Distinctive workstation gray `#C0C0C0` palette with 3D chiseled beveled borders and corner grab brackets.
+   - Active slate blue (`#4A6B82`) and inactive muted gray titlebar highlighting with crisp text rendering.
+   - Modernized window buttons: `[=]` menu, `[-]` minimize, `[□]` maximize/restore, and `[✕]` close with subtle red hover feedback.
+2. **Reparenting Architecture (`XReparentWindow`):**
+   - Intercepts `MapRequest`: creates outer frame window `F` sized $(W_{client} + 2\cdot bw, H_{client} + tbh + bw)$ wrapping client window `C`.
+   - Registers client with `XAddToSaveSet` to guarantee preservation upon WM restart/exit.
+   - Reparents client window into frame at $(bw, tbh)$.
+   - Manages StructureNotify, Exposure, PointerMotion, and Button events.
 3. **Interactive Mouse Dragging & Resizing:**
-   - **Titlebar Dragging:** left-click drag grabs pointer with `XGrabPointer` (`move_cursor`), calculates $(x+dx, y+dy)$ on `MotionNotify`, and moves frame via `XMoveWindow`.
-   - **Border Resizing:** cursor dynamically changes to direction cursors over frame borders; drag adjusts $(w+dw, h+dh)$ according to `WM_NORMAL_HINTS` and resizes frame and client via `XResizeWindow`.
+   - **Titlebar Dragging:** left-click drag on titlebar grabs pointer with `XGrabPointer` (`XC_fleur`), computes $(\Delta x, \Delta y)$ from `MotionNotify`, and moves frame via `XMoveWindow`.
+   - **8-Directional Border Resizing:** mouse hovering over $6\text{px}$ borders and corners dynamically switches pointer cursor (`XC_top_side`, `XC_left_side`, `XC_top_left_corner`, etc.); dragging resizes frame and reparented client via `XMoveResizeWindow`.
+   - **Window Controls:**
+     - `[✕]` Close: sends `WM_DELETE_WINDOW` client message with fallback to `XKillClient`.
+     - `[□]` Maximize / Restore: toggles full screen geometry $(0, 0, screenWidth, screenHeight)$ and restores previous unmaximized bounds.
+     - `[-]` Minimize: cleanly unmaps frame window while preserving client state.
+     - `[=]` Menu: triggers window actions.
 
-**Exit criteria:** Windows have visible server-side titlebars with minimize/maximize/close buttons and can be smoothly moved and resized by dragging with the mouse.
+**Exit criteria:** Windows have visible server-side titlebars with minimize/maximize/close buttons and can be smoothly moved and resized by dragging with the mouse. (Achieved 2026-10-10)
 
 ### M8 — DazeOS desktop shell & panel
 

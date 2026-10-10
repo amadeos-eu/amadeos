@@ -35,6 +35,16 @@ BOOTAPPEND="boot=live components username=dazeos hostname=dazeos user-default-gr
 if [ "${DAZEOS_PACKAGE_ONLY:-0}" = "1" ]; then
     echo "[build-image] Package-only mode requested; packaging existing $BUILD_ROOT/binary..."
     cd "$BUILD_ROOT"
+elif [ "${DAZEOS_QUICK:-0}" = "1" ] || [ "${DAZEOS_REPACK_ROOTFS:-0}" = "1" ]; then
+    if [ ! -d "$BUILD_ROOT/chroot" ] || [ ! -d "$BUILD_ROOT/binary" ]; then
+        echo "[build-image] Quick repack mode requires existing $BUILD_ROOT/chroot and $BUILD_ROOT/binary. Run full build first." >&2
+        exit 1
+    fi
+    echo "[build-image] Quick repack mode: syncing includes into chroot and rebuilding squashfs..."
+    $SUDO cp -a "$CONFIG_DIR/includes.chroot/." "$BUILD_ROOT/chroot/"
+    $SUDO rm -f "$BUILD_ROOT/binary/live/filesystem.squashfs"
+    $SUDO mksquashfs "$BUILD_ROOT/chroot" "$BUILD_ROOT/binary/live/filesystem.squashfs" -comp xz -noappend
+    cd "$BUILD_ROOT"
 else
     for mount_point in \
         "$BUILD_ROOT/chroot/dev/pts" \
@@ -102,7 +112,7 @@ else
 fi
 
 # Reclaim ownership of binary directory for non-root build operations if needed
-if [ -n "$SUDO" ] && [ -d "$BUILD_ROOT/binary" ] && [ "$(stat -c '%u' "$BUILD_ROOT/binary" 2>/dev/null)" -ne "$(id -u)" ]; then
+if [ -n "$SUDO" ] && [ -d "$BUILD_ROOT/binary" ]; then
     $SUDO chown -R "$(id -u):$(id -g)" "$BUILD_ROOT/binary"
 fi
 

@@ -47,11 +47,19 @@ elif [ "${DAZEOS_QUICK:-0}" = "1" ] || [ "${DAZEOS_REPACK_ROOTFS:-0}" = "1" ]; t
     $SUDO cp -a "$CONFIG_DIR/includes.chroot/." "$BUILD_ROOT/chroot/"
     $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/dazeos-dm" 2>/dev/null || true
     $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/dazeos-session" 2>/dev/null || true
-    # Update bootloader live.cfg kernel cmdline with user-password=dazeos and keyboard-layouts=de
+    # Update bootloader live.cfg kernel cmdline with user-password=dazeos, keyboard-layouts=de, and locales=de_DE.UTF-8
     if [ -f "$BUILD_ROOT/binary/isolinux/live.cfg" ]; then
-        $SUDO sed -i 's/username=dazeos/username=dazeos user-password=dazeos keyboard-layouts=de/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
+        $SUDO sed -i 's/username=dazeos/username=dazeos user-password=dazeos keyboard-layouts=de locales=de_DE.UTF-8/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
         $SUDO sed -i 's/user-password=dazeos user-password=dazeos/user-password=dazeos/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
         $SUDO sed -i 's/keyboard-layouts=de keyboard-layouts=de/keyboard-layouts=de/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
+        $SUDO sed -i 's/locales=de_DE.UTF-8 locales=de_DE.UTF-8/locales=de_DE.UTF-8/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
+    fi
+    # Ensure de_DE.UTF-8 locale is generated in chroot
+    if [ -f "$BUILD_ROOT/chroot/etc/locale.gen" ]; then
+        if ! grep -q "^de_DE.UTF-8" "$BUILD_ROOT/chroot/etc/locale.gen" 2>/dev/null; then
+            echo "de_DE.UTF-8 UTF-8" | $SUDO tee -a "$BUILD_ROOT/chroot/etc/locale.gen" >/dev/null
+            $SUDO chroot "$BUILD_ROOT/chroot" locale-gen de_DE.UTF-8 2>/dev/null || true
+        fi
     fi
     $SUDO rm -f "$BUILD_ROOT/binary/live/filesystem.squashfs"
     $SUDO mksquashfs "$BUILD_ROOT/chroot" "$BUILD_ROOT/binary/live/filesystem.squashfs" -comp xz -noappend

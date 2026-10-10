@@ -1,0 +1,5 @@
+# /etc/default/locale
+# Default system locale for DazeOS
+LANG=de_DE.UTF-8
+LC_ALL=de_DE.UTF-8
+LANGUAGE=de_DE:de:en_US:en

@@ -33,6 +33,7 @@ apt-get install --yes --no-install-recommends \
 
 # Configure locales
 if [ -f /etc/locale.gen ]; then
+    echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
     locale-gen || true
 fi

@@ -64,6 +64,13 @@ WM_CHILD_PID=""
 cleanup_session() {
     echo "[dazeos-session] Cleaning up session processes..."
     SESSION_ACTIVE=0
+    if [ -f "${HOME:-/tmp}/.dazeos-wm.pid" ]; then
+        WM_PID="$(cat "${HOME:-/tmp}/.dazeos-wm.pid" 2>/dev/null || true)"
+        if [ -n "$WM_PID" ]; then
+            kill "$WM_PID" 2>/dev/null || true
+        fi
+        rm -f "${HOME:-/tmp}/.dazeos-wm.pid"
+    fi
     if [ -n "$WM_CHILD_PID" ]; then
         kill "$WM_CHILD_PID" 2>/dev/null || true
     fi

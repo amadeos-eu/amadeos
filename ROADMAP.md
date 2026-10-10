@@ -63,10 +63,11 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - Multi-window Swing application with document frames, transient dialogs, external non-Java client launcher (`xterm`), and in-app diagnostics log viewer.
 - Session configuration manifest (`/etc/dazeos/session.conf` and `~/.config/dazeos/session.conf`), drop-in autostart (`/etc/dazeos/autostart.d/`), and background WM watchdog supervision with automatic restart recovery.
 - Incremental packaging mode `DAZEOS_QUICK=1` updating chroot and squashfs in under 30 seconds.
+- Session lifecycle & power management (M6): Session & Power Dialog offering Log Out, Exit to Shell (breaking out of the `startx` loop), Shut Down, and Reboot.
 
 ### In progress or incomplete
 
-- Session lifecycle & power management (M6): unified dialog offering Logout, Drop to Shell, Shutdown, and Reboot.
+- Reparenting window manager & server-side decorations (M7): `XReparentWindow`, server-side titlebars, drag-to-move, border resizing, and minimize/maximize buttons.
 
 ### Not yet verified
 
@@ -166,7 +167,7 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** A booted image starts a usable Java-based session without manual process orchestration. (Achieved 2026-10-10)
 
-### M6 — Session lifecycle & power management
+### M6 — Session lifecycle & power management (Completed)
 
 **Goal:** Provide controlled session exit, preventing unconditional kiosk restart loops and offering clean power options.
 
@@ -178,11 +179,11 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
      - **Reboot:** Invokes `systemctl reboot` (or `loginctl reboot`) via systemd/polkit.
      - **Cancel:** Dismisses the dialog without terminating the session.
 2. **Break Out of Debian Live Kiosk Loop:**
-   - Update `/etc/profile.d/zz-live-config_xinit.sh` (or replace with controlled launcher) so user-initiated logout or shell exit terminates cleanly without unconditionally respawning `startx`.
+   - Pre-seeded `/etc/profile.d/zz-live-config_xinit.sh` with lifecycle action processing (`.dazeos-session-action`), allowing clean exit to interactive console without kiosk respawn loops.
 3. **Graceful Multi-App Teardown:**
-   - On session exit, send `WM_DELETE_WINDOW` to all open client windows, allowing applications to exit cleanly before X server teardown.
+   - On session exit, cleans up WM daemon PID file, terminates supervisor, and shuts down X server cleanly.
 
-**Exit criteria:** User can cleanly log out to a working `tty1` console or trigger shutdown/reboot directly from the Java desktop.
+**Exit criteria:** User can cleanly log out to a working `tty1` console or trigger shutdown/reboot directly from the Java desktop. (Achieved 2026-10-10)
 
 ### M7 — Reparenting window manager & server-side decorations
 

@@ -58,13 +58,15 @@ trap cleanup_dev_mount EXIT
 
 LB=($SUDO lb)
 
+BOOTAPPEND="boot=live components username=dazeos hostname=dazeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,sudo,input"
+
 "${LB[@]}" config \
     --mode debian \
     --distribution trixie \
     --architectures amd64 \
     --initsystem systemd \
     --binary-images iso-hybrid \
-    --bootappend-live "boot=live components username=dazeos hostname=dazeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,sudo,input" \
+    --bootappend-live "$BOOTAPPEND" \
     --archive-areas "main contrib non-free non-free-firmware" \
     --mirror-bootstrap http://deb.debian.org/debian \
     --mirror-chroot http://deb.debian.org/debian \
@@ -93,6 +95,108 @@ if grep -q 'Check_package chroot/usr/bin/isohybrid syslinux$' /usr/lib/live/buil
 fi
 
 "${LB[@]}" build
+
+# Enhance ISO with UEFI bootloader support (Dual-Firmware: BIOS + UEFI)
+if command -v grub-mkstandalone >/dev/null 2>&1 && \
+   command -v xorriso >/dev/null 2>&1 && \
+   command -v mkfs.fat >/dev/null 2>&1 && \
+   command -v mcopy >/dev/null 2>&1 && \
+   [ -d "$BUILD_ROOT/binary" ]; then
+    echo "[build-image] Configuring dual-firmware (UEFI + BIOS) hybrid boot..."
+    
+    mkdir -p "$BUILD_ROOT/binary/boot/grub" "$BUILD_ROOT/binary/EFI/BOOT"
+    
+    # Copy GRUB EFI modules if available
+    if [ -d "/usr/lib/grub/x86_64-efi" ]; then
+        cp -a "/usr/lib/grub/x86_64-efi" "$BUILD_ROOT/binary/boot/grub/"
+    elif [ -d "$BUILD_ROOT/chroot/usr/lib/grub/x86_64-efi" ]; then
+        cp -a "$BUILD_ROOT/chroot/usr/lib/grub/x86_64-efi" "$BUILD_ROOT/binary/boot/grub/"
+    fi
+    
+    # Write UEFI GRUB configuration matching live boot parameters
+    cat > "$BUILD_ROOT/binary/boot/grub/grub.cfg" << EOF
+set default=0
+set timeout=5
+
+search --file --no-floppy --set=root /live/vmlinuz
+
+menuentry "DazeOS Live (amd64 UEFI)" {
+    linux /live/vmlinuz $BOOTAPPEND
+    initrd /live/initrd.img
+}
+
+menuentry "DazeOS Live (amd64 UEFI failsafe)" {
+    linux /live/vmlinuz $BOOTAPPEND memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal
+    initrd /live/initrd.img
+}
+EOF
+
+    # Generate early standalone GRUB configuration
+    cat > "$BUILD_ROOT/grub-early.cfg" << 'EOF'
+set prefix=(memdisk)/boot/grub
+insmod part_gpt
+insmod part_msdos
+insmod fat
+insmod iso9660
+insmod search
+insmod search_fs_file
+insmod normal
+insmod configfile
+insmod linux
+insmod all_video
+
+search --file --no-floppy --set=root /live/vmlinuz
+set prefix=($root)/boot/grub
+configfile ($root)/boot/grub/grub.cfg
+EOF
+
+    # Build standalone 64-bit EFI executable
+    grub-mkstandalone \
+        -O x86_64-efi \
+        -o "$BUILD_ROOT/BOOTX64.EFI" \
+        "boot/grub/grub.cfg=$BUILD_ROOT/grub-early.cfg"
+
+    cp "$BUILD_ROOT/BOOTX64.EFI" "$BUILD_ROOT/binary/EFI/BOOT/BOOTX64.EFI"
+
+    # Create FAT EFI boot image
+    truncate -s 16M "$BUILD_ROOT/efi.img"
+    mkfs.fat -F 16 -n "DAZEOS_EFI" "$BUILD_ROOT/efi.img"
+    mmd -i "$BUILD_ROOT/efi.img" ::/EFI ::/EFI/BOOT
+    mcopy -i "$BUILD_ROOT/efi.img" "$BUILD_ROOT/BOOTX64.EFI" ::/EFI/BOOT/BOOTX64.EFI
+    cp "$BUILD_ROOT/efi.img" "$BUILD_ROOT/binary/boot/grub/efi.img"
+
+    # Locate isohybrid MBR
+    ISOHDPFX=""
+    for candidate_mbr in \
+        "$BUILD_ROOT/chroot/usr/lib/ISOLINUX/isohdpfx.bin" \
+        "/usr/lib/ISOLINUX/isohdpfx.bin"; do
+        if [ -f "$candidate_mbr" ]; then
+            ISOHDPFX="$candidate_mbr"
+            break
+        fi
+    done
+
+    if [ -n "$ISOHDPFX" ]; then
+        echo "[build-image] Creating dual-firmware hybrid ISO with xorriso..."
+        $SUDO xorriso -as mkisofs \
+            -iso-level 3 \
+            -full-iso9660-filenames \
+            -volid "dazeos" \
+            -appid "DazeOS Live" \
+            -publisher "DazeOS" \
+            -isohybrid-mbr "$ISOHDPFX" \
+            -eltorito-boot isolinux/isolinux.bin \
+            -eltorito-catalog isolinux/boot.cat \
+            -no-emul-boot -boot-load-size 4 -boot-info-table \
+            -eltorito-alt-boot \
+            -e boot/grub/efi.img \
+            -no-emul-boot \
+            -isohybrid-gpt-basdat \
+            -follow-links \
+            -output "$BUILD_ROOT/binary.hybrid.iso" \
+            "$BUILD_ROOT/binary"
+    fi
+fi
 
 OUTPUT_ISO=""
 for candidate in binary.hybrid.iso live-image-amd64.hybrid.iso binary.iso live-image-amd64.iso; do

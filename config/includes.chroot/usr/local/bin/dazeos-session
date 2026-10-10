@@ -39,7 +39,7 @@ if [ ! -f "$JAR_PATH" ]; then
 fi
 
 echo "[dazeos-session] Starting DazeOS Window Manager..."
-"$JAVA_BIN" -jar "$JAR_PATH" wm >> "${HOME:-/tmp}/.dazeos-wm.log" 2>&1 &
+"$JAVA_BIN" --enable-native-access=ALL-UNNAMED -jar "$JAR_PATH" wm >> "${HOME:-/tmp}/.dazeos-wm.log" 2>&1 &
 WM_PID=$!
 echo "[dazeos-session] Window Manager started (PID $WM_PID)"
 

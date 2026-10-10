@@ -36,15 +36,14 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - Native Linux, the Java toolchain, live-build prerequisites, QEMU, and the documented development workflow are available in the configured environment.
 - Native X11 integration via JNA (`net.java.dev.jna:jna:5.14.0`) verified: root-window acquisition with `SubstructureRedirectMask`, window query/scan, `MapRequest` interception, `ConfigureRequest` geometry handling, `UnmapNotify`/`DestroyNotify` lifecycle, and clean shutdown verified against real Xvfb server in automated integration tests.
 - Fat JAR packaging and unified session launcher (`dazeos-session` starting WM daemon and application) implemented.
+- Dual-firmware (UEFI + BIOS) hybrid ISO generation via GRUB 2 x86_64 EFI standalone image and xorriso verified in QEMU under both legacy BIOS (Isolinux) and UEFI firmware (`/usr/share/ovmf/OVMF.fd`).
 
 ### In progress or incomplete
 
 - Client focus handling, close requests, transient windows, and ICCCM/EWMH support are in progress (M4).
-- Dual-firmware (UEFI) boot via GRUB EFI / xorriso is not yet embedded.
 
 ### Not yet verified
 
-- UEFI boot in QEMU.
 - Real hardware, graphics acceleration, firmware, WLAN, audio, suspend/resume, multiple displays, and USB boot have not been tested.
 - Security updates, image signing, rollback, persistence, installation, and release procedures are not defined.
 
@@ -71,7 +70,7 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** A clean build creates a non-empty ISO and its checksum verifies. The build result and any required environment assumptions are documented.
 
-### M1 — Boot and inspect the live image (BIOS Verified)
+### M1 — Boot and inspect the live image (Completed)
 
 **Goal:** Demonstrate that the image boots through both firmware paths and contains the intended runtime.
 
@@ -83,15 +82,16 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
    - Automatically logs in as `dazeos` on tty1.
    - Automatically starts Xorg and launches `dazeos-session`.
    - Displays `SwingDemoApplication` with fully functional mouse pointer tracking and interactive button clicks.
-2. **UEFI boot in QEMU (In progress):**
+2. **UEFI boot in QEMU (Verified):**
    ```bash
    qemu-system-x86_64 -enable-kvm -m 2048 -bios /usr/share/ovmf/OVMF.fd -usb -device usb-tablet -cdrom artifacts/dazeos-amd64.iso
    ```
-   - The current ISO uses Syslinux/Isolinux (BIOS only); OVMF enters UEFI shell because EFI system partition (`/EFI/BOOT/BOOTX64.EFI`) is not yet embedded.
-3. Confirm the live system reaches a shell and can locate the Java runtime, demo JAR, Xorg, and session scripts. (Verified)
-4. Graphical session and mouse interaction verified.
+   - Generated standalone 64-bit EFI bootloader (`BOOTX64.EFI`) using `grub-mkstandalone` with embedded memdisk and search/linux modules.
+   - Embedded FAT16 EFI boot image (`/boot/grub/efi.img`) and configured El Torito EFI boot catalog with `xorriso -isohybrid-gpt-basdat`.
+   - OVMF loads GRUB 2 EFI directly, boots Linux 6.12 kernel, logs in as `dazeos`, and renders desktop session.
+3. Live root filesystem usable, Java runtime and Xorg package set confirmed functional under both BIOS and UEFI.
 
-**Exit criteria:** BIOS boot evidenced, live root filesystem usable, Java runtime and Xorg package set confirmed functional. UEFI bootloader integration remains for full dual-firmware compliance.
+**Exit criteria:** Dual-firmware (BIOS + UEFI/OVMF) boot evidenced, live root filesystem usable, Java runtime and Xorg package set confirmed functional. (Achieved 2026-10-10)
 
 ### M2 — Make the session launcher reliable (Completed)
 

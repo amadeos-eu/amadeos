@@ -28,7 +28,8 @@ apt-get install --yes --no-install-recommends \
     openjdk-21-jre \
     fontconfig \
     fonts-dejavu-core \
-    ca-certificates
+    ca-certificates \
+    grub-efi-amd64-bin
 
 # Configure locales
 if [ -f /etc/locale.gen ]; then

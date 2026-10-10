@@ -22,3 +22,4 @@ openjdk-21-jre
 fontconfig
 fonts-dejavu-core
 ca-certificates
+grub-efi-amd64-bin

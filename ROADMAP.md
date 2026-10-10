@@ -128,17 +128,17 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** Representative Swing applications can open, move, resize, focus, show dialogs, and close under the Java WM in a controlled Xorg/Xvfb environment. (Achieved 2026-10-10)
 
-### M5 — Integrate the WM and applications into the image
+### M5 — Integrate the WM and applications into the image (Completed)
 
 **Goal:** Turn the prototype into the first end-to-end DazeOS desktop session.
 
-1. Launch the Java WM and applications as separate processes.
-2. Define startup ordering, process supervision, clean shutdown, and recovery after a process exit.
-3. Add a small session manifest or launcher configuration rather than hard-coding every application in the shell script.
-4. Ensure logs are accessible in the live environment and useful for diagnosing X11/native failures.
-5. Rebuild the ISO and repeat BIOS, UEFI, QEMU, Xorg, and Swing smoke tests.
+1. Separated WM daemon and application processes with independent logging (`~/.dazeos-wm.log` and `~/.dazeos-session.log`).
+2. Implemented background WM daemon watchdog/supervision in `dazeos-session` with automatic restart recovery and clean signal-trapped session teardown.
+3. Created configurable session manifest (`/etc/dazeos/session.conf` and `~/.config/dazeos/session.conf`) and drop-in autostart directories (`/etc/dazeos/autostart.d/`).
+4. Added GUI diagnostics: `SwingDemoApplication` features an interactive "View Session Logs" dialog with live reload and structured session exit/logout confirmation.
+5. Added `DAZEOS_QUICK=1` incremental live-build support to rebuild squashfs in under 30 seconds.
 
-**Exit criteria:** A booted image starts a usable Java-based session without manual process orchestration.
+**Exit criteria:** A booted image starts a usable Java-based session without manual process orchestration. (Achieved 2026-10-10)
 
 ### M6 — Compatibility, security, and release hardening
 

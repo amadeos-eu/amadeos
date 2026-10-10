@@ -1,12 +1,33 @@
 #!/bin/sh
-# DazeOS X11 session launcher
+# DazeOS X11 Desktop Session Launcher & Supervisor (Milestone M5)
+set -u
 
-LOG_FILE="${HOME:-/tmp}/.dazeos-session.log"
-exec > "$LOG_FILE" 2>&1
+# Default configuration values
+DAZEOS_JAR="${DAZEOS_JAR:-/opt/dazeos/dazeos-demo.jar}"
+JAVA_OPTS="${JAVA_OPTS:---enable-native-access=ALL-UNNAMED}"
+WM_ENABLED="${WM_ENABLED:-true}"
+WM_AUTO_RESTART="${WM_AUTO_RESTART:-true}"
+WM_LOG_FILE="${HOME:-/tmp}/.dazeos-wm.log"
+SESSION_LOG_FILE="${HOME:-/tmp}/.dazeos-session.log"
+AUTOSTART_APP="${AUTOSTART_APP:-demo}"
 
+# Load system configuration manifest if present
+if [ -f "/etc/dazeos/session.conf" ]; then
+    . "/etc/dazeos/session.conf"
+fi
+
+# Load user configuration manifest override if present
+USER_CONF="${XDG_CONFIG_HOME:-$HOME/.config}/dazeos/session.conf"
+if [ -f "$USER_CONF" ]; then
+    . "$USER_CONF"
+fi
+
+# Redirect stdout/stderr to session log file
+exec > "$SESSION_LOG_FILE" 2>&1
 echo "[dazeos-session] Starting session at $(date)"
+echo "[dazeos-session] Session config: JAR=$DAZEOS_JAR, WM_ENABLED=$WM_ENABLED, AUTO_RESTART=$WM_AUTO_RESTART"
 
-# Auto-detect or use JAVA_HOME
+# Detect Java runtime
 if [ -z "${JAVA_HOME:-}" ]; then
     if [ -d "/usr/lib/jvm/java-21-openjdk-amd64" ]; then
         export JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"
@@ -17,8 +38,6 @@ fi
 
 JAVA_BIN="${JAVA_HOME:+$JAVA_HOME/bin/java}"
 JAVA_BIN="${JAVA_BIN:-$(command -v java 2>/dev/null || true)}"
-
-JAR_PATH="${DAZEOS_JAR:-/opt/dazeos/dazeos-demo.jar}"
 
 report_error_and_fallback() {
     msg="$1"
@@ -34,23 +53,89 @@ if [ -z "$JAVA_BIN" ] || [ ! -x "$JAVA_BIN" ]; then
     report_error_and_fallback "Java runtime not found. Please install OpenJDK 21."
 fi
 
-if [ ! -f "$JAR_PATH" ]; then
-    report_error_and_fallback "DazeOS application JAR not found at $JAR_PATH."
+if [ ! -f "$DAZEOS_JAR" ]; then
+    report_error_and_fallback "DazeOS application JAR not found at $DAZEOS_JAR."
 fi
 
-echo "[dazeos-session] Starting DazeOS Window Manager..."
-"$JAVA_BIN" --enable-native-access=ALL-UNNAMED -jar "$JAR_PATH" wm >> "${HOME:-/tmp}/.dazeos-wm.log" 2>&1 &
-WM_PID=$!
-echo "[dazeos-session] Window Manager started (PID $WM_PID)"
+SESSION_ACTIVE=1
+WM_SUPERVISOR_PID=""
+WM_CHILD_PID=""
 
-cleanup() {
-    echo "[dazeos-session] Terminating session..."
-    kill "$WM_PID" 2>/dev/null || true
+cleanup_session() {
+    echo "[dazeos-session] Cleaning up session processes..."
+    SESSION_ACTIVE=0
+    if [ -n "$WM_CHILD_PID" ]; then
+        kill "$WM_CHILD_PID" 2>/dev/null || true
+    fi
+    if [ -n "$WM_SUPERVISOR_PID" ]; then
+        kill "$WM_SUPERVISOR_PID" 2>/dev/null || true
+    fi
+    echo "[dazeos-session] Session terminated cleanly at $(date)"
 }
-trap cleanup EXIT INT TERM
+trap cleanup_session EXIT INT TERM HUP
 
-# Brief delay to allow the window manager to claim the root window
-sleep 0.5
+# Start Window Manager under supervision
+if [ "$WM_ENABLED" = "true" ]; then
+    echo "[dazeos-session] Launching DazeOS Window Manager supervisor..."
+    (
+        while [ "$SESSION_ACTIVE" = "1" ]; do
+            echo "[dazeos-wm-supervisor] Spawning WM daemon..." >> "$WM_LOG_FILE"
+            "$JAVA_BIN" $JAVA_OPTS -jar "$DAZEOS_JAR" wm >> "$WM_LOG_FILE" 2>&1 &
+            CURR_WM_PID=$!
+            echo "$CURR_WM_PID" > "${HOME:-/tmp}/.dazeos-wm.pid"
+            wait "$CURR_WM_PID"
+            EXIT_CODE=$?
+            echo "[dazeos-wm-supervisor] WM daemon exited with code $EXIT_CODE" >> "$WM_LOG_FILE"
+            
+            if [ "$SESSION_ACTIVE" = "1" ] && [ "$WM_AUTO_RESTART" = "true" ]; then
+                echo "[dazeos-wm-supervisor] Auto-restarting WM daemon in 1s..." >> "$WM_LOG_FILE"
+                sleep 1
+            else
+                break
+            fi
+        done
+    ) &
+    WM_SUPERVISOR_PID=$!
+    echo "[dazeos-session] WM supervisor started (PID $WM_SUPERVISOR_PID)"
 
-echo "[dazeos-session] Starting DazeOS application..."
-"$JAVA_BIN" -jar "$JAR_PATH" demo "$@"
+    # Wait for Window Manager readiness (poll for EWMH property or brief settling delay)
+    READY=0
+    for i in 1 2 3 4 5 6 7 8 9 10; do
+        if command -v xprop >/dev/null 2>&1; then
+            if xprop -root _NET_SUPPORTING_WM_CHECK 2>/dev/null | grep -q "window id"; then
+                echo "[dazeos-session] Window Manager initialized and claimed EWMH support (iteration $i)"
+                READY=1
+                break
+            fi
+        fi
+        sleep 0.1
+    done
+    if [ "$READY" -eq 0 ]; then
+        echo "[dazeos-session] Window Manager started (proceeding after settling delay)"
+    fi
+fi
+
+# Run drop-in autostart scripts
+for autostart_dir in "/etc/dazeos/autostart.d" "${XDG_CONFIG_HOME:-$HOME/.config}/dazeos/autostart.d"; do
+    if [ -d "$autostart_dir" ]; then
+        for script in "$autostart_dir"/*; do
+            if [ -x "$script" ] && [ ! -d "$script" ]; then
+                echo "[dazeos-session] Executing autostart script: $script"
+                "$script" &
+            fi
+        done
+    fi
+done
+
+# Launch primary application
+echo "[dazeos-session] Starting primary application: $AUTOSTART_APP"
+if [ "$AUTOSTART_APP" = "demo" ]; then
+    "$JAVA_BIN" $JAVA_OPTS -jar "$DAZEOS_JAR" demo "$@"
+else
+    # Execute configured custom command
+    eval "$AUTOSTART_APP" "$@"
+fi
+APP_EXIT_CODE=$?
+echo "[dazeos-session] Primary application exited with code $APP_EXIT_CODE"
+
+exit "$APP_EXIT_CODE"

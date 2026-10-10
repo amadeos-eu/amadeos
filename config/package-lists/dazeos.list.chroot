@@ -18,6 +18,7 @@ dbus
 dbus-x11
 libpam-systemd
 x11-xserver-utils
+x11-utils
 openjdk-21-jre
 fontconfig
 fonts-dejavu-core

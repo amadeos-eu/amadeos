@@ -33,7 +33,7 @@ else
     SUDO="sudo"
 fi
 
-BOOTAPPEND="boot=live components username=dazeos user-password=dazeos hostname=dazeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,sudo,input"
+BOOTAPPEND="boot=live components username=dazeos user-password=dazeos keyboard-layouts=de hostname=dazeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,sudo,input"
 
 if [ "${DAZEOS_PACKAGE_ONLY:-0}" = "1" ]; then
     echo "[build-image] Package-only mode requested; packaging existing $BUILD_ROOT/binary..."
@@ -47,6 +47,12 @@ elif [ "${DAZEOS_QUICK:-0}" = "1" ] || [ "${DAZEOS_REPACK_ROOTFS:-0}" = "1" ]; t
     $SUDO cp -a "$CONFIG_DIR/includes.chroot/." "$BUILD_ROOT/chroot/"
     $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/dazeos-dm" 2>/dev/null || true
     $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/dazeos-session" 2>/dev/null || true
+    # Update bootloader live.cfg kernel cmdline with user-password=dazeos and keyboard-layouts=de
+    if [ -f "$BUILD_ROOT/binary/isolinux/live.cfg" ]; then
+        $SUDO sed -i 's/username=dazeos/username=dazeos user-password=dazeos keyboard-layouts=de/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
+        $SUDO sed -i 's/user-password=dazeos user-password=dazeos/user-password=dazeos/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
+        $SUDO sed -i 's/keyboard-layouts=de keyboard-layouts=de/keyboard-layouts=de/g' "$BUILD_ROOT/binary/isolinux/live.cfg"
+    fi
     $SUDO rm -f "$BUILD_ROOT/binary/live/filesystem.squashfs"
     $SUDO mksquashfs "$BUILD_ROOT/chroot" "$BUILD_ROOT/binary/live/filesystem.squashfs" -comp xz -noappend
     cd "$BUILD_ROOT"

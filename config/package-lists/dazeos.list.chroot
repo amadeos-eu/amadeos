@@ -13,7 +13,9 @@ xserver-xorg-input-all
 xserver-xorg-video-all
 xserver-xorg-legacy
 xinit
+dbus
 dbus-x11
+libpam-systemd
 x11-xserver-utils
 openjdk-21-jre
 fontconfig

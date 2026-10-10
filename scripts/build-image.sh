@@ -59,7 +59,7 @@ LB=($SUDO lb)
     --architectures amd64 \
     --initsystem systemd \
     --binary-images iso-hybrid \
-    --bootappend-live "boot=live components username=dazeos hostname=dazeos" \
+    --bootappend-live "boot=live components username=dazeos hostname=dazeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,sudo,input" \
     --archive-areas "main contrib non-free non-free-firmware" \
     --mirror-bootstrap http://deb.debian.org/debian \
     --mirror-chroot http://deb.debian.org/debian \

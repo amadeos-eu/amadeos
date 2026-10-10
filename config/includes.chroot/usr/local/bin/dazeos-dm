@@ -38,15 +38,26 @@ if [ ! -e "/tmp/.X11-unix/X0" ]; then
 fi
 
 export DISPLAY=:0
+
+# Authorize local users to connect to the X server (prevents "No protocol specified" when user session launches)
+if command -v xhost >/dev/null 2>&1; then
+    echo "[dazeos-dm] Authorizing local users on X server..."
+    xhost +local: 2>/dev/null || xhost + 2>/dev/null || true
+fi
+
 if [ -f /etc/default/locale ]; then
     . /etc/default/locale
 fi
 export LANG="${LANG:-de_DE.UTF-8}"
 export LC_ALL="${LC_ALL:-de_DE.UTF-8}"
 
-# Ensure dazeos user password is set to 'dazeos' in /etc/shadow
+# Ensure dazeos user password is set to 'dazeos' in /etc/shadow and home directory permissions are clean
 if id dazeos >/dev/null 2>&1; then
     echo 'dazeos:$6$1xsQWb3aVS24Y0d3$hLitNURnkFyQQkuwtsUm22cS0WOWkwuiAb9J.woJ8MC9WGM9cTWvZ8Hhu7rsFoA8s4R5.ci60U/w1tj6RIS3T1' | chpasswd -e 2>/dev/null || true
+    if [ -d /home/dazeos ]; then
+        chown -R dazeos:dazeos /home/dazeos 2>/dev/null || true
+        rm -f /home/dazeos/.dazeos-session.log /home/dazeos/.dazeos-wm.log /home/dazeos/.dazeos-panel.lock /home/dazeos/.dazeos-wm.pid 2>/dev/null || true
+    fi
 fi
 
 # Configure keyboard layout (German primary with US fallback)

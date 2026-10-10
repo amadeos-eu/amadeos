@@ -2,6 +2,16 @@
 # DazeOS X11 Desktop Session Launcher & Supervisor (Milestone M5)
 set -u
 
+# Ensure display is configured
+if [ $# -gt 0 ] && [ -n "$1" ]; then
+    export DISPLAY="$1"
+else
+    export DISPLAY="${DISPLAY:-:0}"
+fi
+
+export HOME="${HOME:-/home/$(id -un 2>/dev/null || echo dazeos)}"
+export USER="${USER:-$(id -un 2>/dev/null || echo dazeos)}"
+
 # Default configuration values
 DAZEOS_JAR="${DAZEOS_JAR:-/opt/dazeos/dazeos-demo.jar}"
 JAVA_OPTS="${JAVA_OPTS:---enable-native-access=ALL-UNNAMED}"
@@ -22,10 +32,18 @@ if [ -f "$USER_CONF" ]; then
     . "$USER_CONF"
 fi
 
+# Ensure log files are writable by current user; fallback to /tmp if necessary
+if ! touch "$SESSION_LOG_FILE" 2>/dev/null; then
+    SESSION_LOG_FILE="/tmp/.dazeos-session-$(id -u 2>/dev/null || echo 1000).log"
+fi
+if ! touch "$WM_LOG_FILE" 2>/dev/null; then
+    WM_LOG_FILE="/tmp/.dazeos-wm-$(id -u 2>/dev/null || echo 1000).log"
+fi
+
 # Redirect stdout/stderr to session log file
 exec > "$SESSION_LOG_FILE" 2>&1
 echo "[dazeos-session] Starting session at $(date)"
-echo "[dazeos-session] Session config: JAR=$DAZEOS_JAR, WM_ENABLED=$WM_ENABLED, AUTO_RESTART=$WM_AUTO_RESTART"
+echo "[dazeos-session] Session config: JAR=$DAZEOS_JAR, DISPLAY=$DISPLAY, WM_ENABLED=$WM_ENABLED, AUTO_RESTART=$WM_AUTO_RESTART"
 
 # Detect Java runtime
 if [ -z "${JAVA_HOME:-}" ]; then
@@ -86,8 +104,8 @@ if [ "$WM_ENABLED" = "true" ]; then
     echo "[dazeos-session] Launching DazeOS Window Manager supervisor..."
     (
         while [ "$SESSION_ACTIVE" = "1" ]; do
-            echo "[dazeos-wm-supervisor] Spawning WM daemon..." >> "$WM_LOG_FILE"
-            "$JAVA_BIN" $JAVA_OPTS -jar "$DAZEOS_JAR" wm >> "$WM_LOG_FILE" 2>&1 &
+            echo "[dazeos-wm-supervisor] Spawning WM daemon on $DISPLAY..." >> "$WM_LOG_FILE"
+            "$JAVA_BIN" $JAVA_OPTS -jar "$DAZEOS_JAR" wm "$DISPLAY" >> "$WM_LOG_FILE" 2>&1 &
             CURR_WM_PID=$!
             echo "$CURR_WM_PID" > "${HOME:-/tmp}/.dazeos-wm.pid"
             wait "$CURR_WM_PID"

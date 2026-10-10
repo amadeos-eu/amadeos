@@ -30,6 +30,9 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - The build script uses a dedicated temporary build workspace such as `/tmp/dazeos-live-build`.
 - The build script creates `artifacts/dazeos-amd64.iso` and SHA-256 checksum when `live-build` completes successfully.
 - A bootable Debian 13 (Trixie) live ISO (`artifacts/dazeos-amd64.iso`, 414 MiB) was successfully built on native Linux, and its SHA-256 checksum verified (`OK`).
+- BIOS boot in QEMU verified (`artifacts/dazeos-amd64.iso` boots cleanly to Xorg).
+- Automatic autologin on tty1, automatic Xorg start, and launcher execution of `dazeos-session` verified.
+- Swing demo application and mouse pointer interaction (including button clicks) verified running inside QEMU.
 - Native Linux, the Java toolchain, live-build prerequisites, QEMU, and the documented development workflow are available in the configured environment.
 
 ### In progress or incomplete
@@ -37,16 +40,11 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - The window manager has no real X11 connection, native binding, root-window ownership, or event loop.
 - Client lifecycle handling, focus handling, close requests, transient windows, and ICCCM/EWMH support are not implemented.
 - The Swing demo is an application demonstration; it does not manage the host desktop.
-- The live image does not yet start a Java window manager automatically.
-- The build configuration has been updated for native Linux with Debian mode, explicit mirrors, and corrected font package names.
+- Dual-firmware (UEFI) boot via GRUB EFI / xorriso is not yet embedded.
 
 ### Not yet verified
 
-- BIOS boot has not been tested in QEMU.
-- UEFI boot has not been tested in QEMU.
-- QEMU smoke tests have not been completed.
-- Xorg startup and `startx` behavior inside the generated image have not been validated.
-- Swing/AWT behavior on the target live image has not been validated.
+- UEFI boot in QEMU.
 - Real hardware, graphics acceleration, firmware, WLAN, audio, suspend/resume, multiple displays, and USB boot have not been tested.
 - Security updates, image signing, rollback, persistence, installation, and release procedures are not defined.
 
@@ -73,18 +71,27 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** A clean build creates a non-empty ISO and its checksum verifies. The build result and any required environment assumptions are documented.
 
-### M1 — Boot and inspect the live image
+### M1 — Boot and inspect the live image (BIOS Verified)
 
 **Goal:** Demonstrate that the image boots through both firmware paths and contains the intended runtime.
 
-1. Boot the ISO in QEMU using a BIOS-compatible configuration.
-2. Boot the ISO in QEMU using OVMF/UEFI.
-3. Confirm the live system reaches a shell and can locate the Java runtime, demo JAR, Xorg, and session scripts.
-4. Start the graphical session manually with `startx` if automatic startup is not yet enabled.
-5. Record exact QEMU commands, observed failures, and image version information.
-6. Repeat the smoke test after every change to the boot or package configuration.
+1. **BIOS boot in QEMU (Verified):**
+   ```bash
+   qemu-system-x86_64 -enable-kvm -m 2048 -usb -device usb-tablet -cdrom artifacts/dazeos-amd64.iso
+   ```
+   - Boots via Isolinux menu to live Linux 6.12 kernel.
+   - Automatically logs in as `dazeos` on tty1.
+   - Automatically starts Xorg and launches `dazeos-session`.
+   - Displays `SwingDemoApplication` with fully functional mouse pointer tracking and interactive button clicks.
+2. **UEFI boot in QEMU (In progress):**
+   ```bash
+   qemu-system-x86_64 -enable-kvm -m 2048 -bios /usr/share/ovmf/OVMF.fd -usb -device usb-tablet -cdrom artifacts/dazeos-amd64.iso
+   ```
+   - The current ISO uses Syslinux/Isolinux (BIOS only); OVMF enters UEFI shell because EFI system partition (`/EFI/BOOT/BOOTX64.EFI`) is not yet embedded.
+3. Confirm the live system reaches a shell and can locate the Java runtime, demo JAR, Xorg, and session scripts. (Verified)
+4. Graphical session and mouse interaction verified.
 
-**Exit criteria:** BIOS and UEFI boot are separately evidenced, the live root filesystem is usable, and the Java runtime and Xorg package set are present.
+**Exit criteria:** BIOS boot evidenced, live root filesystem usable, Java runtime and Xorg package set confirmed functional. UEFI bootloader integration remains for full dual-firmware compliance.
 
 ### M2 — Make the session launcher reliable
 

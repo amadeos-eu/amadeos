@@ -13,3 +13,4 @@ Place custom `.deb` packages for user-space applications (e.g. `amade-pad`, `ama
 - Installs Freedesktop desktop entry in `/usr/share/applications/<app-name>.desktop` with appropriate `Categories=...`
 - Installs application icons in `/usr/share/icons/hicolor/<size>/apps/<app-name>.png` or `/usr/share/pixmaps/<app-name>.png`
 - amadeOS automatically parses `.desktop` files and populates CDE Front Panel drawers dynamically!
+

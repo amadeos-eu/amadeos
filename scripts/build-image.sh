@@ -101,8 +101,8 @@ else
     "${LB[@]}" build
 fi
 
-# Reclaim ownership of binary directory for non-root build operations
-if [ -n "$SUDO" ] && [ -d "$BUILD_ROOT/binary" ]; then
+# Reclaim ownership of binary directory for non-root build operations if needed
+if [ -n "$SUDO" ] && [ -d "$BUILD_ROOT/binary" ] && [ "$(stat -c '%u' "$BUILD_ROOT/binary" 2>/dev/null)" -ne "$(id -u)" ]; then
     $SUDO chown -R "$(id -u):$(id -g)" "$BUILD_ROOT/binary"
 fi
 
@@ -188,6 +188,7 @@ EOF
 
     if [ -n "$ISOHDPFX" ]; then
         echo "[build-image] Creating dual-firmware hybrid ISO with xorriso..."
+        rm -f "$BUILD_ROOT"/binary*.iso "$BUILD_ROOT"/live-image*.iso
         xorriso -as mkisofs \
             -iso-level 3 \
             -full-iso9660-filenames \

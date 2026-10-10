@@ -48,6 +48,14 @@ elif [ "${AMADEOS_QUICK:-0}" = "1" ] || [ "${AMADEOS_REPACK_ROOTFS:-0}" = "1" ];
     $SUDO cp -a "$CONFIG_DIR/includes.chroot/." "$BUILD_ROOT/chroot/"
     $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/amadeos-dm" 2>/dev/null || true
     $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/amadeos-session" 2>/dev/null || true
+
+    # Install drop-in packages from config/packages.chroot if present
+    if compgen -G "$CONFIG_DIR/packages.chroot/*.deb" >/dev/null; then
+        echo "[build-image] Installing drop-in packages from packages.chroot into chroot..."
+        $SUDO cp "$CONFIG_DIR/packages.chroot/"*.deb "$BUILD_ROOT/chroot/tmp/"
+        $SUDO chroot "$BUILD_ROOT/chroot" sh -c 'dpkg -i /tmp/*.deb 2>/dev/null || apt-get install -f -y'
+        $SUDO rm -f "$BUILD_ROOT/chroot/tmp/"*.deb
+    fi
     # Update bootloader live.cfg kernel cmdline with user-password=amadeos, keyboard-layouts=de, and locales=de_DE.UTF-8
     if [ -f "$BUILD_ROOT/binary/isolinux/live.cfg" ]; then
         $SUDO sed -i 's/username=[a-zA-Z0-9]*/username=amadeos user-password=amadeos keyboard-layouts=de locales=de_DE.UTF-8/g' "$BUILD_ROOT/binary/isolinux/live.cfg"

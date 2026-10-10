@@ -30,71 +30,81 @@ else
     SUDO="sudo"
 fi
 
-for mount_point in \
-    "$BUILD_ROOT/chroot/dev/pts" \
-    "$BUILD_ROOT/chroot/dev" \
-    "$BUILD_ROOT/chroot/proc" \
-    "$BUILD_ROOT/chroot/sys"; do
-    $SUDO umount -R -lf "$mount_point" 2>/dev/null || true
-done
-$SUDO rm -rf "$BUILD_ROOT"
-mkdir -p "$BUILD_ROOT"
-cp -a "$CONFIG_DIR" "$BUILD_ROOT/config"
-cp -a "$JAR_PATH" "$BUILD_ROOT/config/includes.chroot/opt/dazeos/dazeos-demo.jar"
-
-cd "$BUILD_ROOT"
-rm -rf chroot binary cache
-
-# Modern tmpfs /tmp is mounted with nodev, which prevents opening newly created
-# device nodes like /dev/null with EACCES (13: Permission denied).
-# Bind the host distribution's /dev so package post-install scripts and APT can use /dev/null.
-mkdir -p "$BUILD_ROOT/chroot/dev"
-$SUDO mount --bind /dev "$BUILD_ROOT/chroot/dev"
-
-cleanup_dev_mount() {
-    $SUDO umount -R -lf "$BUILD_ROOT/chroot/dev" 2>/dev/null || true
-}
-trap cleanup_dev_mount EXIT
-
-LB=($SUDO lb)
-
 BOOTAPPEND="boot=live components username=dazeos hostname=dazeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,sudo,input"
 
-"${LB[@]}" config \
-    --mode debian \
-    --distribution trixie \
-    --architectures amd64 \
-    --initsystem systemd \
-    --binary-images iso-hybrid \
-    --bootappend-live "$BOOTAPPEND" \
-    --archive-areas "main contrib non-free non-free-firmware" \
-    --mirror-bootstrap http://deb.debian.org/debian \
-    --mirror-chroot http://deb.debian.org/debian \
-    --mirror-binary http://deb.debian.org/debian \
-    --parent-mirror-bootstrap http://deb.debian.org/debian \
-    --parent-mirror-chroot http://deb.debian.org/debian \
-    --parent-mirror-binary http://deb.debian.org/debian \
-    --security false \
-    --apt-recommends false \
-    --firmware-chroot false \
-    --firmware-binary false \
-    --memtest none \
-    --debian-installer false \
-    --debian-installer-gui false \
-    --cache false
+if [ "${DAZEOS_PACKAGE_ONLY:-0}" = "1" ]; then
+    echo "[build-image] Package-only mode requested; packaging existing $BUILD_ROOT/binary..."
+    cd "$BUILD_ROOT"
+else
+    for mount_point in \
+        "$BUILD_ROOT/chroot/dev/pts" \
+        "$BUILD_ROOT/chroot/dev" \
+        "$BUILD_ROOT/chroot/proc" \
+        "$BUILD_ROOT/chroot/sys"; do
+        $SUDO umount -R -lf "$mount_point" 2>/dev/null || true
+    done
+    $SUDO rm -rf "$BUILD_ROOT"
+    mkdir -p "$BUILD_ROOT"
+    cp -a "$CONFIG_DIR" "$BUILD_ROOT/config"
+    cp -a "$JAR_PATH" "$BUILD_ROOT/config/includes.chroot/opt/dazeos/dazeos-demo.jar"
 
-# Ubuntu's live-build 3.0 contains a downstream bug in lb_binary_syslinux where it
-# unconditionally redirects from ${_TARGET}/bootlogo even in Debian mode where gfxboot is not used.
-if grep -q '< \${_TARGET}/bootlogo' /usr/lib/live/build/lb_binary_syslinux 2>/dev/null && \
-   ! grep -q 'if \[ -e "\${_TARGET}/bootlogo" \]; then' /usr/lib/live/build/lb_binary_syslinux 2>/dev/null; then
-    $SUDO sed -i 's|tmpdir="\$(mktemp -d)"|if [ -e "\${_TARGET}/bootlogo" ]; then\n&|; s|rm -rf "\$tmpdir"|&\nfi|' /usr/lib/live/build/lb_binary_syslinux 2>/dev/null || true
+    cd "$BUILD_ROOT"
+    rm -rf chroot binary cache
+
+    # Modern tmpfs /tmp is mounted with nodev, which prevents opening newly created
+    # device nodes like /dev/null with EACCES (13: Permission denied).
+    # Bind the host distribution's /dev so package post-install scripts and APT can use /dev/null.
+    mkdir -p "$BUILD_ROOT/chroot/dev"
+    $SUDO mount --bind /dev "$BUILD_ROOT/chroot/dev"
+
+    cleanup_dev_mount() {
+        $SUDO umount -R -lf "$BUILD_ROOT/chroot/dev" 2>/dev/null || true
+    }
+    trap cleanup_dev_mount EXIT
+
+    LB=($SUDO lb)
+
+    "${LB[@]}" config \
+        --mode debian \
+        --distribution trixie \
+        --architectures amd64 \
+        --initsystem systemd \
+        --binary-images iso-hybrid \
+        --bootappend-live "$BOOTAPPEND" \
+        --archive-areas "main contrib non-free non-free-firmware" \
+        --mirror-bootstrap http://deb.debian.org/debian \
+        --mirror-chroot http://deb.debian.org/debian \
+        --mirror-binary http://deb.debian.org/debian \
+        --parent-mirror-bootstrap http://deb.debian.org/debian \
+        --parent-mirror-chroot http://deb.debian.org/debian \
+        --parent-mirror-binary http://deb.debian.org/debian \
+        --security false \
+        --apt-recommends false \
+        --firmware-chroot false \
+        --firmware-binary false \
+        --memtest none \
+        --debian-installer false \
+        --debian-installer-gui false \
+        --cache false
+
+    # Ubuntu's live-build 3.0 contains a downstream bug in lb_binary_syslinux where it
+    # unconditionally redirects from ${_TARGET}/bootlogo even in Debian mode where gfxboot is not used.
+    if grep -q '< \${_TARGET}/bootlogo' /usr/lib/live/build/lb_binary_syslinux 2>/dev/null && \
+       ! grep -q 'if \[ -e "\${_TARGET}/bootlogo" \]; then' /usr/lib/live/build/lb_binary_syslinux 2>/dev/null; then
+        $SUDO sed -i 's|tmpdir="\$(mktemp -d)"|if [ -e "\${_TARGET}/bootlogo" ]; then\n&|; s|rm -rf "\$tmpdir"|&\nfi|' /usr/lib/live/build/lb_binary_syslinux 2>/dev/null || true
+    fi
+
+    if grep -q 'Check_package chroot/usr/bin/isohybrid syslinux$' /usr/lib/live/build/lb_binary_iso 2>/dev/null; then
+        $SUDO sed -i 's|Check_package chroot/usr/bin/isohybrid syslinux|Check_package chroot/usr/bin/isohybrid syslinux-utils|' /usr/lib/live/build/lb_binary_iso 2>/dev/null || true
+    fi
+
+    "${LB[@]}" build
 fi
 
-if grep -q 'Check_package chroot/usr/bin/isohybrid syslinux$' /usr/lib/live/build/lb_binary_iso 2>/dev/null; then
-    $SUDO sed -i 's|Check_package chroot/usr/bin/isohybrid syslinux|Check_package chroot/usr/bin/isohybrid syslinux-utils|' /usr/lib/live/build/lb_binary_iso 2>/dev/null || true
+# Reclaim ownership of binary directory for non-root build operations
+if [ -n "$SUDO" ] && [ -d "$BUILD_ROOT/binary" ]; then
+    $SUDO chown -R "$(id -u):$(id -g)" "$BUILD_ROOT/binary"
 fi
-
-"${LB[@]}" build
 
 # Enhance ISO with UEFI bootloader support (Dual-Firmware: BIOS + UEFI)
 if command -v grub-mkstandalone >/dev/null 2>&1 && \
@@ -178,7 +188,7 @@ EOF
 
     if [ -n "$ISOHDPFX" ]; then
         echo "[build-image] Creating dual-firmware hybrid ISO with xorriso..."
-        $SUDO xorriso -as mkisofs \
+        xorriso -as mkisofs \
             -iso-level 3 \
             -full-iso9660-filenames \
             -volid "dazeos" \

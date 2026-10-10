@@ -20,6 +20,7 @@ apt-get install --yes --no-install-recommends \
     xserver-xorg-video-all \
     xserver-xorg-legacy \
     xinit \
+    xterm \
     dbus \
     dbus-x11 \
     libpam-systemd \

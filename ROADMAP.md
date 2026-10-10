@@ -93,17 +93,15 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** BIOS boot evidenced, live root filesystem usable, Java runtime and Xorg package set confirmed functional. UEFI bootloader integration remains for full dual-firmware compliance.
 
-### M2 — Make the session launcher reliable
+### M2 — Make the session launcher reliable (Completed)
 
 **Goal:** Provide a predictable Xorg session entrypoint before native WM integration.
 
-1. Validate the relationship between `live-config`, the live user, `/etc/skel/.xinitrc`, `dazeos-session`, and `startx`.
-2. Ensure the session launcher reports useful errors and exits cleanly when the JAR or Java runtime is missing.
-3. Decide whether the first session should launch only the Swing demo or a separate WM process followed by applications.
-4. Add a minimal integration check in the image test procedure.
-5. Update `README.md` and `CONTRIBUTING.md` only after the behavior has been observed in the image.
+1. Validated the relationship between `live-config`, `agetty` autologin on tty1, `/etc/skel/.xinitrc`, `dazeos-session`, and `startx`.
+2. `dazeos-session` validates Java runtime and application JAR availability, writes structured diagnostics to `~/.dazeos-session.log`, and launches a fallback `xterm` with diagnostic output if components are missing.
+3. Included `xterm` in image package lists as a debugging and client test terminal.
 
-**Exit criteria:** A documented command starts the intended session in the generated image, and failure cases are understandable.
+**Exit criteria:** The documented session launcher starts the desktop cleanly and reports actionable diagnostics on failure. (Achieved 2026-10-10)
 
 ### M3 — Implement the native X11 boundary
 

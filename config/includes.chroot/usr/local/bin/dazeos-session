@@ -1,6 +1,42 @@
 #!/bin/sh
-set -eu
+# DazeOS X11 session launcher
 
-export JAVA_HOME="${JAVA_HOME:-/usr/lib/jvm/java-21-openjdk-amd64}"
-exec /usr/bin/java -jar /opt/dazeos/dazeos-demo.jar
+LOG_FILE="${HOME:-/tmp}/.dazeos-session.log"
+exec > "$LOG_FILE" 2>&1
 
+echo "[dazeos-session] Starting session at $(date)"
+
+# Auto-detect or use JAVA_HOME
+if [ -z "${JAVA_HOME:-}" ]; then
+    if [ -d "/usr/lib/jvm/java-21-openjdk-amd64" ]; then
+        export JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"
+    elif [ -d "/usr/lib/jvm/default-java" ]; then
+        export JAVA_HOME="/usr/lib/jvm/default-java"
+    fi
+fi
+
+JAVA_BIN="${JAVA_HOME:+$JAVA_HOME/bin/java}"
+JAVA_BIN="${JAVA_BIN:-$(command -v java 2>/dev/null || true)}"
+
+JAR_PATH="${DAZEOS_JAR:-/opt/dazeos/dazeos-demo.jar}"
+
+report_error_and_fallback() {
+    msg="$1"
+    echo "[dazeos-session] ERROR: $msg" >&2
+    if command -v xterm >/dev/null 2>&1; then
+        echo "[dazeos-session] Launching fallback xterm..." >&2
+        exec xterm -title "DazeOS Session Error" -hold -e sh -c "echo 'DazeOS Session Error:'; echo '$msg'; echo; echo 'Press Ctrl+C or close window to exit session.'; exec sh"
+    fi
+    exit 1
+}
+
+if [ -z "$JAVA_BIN" ] || [ ! -x "$JAVA_BIN" ]; then
+    report_error_and_fallback "Java runtime not found. Please install OpenJDK 21."
+fi
+
+if [ ! -f "$JAR_PATH" ]; then
+    report_error_and_fallback "DazeOS application JAR not found at $JAR_PATH."
+fi
+
+echo "[dazeos-session] Launching Java application: $JAR_PATH using $JAVA_BIN"
+exec "$JAVA_BIN" -jar "$JAR_PATH" "$@"

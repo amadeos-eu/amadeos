@@ -13,6 +13,7 @@ xserver-xorg-input-all
 xserver-xorg-video-all
 xserver-xorg-legacy
 xinit
+xterm
 dbus
 dbus-x11
 libpam-systemd

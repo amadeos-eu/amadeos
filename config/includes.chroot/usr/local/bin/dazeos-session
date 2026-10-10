@@ -9,7 +9,7 @@ WM_ENABLED="${WM_ENABLED:-true}"
 WM_AUTO_RESTART="${WM_AUTO_RESTART:-true}"
 WM_LOG_FILE="${HOME:-/tmp}/.dazeos-wm.log"
 SESSION_LOG_FILE="${HOME:-/tmp}/.dazeos-session.log"
-AUTOSTART_APP="${AUTOSTART_APP:-demo}"
+AUTOSTART_APP="${AUTOSTART_APP:-panel}"
 
 # Load system configuration manifest if present
 if [ -f "/etc/dazeos/session.conf" ]; then
@@ -136,8 +136,8 @@ done
 
 # Launch primary application
 echo "[dazeos-session] Starting primary application: $AUTOSTART_APP"
-if [ "$AUTOSTART_APP" = "demo" ]; then
-    "$JAVA_BIN" $JAVA_OPTS -jar "$DAZEOS_JAR" demo "$@"
+if [ "$AUTOSTART_APP" = "panel" ] || [ "$AUTOSTART_APP" = "cde-panel" ] || [ "$AUTOSTART_APP" = "demo" ]; then
+    "$JAVA_BIN" $JAVA_OPTS -jar "$DAZEOS_JAR" panel "$@"
 else
     # Execute configured custom command
     eval "$AUTOSTART_APP" "$@"

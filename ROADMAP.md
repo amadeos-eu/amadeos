@@ -43,7 +43,9 @@ flowchart LR
     M6 --> M7["M7: Reparenting & Decorations (Done)"]
     M7 --> M8["M8: Desktop Shell & Themes (Done)"]
     M8 --> M9["M9: Java Display Manager (Done)"]
-    M9 --> M10["M10: Release Hardening"]
+    M9 --> M10["M10: XDG App Discovery & .deb Apps"]
+    M10 --> M11["M11: Virtual Workspaces & Root Menu"]
+    M11 --> M12["M12: Release Hardening"]
 ```
 
 The architectural decisions and rejected alternatives are documented in [`CONCEPT.md`](CONCEPT.md).
@@ -72,7 +74,9 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 ### In progress or next
 
-- Compatibility, security, and release hardening (M10): font tests, keyboard layouts, packaging validation, and final live release verification.
+- **XDG application discovery & Debian `.deb` app ecosystem (M10):** Decouple user applications from the core desktop shell. User-space applications are maintained in independent repositories, packaged as Debian `.deb` packages (installed via `config/packages.chroot/`), while DazeOS parses XDG `.desktop` entries to dynamically populate Front Panel drawers by category.
+- **Virtual workspaces & desktop root window menu (M11):** EWMH 4-desktop switching (`_NET_NUMBER_OF_DESKTOPS` / `_NET_CURRENT_DESKTOP` / `_NET_WM_DESKTOP`) linked to CDE Front Panel pad, authentic Motif 3D right-click desktop root menu, and root cursor/backdrop polish.
+- **Compatibility, security, and release hardening (M12):** font tests, keyboard layouts, packaging validation, and final live release verification.
 
 ### Not yet verified
 
@@ -282,7 +286,55 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** Machine boots to a graphical Java login greeter, authenticates system users via PAM, and hands off execution to the user desktop session. (Achieved 2026-10-10)
 
-### M10 — Compatibility, security, and release hardening
+### M10 — XDG application discovery & Debian app ecosystem
+
+**Goal:** Decouple user-space applications from the core desktop shell. User applications (e.g. file manager, text editor, terminal, calculators) are developed in independent repositories, packaged as standard Debian `.deb` packages, and installed via Debian package management (`dpkg`, `apt`, or `config/packages.chroot/`). DazeOS provides dynamic XDG discovery and execution.
+
+1. **Freedesktop.org `.desktop` Parser & Indexer:**
+   - Implement an XDG Desktop Entry Specification parser reading `/usr/share/applications/`, `/usr/local/share/applications/`, and `~/.local/share/applications/`.
+   - Parse `Name`, `Exec`, `Icon`, `Categories`, `Terminal`, `Keywords`, `NoDisplay`, and `MimeType`.
+   - Resolve icon assets via standard XDG icon lookup paths (`/usr/share/pixmaps/`, icon themes) or Motif vector fallbacks.
+2. **Dynamic CDE Front Panel Drawer Population:**
+   - Map Front Panel drawers to standard XDG categories:
+     - 📁 **File Management:** `Categories=FileManager;System;`
+     - 📝 **Text Editors:** `Categories=TextEditor;Utility;`
+     - 📟 **Terminal Consoles:** `Categories=TerminalEmulator;System;`
+     - 📋 **Diagnostics & Monitoring:** `Categories=Monitor;System;`
+     - ⚙️ **Settings & Tools:** `Categories=Settings;DesktopSettings;`
+   - Populated drawers display primary launcher actions plus subpanels listing all installed matching Debian applications.
+   - Clean command execution supporting `Terminal=true` wrapping and environment preservation.
+3. **Debian Package Integration:**
+   - Enable drop-in `.deb` package support via `config/packages.chroot/` so custom user apps are installed automatically into the live ISO during `./build.sh`.
+   - Establish standard Debian packaging guidelines for independent DazeOS apps (JReleaser, Gradle `ospackage`, or Debian `dpkg-deb`).
+
+**Exit criteria:** Installing any Debian `.deb` application containing a valid `.desktop` file automatically populates the corresponding CDE Front Panel drawer and launches cleanly.
+
+### M11 — Virtual workspaces & desktop root window menu
+
+**Goal:** Provide authentic CDE 4-way virtual workspace management and the classic Motif 3D desktop root window menu.
+
+1. **EWMH Multi-Desktop / Virtual Workspaces:**
+   - Implement EWMH root window desktop properties:
+     - `_NET_NUMBER_OF_DESKTOPS` (fixed at 4: `One`, `Two`, `Three`, `Four`)
+     - `_NET_CURRENT_DESKTOP` (0..3)
+     - `_NET_WM_DESKTOP` assigned to each managed client window (or `0xFFFFFFFF` for sticky windows)
+   - Synchronize CDE Front Panel 4-way switcher buttons and amber/green status LEDs with active desktop state.
+   - Window Manager selectively unmaps/maps or hides/shows frame windows based on their associated workspace.
+2. **Motif 3D Desktop Root Window Menu:**
+   - Intercept root window clicks (Button 3 right-click / Button 1 left-click) in `X11WindowManagerService`.
+   - Render authentic Motif 3D beveled root popup menu:
+     - **Programs** (Submenus generated dynamically from XDG categories: Accessories, System, Development)
+     - **New Window** (`xterm`, Text Document, File Browser)
+     - **Window Management** (Cascade Windows, Tile Horizontally, Tile Vertically, Minimize All)
+     - **Desktop & Appearance Settings...**
+     - **Lock Screen / Log Out / Power...**
+3. **Root Window Visual Polish:**
+   - Initialize standard arrow pointer (`left_ptr`) on the root canvas on startup.
+   - Apply default UNIX slate background (`#4a6984`) or configured wallpaper upon session startup.
+
+**Exit criteria:** Windows are isolated across 4 workspaces toggled via the Front Panel, and right-clicking empty desktop space brings up the Motif root menu.
+
+### M12 — Compatibility, security, and release hardening
 
 **Goal:** Establish whether the complete desktop environment can be maintained and tested as a reproducible distribution.
 
@@ -301,14 +353,14 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 The following are intentionally outside the scope of current milestones:
 
 - replacing the Linux kernel or Debian low-level userland
-- a Wayland compositor (reassessed post-M10)
+- a Wayland compositor (reassessed post-M12)
 - compositing effects and 3D visual effects (drop shadows, blur, transparency)
 - persistence and installation to disk
 - Secure Boot signing
 - broad hardware certification
 - automatic runtime package updates
 
-*(Note: Server-side window decorations, reparenting WM, desktop panel/taskbar, and display manager were originally deferred, but are now scheduled in active milestones M6 through M9).*
+*(Note: Server-side window decorations, reparenting WM, desktop panel/taskbar, display manager, XDG discovery, and virtual workspaces were originally deferred, but are now scheduled in active milestones M6 through M11).*
 
 ## Working agreement for status updates
 

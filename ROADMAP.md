@@ -44,8 +44,8 @@ flowchart LR
     M7 --> M8["M8: Desktop Shell & Themes (Done)"]
     M8 --> M9["M9: Java Display Manager (Done)"]
     M9 --> M10["M10: XDG App Discovery & .deb Apps (Done)"]
-    M10 --> M11["M11: Virtual Workspaces & Root Menu (In Progress)"]
-    M11 --> M12["M12: Release Hardening"]
+    M10 --> M11["M11: Virtual Workspaces & Root Menu (Done)"]
+    M11 --> M12["M12: Release Hardening (In Progress)"]
 ```
 
 The architectural decisions and rejected alternatives are documented in [`CONCEPT.md`](CONCEPT.md).
@@ -82,11 +82,20 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - Incremental packaging mode `AMADEOS_QUICK=1` updating chroot and squashfs in under 30 seconds.
 - Session lifecycle & power management (M6): Session & Power Dialog offering Log Out, Exit to Shell (breaking out of the `startx` loop), Shut Down, and Reboot.
 - XDG Application Discovery & Debian App Ecosystem (M10): Freedesktop `.desktop` parser (`XdgDesktopEntryParser`), category mapping (`XdgCategory`), and app indexer (`XdgApplicationManager`). CDE Front Panel drawers dynamically populated by category with primary launcher actions. Drop-in `.deb` package support in `config/packages.chroot/`. First independent app [`amade-pad`](https://github.com/datazuul/amade-pad) built and packaged as Debian `.deb`.
+- **EWMH Virtual Workspaces & 4-Way Multi-Desktop Support (M11):**
+  - Full EWMH desktop property support (`_NET_NUMBER_OF_DESKTOPS = 4`, `_NET_CURRENT_DESKTOP`, `_NET_DESKTOP_NAMES = "One\0Two\0Three\0Four\0"`, `_NET_WM_DESKTOP`).
+  - Bidirectional synchronization between Front Panel switcher pad ("One", "Two", "Three", "Four"), root window properties, and Window Manager.
+  - Window isolation and selective mapping/unmapping of client frames and minimized icon tiles per workspace with sticky window support (`0xFFFFFFFF`).
+- **Motif 3D Desktop Root Window Menu (`DesktopRootMenu`, M11):**
+  - Interception of Button 3 (right-click) and Button 1 (dismiss) on the X11 root window background.
+  - Authentic Motif 3D popup menu featuring Programs (categorized XDG application submenus), New Window launchers, Workspaces switcher, Window Management (Shuffle Up, Shuffle Down, Minimize All, Restore All), Desktop Settings, Refresh Desktop, Screen Lock, and Session Exit dialog (`SessionDialogHelper`).
+- **Root Cursor & Window Stacking Order (M11):**
+  - Native X11 `XC_left_ptr` arrow cursor defined on the root window at startup.
+  - Window stacking ordering (`bringToFront`, `sendToBack`, `raise`, `lower`) in `WindowRegistry` and `WindowManagerCore` powering "Shuffle Up" and "Shuffle Down".
 
 ### In progress or next
 
-- **Virtual workspaces & desktop root window menu (M11):** EWMH 4-desktop switching (`_NET_NUMBER_OF_DESKTOPS` / `_NET_CURRENT_DESKTOP` / `_NET_WM_DESKTOP`) linked to CDE Front Panel pad, authentic Motif 3D right-click desktop root menu, and root cursor/backdrop polish.
-- **Compatibility, security, and release hardening (M12):** font tests, keyboard layouts, packaging validation, and final live release verification.
+- **Compatibility, security, and release hardening (M12):** NsCDE icon debian package build (`scripts/package-nscde-icons.sh --deb`), drop-in live package verification, ISO rebuild via `./build.sh`, and end-to-end QEMU live boot testing.
 
 ### Not yet verified
 
@@ -333,32 +342,37 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Exit criteria:** Installing any Debian `.deb` application containing a valid `.desktop` file automatically populates the corresponding CDE Front Panel drawer and launches cleanly. (Achieved 2026-10-10)
 
-### M11 — Virtual workspaces & desktop root window menu
+### M11 — Virtual workspaces & desktop root window menu (Completed)
 
-**Goal:** Provide authentic CDE 4-way virtual workspace management and the classic Motif 3D desktop root window menu.
+**Goal:** Provide authentic CDE 4-way virtual workspace management and the classic Motif 3D desktop root window menu. (Achieved 2026-10-11)
 
 1. **EWMH Multi-Desktop / Virtual Workspaces:**
    - Implement EWMH root window desktop properties:
      - `_NET_NUMBER_OF_DESKTOPS` (fixed at 4: `One`, `Two`, `Three`, `Four`)
      - `_NET_CURRENT_DESKTOP` (0..3)
+     - `_NET_DESKTOP_NAMES` (`One\0Two\0Three\0Four\0`)
      - `_NET_WM_DESKTOP` assigned to each managed client window (or `0xFFFFFFFF` for sticky windows)
-   - Synchronize CDE Front Panel 4-way switcher buttons and amber/green status LEDs with active desktop state.
-   - Window Manager selectively unmaps/maps or hides/shows frame windows based on their associated workspace.
-2. **Motif 3D Desktop Root Window Menu:**
-   - Intercept root window clicks (Button 3 right-click / Button 1 left-click) in `X11WindowManagerService`.
+   - Synchronize CDE Front Panel 4-way switcher buttons ("One", "Two", "Three", "Four") and amber/green status indicators with active desktop state.
+   - Window Manager selectively unmaps/maps or hides/shows frame windows and minimized desktop icon tiles based on their associated workspace.
+   - Window focus and stacking order automatically follow the active desktop when switching workspaces.
+2. **Motif 3D Desktop Root Window Menu (`DesktopRootMenu`):**
+   - Intercept root window clicks (Button 3 right-click / Button 1 left-click) via X11 pointer grabs in `X11WindowManagerService`.
    - Render authentic Motif 3D beveled root popup menu:
-     - **Programs** (Submenus generated dynamically from XDG categories: Accessories, System, Development)
-     - **New Window** (`xterm`, Text Document, File Browser)
-     - **Window Management** (Cascade Windows, Tile Horizontally, Tile Vertically, Minimize All)
-     - **Desktop & Appearance Settings...**
-     - **Lock Screen / Log Out / Power...**
-3. **Root Window Visual Polish:**
-   - Initialize standard arrow pointer (`left_ptr`) on the root canvas on startup.
-   - Apply default UNIX slate background (`#4a6984`) or configured wallpaper upon session startup.
+     - **Workspace Menu Banner:** Motif styled header plate.
+     - **Programs:** Submenus generated dynamically from XDG categories (`Accessories`, `System`, `Development`, `Graphics`, `Internet`, etc.) and launchable directly.
+     - **New Window:** Terminal (`xterm`), Text Editor, File Manager.
+     - **Workspaces:** Active indicator (`✔`) and one-click workspace switching.
+     - **Window Management:** Shuffle Up (cycle bottom window to top), Shuffle Down (cycle top window to bottom), Minimize All Windows, Restore All Windows.
+     - **Desktop Settings...:** Launches `AmadeSettingsApplication`.
+     - **Refresh Desktop:** Redraws background wallpaper, clears canvas, and refreshes frames.
+     - **Lock Screen / Log Out...:** Integrated with `SessionDialogHelper`.
+3. **Root Window Visual Polish & Cursor Polish:**
+   - Initialize standard arrow pointer (`XC_left_ptr`) on the root canvas via `XDefineCursor` at startup.
+   - Window stacking order tracked via `bringToFront` and `sendToBack` in `WindowRegistry` and `WindowManagerCore`.
 
-**Exit criteria:** Windows are isolated across 4 workspaces toggled via the Front Panel, and right-clicking empty desktop space brings up the Motif root menu.
+**Exit criteria:** Windows are isolated across 4 workspaces toggled via the Front Panel, and right-clicking empty desktop space brings up the Motif root menu. (Achieved 2026-10-11)
 
-### M12 — Compatibility, security, and release hardening
+### M12 — Compatibility, security, and release hardening (In Progress)
 
 **Goal:** Establish whether the complete desktop environment can be maintained and tested as a reproducible distribution.
 

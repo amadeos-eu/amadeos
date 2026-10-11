@@ -138,6 +138,17 @@ else
         $SUDO sed -i 's|Check_package chroot/usr/bin/isohybrid syslinux|Check_package chroot/usr/bin/isohybrid syslinux-utils|' /usr/lib/live/build/lb_binary_iso 2>/dev/null || true
     fi
 
+    # live-build 3.0 attempts to sign drop-in packages in config/packages.chroot using gpg inside chroot.
+    # On modern Debian releases (trixie/bookworm), gpg is not present in minimal bootstrap and deprecated.
+    # Patch lb_chroot_archives to treat local packages as [trusted=yes] and skip in-chroot GPG key generation.
+    if grep -q 'echo "deb file:/root/packages ./" > chroot/etc/apt/sources.list.d/packages.list' /usr/lib/live/build/lb_chroot_archives 2>/dev/null; then
+        $SUDO sed -i 's|echo "deb file:/root/packages ./" > chroot/etc/apt/sources.list.d/packages.list|echo "deb [trusted=yes] file:/root/packages ./" > chroot/etc/apt/sources.list.d/packages.list|' /usr/lib/live/build/lb_chroot_archives 2>/dev/null || true
+    fi
+    if grep -q 'Chroot chroot "gpg --batch --gen-key"' /usr/lib/live/build/lb_chroot_archives 2>/dev/null && \
+       ! grep -q 'if false && \[ "\${LB_APT_SECURE}" = "true" \]' /usr/lib/live/build/lb_chroot_archives 2>/dev/null; then
+        $SUDO sed -i 's|if \[ "\${LB_APT_SECURE}" = "true" \]|if false \&\& [ "${LB_APT_SECURE}" = "true" ]|' /usr/lib/live/build/lb_chroot_archives 2>/dev/null || true
+    fi
+
     "${LB[@]}" build
 fi
 

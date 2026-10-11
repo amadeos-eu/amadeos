@@ -2,7 +2,7 @@
 
 This roadmap records the verified project status and the next implementation steps. It deliberately separates completed work, work in progress, and work that still requires evidence. No milestone is considered complete merely because the corresponding files or scripts exist.
 
-Status date: 2026-10-10
+Status date: 2026-10-11
 
 ## Project direction
 
@@ -44,7 +44,7 @@ flowchart LR
     M7 --> M8["M8: Desktop Shell & Themes (Done)"]
     M8 --> M9["M9: Java Display Manager (Done)"]
     M9 --> M10["M10: XDG App Discovery & .deb Apps (Done)"]
-    M10 --> M11["M11: Virtual Workspaces & Root Menu"]
+    M10 --> M11["M11: Virtual Workspaces & Root Menu (In Progress)"]
     M11 --> M12["M12: Release Hardening"]
 ```
 
@@ -63,9 +63,19 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - EWMH compliance: `_NET_SUPPORTING_WM_CHECK`, `_NET_WM_NAME`, `_NET_SUPPORTED`, `_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`, `_NET_WM_WINDOW_TYPE_DOCK`, and `_NET_WM_STRUT`.
 - Reparenting Window Manager (M7) with authentic Motif 3D beveled borders, titlebars, maximize/restore/minimize buttons, corner grab handles, and 8-directional border resizing.
 - Desktop Icon Tiles (M8): Minimized windows park neatly in top-left corner stacked vertically with zero spacing, featuring dynamic reflow and double-click restore.
-- CDE Front Panel Dock (M8): Centered bottom panel with modular `DockWidget` architecture (digital Clock, Memory gauge, 4-way Workspace Switcher pad with activity LEDs and power dialog trigger, and Slide-up Drawers with subpanel popups).
-- Central Desktop Theme Engine (M8): `DesktopTheme` and `ThemeManager` with unified warm Motif `#CEC2BB` palette, 5 built-in themes, and real-time cross-process synchronization via the X11 root window property `_AMADEOS_THEME`.
-- Freedesktop.org Icon Theme Compliance (M8): `IconManager` supporting standard XDG search paths, `index.theme` inheritance, standard icon names (`utilities-terminal`, `system-file-manager`, etc.), and Java2D vector fallback.
+- **Authentic CDE Front Panel (M8):** Centered 85px dock (`AmadeDesktopPanel`) with pixel-exact 10-slot layout measured from authentic UNIX workstation CDE specification:
+  - Left slots: Slot 1 Clock (analog dial with tick marks & hands), Slot 2 Calendar (tear-off paper sheet showing current month & day), Slot 3 File Manager (drawer with `▲`), Slot 4 Text Editor (drawer with `▲`), Slot 5 Mail / Mailer (in-tray drawer with `▲`).
+  - Center: Iconic 4-way Workspace Switcher pad ("One", "Two", "Three", "Four"), lock button, activity LED bar, and EXIT button.
+  - Right slots: Slot 6 Printer Manager (drawer with `▲`), Slot 7 Style Manager (flat notch tab opening `AmadeSettingsApplication`), Slot 8 Application Manager (flat notch tab with categorized app catalog), Slot 9 Help Viewer (books drawer with `▲`), Slot 10 Trash Can (wastebasket pedal bin).
+  - Selective `hasDrawer` architecture rendering 3D carved triangle arrows (`▲`/`▼`) on drawer slots while flat notch tabs remain un-arrowed and non-popup.
+  - Memory gauge cleanly removed from panel to preserve original CDE layout.
+- Central Desktop Theme Engine (M8): `DesktopTheme` and `ThemeManager` with unified warm Motif `#CEC2BB` palette, 5 built-in themes, dynamic icon theme switching, and real-time cross-process synchronization via the X11 root window property `_AMADEOS_THEME`.
+- **Decoupled NsCDE Icon Packaging & Freedesktop Compliance (M8):**
+  - Standalone packaging script `scripts/package-nscde-icons.sh` downloading and packaging NsCDE icon themes as Debian `.deb`, tarball, or local user icon directory, decoupling GPL-3.0 icons from core codebase.
+  - Candidate-first icon resolution hierarchy in `IconManager` prioritizing `apps` over generic actions at authentic 42px scale, with case-insensitive fallback and vector/pixel fallbacks for all 10 slots.
+- **Motif Look-and-Feel & Scrollbar Hardening (`AmadeUI`):**
+  - Rectangular 3D beveled `BasicScrollBarUI` matching authentic Motif desktop styling.
+  - Solid theme-colored flat gradients eliminating Ocean blue tint while preventing Metal gradient `IndexOutOfBoundsException: Index: 0` crashes on scrollable components.
 - Dedicated Desktop Settings App & Wallpaper Management (M8): `AmadeSettingsApplication` and `WallpaperManager` supporting scaling modes (Fill, Fit, Stretch, Tile, Center), solid color matte, and direct X11 root window pixmap rendering.
 - Java Display Manager & PAM Greeter (M9): `AmadeDisplayManager`, `AmadeLoginGreeter`, and `PamAuthenticator` providing full Linux PAM authentication (`libpam.so.0`), root privilege dropping via `runuser`/POSIX, systemd unit `amadeos-dm.service`, and default live credentials (`amadeos` / `amadeos`).
 - Session configuration manifest (`/etc/amadeos/session.conf`), drop-in autostart (`/etc/amadeos/autostart.d/`), and background WM watchdog supervision.
@@ -223,32 +233,43 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Goal:** Create a persistent desktop dock, minimized window desktop icon tiles, central theme engine, Freedesktop icon support, desktop settings app, and native X11 wallpaper management. (Achieved 2026-10-10)
 
-1. **Centered CDE Front Panel Dock:**
-   - Standalone Swing process `AmadeDesktopPanel` with authentic 3D chiseled container.
+1. **Centered CDE Front Panel Dock (`AmadeDesktopPanel`):**
+   - Standalone Swing process `AmadeDesktopPanel` with pixel-exact 85px CDE geometry (`CdePanelChrome`) measured from original UNIX workstation specifications.
    - Sets `_NET_WM_WINDOW_TYPE = _NET_WM_WINDOW_TYPE_DOCK` and reserves bottom dock height via `_NET_WM_STRUT` / `_NET_WM_STRUT_PARTIAL`.
    - Pre-map dock property registration and single-instance lock file (`~/.amadeos-panel.lock`) to eliminate reparenting race conditions.
-2. **Modular `DockWidget` Architecture (`org.datazuul.amadeos.wm.panel.widget`):**
-   - Externalized widgets inheriting from `AbstractDockWidget` with theme-reactive 3D borders:
-     - `ClockDockWidget`: Digital clock (`HH:mm:ss`) and date (`MMM dd`).
-     - `MemoryDockWidget`: JVM/system memory utilization gauge with activity LED bar.
-     - `WorkspaceSwitcherDockWidget`: Iconic CDE 4-button switcher pad ("One", "Two", "Three", "Four"), activity LEDs, and lock/power dialog triggers.
-     - `DrawerDockWidget`: Modular drawer slots with slide-up arrow tabs (`▲`) and popup subpanels for tool categories.
+2. **Authentic 10-Slot Modular `DockWidget` Architecture:**
+   - Full 10-slot CDE specification (5 left + Switcher pad + 5 right):
+     - **Slot 1 (Clock):** `ClockDockWidget` with authentic round/octagonal dial bezel, minute ticks, live hour/minute hands, and digital time display fallback.
+     - **Slot 2 (Calendar):** `CalendarDockWidget` rendering authentic tear-off paper calendar sheet with month abbreviation and day number (`Oct 11`).
+     - **Slot 3 (File Manager):** Filing drawer with slide-up `▲` tab and home/root directory drawer tools.
+     - **Slot 4 (Text Editor):** Paper & pencil launcher with slide-up `▲` tab and scratchpad/document tools.
+     - **Slot 5 (Mail):** In-tray mailer with slide-up `▲` tab, mail client launchers, and terminal/root console tools.
+     - **Center Switcher Pad:** `WorkspaceSwitcherDockWidget` featuring 4 workspace buttons ("One", "Two", "Three", "Four"), lock button, activity LED bar, and EXIT session button.
+     - **Slot 6 (Printer Manager):** Desktop printer module with slide-up `▲` tab, print queue inspector, CUPS web admin, and printer settings (replaces legacy memory gauge).
+     - **Slot 7 (Style Manager):** Flat notch tab (no arrow) launching `AmadeSettingsApplication` (Themes, Icons, Wallpaper, WM).
+     - **Slot 8 (Application Manager):** Flat notch tab (no arrow) opening categorized desktop applications browser dialog.
+     - **Slot 9 (Help Viewer):** Books with `?` icon, slide-up `▲` tab, help guide, diagnostics, and system info.
+     - **Slot 10 (Trash Can):** Silver pedal bin with flat notch tab (no arrow) for wastebasket and temporary storage inspection.
+   - `DrawerDockWidget` supports `hasDrawer` parameter: slots with subpanel drawers render the 3D carved triangle arrow (`▲`/`▼`) and open popups; flat notch slots render a clean bevel tab with click popups disabled.
 3. **Minimized Window Desktop Icon Tiles (`DesktopIconTile`):**
    - Minimized windows unmap frame and spawn authentic Motif 3D beveled icon boxes (64x64) parked neatly in the top-left corner stacked vertically with zero spacing.
    - Recessed sunken title plate, 32px theme pixmap, dynamic reflow on restore/minimize, and single/double-click restore.
 4. **Central Desktop Theme Engine (`DesktopTheme`, `ThemeManager`):**
    - Unified Warm Motif `#CEC2BB` color palette across window frames, dock, icon tiles, and control panel.
    - 5 built-in themes: *Warm Motif*, *CDE Brocade* (Teal), *CDE Desert* (Sand), *Classic Gray*, *Dark Slate*.
-   - Real-time cross-process synchronization via the X11 root window property `_AMADEOS_THEME`.
-5. **Freedesktop.org Icon Theme Compliance (`IconManager`):**
-   - Full compliance with Freedesktop Icon Theme & Icon Naming specifications.
-   - Cascading search: XDG paths (`~/.local/share/icons`, `/usr/share/icons`), `index.theme` inheritance, `/usr/share/pixmaps`, classpath `/themes/`, and Java2D vector fallback.
-6. **Dedicated Desktop Settings Application (`AmadeSettingsApplication`):**
+   - Dynamic icon theme switching persisted in `~/.config/amadeos/icon_theme.conf` and real-time cross-process synchronization via the X11 root window property `_AMADEOS_THEME`.
+5. **Decoupled NsCDE Icon Theme Integration & Freedesktop Compliance (`IconManager`):**
+   - Automated packaging script `scripts/package-nscde-icons.sh` downloading and packaging NsCDE icon themes as Debian `.deb`, tarball, or local user icon directory, decoupling GPL-3.0 icons from core codebase.
+   - Candidate-first icon resolution hierarchy in `IconManager` prioritizing `apps` over generic actions at authentic 42px scale, with case-insensitive fallback and vector/pixel fallbacks for all 10 slots.
+6. **Motif Look-and-Feel & Scrollbar Hardening (`AmadeUI`):**
+   - Rectangular 3D beveled `BasicScrollBarUI` matching authentic Motif desktop styling.
+   - Solid theme-colored flat gradients eliminating Ocean blue tint while preventing Metal gradient `IndexOutOfBoundsException: Index: 0` crashes on scrollable components.
+7. **Dedicated Desktop Settings Application (`AmadeSettingsApplication`):**
    - 4-tab control center: Color Themes (with hex swatch preview), Freedesktop Icon Themes, Wallpaper & Backdrop, and Window Manager behavior.
-7. **Desktop Wallpaper Management (`WallpaperManager`):**
+8. **Desktop Wallpaper Management (`WallpaperManager`):**
    - Scaling modes: *Fill Screen (Crop)*, *Fit to Screen (Letterbox)*, *Stretch to Screen*, *Tile Pattern*, *Center*, plus solid color matte.
    - Persistence in `~/.config/amadeos/wallpaper.conf`.
-8. **Architectural Decision: Native X11 Root Window Background vs. Fullscreen Swing Window:**
+9. **Architectural Decision: Native X11 Root Window Background vs. Fullscreen Swing Window:**
    - **Decision:** Retain native X11 root window background rendering via `XSetWindowBackgroundPixmap` and EWMH root pixmap export (`_XROOTPMAP_ID`, `ESETROOT_PMAP_ID`), rather than mapping a fullscreen Swing desktop window.
    - **Rationale:**
      - *Zero Idle Overhead:* The X server retains the background pixmap in video/server memory without background Java paint loops or JVM heap memory consumption.

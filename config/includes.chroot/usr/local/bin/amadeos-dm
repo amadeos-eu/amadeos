@@ -3,10 +3,32 @@ set -e
 
 echo "[amadeos-dm] Initializing amadeOS Display Manager on vt7..."
 
+# Only clients holding this cookie may connect to the X server. The greeter runs as
+# root, so an open X server would let any local process read the password entry.
+XAUTH_DIR=/run/amadeos
+XAUTH_FILE="$XAUTH_DIR/Xauthority"
+install -d -m 0700 -o root -g root "$XAUTH_DIR"
+export DISPLAY=:0
+export XAUTHORITY="$XAUTH_FILE"
+
+x_server_running() {
+    # With a cookie, ask the server itself; a leftover socket file alone proves nothing.
+    if [ -s "$XAUTH_FILE" ] && command -v xset >/dev/null 2>&1; then
+        xset -q >/dev/null 2>&1
+    else
+        [ -e "/tmp/.X11-unix/X0" ] && [ -s "$XAUTH_FILE" ]
+    fi
+}
+
 # Start Xorg server on vt7 if not already active
-if [ ! -e "/tmp/.X11-unix/X0" ]; then
+if ! x_server_running; then
+    echo "[amadeos-dm] Creating X authorization cookie..."
+    rm -f "$XAUTH_FILE"
+    (umask 077 && : > "$XAUTH_FILE")
+    xauth -q -f "$XAUTH_FILE" add :0 . "$(mcookie)"
+
     echo "[amadeos-dm] Starting Xorg display server on vt7..."
-    Xorg :0 vt7 -nolisten tcp -background none >/var/log/amadeos-xorg.log 2>&1 &
+    Xorg :0 vt7 -auth "$XAUTH_FILE" -nolisten tcp -background none >/var/log/amadeos-xorg.log 2>&1 &
     XORG_PID=$!
 
     # Wait for Xorg to be ready and accept connections
@@ -37,13 +59,7 @@ if [ ! -e "/tmp/.X11-unix/X0" ]; then
     fi
 fi
 
-export DISPLAY=:0
-
-# Authorize local users to connect to the X server (prevents "No protocol specified" when user session launches)
-if command -v xhost >/dev/null 2>&1; then
-    echo "[amadeos-dm] Authorizing local users on X server..."
-    xhost +local: 2>/dev/null || xhost + 2>/dev/null || true
-fi
+# The user session gets the cookie from SessionLauncher; access is never opened up with xhost.
 
 if [ -f /etc/default/locale ]; then
     . /etc/default/locale
@@ -51,8 +67,9 @@ fi
 export LANG="${LANG:-de_DE.UTF-8}"
 export LC_ALL="${LC_ALL:-de_DE.UTF-8}"
 
-# Ensure amadeos user password is set to 'amadeos' in /etc/shadow and home directory permissions are clean
-if id amadeos >/dev/null 2>&1; then
+# Live image only: give the live user its documented password 'amadeos' and clean up its home.
+# On an installed system (no boot=live) the user's own password must never be overwritten.
+if grep -qw 'boot=live' /proc/cmdline 2>/dev/null && id amadeos >/dev/null 2>&1; then
     echo 'amadeos:$6$1xsQWb3aVS24Y0d3$LXLQITUwA2aUMUnBPnD1k8MQV/UHSLTg4aQMHQk0H2EkcJFpn6ScFHQhsLDOeJ6J2zVgwxWjoeKNLT2WJ8ObJ1' | chpasswd -e 2>/dev/null || true
     if [ -d /home/amadeos ]; then
         chown -R amadeos:amadeos /home/amadeos 2>/dev/null || true

@@ -48,3 +48,20 @@ The project is developed in a native Linux environment (Debian / Ubuntu) at:
 
 Build tooling and the first image pipeline will be added incrementally.
 
+
+## License
+
+amadeOS is free software, licensed under the
+[European Union Public Licence v. 1.2](LICENSE) (EUPL-1.2,
+SPDX identifier `EUPL-1.2`). The EUPL is published by the European Commission and
+is legally valid in all official languages of the EU; translations are available at
+[interoperable-europe.ec.europa.eu](https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
+
+Copyright © 2026 datazuul.com and contributors.
+
+The live image is an aggregation of Debian packages and separately packaged
+applications; each of them keeps its own licence (see
+`/usr/share/doc/<package>/copyright` on the running system). In particular, the
+NsCDE icon theme built by `scripts/package-nscde-icons.sh` stays under the GPL-3.0
+as a separate package. The screenshots in `docs/` show third-party software and
+are not covered by this repository's licence.

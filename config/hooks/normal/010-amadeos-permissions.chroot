@@ -15,8 +15,9 @@ if [ -f /opt/amadeos/amadeos-demo.jar ]; then
     chmod 0644 /opt/amadeos/amadeos-demo.jar
 fi
 mkdir -p /etc/X11
+# Only the user on the active console may start Xorg via the setuid wrapper (startx on tty1).
 cat > /etc/X11/Xwrapper.config << 'EOF'
-allowed_users=anybody
+allowed_users=console
 needs_root_rights=yes
 EOF
 chmod 0644 /etc/X11/Xwrapper.config

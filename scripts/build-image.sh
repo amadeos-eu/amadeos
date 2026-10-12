@@ -34,7 +34,7 @@ else
     SUDO="sudo"
 fi
 
-BOOTAPPEND="boot=live components username=amadeos user-password=amadeos keyboard-layouts=de hostname=amadeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,sudo,input"
+BOOTAPPEND="boot=live components username=amadeos user-password=amadeos keyboard-layouts=de hostname=amadeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,sudo"
 
 if [ "${AMADEOS_PACKAGE_ONLY:-0}" = "1" ]; then
     echo "[build-image] Package-only mode requested; packaging existing $BUILD_ROOT/binary..."

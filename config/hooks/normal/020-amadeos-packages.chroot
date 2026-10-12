@@ -4,6 +4,8 @@ set -eu
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
+# Pull fixes from trixie-security/trixie-updates (config/archives) into the base system too.
+apt-get dist-upgrade --yes --no-install-recommends
 apt-get install --yes --no-install-recommends \
     live-boot \
     live-config \
@@ -25,6 +27,7 @@ apt-get install --yes --no-install-recommends \
     dbus-x11 \
     libpam-systemd \
     x11-xserver-utils \
+    xauth \
     openjdk-21-jre \
     fontconfig \
     fonts-dejavu-core \

@@ -2,12 +2,11 @@
 
 This document describes the development environment that is already configured and separates it from work that is only planned.
 
-## Repository location
+## Getting the source
 
-The repository is located at:
-
-```text
-/home/ralf/projects/github.com/datazuul/amadeos
+```bash
+git clone https://github.com/datazuul/amadeos.git
+cd amadeos
 ```
 
 ## Already configured environment
@@ -15,7 +14,6 @@ The repository is located at:
 The verified development environment is:
 
 - Native Linux (Debian 13 trixie or Ubuntu 25.10 x86_64)
-- Linux user `ralf`
 - Java/OpenJDK 21+ (`java`, `javac`)
 - Git 2.47+
 - Gradle (via `/snap/bin/gradle` or local installation)
@@ -229,7 +227,7 @@ java -version                  # OpenJDK 21+
 javac -version
 git --version
 gradle --version
-cd /home/ralf/projects/github.com/datazuul/amadeos
+cd amadeos
 git status --short --branch
 command -v git gcc make lb debootstrap xorriso grub-mkrescue qemu-system-x86_64 java javac gradle
 ```
@@ -239,7 +237,7 @@ command -v git gcc make lb debootstrap xorriso grub-mkrescue qemu-system-x86_64 
 Work directly in the repository:
 
 ```bash
-cd /home/ralf/projects/github.com/datazuul/amadeos
+cd amadeos
 git status
 git switch -c <topic-name>
 ```
@@ -251,7 +249,7 @@ Use focused commits and do not commit generated ISO images, VM disks, build cach
 The source repository contains the Java prototype and the `build.sh` live-image entrypoint.
 
 ```bash
-cd /home/ralf/projects/github.com/datazuul/amadeos
+cd amadeos
 
 # Run the Java tests and build the first live ISO.
 gradle clean test
@@ -263,7 +261,7 @@ gradle clean test
 The build currently embeds the Swing demonstration and the Xorg/OpenJDK package set. It does not yet start the Java window manager automatically. Once an ISO has been built, inspect and test it with:
 
 ```bash
-cd /home/ralf/projects/github.com/datazuul/amadeos
+cd amadeos
 
 # Inspect the generated artifact.
 file artifacts/amadeos-amd64.iso
@@ -284,7 +282,7 @@ Future validation should cover at least:
 - ISO integrity and expected filesystem contents;
 - BIOS and UEFI boot in a virtual machine and on representative hardware;
 - startup of the Java runtime and representative Swing/AWT applications;
-- Xorg startup and non-reparenting window-manager behavior;
+- Xorg startup and reparenting window-manager behavior;
 - focus, transient windows, popups, multiple displays, and ordinary non-Java X11 clients;
 - security-update and rebuild procedures.
 

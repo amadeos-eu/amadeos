@@ -409,8 +409,7 @@ The following are intentionally outside the scope of current milestones:
 
 ## Related documentation
 
-- [`README.md`](README.md) — concise project overview and current limitations
+- [`README.md`](README.md) — project overview, components and how to build and run them
 - [`CONCEPT.md`](CONCEPT.md) — architecture, decisions, alternatives, and risks
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — development environment, build commands, and validation procedure
-- [`java-wm/README.md`](java-wm/README.md) — Java window-manager prototype scope and limitations
 

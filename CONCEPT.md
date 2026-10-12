@@ -9,7 +9,7 @@ The first usable system is deliberately modest:
 - Debian Stable Minimal as the base userland
 - an x86-64 live image for USB, with BIOS and UEFI boot paths
 - Xorg/X11 as the initial display stack
-- a Java-based, non-reparenting, floating window manager
+- a Java-based, reparenting, floating window manager
 - Swing applications as the first-class example application model
 
 The kernel, device drivers, firmware interfaces, libc, boot loader, and most low-level utilities remain established native software. amadeOS is a distribution and desktop-system experiment first; replacing all of Linux is not an initial requirement.
@@ -49,9 +49,9 @@ Xorg was selected for the first implementation because Java/AWT/Swing integratio
 
 Wayland was considered as the longer-term direction. It has a simpler modern compositor model and avoids several X11-era trust and indirection problems, but a Wayland compositor is also responsible for more desktop integration, input handling, rendering, protocols, and compatibility decisions. A Java window manager would therefore become a Java compositor and would require a different native integration strategy. Wayland is not rejected; it is deferred until the X11 prototype establishes the desktop model and its requirements.
 
-### Window manager: Java, non-reparenting, floating
+### Window manager: Java, reparenting, floating
 
-The planned window manager is written in Java and initially uses X11 window-manager protocols. It will be a **non-reparenting** window manager: client windows remain direct children of the root window rather than being placed inside additional frame windows. This reduces frame bookkeeping and makes the initial implementation easier to inspect, but it also limits decoration and may expose more client-specific behavior than a reparenting manager.
+The window manager is written in Java and uses X11 window-manager protocols. It was first planned as a non-reparenting window manager, with client windows remaining direct children of the root window. Milestone M7 switched to **reparenting**: each client window is placed inside a frame window that draws the Motif/CDE decorations (title bar, buttons, resize borders). This costs frame bookkeeping (synthetic ConfigureNotify, frame/client geometry, cleanup on unmap and destroy) but gives consistent decorations for every client, including those that do not draw their own.
 
 **Reparenting** window managers insert a frame or decoration window around each client window. That supports traditional borders, title bars, and richer decoration, but adds coordinate translation, event routing, lifecycle handling, and more failure cases. Reparenting remains a possible later feature if the minimal model proves insufficient.
 
@@ -86,7 +86,7 @@ The initial image pipeline is planned around Debian live-build and related Debia
 - **Updates and security:** Debian security updates, the JDK, JNA/native libraries, Xorg, and amadeOS code all have separate release cadences. A defined update channel, signed artifacts, rollback/recovery story, and vulnerability-response process are still required; a live image is not automatically secure merely because its base is Debian.
 - **Hardware:** Linux support is broad but not universal. GPU acceleration, input devices, wireless firmware, suspend/resume, unusual displays, BIOS/UEFI differences, and proprietary firmware can affect the desktop. Hardware testing must include real BIOS and UEFI machines, not only a virtual machine.
 - **Java compatibility:** The selected JDK version affects Swing/AWT behavior, FFM availability, fonts, HiDPI rendering, module access, and native-library loading. The supported Java baseline must be pinned and tested with representative Swing applications.
-- **X11 behavior:** ICCCM/EWMH conventions, transient windows, focus, override-redirect windows, client quirks, multiple monitors, and compositing can expose gaps in a minimal window manager. Non-reparenting behavior must be validated against both Swing and ordinary X clients.
+- **X11 behavior:** ICCCM/EWMH conventions, transient windows, focus, override-redirect windows, client quirks, multiple monitors, and compositing can expose gaps in a minimal window manager. Reparenting behavior must be validated against both Swing and ordinary X clients.
 - **Native boundaries:** JNA/libX11, FFM, or JNI/XCB can fail through ABI mismatches, pointer/lifetime errors, missing libraries, and architecture assumptions. Native access must be isolated and tested on the supported x86-64 image.
 - **Virtualization vs. bare metal:** Testing inside virtual machines (QEMU) is essential for fast iteration, but it is not a substitute for booting the produced image on physical hardware. USB boot, firmware behavior, graphics acceleration, Wi-Fi drivers, and power management require testing on physical BIOS and UEFI systems.
 

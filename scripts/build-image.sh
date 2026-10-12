@@ -8,6 +8,29 @@ JAR_PATH="$CONFIG_DIR/includes.chroot/opt/amadeos/amadeos.jar"
 ISO_PATH="$ARTIFACT_DIR/amadeos-amd64.iso"
 BUILD_ROOT="${AMADEOS_BUILD_ROOT:-${TMPDIR:-/tmp}/amadeos-live-build}"
 
+# BUILD_ROOT is deleted with sudo before every full build: refuse anything that is not a
+# dedicated directory at least two levels deep (e.g. "/", "/home", a relative path).
+while [ "${BUILD_ROOT%/}" != "$BUILD_ROOT" ]; do BUILD_ROOT="${BUILD_ROOT%/}"; done
+case "$BUILD_ROOT" in
+    /?*/?*) ;;
+    *) echo "Refusing unsafe build directory '$BUILD_ROOT' (set AMADEOS_BUILD_ROOT to an absolute path like /var/tmp/amadeos-live-build)" >&2; exit 1 ;;
+esac
+
+# Only directories this script created (marker file) or with the default name may be wiped,
+# so a mistyped AMADEOS_BUILD_ROOT such as /var/tmp or a home directory is never deleted.
+BUILD_ROOT_MARKER=".amadeos-build-root"
+build_root_is_ours() {
+    [ ! -e "$BUILD_ROOT" ] \
+        || [ -e "$BUILD_ROOT/$BUILD_ROOT_MARKER" ] \
+        || [ "$(basename "$BUILD_ROOT")" = "amadeos-live-build" ] \
+        || [ -z "$(ls -A "$BUILD_ROOT" 2>/dev/null)" ]
+}
+
+# Lists mount points at or below the build directory (bind mounts of the host's /dev, proc, ...).
+mounts_below_build_root() {
+    awk -v root="$BUILD_ROOT" '$2 == root || index($2, root "/") == 1 { print $2 }' /proc/self/mounts
+}
+
 cd "$ROOT_DIR"
 
 export PATH="$PATH:/snap/bin"
@@ -53,7 +76,8 @@ elif [ "${AMADEOS_QUICK:-0}" = "1" ] || [ "${AMADEOS_REPACK_ROOTFS:-0}" = "1" ];
     if compgen -G "$CONFIG_DIR/packages.chroot/*.deb" >/dev/null; then
         echo "[build-image] Installing drop-in packages from packages.chroot into chroot..."
         $SUDO cp "$CONFIG_DIR/packages.chroot/"*.deb "$BUILD_ROOT/chroot/tmp/"
-        $SUDO chroot "$BUILD_ROOT/chroot" sh -c 'dpkg -i /tmp/*.deb 2>/dev/null || apt-get install -f -y'
+        # Let dpkg report problems; apt-get -f then pulls in missing dependencies and fails the build if it cannot.
+        $SUDO chroot "$BUILD_ROOT/chroot" sh -c 'dpkg -i /tmp/*.deb || apt-get install -f -y'
         $SUDO rm -f "$BUILD_ROOT/chroot/tmp/"*.deb
     fi
     # Update bootloader live.cfg kernel cmdline with user-password=amadeos, keyboard-layouts=de, and locales=de_DE.UTF-8
@@ -81,8 +105,20 @@ else
         "$BUILD_ROOT/chroot/sys"; do
         $SUDO umount -R -lf "$mount_point" 2>/dev/null || true
     done
-    $SUDO rm -rf "$BUILD_ROOT"
+    if ! build_root_is_ours; then
+        echo "Refusing to delete $BUILD_ROOT: it is not empty and was not created by this script ($BUILD_ROOT_MARKER missing)" >&2
+        exit 1
+    fi
+    # Never delete while something is still mounted inside: with the host's /dev bound into the
+    # chroot, rm -rf would delete the host's device nodes.
+    if [ -n "$(mounts_below_build_root)" ]; then
+        echo "Still mounted below $BUILD_ROOT, refusing to delete it:" >&2
+        mounts_below_build_root >&2
+        exit 1
+    fi
+    $SUDO rm -rf --one-file-system "$BUILD_ROOT"
     mkdir -p "$BUILD_ROOT"
+    touch "$BUILD_ROOT/$BUILD_ROOT_MARKER"
     cp -a "$CONFIG_DIR" "$BUILD_ROOT/config"
     mkdir -p "$BUILD_ROOT/config/includes.chroot/opt/amadeos"
     cp -a "$JAR_PATH" "$BUILD_ROOT/config/includes.chroot/opt/amadeos/amadeos.jar"

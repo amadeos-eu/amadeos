@@ -1,13 +1,25 @@
 #!/bin/sh
-# Compatibility wrapper for legacy rsvg syntax using rsvg-convert
-for last; do true; done
+# Compatibility wrapper for the legacy "rsvg [options] INPUT OUTPUT" syntax using rsvg-convert.
+# Arguments are passed through unchanged (no eval), so file names with spaces, quotes or "$(...)"
+# are safe.
+set -eu
+
+if [ "$#" -lt 2 ]; then
+    echo "usage: rsvg [rsvg-convert options] INPUT OUTPUT" >&2
+    exit 2
+fi
+
 count=$#
+for output; do :; done
+
+# Re-append all arguments except the last one, then drop the originals.
 i=1
-args=""
-while [ $i -lt $count ]; do
-    eval arg=\${$i}
-    args="$args \"$arg\""
+for arg; do
+    if [ "$i" -lt "$count" ]; then
+        set -- "$@" "$arg"
+    fi
     i=$((i + 1))
 done
-eval exec rsvg-convert $args -o \"$last\"
+shift "$count"
 
+exec rsvg-convert "$@" -o "$output"

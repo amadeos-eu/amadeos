@@ -71,6 +71,7 @@ elif [ "${AMADEOS_QUICK:-0}" = "1" ] || [ "${AMADEOS_REPACK_ROOTFS:-0}" = "1" ];
     $SUDO cp -a "$CONFIG_DIR/includes.chroot/." "$BUILD_ROOT/chroot/"
     $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/amadeos-dm" 2>/dev/null || true
     $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/amadeos-session" 2>/dev/null || true
+    $SUDO chmod 0755 "$BUILD_ROOT/chroot/usr/local/bin/amadeos-lock" 2>/dev/null || true
 
     # Install drop-in packages from config/packages.chroot if present
     if compgen -G "$CONFIG_DIR/packages.chroot/*.deb" >/dev/null; then

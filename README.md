@@ -2,52 +2,47 @@
 
 **amadeOS** — *Digital Autonomy, Zero Lock-in, Empowerment*.
 
-amadeOS is a free, Java-powered European desktop operating system concept.
-The initial target is an x86-64 bootable Debian-based USB image with:
+amadeOS is a free, Java-powered European desktop operating system. It is a bootable
+x86-64 live image based on Debian with a desktop written in Java: a display manager,
+an X11 window manager and a CDE-style front panel, all on Xorg with Swing
+applications.
 
-- Debian Stable Minimal
-- Xorg/X11
-- a Java-based non-reparenting floating window manager
-- Swing applications
-- BIOS and UEFI boot support
+The project is in active development; the milestones are tracked in
+[`ROADMAP.md`](ROADMAP.md) and the design decisions in [`CONCEPT.md`](CONCEPT.md).
 
-## Java MVP
+## What is in the image
 
-The first executable iteration is a small Java 21 Gradle prototype in the root
-project. It separates pure window registry/floating-layout logic from the
-`X11Adapter` boundary and includes a Swing demonstration application. The current
-adapter is logging-only: it makes no X11 or native calls and therefore does not
-manage the host desktop. Details and limitations are documented in
-[`java-wm/README.md`](java-wm/README.md).
+- **Base:** Debian *trixie* (minimal), Linux, Xorg/X11, OpenJDK 21, BIOS and UEFI boot.
+- **Display manager** (`amadeos-dm.service`): starts Xorg on VT 7 and shows the
+  Java login greeter, which authenticates through PAM (`/etc/pam.d/amadeos-dm`).
+- **Window manager:** a floating, reparenting X11 window manager in Java (Xlib via
+  JNA) with Motif/CDE-style frames, interactive move and resize, minimize to desktop
+  icons, four virtual workspaces, a desktop root menu and the EWMH/ICCCM hints that
+  panels and toolkits rely on (`_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`,
+  `_NET_CURRENT_DESKTOP`, `_NET_WM_STRUT_PARTIAL`, `WM_DELETE_WINDOW`, ...).
+- **Front panel:** a CDE-style dock with clock, calendar, workspace switcher and
+  drawers that list installed applications from their `.desktop` files.
+- **Applications** are separate Debian packages, e.g.
+  [amade-pad](https://github.com/datazuul/amade-pad); `.deb` files placed in
+  `config/packages.chroot/` are installed into the image.
 
-Run the unit tests with `gradle test` and the Swing demo with `gradle run`.
+All Java components live in one JAR (`/opt/amadeos/amadeos.jar`); the first argument
+selects the component, e.g. `dm`, `wm`, `panel` or `settings`.
 
-The first Debian live-build entrypoint is `./build.sh`. It builds the JAR,
-embeds it into the live root filesystem, and invokes `live-build` to create
-`artifacts/amadeos-amd64.iso`. The live-build step requires root privileges and
-is invoked through `sudo` when the script is run as a normal user.
+## Getting started
 
-The generated image currently provides the Xorg and Java runtime packages but
-does not start a graphical session automatically. After booting the live
-system, `startx` uses `/etc/skel/.xinitrc` for newly created live users and
-starts the Swing demonstration. This is an early image milestone, not yet the
-final amadeOS desktop.
+Requirements: Java 21, and for the image `live-build`, `sudo` and optionally QEMU.
+[`CONTRIBUTING.md`](CONTRIBUTING.md) lists the packages per distribution.
 
-The X11 event loop, ICCCM/EWMH behavior, real client lifecycle, native bindings,
-and automatic Java window-manager startup are intentionally not implemented in
-this iteration. The current live-build configuration is deliberately minimal
-and still needs BIOS/UEFI and QEMU validation.
-
-## Development environment
-
-The project is developed in a native Linux environment (Debian / Ubuntu) at:
-
-```text
-/home/ralf/projects/github.com/datazuul/amadeos
+```bash
+./gradlew test         # unit and X11 integration tests (the latter need Xvfb)
+./run-xephyr.sh        # window manager and panel in a nested X server
+./run-greeter.sh       # login greeter in a nested X server (mock PAM)
+./build.sh             # build artifacts/amadeos-amd64.iso (uses sudo for live-build)
+./run-qemu.sh          # boot the ISO in QEMU
 ```
 
-Build tooling and the first image pipeline will be added incrementally.
-
+The live user is `amadeos` with the password `amadeos`.
 
 ## License
 

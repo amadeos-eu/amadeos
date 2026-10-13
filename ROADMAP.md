@@ -2,7 +2,7 @@
 
 This roadmap records the verified project status and the next implementation steps. It deliberately separates completed work, work in progress, and work that still requires evidence. No milestone is considered complete merely because the corresponding files or scripts exist.
 
-Status date: 2026-10-11
+Status date: 2026-10-13
 
 ## Project direction
 
@@ -46,6 +46,7 @@ flowchart LR
     M9 --> M10["M10: XDG App Discovery & .deb Apps (Done)"]
     M10 --> M11["M11: Virtual Workspaces & Root Menu (Done)"]
     M11 --> M12["M12: Release Hardening (In Progress)"]
+    M10 --> M13["M13: Application Suite (In Progress)"]
 ```
 
 The architectural decisions and rejected alternatives are documented in [`CONCEPT.md`](CONCEPT.md).
@@ -92,16 +93,27 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - **Root Cursor & Window Stacking Order (M11):**
   - Native X11 `XC_left_ptr` arrow cursor defined on the root window at startup.
   - Window stacking ordering (`bringToFront`, `sendToBack`, `raise`, `lower`) in `WindowRegistry` and `WindowManagerCore` powering "Shuffle Up" and "Shuffle Down".
+- **Security and session hardening (M12, PRs #1–#12, merged 2026-10-12):**
+  - Login bypasses closed: no password shortcut for the live user outside PAM, mock PAM only with `AMADEOS_MOCK_PAM=1` and never as root (#1).
+  - X server protected by an MIT cookie (`/run/amadeos/Xauthority`, `Xorg -auth`) instead of `xhost +local:`; world-writable `/dev/input` rule removed; `Xwrapper.config` restricted to the console user; `trixie-security` and `trixie-updates` added to the image (#1).
+  - Each login runs in its own root session worker that owns the PAM session; the session starts with `setpriv` and the PAM environment, so logind, `XDG_RUNTIME_DIR` and user D-Bus work (#5).
+  - Screen lock as its own process (`amadeos.jar lock`, `/usr/local/bin/amadeos-lock`) with keyboard and pointer grabs, the `_AMADEOS_LOCK` X selection as session-wide state, all monitors covered, and relocking if the lock process dies (#6).
+  - All Xlib calls from the window manager's event-loop thread (#4); applications started detached instead of on unread pipes (#3); desktop settings under `$XDG_CONFIG_HOME` (#9); guarded image build scripts (#8); Gradle tests in CI (#2); licensed under EUPL-1.2 (#7).
+  - Login failure "Failed to open PAM session" fixed (`pam_loginuid` needs the thread-group leader: the worker starts through `/bin/sh`), verified in the QEMU live ISO; root menu anchor no longer framed and the menu closes on every outside click, verified on Xvfb (#12).
+- **Live image of 2026-10-13 boot-tested:** the ISO with amade-commons, Style Manager and screen saver (#14), NsCDE as default icon theme (#15), the CDE backdrops package, amade-pad and amade-mail boots and works.
+- **Shared application library [`amade-commons`](https://github.com/datazuul/amade-commons) (#13, merged 2026-10-13):** desktop themes, Motif look-and-feel (`AmadeUI`), theme and icon-theme files, XDG directories, keyring access and application start-up shared by the desktop and all amadeOS applications, so applications follow the theme chosen in the Style Manager immediately, including *Dark Slate*.
 
 ### In progress or next
 
-- **Style Manager and screen saver (merged as #14, needs verification on a live image):**
+- **Style Manager and screen saver (merged as #14, live image boot-tested 2026-10-13):**
   - `AmadeSettingsApplication` renamed and restructured as `style.StyleManager` with dtstyle's control row (Color, Font, Backdrop, Keyboard, Mouse, Beep, Screen, Window, Startup); Color, Backdrop and Screen implemented, the others disabled until they work. The former Window Manager tab offered check boxes without effect and is gone.
   - Screen saver daemon `amadeos.jar screen` (dtscreen): idle time from MIT-SCREEN-SAVER via JNA (`libxss1`), saver modules Qix, Swarm, Starfield, Floating Logo and Blank, screen lock after the configured idle time through the existing `amadeos-lock`; started by `/etc/amadeos/autostart.d/50-amadeos-screen`.
   - Keyboard (auto repeat, delay, rate, click volume), Mouse (handedness, double-click time with test target, acceleration, threshold) and Beep (volume, tone, duration, Test) controls; settings in `~/.config/amadeos/input.conf`, applied through `xset`/`xmodmap`/`xrdb` on Apply and at login by `amadeos.jar input` (`/etc/amadeos/autostart.d/10-amadeos-input`). The double-click time (`*multiClickTime`) reaches programs started afterwards.
   - Backdrop: the 26 original CDE backdrops (XPM/XBM from the CDE 2.5.3 sources, LGPL-2+) as the separate package `amadeos-backdrops-cde` (`scripts/package-cde-backdrops.sh`, built automatically by `build-image.sh` when missing, installed to `/usr/share/amadeos/backdrops/cde`), with own XPM 3 and XBM decoders in amadeOS; symbolic XPM colours (`background`, `topShadowColor`, `bottomShadowColor`, `selectColor`, `foreground`) are derived from the backdrop colour after Motif's XmGetColors, bitmaps use background on bottom shadow like dtwm; patterns are tiled. Personal `.pm`/`.bm` in `~/.dt/backdrops` and `~/.config/amadeos/backdrops`. NoBackdrop is the plain colour entry, SunLogo is left out (vendor trademark).
   - Open: DPMS (monitor power saving), Font, Window and Startup controls.
-- **NsCDE as default icon theme (branch `feat/nscde-default`):** `DesktopTheme.DEFAULT_ICON_THEME = "NsCDE"` in amade-commons; `build-image.sh` builds `nscde-icon-theme` automatically when `config/packages.chroot` lacks it. The former built-in "classic" icon set (eight PNGs rendered from the Java2D fallback, in the jar and in `/etc/amadeos/themes/classic`) is removed; icon names no theme provides still fall back to `/usr/share/pixmaps` and the Java2D drawings, and an icon theme that is not installed (e.g. an old `icon_theme.conf` with `classic`) resolves through NsCDE. The Style Manager lists real icon themes only (with `index.theme` or `icons/`), NsCDE first, hicolor hidden.
+- **NsCDE as default icon theme (merged as #15, live image boot-tested 2026-10-13):** `DesktopTheme.DEFAULT_ICON_THEME = "NsCDE"` in amade-commons; `build-image.sh` builds `nscde-icon-theme` automatically when `config/packages.chroot` lacks it. The former built-in "classic" icon set (eight PNGs rendered from the Java2D fallback, in the jar and in `/etc/amadeos/themes/classic`) is removed; icon names no theme provides still fall back to `/usr/share/pixmaps` and the Java2D drawings, and an icon theme that is not installed (e.g. an old `icon_theme.conf` with `classic`) resolves through NsCDE. The Style Manager lists real icon themes only (with `index.theme` or `icons/`), NsCDE first, hicolor hidden.
+- **Application suite (M13):** amade-mail is packaged into the image (`config/packages.chroot/amade-mail_0.1.0_all.deb`) and appears in the Mail drawer through its `Email` category; Gmail OAuth2 is implemented but not yet tested against Google. The front panel's File Manager, Printer, Help and Trash slots still open `xterm` shell commands, and the Calendar slot looks for `orage`, `gnome-calendar` or `korganizer`.
+- **README rework (PR #16, open):** "Digital Sovereignty starts on your desktop".
 - **Compatibility, security, and release hardening (M12):** NsCDE icon debian package build (`scripts/package-nscde-icons.sh --deb`), drop-in live package verification, ISO rebuild via `./build.sh`, and end-to-end QEMU live boot testing.
 
 ### Not yet verified
@@ -383,6 +395,14 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 **Goal:** Establish whether the complete desktop environment can be maintained and tested as a reproducible distribution.
 
+Done (2026-10-12/13):
+
+- Security review fixes: PAM-only login, X cookie authentication, no world-writable input devices, console-only Xorg, Debian security and update archives in the image (#1).
+- Session worker with a correct logind session (#5), screen lock process with grabs (#6), PAM loginuid fix verified in QEMU (#12).
+- Single-threaded Xlib access (#4), detached application start (#3), guarded build scripts (#8), Gradle tests in CI (#2).
+
+Open:
+
 - Pin and document the supported Java baseline and correct documentation inconsistencies.
 - Test fonts, HiDPI scaling, keyboard layouts, focus/modality, clipboard behavior, and representative Swing/AWT applications.
 - Evaluate multi-monitor behavior, graphics drivers, WLAN firmware, audio, suspend/resume, and USB boot on representative hardware.
@@ -392,6 +412,26 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - Reassess Wayland only after the X11 desktop model and compatibility requirements are understood.
 
 **Exit criteria:** A documented release process exists, supported hardware and software boundaries are explicit, and the image can be rebuilt and evaluated by another contributor.
+
+### M13 — amadeOS application suite (In Progress)
+
+**Goal:** Give every Front Panel slot a real application in the CDE style, built in its own repository on amade-commons and installed as a Debian package (see M10).
+
+Available:
+
+- [`amade-commons`](https://github.com/datazuul/amade-commons): shared themes, Motif look-and-feel, XDG directories, keyring (`secret-tool`) and application start-up; taken from JitPack or a local checkout through a Gradle composite build.
+- [`amade-pad`](https://github.com/datazuul/amade-pad) (Text Editor slot): tabbed documents, line numbers, find/replace, file encodings and line endings preserved, atomic saving; Guice-based layers, CI, EUPL-1.2, uses amade-commons.
+- [`amade-mail`](https://github.com/datazuul/amade-mail) (Mail slot, 0.1.0): IMAP/SMTP mailer after the CDE Mailer (dtmail) with folder column, several accounts and *All inboxes*, sanitised HTML mail (jsoup + Flying Saucer) with remote images blocked, attachments, compose/reply/forward, Sent copy, passwords in the keyring, `mailto:` handler. Gmail with OAuth2 (browser sign-in, XOAUTH2) or an app password; OAuth2 still untested against Google.
+
+Next:
+
+- amade-mail: test Gmail OAuth2; decide whether to ship a datazuul OAuth client by default (Google allows 100 users without verification of the restricted Gmail scope); IMAP IDLE with new-mail state in the Front Panel in-tray; autoconfig (Thunderbird ISPDB, DNS SRV).
+- File Manager (dtfile) for the File Manager slot and the Trash Can (freedesktop trash specification).
+- Calendar (dtcal) for the Calendar slot, replacing the search for orage, gnome-calendar or korganizer.
+- Help Viewer (dthelp) for the Help slot; Print Manager (dtprintinfo) on CUPS for the Printer slot.
+- Terminal: decide between xterm and an own terminal emulator.
+
+**Exit criteria:** Each Front Panel slot opens an amadeOS application instead of an `xterm` command, and all applications follow the Style Manager theme.
 
 ## Deferred by design
 
@@ -405,7 +445,7 @@ The following are intentionally outside the scope of current milestones:
 - broad hardware certification
 - automatic runtime package updates
 
-*(Note: Server-side window decorations, reparenting WM, desktop panel/taskbar, display manager, XDG discovery, and virtual workspaces were originally deferred, but are now scheduled in active milestones M6 through M11).*
+*(Note: Server-side window decorations, reparenting WM, desktop panel/taskbar, display manager, XDG discovery, and virtual workspaces were originally deferred, but were implemented in milestones M6 through M11).*
 
 ## Working agreement for status updates
 

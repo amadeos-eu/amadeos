@@ -20,6 +20,10 @@ libpam-systemd
 x11-xserver-utils
 xauth
 x11-utils
+xdg-utils
+desktop-file-utils
+shared-mime-info
+file
 libxss1
 openjdk-21-jre
 fontconfig

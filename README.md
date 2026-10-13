@@ -1,69 +1,111 @@
 # amadeOS
 
-**amadeOS** — *Digital Autonomy, Zero Lock-in, Empowerment*.
+**Digital Sovereignty starts on your desktop.**
 
-amadeOS is a free, Java-powered European desktop operating system. It is a bootable
-x86-64 live image based on Debian with a desktop written in Java: a display manager,
-an X11 window manager and a CDE-style front panel, all on Xorg with Swing
-applications.
+amadeOS is an open source Linux distribution with a timeless, classic desktop. Its source code is
+freely available under the European Union Public Licence, so anyone can inspect, change and share it.
 
-The project is in active development; the milestones are tracked in
-[`ROADMAP.md`](ROADMAP.md) and the design decisions in [`CONCEPT.md`](CONCEPT.md).
+[![Build](https://github.com/datazuul/amadeos/actions/workflows/build.yml/badge.svg)](https://github.com/datazuul/amadeos/actions/workflows/build.yml)
+[![License: EUPL-1.2](https://img.shields.io/badge/license-EUPL--1.2-003399)](LICENSE)
+[![Java 21](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)](https://openjdk.org/projects/jdk/21/)
+[![Debian 13 trixie](https://img.shields.io/badge/Debian-13%20trixie-A81D33?logo=debian&logoColor=white)](https://www.debian.org/releases/trixie/)
+[![Display: X11](https://img.shields.io/badge/display-Xorg%2FX11-555555)](https://www.x.org/)
+[![Boot: BIOS + UEFI](https://img.shields.io/badge/boot-BIOS%20%2B%20UEFI-555555)](#getting-started)
+[![Status: pre-release](https://img.shields.io/badge/status-pre--release-yellow)](ROADMAP.md)
+[![Last commit](https://img.shields.io/github/last-commit/datazuul/amadeos)](https://github.com/datazuul/amadeos/commits/main)
+
+---
+
+amadeOS is a free, Java-powered European desktop operating system: a bootable x86-64 live image
+based on Debian, with a desktop written in Java. Display manager, window manager, front panel and
+settings tools are Swing applications on Xorg, styled after the Common Desktop Environment (CDE).
+
+## Why amadeOS
+
+- **Open source, all the way up.** Everything from the login screen to the text editor is free
+  software under the [EUPL-1.2](LICENSE), a licence published by the European Commission and legally
+  valid in all official EU languages.
+- **Built on proven foundations.** Debian Stable as the base, Linux as the kernel, Xorg/X11 as the
+  display stack. amadeOS adds a desktop, not a new platform you have to trust.
+- **Understandable.** The desktop is plain Java and Swing. One codebase, one language, readable by
+  anyone who wants to know what their system does.
+- **Open standards instead of lock-in.** Applications are ordinary Debian packages with Freedesktop
+  `.desktop` entries; the window manager speaks ICCCM and EWMH, so non-Java X11 programs work too.
+- **A desktop that stays.** The classic CDE look and workflow: a front panel, workspaces and
+  Motif-style windows, without fashion-driven redesigns.
+
+## Status
+
+amadeOS is in active development and has not had a release yet. Milestones M0 to M11 are complete
+(bootable image, Java window manager, desktop shell, display manager, application discovery,
+virtual workspaces); M12, release hardening, is in progress. Progress is tracked in
+[`ROADMAP.md`](ROADMAP.md), the design decisions and rejected alternatives in
+[`CONCEPT.md`](CONCEPT.md).
+
+## Architecture
+
+```mermaid
+flowchart TD
+    subgraph System ["System (systemd, root)"]
+        DM["Display manager & login greeter<br>amadeos-dm.service, PAM"]
+        Xorg["Xorg server (:0)"]
+    end
+    subgraph Session ["User session"]
+        WM["Window manager<br>reparenting, Motif/CDE frames"]
+        Panel["Front panel<br>clock, workspaces, drawers"]
+        Tools["Style Manager, screen saver,<br>input settings"]
+        Apps["Applications<br>amade-pad, amade-mail, any X11 client"]
+    end
+    DM -->|starts| Xorg
+    DM -->|authenticates & starts| Session
+    WM -->|frames| Apps
+    Panel -->|EWMH| WM
+    Panel -->|launches| Apps
+```
+
+All Java components live in one JAR (`/opt/amadeos/amadeos.jar`); the first argument selects the
+component, e.g. `dm`, `wm`, `panel`, `style` (Style Manager), `screen` (screen saver), `input`
+(apply keyboard, mouse and bell settings) or `lock`.
 
 ## What is in the image
 
-- **Base:** Debian *trixie* (minimal), Linux, Xorg/X11, OpenJDK 21, BIOS and UEFI boot.
-- **Display manager** (`amadeos-dm.service`): starts Xorg on VT 7 and shows the
-  Java login greeter, which authenticates through PAM (`/etc/pam.d/amadeos-dm`).
-- **Window manager:** a floating, reparenting X11 window manager in Java (Xlib via
-  JNA) with Motif/CDE-style frames, interactive move and resize, minimize to desktop
-  icons, four virtual workspaces, a desktop root menu and the EWMH/ICCCM hints that
-  panels and toolkits rely on (`_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`,
-  `_NET_CURRENT_DESKTOP`, `_NET_WM_STRUT_PARTIAL`, `WM_DELETE_WINDOW`, ...).
-- **Icons:** the NsCDE icon theme is the default (package `nscde-icon-theme`, built by
-  `scripts/package-nscde-icons.sh`, included in the image automatically); any other installed
-  Freedesktop icon theme can be chosen in the Style Manager.
-- **Style Manager** (`style`): the controls of CDE's dtstyle; Color (palette and icon theme),
-  Backdrop, Keyboard, Mouse, Beep and Screen work, Font, Window and Startup are shown but not yet
-  available.
-- **Backdrops:** the original CDE pattern backdrops (Pebbles, Concave, BrickWall, Toronto, ...) come
-  as the separate package `amadeos-backdrops-cde` (built by `scripts/package-cde-backdrops.sh`,
-  installed to `/usr/share/amadeos/backdrops/cde`) and take their shades from the chosen backdrop
-  color like in dtstyle; own `.pm`/`.bm` files (XPM/XBM) are found in `~/.dt/backdrops` and
-  `~/.config/amadeos/backdrops`, pictures (PNG/JPEG) as before.
-- **Input settings** (`input`): keyboard repeat and click, mouse handedness, double-click time and
-  acceleration, and the bell, stored in `~/.config/amadeos/input.conf` and applied with `xset`,
-  `xmodmap` and `xrdb` at login (`/etc/amadeos/autostart.d/10-amadeos-input`) and on Apply.
-- **Screen saver** (`screen`, CDE's dtscreen): started by the session through
-  `/etc/amadeos/autostart.d/50-amadeos-screen`; uses the X server's idle counter (MIT-SCREEN-SAVER,
-  `libxss1`), shows a saver module (Qix, Swarm, Starfield, Floating Logo, Blank) and locks the screen
-  after the configured time. Settings in `~/.config/amadeos/screen.conf`.
-- **Front panel:** a CDE-style dock with clock, calendar, workspace switcher and
-  drawers that list installed applications from their `.desktop` files.
-- **Applications** are separate Debian packages, e.g.
-  [amade-pad](https://github.com/datazuul/amade-pad); `.deb` files placed in
-  `config/packages.chroot/` are installed into the image.
+| Component | Description |
+|---|---|
+| **Base** | Debian *trixie* (minimal), Linux, Xorg/X11, OpenJDK 21, BIOS and UEFI boot. |
+| **Display manager** | `amadeos-dm.service` starts Xorg on VT 7 and shows the Java login greeter, which authenticates through PAM (`/etc/pam.d/amadeos-dm`). |
+| **Window manager** | A floating, reparenting X11 window manager in Java (Xlib via JNA) with Motif/CDE-style frames, interactive move and resize, minimize to desktop icons, four virtual workspaces, a desktop root menu and the EWMH/ICCCM hints that panels and toolkits rely on (`_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`, `_NET_CURRENT_DESKTOP`, `_NET_WM_STRUT_PARTIAL`, `WM_DELETE_WINDOW`, ...). |
+| **Front panel** | A CDE-style dock with clock, calendar, workspace switcher and drawers that list installed applications from their `.desktop` files. |
+| **Style Manager** (`style`) | The controls of CDE's dtstyle. Color (palette and icon theme), Backdrop, Keyboard, Mouse, Beep and Screen work; Font, Window and Startup are shown but not yet available. |
+| **Icons** | The NsCDE icon theme is the default (package `nscde-icon-theme`, built by `scripts/package-nscde-icons.sh`, included in the image automatically). Any other installed Freedesktop icon theme can be chosen in the Style Manager. |
+| **Backdrops** | The original CDE pattern backdrops (Pebbles, Concave, BrickWall, Toronto, ...) come as the separate package `amadeos-backdrops-cde` (built by `scripts/package-cde-backdrops.sh`, installed to `/usr/share/amadeos/backdrops/cde`) and take their shades from the chosen backdrop color like in dtstyle. Own `.pm`/`.bm` files (XPM/XBM) are found in `~/.dt/backdrops` and `~/.config/amadeos/backdrops`, pictures (PNG/JPEG) as well. |
+| **Input settings** (`input`) | Keyboard repeat and click, mouse handedness, double-click time and acceleration, and the bell; stored in `~/.config/amadeos/input.conf` and applied with `xset`, `xmodmap` and `xrdb` at login (`/etc/amadeos/autostart.d/10-amadeos-input`) and on Apply. |
+| **Screen saver** (`screen`) | CDE's dtscreen: started through `/etc/amadeos/autostart.d/50-amadeos-screen`, uses the X server's idle counter (MIT-SCREEN-SAVER, `libxss1`), shows a saver module (Qix, Swarm, Starfield, Floating Logo, Blank) and locks the screen after the configured time. Settings in `~/.config/amadeos/screen.conf`. |
+| **Applications** | Separate Debian packages; `.deb` files placed in `config/packages.chroot/` are installed into the image. |
 
-All Java components live in one JAR (`/opt/amadeos/amadeos.jar`); the first argument
-selects the component, e.g. `dm`, `wm`, `panel`, `style` (Style Manager), `screen` (screen saver),
-`input` (apply keyboard, mouse and bell settings) or `lock`.
+## The amadeOS family
 
-The desktop themes and the Motif look come from
-[amade-commons](https://github.com/datazuul/amade-commons), the library the amadeOS
-applications ([amade-mail](https://github.com/datazuul/amade-mail),
-[amade-pad](https://github.com/datazuul/amade-pad)) use as well. The Style Manager writes the
-chosen theme to `~/.config/amadeos/theme.conf`; applications follow that file and switch
-together with window frames and front panel. Gradle takes amade-commons from JitPack, or builds
-a checkout in `../amade-commons` instead.
+| Repository | Purpose |
+|---|---|
+| [amadeos](https://github.com/datazuul/amadeos) | This repository: live image, display manager, window manager, front panel and settings tools |
+| [amade-commons](https://github.com/datazuul/amade-commons) | Shared library: desktop themes, colors and Motif styling, application scaffold |
+| [amade-pad](https://github.com/datazuul/amade-pad) | Text editor |
+| [amade-mail](https://github.com/datazuul/amade-mail) | Mail client (IMAP/SMTP) in the style of CDE's dtmail |
+
+The Style Manager writes the chosen theme to `~/.config/amadeos/theme.conf`; applications follow
+that file and switch together with window frames and front panel. Gradle takes amade-commons from
+JitPack, or builds a checkout in `../amade-commons` instead.
 
 ## Getting started
 
-Requirements: Java 21, and for the image `live-build`, `sudo` and optionally QEMU.
+Requirements: Java 21, and for the image `live-build`, `sudo` and optionally QEMU or Xephyr.
 [`CONTRIBUTING.md`](CONTRIBUTING.md) lists the packages per distribution.
 
 ```bash
+git clone https://github.com/datazuul/amadeos.git
+cd amadeos
+
 ./gradlew test         # unit and X11 integration tests (the latter need Xvfb)
-./run-xephyr.sh        # window manager and panel in a nested X server
+./run-xephyr.sh        # window manager and panel in a nested X server, no ISO needed
 ./run-greeter.sh       # login greeter in a nested X server (mock PAM)
 ./build.sh             # build artifacts/amadeos-amd64.iso (uses sudo for live-build)
 ./run-qemu.sh          # boot the ISO in QEMU
@@ -71,20 +113,26 @@ Requirements: Java 21, and for the image `live-build`, `sudo` and optionally QEM
 
 The live user is `amadeos` with the password `amadeos`.
 
+## Contributing
+
+Contributions are welcome: small, testable changes to the desktop, compatibility tests on real
+hardware, new applications as Debian packages, documentation. [`CONTRIBUTING.md`](CONTRIBUTING.md)
+describes the development setup, how to package applications for amadeOS and the Git workflow.
+Bugs and ideas go to the [issue tracker](https://github.com/datazuul/amadeos/issues).
+
 ## License
 
 amadeOS is free software, licensed under the
-[European Union Public Licence v. 1.2](LICENSE) (EUPL-1.2,
-SPDX identifier `EUPL-1.2`). The EUPL is published by the European Commission and
-is legally valid in all official languages of the EU; translations are available at
+[European Union Public Licence v. 1.2](LICENSE) (EUPL-1.2, SPDX identifier `EUPL-1.2`). The EUPL is
+published by the European Commission and is legally valid in all official languages of the EU;
+translations are available at
 [interoperable-europe.ec.europa.eu](https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
 
 Copyright © 2026 datazuul.com and contributors.
 
-The live image is an aggregation of Debian packages and separately packaged
-applications; each of them keeps its own licence (see
-`/usr/share/doc/<package>/copyright` on the running system). In particular, the
-NsCDE icon theme built by `scripts/package-nscde-icons.sh` stays under the GPL-3.0
+The live image is an aggregation of Debian packages and separately packaged applications; each of
+them keeps its own licence (see `/usr/share/doc/<package>/copyright` on the running system). In
+particular, the NsCDE icon theme built by `scripts/package-nscde-icons.sh` stays under the GPL-3.0
 as a separate package, and the CDE backdrops packaged by `scripts/package-cde-backdrops.sh`
-(`amadeos-backdrops-cde`, fetched from the CDE sources at build time) stay under the LGPL-2+. The screenshots in `docs/` show third-party software and
-are not covered by this repository's licence.
+(`amadeos-backdrops-cde`, fetched from the CDE sources at build time) stay under the LGPL-2+. The
+screenshots in `docs/` show third-party software and are not covered by this repository's licence.

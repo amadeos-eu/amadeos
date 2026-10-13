@@ -20,6 +20,21 @@ The project is in active development; the milestones are tracked in
   icons, four virtual workspaces, a desktop root menu and the EWMH/ICCCM hints that
   panels and toolkits rely on (`_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`,
   `_NET_CURRENT_DESKTOP`, `_NET_WM_STRUT_PARTIAL`, `WM_DELETE_WINDOW`, ...).
+- **Style Manager** (`style`): the controls of CDE's dtstyle; Color (palette and icon theme),
+  Backdrop, Keyboard, Mouse, Beep and Screen work, Font, Window and Startup are shown but not yet
+  available.
+- **Backdrops:** the original CDE pattern backdrops (Pebbles, Concave, BrickWall, Toronto, ...) come
+  as the separate package `amadeos-backdrops-cde` (built by `scripts/package-cde-backdrops.sh`,
+  installed to `/usr/share/amadeos/backdrops/cde`) and take their shades from the chosen backdrop
+  color like in dtstyle; own `.pm`/`.bm` files (XPM/XBM) are found in `~/.dt/backdrops` and
+  `~/.config/amadeos/backdrops`, pictures (PNG/JPEG) as before.
+- **Input settings** (`input`): keyboard repeat and click, mouse handedness, double-click time and
+  acceleration, and the bell, stored in `~/.config/amadeos/input.conf` and applied with `xset`,
+  `xmodmap` and `xrdb` at login (`/etc/amadeos/autostart.d/10-amadeos-input`) and on Apply.
+- **Screen saver** (`screen`, CDE's dtscreen): started by the session through
+  `/etc/amadeos/autostart.d/50-amadeos-screen`; uses the X server's idle counter (MIT-SCREEN-SAVER,
+  `libxss1`), shows a saver module (Qix, Swarm, Starfield, Floating Logo, Blank) and locks the screen
+  after the configured time. Settings in `~/.config/amadeos/screen.conf`.
 - **Front panel:** a CDE-style dock with clock, calendar, workspace switcher and
   drawers that list installed applications from their `.desktop` files.
 - **Applications** are separate Debian packages, e.g.
@@ -27,7 +42,8 @@ The project is in active development; the milestones are tracked in
   `config/packages.chroot/` are installed into the image.
 
 All Java components live in one JAR (`/opt/amadeos/amadeos.jar`); the first argument
-selects the component, e.g. `dm`, `wm`, `panel` or `settings`.
+selects the component, e.g. `dm`, `wm`, `panel`, `style` (Style Manager), `screen` (screen saver),
+`input` (apply keyboard, mouse and bell settings) or `lock`.
 
 The desktop themes and the Motif look come from
 [amade-commons](https://github.com/datazuul/amade-commons), the library the amadeOS
@@ -66,5 +82,6 @@ The live image is an aggregation of Debian packages and separately packaged
 applications; each of them keeps its own licence (see
 `/usr/share/doc/<package>/copyright` on the running system). In particular, the
 NsCDE icon theme built by `scripts/package-nscde-icons.sh` stays under the GPL-3.0
-as a separate package. The screenshots in `docs/` show third-party software and
+as a separate package, and the CDE backdrops packaged by `scripts/package-cde-backdrops.sh`
+(`amadeos-backdrops-cde`, fetched from the CDE sources at build time) stay under the LGPL-2+. The screenshots in `docs/` show third-party software and
 are not covered by this repository's licence.

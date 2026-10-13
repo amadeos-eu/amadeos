@@ -20,6 +20,9 @@ The project is in active development; the milestones are tracked in
   icons, four virtual workspaces, a desktop root menu and the EWMH/ICCCM hints that
   panels and toolkits rely on (`_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`,
   `_NET_CURRENT_DESKTOP`, `_NET_WM_STRUT_PARTIAL`, `WM_DELETE_WINDOW`, ...).
+- **Icons:** the NsCDE icon theme is the default (package `nscde-icon-theme`, built by
+  `scripts/package-nscde-icons.sh`, included in the image automatically); any other installed
+  Freedesktop icon theme can be chosen in the Style Manager.
 - **Style Manager** (`style`): the controls of CDE's dtstyle; Color (palette and icon theme),
   Backdrop, Keyboard, Mouse, Beep and Screen work, Font, Window and Startup are shown but not yet
   available.

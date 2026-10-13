@@ -46,6 +46,12 @@ mkdir -p "$ARTIFACT_DIR" "$(dirname "$JAR_PATH")"
 "$GRADLE_BIN" clean jar
 cp build/libs/amadeos-*.jar "$JAR_PATH"
 cp "$JAR_PATH" "$CONFIG_DIR/includes.chroot/opt/amadeos/amadeos-demo.jar" 2>/dev/null || true
+# NsCDE is the default icon theme (GPL-3.0, own package nscde-icon-theme); build it once if missing.
+# Without it the desktop falls back to hicolor and to icons drawn in Java.
+if ! compgen -G "$CONFIG_DIR/packages.chroot/nscde-icon-theme_*.deb" >/dev/null; then
+    "$ROOT_DIR/scripts/package-nscde-icons.sh" --deb-only --install-iso \
+        || echo "[build-image] Warning: nscde-icon-theme could not be built; continuing without the default icon theme." >&2
+fi
 # The original CDE backdrops are LGPL and live in their own package (amadeos-backdrops-cde);
 # build it once if it is not in config/packages.chroot yet. Without it the image just lacks the patterns.
 if ! compgen -G "$CONFIG_DIR/packages.chroot/amadeos-backdrops-cde_*.deb" >/dev/null; then

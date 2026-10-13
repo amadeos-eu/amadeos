@@ -8,40 +8,59 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Stream;
 
 /**
- * CDE backdrops: the original pattern tiles from the CDE sources (LGPL, see
- * {@code /backdrops/cde/COPYING}) and the loader for {@code .pm/.xpm} and {@code .bm/.xbm} files.
+ * CDE-style backdrops: the loader for {@code .pm/.xpm} and {@code .bm/.xbm} pattern files and the lookup
+ * of the system backdrops. The original CDE backdrops come as the separate Debian package
+ * {@code amadeos-backdrops-cde} (LGPL, built by {@code scripts/package-cde-backdrops.sh}) and are
+ * installed to {@code /usr/share/amadeos/backdrops/cde}; without that package the list is simply empty.
  *
  * <p>Patterns are coloured the way dtwm colours them from the workspace colour set: symbolic XPM colours
  * ({@code background}, {@code topShadowColor}, ...) come from {@link MotifColors} of the backdrop colour,
  * and bitmaps are drawn with the set's background (set bits) on its bottom shadow (clear bits).
  */
 public final class Backdrops {
-    /** Classpath folder of the bundled CDE backdrops. */
-    public static final String CDE_RESOURCE_DIR = "/backdrops/cde/";
     /** Path prefix that {@code WallpaperManager} uses for classpath resources. */
     public static final String CLASSPATH = "classpath:";
-
-    /**
-     * The CDE 2.x backdrops, minus NoBackdrop (amadeOS offers a plain colour instead) and SunLogo
-     * (a vendor trademark).
-     */
-    public static final List<String> CDE = List.of(
-            "Ankh.bm", "Background.bm", "BrickWall.bm", "Concave.pm", "Convex.pm", "Corduroy.pm",
-            "Crochet.pm", "Foreground.bm", "InlayColor.pm", "InlayPlain.pm", "KnitLight.pm", "Lattice.pm",
-            "LatticeBig.pm", "Leaves.pm", "OldChars.pm", "Paver.pm", "Pebbles.pm", "PinStripe.pm",
-            "RakedSand.bm", "RicePaper.pm", "SkyDark.pm", "SkyLight.pm", "Sprinkles.pm", "Toronto.bm",
-            "WaterDrops.pm", "Wooly.pm");
+    /** System property overriding {@link #SYSTEM_DIR}, for tests and development runs. */
+    public static final String DIR_PROPERTY = "amadeos.backdrops.dir";
+    /** Where backdrop packages install their patterns, one sub-folder per set (e.g. {@code cde/}). */
+    public static final Path SYSTEM_DIR = Path.of("/usr/share/amadeos/backdrops");
 
     private Backdrops() {
     }
 
-    /** The path under which {@code WallpaperManager} finds a bundled CDE backdrop. */
-    public static String cdePath(String file) {
-        return CLASSPATH + CDE_RESOURCE_DIR + file;
+    /** The system backdrop folder, {@link #SYSTEM_DIR} unless {@value #DIR_PROPERTY} is set. */
+    public static Path systemDir() {
+        String override = System.getProperty(DIR_PROPERTY);
+        return override == null || override.isBlank() ? SYSTEM_DIR : Path.of(override);
+    }
+
+    /** The installed system backdrops, sorted by name. */
+    public static List<Path> systemBackdrops() {
+        return patterns(systemDir());
+    }
+
+    /** Pattern files in {@code dir} and its direct sub-folders, sorted by display name. */
+    public static List<Path> patterns(Path dir) {
+        List<Path> out = new ArrayList<>();
+        if (!Files.isDirectory(dir)) return out;
+        try (Stream<Path> files = Files.walk(dir, 2)) {
+            files.filter(Files::isRegularFile)
+                    .filter(p -> isPattern(p.getFileName().toString()))
+                    .filter(p -> !p.getFileName().toString().startsWith("."))
+                    .forEach(out::add);
+        } catch (IOException | java.io.UncheckedIOException e) {
+            return out;
+        }
+        out.sort(Comparator.comparing((Path p) -> displayName(p.toString()).toLowerCase(Locale.ROOT))
+                .thenComparing(Path::toString));
+        return out;
     }
 
     /** The name dtstyle shows: the file name without extension. */

@@ -26,8 +26,8 @@ import org.datazuul.amadeos.wm.x11.LibX11;
 
 /**
  * Manages desktop wallpapers and background rendering on the X11 Root Window.
- * Supports Fill, Fit, Stretch, Tile, and Center modes, solid color backdrops, the original CDE pattern
- * backdrops (X pixmaps and bitmaps coloured from the backdrop colour, see {@link Backdrops}),
+ * Supports Fill, Fit, Stretch, Tile, and Center modes, solid color backdrops, CDE pattern backdrops
+ * (X pixmaps and bitmaps coloured from the backdrop colour, see {@link Backdrops}),
  * persistence to $XDG_CONFIG_HOME/amadeos/wallpaper.conf (default ~/.config), and Freedesktop/X11 root pixmap export.
  */
 public final class WallpaperManager {
@@ -102,11 +102,12 @@ public final class WallpaperManager {
     public static List<WallpaperItem> availableWallpapers() {
         List<WallpaperItem> list = new ArrayList<>();
 
-        // 1. Plain colour, the amadeOS default picture and the original CDE backdrops
+        // 1. Plain colour and the amadeOS default picture
         list.add(new WallpaperItem("No Backdrop (color only)", NO_BACKDROP, true));
         list.add(new WallpaperItem("amadeOS Default (Classpath)", "classpath:/wallpapers/default.png", true));
-        for (String file : Backdrops.CDE) {
-            list.add(new WallpaperItem(Backdrops.displayName(file), Backdrops.cdePath(file), true));
+        // The original CDE backdrops, if the amadeos-backdrops-cde package is installed
+        for (java.nio.file.Path file : Backdrops.systemBackdrops()) {
+            list.add(new WallpaperItem(Backdrops.displayName(file.toString()), file.toString(), false));
         }
 
         // 2. System backgrounds: /usr/share/backgrounds/

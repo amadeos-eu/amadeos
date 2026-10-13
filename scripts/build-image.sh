@@ -46,6 +46,12 @@ mkdir -p "$ARTIFACT_DIR" "$(dirname "$JAR_PATH")"
 "$GRADLE_BIN" clean jar
 cp build/libs/amadeos-*.jar "$JAR_PATH"
 cp "$JAR_PATH" "$CONFIG_DIR/includes.chroot/opt/amadeos/amadeos-demo.jar" 2>/dev/null || true
+# The original CDE backdrops are LGPL and live in their own package (amadeos-backdrops-cde);
+# build it once if it is not in config/packages.chroot yet. Without it the image just lacks the patterns.
+if ! compgen -G "$CONFIG_DIR/packages.chroot/amadeos-backdrops-cde_*.deb" >/dev/null; then
+    "$ROOT_DIR/scripts/package-cde-backdrops.sh" --install-iso \
+        || echo "[build-image] Warning: amadeos-backdrops-cde could not be built; continuing without CDE backdrops." >&2
+fi
 if [ -n "${SUDO_USER:-}" ]; then
     chown -R "$SUDO_USER:" "$ROOT_DIR/build" "$(dirname "$JAR_PATH")" "$ARTIFACT_DIR" 2>/dev/null || true
 fi

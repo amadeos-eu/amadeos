@@ -126,6 +126,19 @@ class StyleManagerTest {
     @Test
     void choosingACdePatternSwitchesTheBackdropToTile() throws Exception {
         assumeFalse(GraphicsEnvironment.isHeadless());
+        java.nio.file.Files.writeString(dir.resolve("Pebbles.pm"),
+                org.datazuul.amadeos.wm.theme.backdrop.BackdropsTest.SHADED);
+        String previous = System.getProperty(org.datazuul.amadeos.wm.theme.backdrop.Backdrops.DIR_PROPERTY);
+        System.setProperty(org.datazuul.amadeos.wm.theme.backdrop.Backdrops.DIR_PROPERTY, dir.toString());
+        try {
+            pebblesSelectsTile();
+        } finally {
+            if (previous == null) System.clearProperty(org.datazuul.amadeos.wm.theme.backdrop.Backdrops.DIR_PROPERTY);
+            else System.setProperty(org.datazuul.amadeos.wm.theme.backdrop.Backdrops.DIR_PROPERTY, previous);
+        }
+    }
+
+    private void pebblesSelectsTile() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             BackdropDialog dialog = new BackdropDialog(null, s -> { });
             try {

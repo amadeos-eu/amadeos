@@ -298,6 +298,6 @@ The initial project benefits most from small, testable contributions: build repr
 amadeOS is licensed under the EUPL-1.2 (see `LICENSE`). By submitting a contribution
 you agree that it is licensed under the same terms. Only add third-party code whose
 licence allows distribution under the EUPL-1.2, or keep it in a separately packaged
-component with its own licence (as done for the NsCDE icon theme). Note that code
+component with its own licence (as done for the NsCDE icon theme and the CDE backdrops). Note that code
 under a licence listed in the EUPL appendix (e.g. GPL) can absorb EUPL code, but not
 the other way round, so GPL-only code cannot be merged into this repository.

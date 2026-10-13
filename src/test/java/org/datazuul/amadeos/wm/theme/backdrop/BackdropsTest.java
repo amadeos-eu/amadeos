@@ -2,51 +2,92 @@ package org.datazuul.amadeos.wm.theme.backdrop;
 
 import org.datazuul.amadeos.wm.theme.WallpaperManager;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
-class BackdropsTest {
+public class BackdropsTest {
     private static final Color SLATE = new Color(0x4A, 0x69, 0x84);
 
-    @Test
-    void everyBundledCdeBackdropDecodes() throws Exception {
-        for (String file : Backdrops.CDE) {
-            BufferedImage image = Backdrops.load(Backdrops.cdePath(file), SLATE);
-            assertTrue(image.getWidth() > 0 && image.getHeight() > 0, file);
-        }
-        BufferedImage concave = Backdrops.load(Backdrops.cdePath("Concave.pm"), SLATE);
-        assertEquals(8, concave.getWidth());
-        assertEquals(1024, concave.getHeight());
-        BufferedImage toronto = Backdrops.load(Backdrops.cdePath("Toronto.bm"), SLATE);
-        assertEquals(213, toronto.getWidth());
-        assertEquals(211, toronto.getHeight());
-    }
+    /** A Concave-like gradient: the four shading symbols, one of them keyed by a backslash as in SkyDark.pm. */
+    public static final String SHADED = """
+            /* XPM */
+            static char * shaded[] = {
+            /* width height ncolors cpp [x_hot y_hot] */
+            "4 2 4 1 0 0",
+            /* colors */
+            "\\    s bottomShadowColor m black c #636363636363",
+            ".    s selectColor m white c #737373737373",
+            "X    s background    m black c #949494949494",
+            "o    s topShadowColor m white c #bdbdbdbdbdbd",
+            /* pixels */
+            "\\.Xo",
+            "oX.\\"};
+            """;
+
+    static final String ALL_SET = "#define a_width 8\n#define a_height 1\nstatic char a_bits[] = { 0xff };\n";
+    static final String ALL_CLEAR = "#define b_width 8\n#define b_height 1\nstatic char b_bits[] = { 0x00 };\n";
+
+    @TempDir
+    Path dir;
 
     @Test
     void symbolicColoursFollowTheBackdropColour() throws Exception {
+        Path file = Files.writeString(dir.resolve("Shaded.pm"), SHADED, StandardCharsets.ISO_8859_1);
         MotifColors motif = MotifColors.of(SLATE);
-        BufferedImage image = Backdrops.load(Backdrops.cdePath("Concave.pm"), SLATE);
-        Set<Integer> used = colours(image);
-        // Concave uses exactly the four shading symbols, none of its fallback greys.
-        assertEquals(Set.of(motif.background().getRGB(), motif.topShadow().getRGB(),
-                motif.bottomShadow().getRGB(), motif.select().getRGB()), used);
+        BufferedImage image = Backdrops.load(file.toString(), SLATE);
+        assertEquals(4, image.getWidth());
+        assertEquals(2, image.getHeight());
+        assertEquals(motif.bottomShadow().getRGB(), image.getRGB(0, 0));
+        assertEquals(motif.select().getRGB(), image.getRGB(1, 0));
+        assertEquals(motif.background().getRGB(), image.getRGB(2, 0));
+        assertEquals(motif.topShadow().getRGB(), image.getRGB(3, 0));
+        assertEquals(motif.bottomShadow().getRGB(), image.getRGB(3, 1));
 
-        BufferedImage red = Backdrops.load(Backdrops.cdePath("Concave.pm"), new Color(0x90, 0x20, 0x20));
-        assertNotEquals(used, colours(red));
+        BufferedImage red = Backdrops.load(file.toString(), new Color(0x90, 0x20, 0x20));
+        assertNotEquals(colours(image), colours(red));
     }
 
     @Test
     void bitmapsUseBackgroundOnBottomShadowLikeDtwm() throws Exception {
         MotifColors motif = MotifColors.of(SLATE);
-        BufferedImage foreground = Backdrops.load(Backdrops.cdePath("Foreground.bm"), SLATE);
-        BufferedImage background = Backdrops.load(Backdrops.cdePath("Background.bm"), SLATE);
-        assertEquals(Set.of(motif.background().getRGB()), colours(foreground));
-        assertEquals(Set.of(motif.bottomShadow().getRGB()), colours(background));
+        Path set = Files.writeString(dir.resolve("Foreground.bm"), ALL_SET);
+        Path clear = Files.writeString(dir.resolve("Background.bm"), ALL_CLEAR);
+        assertEquals(Set.of(motif.background().getRGB()), colours(Backdrops.load(set.toString(), SLATE)));
+        assertEquals(Set.of(motif.bottomShadow().getRGB()), colours(Backdrops.load(clear.toString(), SLATE)));
+    }
+
+    @Test
+    void systemBackdropsAreFoundInSubfoldersAndSortedByName() throws Exception {
+        Path cde = Files.createDirectories(dir.resolve("cde"));
+        Files.writeString(cde.resolve("Toronto.bm"), ALL_SET);
+        Files.writeString(cde.resolve("Concave.pm"), SHADED);
+        Files.writeString(cde.resolve("README"), "not a backdrop");
+        Files.writeString(dir.resolve("Pebbles.xpm"), SHADED);
+        List<String> names = Backdrops.patterns(dir).stream().map(p -> Backdrops.displayName(p.toString())).toList();
+        assertEquals(List.of("Concave", "Pebbles", "Toronto"), names);
+        assertTrue(Backdrops.patterns(dir.resolve("missing")).isEmpty());
+    }
+
+    /** Runs where the amadeos-backdrops-cde package is installed (or -Damadeos.backdrops.dir points to it). */
+    @Test
+    void everyInstalledBackdropDecodes() throws Exception {
+        List<Path> installed = Backdrops.systemBackdrops();
+        assumeFalse(installed.isEmpty(), "amadeos-backdrops-cde not installed");
+        for (Path file : installed) {
+            BufferedImage image = Backdrops.load(file.toString(), SLATE);
+            assertTrue(image.getWidth() > 0 && image.getHeight() > 0, file.toString());
+        }
     }
 
     @Test
@@ -105,12 +146,22 @@ class BackdropsTest {
     }
 
     @Test
-    void wallpaperManagerListsAndLoadsTheCdeBackdrops() {
-        var items = WallpaperManager.availableWallpapers();
-        assertTrue(items.stream().anyMatch(i -> i.name().equals("Pebbles") && i.isPattern()));
-        assertTrue(items.stream().anyMatch(i -> i.path().equals(WallpaperManager.NO_BACKDROP)));
-        assertNotNull(WallpaperManager.loadImage(Backdrops.cdePath("Pebbles.pm"), SLATE));
-        assertNull(WallpaperManager.loadImage(WallpaperManager.NO_BACKDROP, SLATE));
+    void wallpaperManagerListsAndLoadsTheSystemBackdrops() throws Exception {
+        Path cde = Files.createDirectories(dir.resolve("cde"));
+        Path pebbles = Files.writeString(cde.resolve("Pebbles.pm"), SHADED);
+        String previous = System.getProperty(Backdrops.DIR_PROPERTY);
+        System.setProperty(Backdrops.DIR_PROPERTY, dir.toString());
+        try {
+            var items = WallpaperManager.availableWallpapers();
+            assertTrue(items.stream().anyMatch(i -> i.name().equals("Pebbles") && i.isPattern()
+                    && i.path().equals(pebbles.toString())));
+            assertTrue(items.stream().anyMatch(i -> i.path().equals(WallpaperManager.NO_BACKDROP)));
+            assertNotNull(WallpaperManager.loadImage(pebbles.toString(), SLATE));
+            assertNull(WallpaperManager.loadImage(WallpaperManager.NO_BACKDROP, SLATE));
+        } finally {
+            if (previous == null) System.clearProperty(Backdrops.DIR_PROPERTY);
+            else System.setProperty(Backdrops.DIR_PROPERTY, previous);
+        }
     }
 
     private static int lum(Color c) {

@@ -4,6 +4,7 @@ set -eu
 chmod 0755 /usr/local/bin/amadeos-session
 chmod 0755 /usr/local/bin/amadeos-dm 2>/dev/null || true
 chmod 0755 /usr/local/bin/amadeos-lock
+chmod 0755 /etc/amadeos/autostart.d/50-amadeos-screen 2>/dev/null || true
 if [ -f /usr/local/bin/rsvg ]; then
     chmod 0755 /usr/local/bin/rsvg
 fi

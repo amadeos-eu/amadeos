@@ -66,7 +66,7 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - **Authentic CDE Front Panel (M8):** Centered 85px dock (`AmadeDesktopPanel`) with pixel-exact 10-slot layout measured from authentic UNIX workstation CDE specification:
   - Left slots: Slot 1 Clock (analog dial with tick marks & hands), Slot 2 Calendar (tear-off paper sheet showing current month & day), Slot 3 File Manager (drawer with `▲`), Slot 4 Text Editor (drawer with `▲`), Slot 5 Mail / Mailer (in-tray drawer with `▲`).
   - Center: Iconic 4-way Workspace Switcher pad ("One", "Two", "Three", "Four"), lock button, activity LED bar, and EXIT button.
-  - Right slots: Slot 6 Printer Manager (drawer with `▲`), Slot 7 Style Manager (flat notch tab opening `AmadeSettingsApplication`), Slot 8 Application Manager (flat notch tab with categorized app catalog), Slot 9 Help Viewer (books drawer with `▲`), Slot 10 Trash Can (wastebasket pedal bin).
+  - Right slots: Slot 6 Printer Manager (drawer with `▲`), Slot 7 Style Manager (flat notch tab opening the `StyleManager`), Slot 8 Application Manager (flat notch tab with categorized app catalog), Slot 9 Help Viewer (books drawer with `▲`), Slot 10 Trash Can (wastebasket pedal bin).
   - Selective `hasDrawer` architecture rendering 3D carved triangle arrows (`▲`/`▼`) on drawer slots while flat notch tabs remain un-arrowed and non-popup.
   - Memory gauge cleanly removed from panel to preserve original CDE layout.
 - Central Desktop Theme Engine (M8): `DesktopTheme` and `ThemeManager` with unified warm Motif `#CEC2BB` palette, 5 built-in themes, dynamic icon theme switching, and real-time cross-process synchronization via the X11 root window property `_AMADEOS_THEME`.
@@ -76,7 +76,7 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - **Motif Look-and-Feel & Scrollbar Hardening (`AmadeUI`):**
   - Rectangular 3D beveled `BasicScrollBarUI` matching authentic Motif desktop styling.
   - Solid theme-colored flat gradients eliminating Ocean blue tint while preventing Metal gradient `IndexOutOfBoundsException: Index: 0` crashes on scrollable components.
-- Dedicated Desktop Settings App & Wallpaper Management (M8): `AmadeSettingsApplication` and `WallpaperManager` supporting scaling modes (Fill, Fit, Stretch, Tile, Center), solid color matte, and direct X11 root window pixmap rendering.
+- Style Manager & Wallpaper Management (M8, restructured after M11): `style.StyleManager` (formerly `AmadeSettingsApplication`) and `WallpaperManager` supporting scaling modes (Fill, Fit, Stretch, Tile, Center), solid color matte, and direct X11 root window pixmap rendering.
 - Java Display Manager & PAM Greeter (M9): `AmadeDisplayManager`, `AmadeLoginGreeter`, and `PamAuthenticator` providing full Linux PAM authentication (`libpam.so.0`), root privilege dropping via `runuser`/POSIX, systemd unit `amadeos-dm.service`, and default live credentials (`amadeos` / `amadeos`).
 - Session configuration manifest (`/etc/amadeos/session.conf`), drop-in autostart (`/etc/amadeos/autostart.d/`), and background WM watchdog supervision.
 - Incremental packaging mode `AMADEOS_QUICK=1` updating chroot and squashfs in under 30 seconds.
@@ -95,6 +95,10 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 
 ### In progress or next
 
+- **Style Manager and screen saver (branch `feat/style-manager-screen`, needs verification on a live image):**
+  - `AmadeSettingsApplication` renamed and restructured as `style.StyleManager` with dtstyle's control row (Color, Font, Backdrop, Keyboard, Mouse, Beep, Screen, Window, Startup); Color, Backdrop and Screen implemented, the others disabled until they work. The former Window Manager tab offered check boxes without effect and is gone.
+  - Screen saver daemon `amadeos.jar screen` (dtscreen): idle time from MIT-SCREEN-SAVER via JNA (`libxss1`), saver modules Qix, Swarm, Starfield, Floating Logo and Blank, screen lock after the configured idle time through the existing `amadeos-lock`; started by `/etc/amadeos/autostart.d/50-amadeos-screen`.
+  - Open: DPMS (monitor power saving), Font, Keyboard, Mouse, Beep, Window and Startup controls.
 - **Compatibility, security, and release hardening (M12):** NsCDE icon debian package build (`scripts/package-nscde-icons.sh --deb`), drop-in live package verification, ISO rebuild via `./build.sh`, and end-to-end QEMU live boot testing.
 
 ### Not yet verified

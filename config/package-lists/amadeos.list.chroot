@@ -20,6 +20,7 @@ libpam-systemd
 x11-xserver-utils
 xauth
 x11-utils
+libxss1
 openjdk-21-jre
 fontconfig
 fonts-dejavu-core

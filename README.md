@@ -20,6 +20,13 @@ The project is in active development; the milestones are tracked in
   icons, four virtual workspaces, a desktop root menu and the EWMH/ICCCM hints that
   panels and toolkits rely on (`_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`,
   `_NET_CURRENT_DESKTOP`, `_NET_WM_STRUT_PARTIAL`, `WM_DELETE_WINDOW`, ...).
+- **Style Manager** (`style`): the controls of CDE's dtstyle; Color (palette and icon theme),
+  Backdrop and Screen work, Font, Keyboard, Mouse, Beep, Window and Startup are shown but not yet
+  available.
+- **Screen saver** (`screen`, CDE's dtscreen): started by the session through
+  `/etc/amadeos/autostart.d/50-amadeos-screen`; uses the X server's idle counter (MIT-SCREEN-SAVER,
+  `libxss1`), shows a saver module (Qix, Swarm, Starfield, Floating Logo, Blank) and locks the screen
+  after the configured time. Settings in `~/.config/amadeos/screen.conf`.
 - **Front panel:** a CDE-style dock with clock, calendar, workspace switcher and
   drawers that list installed applications from their `.desktop` files.
 - **Applications** are separate Debian packages, e.g.
@@ -27,7 +34,8 @@ The project is in active development; the milestones are tracked in
   `config/packages.chroot/` are installed into the image.
 
 All Java components live in one JAR (`/opt/amadeos/amadeos.jar`); the first argument
-selects the component, e.g. `dm`, `wm`, `panel` or `settings`.
+selects the component, e.g. `dm`, `wm`, `panel`, `style` (Style Manager), `screen` (screen saver)
+or `lock`.
 
 The desktop themes and the Motif look come from
 [amade-commons](https://github.com/datazuul/amade-commons), the library the amadeOS

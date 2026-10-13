@@ -29,6 +29,14 @@ The project is in active development; the milestones are tracked in
 All Java components live in one JAR (`/opt/amadeos/amadeos.jar`); the first argument
 selects the component, e.g. `dm`, `wm`, `panel` or `settings`.
 
+The desktop themes and the Motif look come from
+[amade-commons](https://github.com/datazuul/amade-commons), the library the amadeOS
+applications ([amade-mail](https://github.com/datazuul/amade-mail),
+[amade-pad](https://github.com/datazuul/amade-pad)) use as well. The Style Manager writes the
+chosen theme to `~/.config/amadeos/theme.conf`; applications follow that file and switch
+together with window frames and front panel. Gradle takes amade-commons from JitPack, or builds
+a checkout in `../amade-commons` instead.
+
 ## Getting started
 
 Requirements: Java 21, and for the image `live-build`, `sudo` and optionally QEMU.

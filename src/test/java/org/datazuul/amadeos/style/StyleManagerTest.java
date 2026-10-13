@@ -123,6 +123,37 @@ class StyleManagerTest {
         });
     }
 
+    @Test
+    void choosingACdePatternSwitchesTheBackdropToTile() throws Exception {
+        assumeFalse(GraphicsEnvironment.isHeadless());
+        SwingUtilities.invokeAndWait(() -> {
+            BackdropDialog dialog = new BackdropDialog(null, s -> { });
+            try {
+                javax.swing.JList<?> list = find(dialog.getContentPane(), javax.swing.JList.class);
+                javax.swing.JComboBox<?> scale = find(dialog.getContentPane(), javax.swing.JComboBox.class);
+                scale.setSelectedItem(org.datazuul.amadeos.wm.theme.WallpaperManager.ScaleMode.FILL);
+                for (int i = 0; i < list.getModel().getSize(); i++) {
+                    if (list.getModel().getElementAt(i).toString().equals("Pebbles")) list.setSelectedIndex(i);
+                }
+                assertEquals(org.datazuul.amadeos.wm.theme.WallpaperManager.ScaleMode.TILE, scale.getSelectedItem());
+            } finally {
+                dialog.dispose();
+            }
+        });
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T find(java.awt.Container root, Class<T> type) {
+        for (java.awt.Component c : root.getComponents()) {
+            if (type.isInstance(c)) return (T) c;
+            if (c instanceof java.awt.Container inner) {
+                T found = find(inner, type);
+                if (found != null) return found;
+            }
+        }
+        return null;
+    }
+
     /** Records the X commands instead of running them. */
     static final class RecordingApplier extends InputApplier {
         final List<XCommands.Command> commands = new ArrayList<>();

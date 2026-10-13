@@ -23,6 +23,10 @@ The project is in active development; the milestones are tracked in
 - **Style Manager** (`style`): the controls of CDE's dtstyle; Color (palette and icon theme),
   Backdrop, Keyboard, Mouse, Beep and Screen work, Font, Window and Startup are shown but not yet
   available.
+- **Backdrops:** the original CDE pattern backdrops (Pebbles, Concave, BrickWall, Toronto, ... from
+  the CDE sources, LGPL, see `src/main/resources/backdrops/cde/README`) are built in and take their
+  shades from the chosen backdrop color like in dtstyle; own `.pm`/`.bm` files (XPM/XBM) are found in
+  `~/.dt/backdrops` and `~/.config/amadeos/backdrops`, pictures (PNG/JPEG) as before.
 - **Input settings** (`input`): keyboard repeat and click, mouse handedness, double-click time and
   acceleration, and the bell, stored in `~/.config/amadeos/input.conf` and applied with `xset`,
   `xmodmap` and `xrdb` at login (`/etc/amadeos/autostart.d/10-amadeos-input`) and on Apply.

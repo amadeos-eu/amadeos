@@ -31,7 +31,8 @@ import java.awt.image.BufferedImage;
 import java.util.function.Consumer;
 
 /**
- * Backdrop: wallpaper image, scaling and background colour, with a miniature preview of the desktop.
+ * Backdrop: the original CDE pattern backdrops or a picture, scaling and the backdrop colour, with a
+ * miniature preview of the desktop. Patterns take their shades from the colour, as in dtstyle.
  */
 final class BackdropDialog extends StyleDialog {
     private final DefaultListModel<WallpaperItem> model = new DefaultListModel<>();
@@ -41,19 +42,32 @@ final class BackdropDialog extends StyleDialog {
     private final JPanel colorChip = new JPanel();
     private final JPanel preview;
     private Color color = WallpaperManager.currentBgColor();
+    private String cachedKey;
+    private BufferedImage cachedImage;
 
     BackdropDialog(JFrame owner, Consumer<String> status) {
         super(owner, StyleCategory.BACKDROP, status);
         for (WallpaperItem item : WallpaperManager.availableWallpapers()) model.addElement(item);
         wallpapers.setVisibleRowCount(8);
+        String current = WallpaperManager.currentWallpaperPath();
+        path.setText(current != null ? current : "");
+        // Preselect the current backdrop before the listener exists: it would reset the scaling.
+        for (int i = 0; i < model.size(); i++) {
+            if (model.get(i).path().equals(current)) {
+                wallpapers.setSelectedIndex(i);
+                wallpapers.ensureIndexIsVisible(i);
+                break;
+            }
+        }
         wallpapers.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting() && wallpapers.getSelectedValue() != null) {
-                path.setText(wallpapers.getSelectedValue().path());
+            WallpaperItem item = wallpapers.getSelectedValue();
+            if (!e.getValueIsAdjusting() && item != null) {
+                path.setText(item.path());
+                // CDE tiles its patterns; pictures keep the chosen scaling.
+                if (item.isPattern()) scale.setSelectedItem(ScaleMode.TILE);
                 refresh();
             }
         });
-        String current = WallpaperManager.currentWallpaperPath();
-        path.setText(current != null ? current : "");
         path.addActionListener(e -> refresh());
         scale.setSelectedItem(WallpaperManager.currentScaleMode());
         scale.addActionListener(e -> refresh());
@@ -61,7 +75,8 @@ final class BackdropDialog extends StyleDialog {
         JButton browse = new JButton("Browse…");
         browse.addActionListener(e -> {
             JFileChooser chooser = new JFileChooser();
-            chooser.setFileFilter(new FileNameExtensionFilter("Images (*.png, *.jpg)", "png", "jpg", "jpeg"));
+            chooser.setFileFilter(new FileNameExtensionFilter("Images and CDE backdrops (*.png, *.jpg, *.pm, *.bm)",
+                    "png", "jpg", "jpeg", "pm", "xpm", "bm", "xbm"));
             if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
                 path.setText(chooser.getSelectedFile().getAbsolutePath());
                 refresh();
@@ -136,7 +151,7 @@ final class BackdropDialog extends StyleDialog {
     }
 
     private void refresh() {
-        preview.repaint();
+        if (preview != null) preview.repaint();
     }
 
     private void paintPreview(Graphics2D g, int width, int height) {
@@ -145,7 +160,7 @@ final class BackdropDialog extends StyleDialog {
         int w = width - 28;
         int h = height - 36;
         if (w <= 0 || h <= 0) return;
-        BufferedImage source = WallpaperManager.loadImage(path.getText().strip());
+        BufferedImage source = image(path.getText().strip());
         BufferedImage rendered = WallpaperManager.renderToTarget(source, w, h, (ScaleMode) scale.getSelectedItem(), color);
         g.drawImage(rendered, x, y, null);
         AmadeUI.paintBevel(g, x - 2, y - 2, w + 4, h + 4, false, 2);
@@ -160,10 +175,21 @@ final class BackdropDialog extends StyleDialog {
         AmadeUI.paintBevel(g, dockX, dockY, dockW, dockH, true, 1);
     }
 
+    /** The selected picture, decoded once per path and colour rather than on every repaint. */
+    private BufferedImage image(String file) {
+        String key = file + '|' + color.getRGB();
+        if (!key.equals(cachedKey)) {
+            cachedKey = key;
+            cachedImage = WallpaperManager.loadImage(file, color);
+        }
+        return cachedImage;
+    }
+
     @Override
     protected String apply() {
         String image = path.getText().strip();
         WallpaperManager.applyWallpaper(image, (ScaleMode) scale.getSelectedItem(), color);
-        return "Backdrop: " + (image.isEmpty() ? "solid color" : image);
+        boolean plain = image.isEmpty() || WallpaperManager.NO_BACKDROP.equalsIgnoreCase(image);
+        return "Backdrop: " + (plain ? "solid color" : image);
     }
 }

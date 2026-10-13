@@ -35,7 +35,16 @@ abstract class StyleDialog extends JDialog {
             if (applyChanges()) dispose();
         });
         apply.addActionListener(e -> applyChanges());
-        cancel.addActionListener(e -> dispose());
+        cancel.addActionListener(e -> {
+            cancelled();
+            dispose();
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                cancelled();
+            }
+        });
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 0));
         buttons.add(ok);
         buttons.add(apply);
@@ -56,6 +65,10 @@ abstract class StyleDialog extends JDialog {
             status.accept("Could not apply: " + e.getMessage());
             return false;
         }
+    }
+
+    /** Called on Cancel or when the window is closed; undoes previews. */
+    protected void cancelled() {
     }
 
     /** Applies the dialog's settings; returns a message for the Style Manager's status line. */

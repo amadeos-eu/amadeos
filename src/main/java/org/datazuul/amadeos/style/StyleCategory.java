@@ -7,9 +7,9 @@ public enum StyleCategory {
     COLOR("Color", "Desktop color theme and icon theme", true),
     FONT("Font", "Font sizes of the desktop and applications", false),
     BACKDROP("Backdrop", "Wallpaper image or color of the desktop", true),
-    KEYBOARD("Keyboard", "Key repeat and key click", false),
-    MOUSE("Mouse", "Handedness, double-click speed and acceleration", false),
-    BEEP("Beep", "Volume, tone and duration of the bell", false),
+    KEYBOARD("Keyboard", "Key repeat and key click", true),
+    MOUSE("Mouse", "Handedness, double-click speed and acceleration", true),
+    BEEP("Beep", "Volume, tone and duration of the bell", true),
     SCREEN("Screen", "Screen saver and screen lock", true),
     WINDOW("Window", "Window focus and minimized window behaviour", false),
     STARTUP("Startup", "What the session restores at login", false);

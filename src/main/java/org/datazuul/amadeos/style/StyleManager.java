@@ -1,6 +1,8 @@
 package org.datazuul.amadeos.style;
 
 import org.datazuul.amadeos.commons.swing.AmadeUI;
+import org.datazuul.amadeos.input.InputApplier;
+import org.datazuul.amadeos.input.InputSettingsStore;
 import org.datazuul.amadeos.screen.ScreenSettingsStore;
 import org.datazuul.amadeos.wm.theme.ThemeManager;
 
@@ -37,6 +39,7 @@ public final class StyleManager extends JFrame {
     private final Map<StyleCategory, AbstractButton> buttons = new EnumMap<>(StyleCategory.class);
     private final JLabel status = new JLabel(" ");
     private final ScreenSettingsStore screenSettings;
+    private final InputControls input;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(StyleManager::open);
@@ -44,14 +47,15 @@ public final class StyleManager extends JFrame {
 
     /** Opens a Style Manager window for the current user; call on the EDT. */
     public static StyleManager open() {
-        StyleManager manager = new StyleManager(ScreenSettingsStore.user());
+        StyleManager manager = new StyleManager(ScreenSettingsStore.user(), InputSettingsStore.user(), new InputApplier());
         manager.setVisible(true);
         return manager;
     }
 
-    public StyleManager(ScreenSettingsStore screenSettings) {
+    public StyleManager(ScreenSettingsStore screenSettings, InputSettingsStore inputSettings, InputApplier applier) {
         super("Style Manager");
         this.screenSettings = screenSettings;
+        this.input = new InputControls(inputSettings, applier);
         ThemeManager.currentTheme(); // installs the desktop look
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setJMenuBar(menuBar());
@@ -100,7 +104,7 @@ public final class StyleManager extends JFrame {
         help.setMnemonic(KeyEvent.VK_H);
         JMenuItem about = new JMenuItem("About Style Manager");
         about.addActionListener(e -> JOptionPane.showMessageDialog(this,
-                "Style Manager\nColors, backdrop and screen saver of the amadeOS desktop.",
+                "Style Manager\nColors, backdrop, keyboard, mouse, bell and screen saver of the amadeOS desktop.",
                 "About Style Manager", JOptionPane.INFORMATION_MESSAGE));
         help.add(about);
         bar.add(file);
@@ -118,6 +122,9 @@ public final class StyleManager extends JFrame {
         JDialog dialog = switch (category) {
             case COLOR -> new ColorDialog(this, this::setStatus);
             case BACKDROP -> new BackdropDialog(this, this::setStatus);
+            case KEYBOARD -> new KeyboardDialog(this, this::setStatus, input);
+            case MOUSE -> new MouseDialog(this, this::setStatus, input);
+            case BEEP -> new BeepDialog(this, this::setStatus, input);
             case SCREEN -> new ScreenDialog(this, this::setStatus, screenSettings);
             default -> null;
         };

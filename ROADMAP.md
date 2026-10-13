@@ -98,7 +98,8 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 - **Style Manager and screen saver (branch `feat/style-manager-screen`, needs verification on a live image):**
   - `AmadeSettingsApplication` renamed and restructured as `style.StyleManager` with dtstyle's control row (Color, Font, Backdrop, Keyboard, Mouse, Beep, Screen, Window, Startup); Color, Backdrop and Screen implemented, the others disabled until they work. The former Window Manager tab offered check boxes without effect and is gone.
   - Screen saver daemon `amadeos.jar screen` (dtscreen): idle time from MIT-SCREEN-SAVER via JNA (`libxss1`), saver modules Qix, Swarm, Starfield, Floating Logo and Blank, screen lock after the configured idle time through the existing `amadeos-lock`; started by `/etc/amadeos/autostart.d/50-amadeos-screen`.
-  - Open: DPMS (monitor power saving), Font, Keyboard, Mouse, Beep, Window and Startup controls.
+  - Keyboard (auto repeat, delay, rate, click volume), Mouse (handedness, double-click time with test target, acceleration, threshold) and Beep (volume, tone, duration, Test) controls; settings in `~/.config/amadeos/input.conf`, applied through `xset`/`xmodmap`/`xrdb` on Apply and at login by `amadeos.jar input` (`/etc/amadeos/autostart.d/10-amadeos-input`). The double-click time (`*multiClickTime`) reaches programs started afterwards.
+  - Open: DPMS (monitor power saving), Font, Window and Startup controls.
 - **Compatibility, security, and release hardening (M12):** NsCDE icon debian package build (`scripts/package-nscde-icons.sh --deb`), drop-in live package verification, ISO rebuild via `./build.sh`, and end-to-end QEMU live boot testing.
 
 ### Not yet verified

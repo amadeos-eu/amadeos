@@ -22,6 +22,8 @@ public final class AmadeOsLauncher {
             org.datazuul.amadeos.lock.ScreenLock.main(subArgs);
         } else if ("wm".equalsIgnoreCase(mode)) {
             AmadeWindowManagerMain.main(subArgs);
+        } else if ("input".equalsIgnoreCase(mode)) {
+            org.datazuul.amadeos.input.InputApplier.main(subArgs);
         } else if ("screen".equalsIgnoreCase(mode)) {
             org.datazuul.amadeos.screen.ScreenSaverDaemon.main(subArgs);
         } else if ("style".equalsIgnoreCase(mode) || "settings".equalsIgnoreCase(mode) || "config".equalsIgnoreCase(mode)) {

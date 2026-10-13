@@ -21,8 +21,11 @@ The project is in active development; the milestones are tracked in
   panels and toolkits rely on (`_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`,
   `_NET_CURRENT_DESKTOP`, `_NET_WM_STRUT_PARTIAL`, `WM_DELETE_WINDOW`, ...).
 - **Style Manager** (`style`): the controls of CDE's dtstyle; Color (palette and icon theme),
-  Backdrop and Screen work, Font, Keyboard, Mouse, Beep, Window and Startup are shown but not yet
+  Backdrop, Keyboard, Mouse, Beep and Screen work, Font, Window and Startup are shown but not yet
   available.
+- **Input settings** (`input`): keyboard repeat and click, mouse handedness, double-click time and
+  acceleration, and the bell, stored in `~/.config/amadeos/input.conf` and applied with `xset`,
+  `xmodmap` and `xrdb` at login (`/etc/amadeos/autostart.d/10-amadeos-input`) and on Apply.
 - **Screen saver** (`screen`, CDE's dtscreen): started by the session through
   `/etc/amadeos/autostart.d/50-amadeos-screen`; uses the X server's idle counter (MIT-SCREEN-SAVER,
   `libxss1`), shows a saver module (Qix, Swarm, Starfield, Floating Logo, Blank) and locks the screen
@@ -34,8 +37,8 @@ The project is in active development; the milestones are tracked in
   `config/packages.chroot/` are installed into the image.
 
 All Java components live in one JAR (`/opt/amadeos/amadeos.jar`); the first argument
-selects the component, e.g. `dm`, `wm`, `panel`, `style` (Style Manager), `screen` (screen saver)
-or `lock`.
+selects the component, e.g. `dm`, `wm`, `panel`, `style` (Style Manager), `screen` (screen saver),
+`input` (apply keyboard, mouse and bell settings) or `lock`.
 
 The desktop themes and the Motif look come from
 [amade-commons](https://github.com/datazuul/amade-commons), the library the amadeOS

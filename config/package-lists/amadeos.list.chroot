@@ -29,4 +29,19 @@ openjdk-21-jre
 fontconfig
 fonts-dejavu-core
 ca-certificates
+# Sound: PipeWire with PulseAudio and ALSA compatibility (Java Sound plays through ALSA),
+# wpctl (WirePlumber) and pactl for volume and output selection in amade-audio
+pipewire
+pipewire-pulse
+pipewire-alsa
+wireplumber
+pulseaudio-utils
+alsa-utils
+# amade-audio: audio CDs (libcdio, error correction with libcdio-paranoia), General MIDI
+# SoundFont, eject; recommended by the package but the image installs no recommends
+libcdio19t64
+libcdio-cdda2t64
+libcdio-paranoia2t64
+fluid-soundfont-gm
+eject
 grub-efi-amd64-bin

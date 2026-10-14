@@ -32,7 +32,18 @@ apt-get install --yes --no-install-recommends \
     fontconfig \
     fonts-dejavu-core \
     ca-certificates \
-    grub-efi-amd64-bin
+    grub-efi-amd64-bin \
+    pipewire \
+    pipewire-pulse \
+    pipewire-alsa \
+    wireplumber \
+    pulseaudio-utils \
+    alsa-utils \
+    libcdio19t64 \
+    libcdio-cdda2t64 \
+    libcdio-paranoia2t64 \
+    fluid-soundfont-gm \
+    eject
 
 # Configure locales
 if [ -f /etc/locale.gen ]; then

@@ -43,6 +43,10 @@ The project is in active development; the milestones are tracked in
 - **Applications** are separate Debian packages, e.g.
   [amade-pad](https://github.com/datazuul/amade-pad); `.deb` files placed in
   `config/packages.chroot/` are installed into the image.
+- **Sound:** PipeWire with PulseAudio and ALSA compatibility and WirePlumber. The image also carries
+  what [amade-audio](https://github.com/datazuul/amade-audio) needs beyond Java: libcdio and
+  libcdio-paranoia for audio CDs, the General MIDI SoundFont `fluid-soundfont-gm` and `eject`.
+  The image installs no recommended packages, so these are listed explicitly.
 
 All Java components live in one JAR (`/opt/amadeos/amadeos.jar`); the first argument
 selects the component, e.g. `dm`, `wm`, `panel`, `style` (Style Manager), `screen` (screen saver),

@@ -1,6 +1,6 @@
 # amadeOS concept
 
-amadeOS (Digital Autonomy, Zero Lock-in, Empowerment) is a free, European, Java-centred desktop operating system concept. The initial technical target is a bootable x86-64 Debian-based USB image that can run on ordinary BIOS and UEFI hardware. The project is intended to provide an understandable, reproducible desktop stack with Java as the principal application and desktop-extension language, without claiming that every operating-system component must be written in Java.
+amadeOS ("Digital Sovereignty starts on your desktop") is a free, European, Java-centred desktop operating system concept. The initial technical target is a bootable x86-64 Debian-based USB image that can run on ordinary BIOS and UEFI hardware. The project is intended to provide an understandable, reproducible desktop stack with Java as the principal application and desktop-extension language, without claiming that every operating-system component must be written in Java.
 
 ## Initial target and boundaries
 

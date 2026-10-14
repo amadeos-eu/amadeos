@@ -20,7 +20,12 @@ USER_ICONS_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/icons/NsCDE"
 
 NSCDE_REPO="https://github.com/NsCDE/NsCDE.git"
 NSCDE_VERSION="2.3"
+# Bump when the amadeOS additions in icons/NsCDE change
+PACKAGE_REVISION="1"
+PACKAGE_VERSION="${NSCDE_VERSION}-${PACKAGE_REVISION}"
 PACKAGE_NAME="nscde-icon-theme"
+# amadeOS's own icons (EUPL-1.2), merged into the theme under amadeos-* names
+AMADEOS_ICONS_DIR="$ROOT_DIR/icons/NsCDE"
 
 BUILD_DEB=true
 BUILD_TAR=true
@@ -42,8 +47,8 @@ Options:
     --help, -h        Show this help message
 
 Output:
-    artifacts/nscde-icon-theme_${NSCDE_VERSION}_all.deb
-    artifacts/nscde-icon-theme-${NSCDE_VERSION}.tar.xz
+    artifacts/nscde-icon-theme_${PACKAGE_VERSION}_all.deb
+    artifacts/nscde-icon-theme-${PACKAGE_VERSION}.tar.xz
 EOF
     exit 0
 }
@@ -124,11 +129,23 @@ Adapted from classic Common Desktop Environment (CDE) and Motif aesthetics
 into standard Freedesktop.org XDG icon naming specification.
 EOF
 
+# Add amadeOS's own icons; they use amadeos-* names, so no upstream icon is replaced
+if [ -d "$AMADEOS_ICONS_DIR" ]; then
+    cp -a "$AMADEOS_ICONS_DIR/." "$SRC_ICONS/"
+    cat <<'EOF' >> "$SRC_ICONS/AUTHORS"
+
+amadeOS additions
+=================
+The amadeos-* icons are part of amadeOS (https://github.com/datazuul/amadeos)
+and licensed under the European Union Public Licence v1.2 (EUPL-1.2).
+EOF
+fi
+
 mkdir -p "$ARTIFACTS_DIR"
 
 if [ "$BUILD_TAR" = true ]; then
     echo "==> [2/4] Packaging .tar.xz archive..."
-    TAR_OUT="$ARTIFACTS_DIR/${PACKAGE_NAME}-${NSCDE_VERSION}.tar.xz"
+    TAR_OUT="$ARTIFACTS_DIR/${PACKAGE_NAME}-${PACKAGE_VERSION}.tar.xz"
     tar -C "$CLONE_DIR/xdg/icons" -cJf "$TAR_OUT" NsCDE
     echo "    Created: $TAR_OUT ($(du -h "$TAR_OUT" | cut -f1))"
 fi
@@ -143,7 +160,7 @@ if [ "$BUILD_DEB" = true ]; then
 
     cat <<EOF > "$DEB_ROOT/DEBIAN/control"
 Package: ${PACKAGE_NAME}
-Version: ${NSCDE_VERSION}
+Version: ${PACKAGE_VERSION}
 Section: x11
 Priority: optional
 Architecture: all
@@ -154,7 +171,7 @@ Description: Authentic NsCDE CDE/Motif icon theme for Linux
  and 256x256 resolutions.
 EOF
 
-    DEB_OUT="$ARTIFACTS_DIR/${PACKAGE_NAME}_${NSCDE_VERSION}_all.deb"
+    DEB_OUT="$ARTIFACTS_DIR/${PACKAGE_NAME}_${PACKAGE_VERSION}_all.deb"
     dpkg-deb --build "$DEB_ROOT" "$DEB_OUT" >/dev/null
     echo "    Created: $DEB_OUT ($(du -h "$DEB_OUT" | cut -f1))"
 fi
@@ -163,6 +180,8 @@ echo "==> [4/4] Installation targets..."
 if [ "$INSTALL_ISO" = true ]; then
     PACKAGES_CHROOT_DIR="$ROOT_DIR/config/packages.chroot"
     mkdir -p "$PACKAGES_CHROOT_DIR"
+    # Replace older builds, so live-build does not see two versions
+    rm -f "${PACKAGES_CHROOT_DIR:?}/${PACKAGE_NAME:?}"_*_all.deb
     cp -f "$DEB_OUT" "$PACKAGES_CHROOT_DIR/"
     echo "    Copied .deb into live ISO drop-in directory: $PACKAGES_CHROOT_DIR/$(basename "$DEB_OUT")"
 fi

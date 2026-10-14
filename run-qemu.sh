@@ -25,5 +25,6 @@ exec qemu-system-x86_64 \
     -usb \
     -device usb-tablet \
     -cdrom "$ISO" \
+    -audiodev pipewire,id=audio0 \
+    -device intel-hda -device hda-duplex,audiodev=audio0 \
     "$@"
-

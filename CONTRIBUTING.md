@@ -109,9 +109,12 @@ amadeOS uses dynamic XDG desktop entry discovery (`XdgApplicationManager`). The 
 | :--- | :--- |
 | 📁 **File Manager** | `Categories=FileManager;System;` |
 | 📝 **Text Editor** | `Categories=TextEditor;Utility;` |
-| 📟 **Terminal** | `Categories=TerminalEmulator;System;` |
-| 📋 **Diagnostics & Monitor** | `Categories=Monitor;System;` |
-| ⚙️ **Settings & Tools** | `Categories=Settings;DesktopSettings;` |
+| ✉️ **Mail** | `Categories=Network;Email;` |
+| 🎵 **Sound & Video** | `Categories=AudioVideo;Audio;Player;` |
+| 🖨️ **Printer** | `Categories=Printing;Settings;` |
+| ❓ **Help** | `Categories=Documentation;Help;` |
+
+The first application found in a category also becomes the slot's primary click action. Categories without a drawer (e.g. `Graphics`, `Development`) are listed in the Application Manager.
 
 Example `amade-pad.desktop`:
 ```ini
@@ -200,6 +203,44 @@ tasks.register('installToAmadeOs') {
    - Full build: `sudo ./build.sh`
    - Quick repack: `sudo AMADEOS_QUICK=1 ./build.sh`
 4. Test in QEMU: `./run-qemu.sh`. Your application will be installed and appear in the CDE Front Panel drawer.
+
+## Front Panel slots and widgets
+
+The Front Panel layout is defined in code, in the constructor of `AmadeDesktopPanel` (`src/main/java/org/datazuul/amadeos/wm/panel/`). Slots are added left to right to `leftSlots` (left of the workspace switcher) or `rightSlots` (right of it), and every widget is also added to `widgets`, so it is started and follows theme changes:
+
+- **Drawer filled from an XDG category:** `createCategoryDrawer(id, title, iconKey, XdgCategory.X, fallbackAction, defaultTools, true)`. Example: the Sound & Video slot uses `XdgCategory.AUDIO_VIDEO`.
+- **Plain launcher:** `new DrawerDockWidget(id, tooltip, iconKey, action, List.of(), false)`.
+- **Live widget** (like Clock or Calendar): a class in `panel/widget/` extending `AbstractDockWidget`. Paint the slot with `CdePanelChrome.paintSlotBay(...)`, set the preferred size to `CdePanelChrome.SLOT_WIDTH × SLOT_HEIGHT`, leave `TAB_HEIGHT + 1` free at the top for the drawer notch, and react to colour changes in `updateThemeStyles(theme)`.
+
+The dock width follows the slots' preferred sizes, so no constant needs changing when a slot is added. Update the slot list in the Help dialog ("Front Panel Overview") as well.
+
+## Icons
+
+Panel and desktop icons are looked up by **icon key** in `IconManager` (`src/main/java/org/datazuul/amadeos/wm/theme/`). Each key maps to a list of Freedesktop icon names (`FREEDESKTOP_NAMES`). The current icon theme (default: NsCDE) is searched for each name in turn, then its inherited themes and `hicolor`; the first match wins. If nothing is found, a simple icon is drawn in code (`generatePixmaps`).
+
+Because every name is tried in the current theme before falling back to `hicolor`, an icon installed to `hicolor` does not win against a later name that NsCDE has. To give amadeOS its own look, add the icon to the NsCDE theme instead:
+
+1. Draw the icon as SVG in `icons/src/amadeos-<name>.svg`. Keep the NsCDE look: 48×48 canvas, flat greys with 1 px Motif bevels, black outlines, few colours.
+2. Render the sizes NsCDE provides into `icons/NsCDE/<size>x<size>/<context>/`, where `<context>` is the Freedesktop context (`apps`, `categories`, `devices`, `places`, …):
+   ```bash
+   for s in 16 22 32 48; do
+     rsvg-convert -w $s -h $s icons/src/amadeos-<name>.svg \
+       -o icons/NsCDE/${s}x${s}/categories/amadeos-<name>.png
+   done
+   ```
+   Check the 16 px version; small details may need simplifying.
+3. Put `amadeos-<name>` first in the key's list in `FREEDESKTOP_NAMES`, keeping the standard names after it as a fallback for other icon themes:
+   ```java
+   map.put("multimedia", List.of("amadeos-multimedia", "applications-multimedia", "audio-x-generic"));
+   ```
+4. Bump `PACKAGE_REVISION` in `scripts/package-nscde-icons.sh` and rebuild the theme package:
+   ```bash
+   ./scripts/package-nscde-icons.sh --install-iso     # for the live image
+   ./scripts/package-nscde-icons.sh --install-local   # for Xephyr on the host (replaces ~/.local/share/icons/NsCDE)
+   ```
+   The script downloads NsCDE from upstream, copies `icons/NsCDE/` over it and builds `nscde-icon-theme_<version>-<revision>_all.deb`, replacing the previous build in `config/packages.chroot/`.
+
+Always use the `amadeos-` prefix: upstream icons are never replaced, and the theme's `AUTHORS` file marks the `amadeos-*` icons as amadeOS's own (EUPL-1.2), separate from the GPL-3.0 NsCDE icons.
 
 ## File permissions and Git executable flags
 

@@ -24,6 +24,19 @@ WM_LOG_FILE="${HOME:-/tmp}/.amadeos-wm.log"
 SESSION_LOG_FILE="${HOME:-/tmp}/.amadeos-session.log"
 AUTOSTART_APP="${AUTOSTART_APP:-panel}"
 
+# Language: the greeter passes the language chosen at login. Remember it for the desktop
+# (~/.config/amadeos/locale.conf, read by the panel and every amade application) unless the file
+# already holds that language, possibly with a region such as de_AT.
+LOCALE_CONF="${XDG_CONFIG_HOME:-$HOME/.config}/amadeos/locale.conf"
+if [ -n "${AMADEOS_LOGIN_LOCALE:-}" ]; then
+    login_language="$(printf '%s' "$AMADEOS_LOGIN_LOCALE" | cut -c1-2)"
+    stored_language="$(head -n 1 "$LOCALE_CONF" 2>/dev/null | cut -c1-2)"
+    if [ "$login_language" != "$stored_language" ]; then
+        mkdir -p "$(dirname "$LOCALE_CONF")" && printf '%s\n' "$AMADEOS_LOGIN_LOCALE" > "$LOCALE_CONF"
+    fi
+fi
+unset AMADEOS_LOGIN_LOCALE
+
 # Load system configuration manifest if present
 if [ -f "/etc/amadeos/session.conf" ]; then
     . "/etc/amadeos/session.conf"

@@ -65,6 +65,12 @@ Swing and AWT are the first application target because they are part of the esta
 
 The Java window manager is separate from Swing. Swing does not manage top-level X windows, and a window manager does not render Swing widgets. Keeping that boundary explicit makes failures easier to classify and allows non-Swing X clients to remain part of the compatibility target.
 
+### Front panel status slot instead of a system tray
+
+Network, and later sound, battery and Bluetooth, are shown by the front panel's status slot: up to four small Java indicators in a 2x2 grid, drawn in the panel's own style and translated with the desktop's texts. Each indicator talks to the system service directly (NetworkManager through `nmcli`, PipeWire through `wpctl`, `/sys/class/power_supply`, BlueZ).
+
+There is deliberately no XEmbed system tray. Tray applets such as `nm-applet` or `blueman-applet` would work over the X11 protocol whatever language they are written in, but each brings its own GTK or Qt look, icon theme and dependencies, and their icons would be foreign X windows inside a Swing panel. XEmbed is also fading out: GTK 4 dropped it and current applications prefer StatusNotifierItem over D-Bus. When third-party applications (sync clients, password managers, messengers) need a tray, the plan is a StatusNotifierItem host whose icons and menus Swing draws itself, with XEmbed only as a fallback if it is missed.
+
 ### Native X11 access from Java
 
 The initial native-access choice is deliberately pragmatic:

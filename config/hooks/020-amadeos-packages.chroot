@@ -43,7 +43,16 @@ apt-get install --yes --no-install-recommends \
     libcdio-cdda2t64 \
     libcdio-paranoia2t64 \
     fluid-soundfont-gm \
-    eject
+    eject \
+    network-manager \
+    wpasupplicant \
+    wireless-regdb \
+    polkitd \
+    firmware-iwlwifi \
+    firmware-realtek \
+    firmware-atheros \
+    firmware-brcm80211 \
+    firmware-mediatek
 
 # Configure locales
 if [ -f /etc/locale.gen ]; then

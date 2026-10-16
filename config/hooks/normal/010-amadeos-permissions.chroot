@@ -29,6 +29,9 @@ if [ -f /etc/systemd/system/amadeos-dm.service ]; then
     systemctl enable amadeos-dm.service 2>/dev/null || true
     systemctl set-default graphical.target 2>/dev/null || true
 fi
+if [ -f /etc/polkit-1/rules.d/50-amadeos-network.rules ]; then
+    chmod 0644 /etc/polkit-1/rules.d/50-amadeos-network.rules
+fi
 if [ -f /etc/pam.d/amadeos-dm ]; then
     chmod 0644 /etc/pam.d/amadeos-dm
 fi

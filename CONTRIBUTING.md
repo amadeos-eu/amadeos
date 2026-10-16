@@ -14,7 +14,7 @@ cd amadeos
 The verified development environment is:
 
 - Native Linux (Debian 13 trixie or Ubuntu 25.10 x86_64)
-- Java/OpenJDK 21+ (`java`, `javac`)
+- Java/OpenJDK 25+ (`java`, `javac`)
 - Git 2.47+
 - Gradle (via `/snap/bin/gradle` or local installation)
 - Native build tools `build-essential` (`gcc`, `make`)
@@ -48,7 +48,7 @@ sudo apt-get install -y \
 ### 2. Install Java and Gradle
 
 ```bash
-sudo apt-get install -y openjdk-21-jdk
+sudo apt-get install -y openjdk-25-jdk
 ```
 
 If Gradle is not provided by your distribution's packages or you prefer snap:
@@ -82,7 +82,7 @@ Example reference implementation: [`datazuul/amade-pad`](https://github.com/data
 
 ### 1. Application standards & Motif 3D styling
 
-- **Platform baseline:** Java 21+ with Swing / Java2D.
+- **Platform baseline:** Java 25+ with Swing / Java2D.
 - **Motif 3D aesthetic:** Avoid default Swing/Metal "Ocean" blue gradients. Applications should use the warm Motif `#CEC2BB` palette with 3D chiseled beveled borders matching the amadeOS window buttons:
   - Base color: `#CEC2BB`
   - Highlight / Soft Highlight: `#FFFFFF` / `#EAE5E2`
@@ -172,7 +172,7 @@ Version: ${project.version}
 Section: editors
 Priority: optional
 Architecture: all
-Depends: default-jre | openjdk-21-jre | java21-runtime
+Depends: openjdk-25-jre | java-runtime (>= 25)
 Maintainer: amadeOS Project <developers@datazuul.com>
 Description: Authentic Motif/CDE-styled text editor for amadeOS
 """
@@ -273,7 +273,7 @@ Verify tool availability before starting a build:
 ```bash
 whoami                         # ralf
 . /etc/os-release && echo "$PRETTY_NAME ($VERSION_CODENAME)"
-java -version                  # OpenJDK 21+
+java -version                  # OpenJDK 25+
 javac -version
 git --version
 gradle --version

@@ -131,7 +131,7 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
    - `chroot/etc/apt/sources.list*`
    - `chroot/var/lib/apt/lists/`
    - live-build configuration files and logs
-2. From the generated chroot, check APT visibility with `apt-cache policy` for representative packages such as `xserver-xorg`, `openjdk-21-jre`, and `live-boot`.
+2. From the generated chroot, check APT visibility with `apt-cache policy` for representative packages such as `xserver-xorg`, `openjdk-25-jre`, and `live-boot`.
 3. Verify that the configured Debian mirror, distribution (`trixie`), archive areas, DNS, and proxy handling are available inside the chroot.
 4. Make the smallest configuration fix required. Prefer explicit mirror and archive configuration over undocumented host-specific behavior.
 5. Run `./build.sh` and retain the relevant log output.

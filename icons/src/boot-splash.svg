@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480">
+  <!-- Background of the BIOS boot menu (isolinux/vesamenu, 640x480). Rendered to
+       config/bootloaders/isolinux/splash.png; the menu itself is drawn below y=330. -->
+  <defs>
+    <!-- Same slate-blue gradient as the login greeter -->
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3B546E"/>
+      <stop offset="1" stop-color="#27384A"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="url(#bg)"/>
+
+  <!-- Emblem: the four workspaces of the front panel, "One" active, with Motif bevels -->
+  <g shape-rendering="crispEdges">
+    <rect x="132" y="78" width="28" height="22" fill="#4E7A96"/>
+    <path d="M132 78h28v1h-27v21h-1z" fill="#27384A"/>
+    <path d="M160 78v23h-28v-1h27v-22z" fill="#9CB8D0"/>
+    <rect x="164" y="78" width="28" height="22" fill="#C8BEB4"/>
+    <path d="M164 78h28v1h-27v21h-1z" fill="#F0ECE8"/>
+    <path d="M192 78v23h-28v-1h27v-22z" fill="#6E6660"/>
+    <rect x="132" y="104" width="28" height="22" fill="#C8BEB4"/>
+    <path d="M132 104h28v1h-27v21h-1z" fill="#F0ECE8"/>
+    <path d="M160 104v23h-28v-1h27v-22z" fill="#6E6660"/>
+    <rect x="164" y="104" width="28" height="22" fill="#C8BEB4"/>
+    <path d="M164 104h28v1h-27v21h-1z" fill="#F0ECE8"/>
+    <path d="M192 104v23h-28v-1h27v-22z" fill="#6E6660"/>
+  </g>
+
+  <text x="210" y="124" font-family="DejaVu Sans" font-weight="bold" font-size="56" fill="#E0E8F0">amadeOS</text>
+  <text x="320" y="176" text-anchor="middle" font-family="DejaVu Sans" font-size="18" fill="#C8D6E4">Digital Sovereignty starts on your desktop.</text>
+
+  <path d="M150 204h340" stroke="#1C2836" stroke-width="1" shape-rendering="crispEdges"/>
+  <path d="M150 205h340" stroke="#5C7690" stroke-width="1" shape-rendering="crispEdges"/>
+
+  <text x="320" y="232" text-anchor="middle" font-family="DejaVu Sans" font-size="13" fill="#9CB0C4">Live system · Debian 13 trixie · user amadeos, password amadeos</text>
+</svg>

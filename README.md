@@ -114,6 +114,49 @@ cd amadeos
 
 The live user is `amadeos` with the password `amadeos`.
 
+### Building the complete distribution
+
+`build.sh` puts into the image whatever application packages are already in
+`config/packages.chroot/`. To build everything from the current `main` branches instead, clone
+amade-commons and the applications next to this repository (`../amade-commons`, `../amade-pad`,
+`../amade-mail`, ...) and run:
+
+```bash
+./buildDistribution.sh
+```
+
+It pulls `main` of amadeos, amade-commons and every `../amade-*` application that has an
+`installToAmadeOs` Gradle task, builds amade-commons and the applications against that checkout
+(with tests), copies their `.deb` packages into `config/packages.chroot/` and builds
+`artifacts/amadeos-amd64.iso`. It stops before pulling if a repository has uncommitted changes.
+Options: `--no-pull` (build the checkouts as they are), `--skip-tests`, `--quick` (repack the
+previous image, see `AMADEOS_QUICK`) and `--apps "amade-pad amade-mail"` (only these
+applications).
+
+### Writing the image to a USB stick
+
+The ISO is a hybrid image for BIOS and UEFI: it is written to the stick as it is, byte for byte,
+without copying it onto a file system on the stick. **This erases everything on the stick.**
+
+On Linux:
+
+```bash
+sha256sum -c artifacts/amadeos-amd64.iso.sha256   # check the image
+lsblk -d -o NAME,SIZE,MODEL,TRAN                   # find the stick (TRAN usb), e.g. sdb
+sudo umount /dev/sdX?*                             # unmount its partitions if auto-mounted
+sudo dd if=artifacts/amadeos-amd64.iso of=/dev/sdX bs=4M status=progress conv=fsync oflag=direct
+```
+
+Replace `sdX` with the stick's whole device (`/dev/sdb`, not the partition `/dev/sdb1`), and
+check the name twice: `dd` overwrites the device it is given without asking. When `dd` has
+returned, the stick can be removed. GNOME Disks (*Restore Disk Image*) does the same with a
+graphical interface. On Windows, use [Rufus](https://rufus.ie/) in *DD image* mode, on macOS
+`sudo dd if=amadeos-amd64.iso of=/dev/rdiskN bs=4m` after `diskutil unmountDisk /dev/diskN`.
+
+To boot from the stick, choose it in the computer's boot menu (often F12, F11, F9 or Esc right
+after switching on). With Secure Boot enabled, UEFI firmware refuses the unsigned boot loader;
+switch Secure Boot off or use legacy BIOS boot.
+
 ## Contributing
 
 Contributions are welcome: small, testable changes to the desktop, compatibility tests on real

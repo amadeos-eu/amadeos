@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" shape-rendering="crispEdges">
+  <!-- Picture frame: grey with Motif bevel -->
+  <rect x="3" y="5" width="34" height="30" fill="#A8A8B0"/>
+  <path d="M3 5h34v1H4v29H3z" fill="#E8E8EC"/>
+  <path d="M37 5v31H3v-1h33V5z" fill="#000"/>
+  <!-- Picture: sky, sun, hills (sunken into the frame) -->
+  <rect x="7" y="9" width="26" height="22" fill="#7CA4DC"/>
+  <path d="M7 9h26v1H8v21H7z" fill="#585860"/>
+  <path d="M33 9v23H7v-1h25V9z" fill="#F0F0F0"/>
+  <g shape-rendering="geometricPrecision">
+    <circle cx="26" cy="15" r="3.2" fill="#F0C830" stroke="#000" stroke-width="0.8"/>
+    <path d="M8 31 L8 24 L15 18 L21 23 L25 20 L32 26 L32 31 Z" fill="#3C7840" stroke="#000" stroke-width="0.8" stroke-linejoin="round"/>
+    <path d="M8 31 L8 28 C14 25 20 26 32 29 L32 31 Z" fill="#5C9C50" stroke="#000" stroke-width="0.8" stroke-linejoin="round"/>
+  </g>
+  <!-- Paintbrush in front, from lower right onto the picture -->
+  <g shape-rendering="geometricPrecision" transform="rotate(45 34 34)">
+    <!-- handle -->
+    <rect x="34" y="31.5" width="16" height="5" rx="2" fill="#B4642C" stroke="#000" stroke-width="0.8"/>
+    <rect x="35" y="32.3" width="13" height="1.2" fill="#DC9858"/>
+    <!-- ferrule -->
+    <rect x="27" y="31" width="7.5" height="6" fill="#C8C8D0" stroke="#000" stroke-width="0.8"/>
+    <rect x="27.6" y="31.8" width="6.4" height="1.2" fill="#F8F8F8"/>
+    <!-- bristles with red paint -->
+    <path d="M27 31 L20 32.5 Q16 34 20 35.5 L27 37 Z" fill="#C82828" stroke="#000" stroke-width="0.8" stroke-linejoin="round"/>
+    <path d="M26 32.2 L21 33.2" stroke="#F07070" stroke-width="1"/>
+  </g>
+</svg>

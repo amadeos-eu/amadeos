@@ -1,0 +1,140 @@
+#!/usr/bin/env bash
+# Builds the complete amadeOS distribution from the main branches of all repositories:
+#
+#   1. pulls main of amadeos, amade-commons and every amade app checked out next to amadeos
+#   2. builds amade-commons, then every app against that checkout (composite build)
+#   3. drops every app's .deb into config/packages.chroot/ (gradlew installToAmadeOs)
+#   4. builds artifacts/amadeos-amd64.iso (./build.sh, uses sudo for live-build)
+#
+# Expected layout (an app is every ../amade-*/ whose build.gradle has an installToAmadeOs task):
+#
+#   <parent>/amadeos  <parent>/amade-commons  <parent>/amade-pad  <parent>/amade-mail  ...
+#
+# Usage: ./buildDistribution.sh [--no-pull] [--skip-tests] [--quick] [--apps "amade-pad amade-mail"]
+#
+#   --no-pull     build the checkouts as they are (no git fetch, no branch switch)
+#   --skip-tests  skip the unit tests of amade-commons and the apps
+#   --quick       repack the previous image instead of a full live-build (AMADEOS_QUICK=1)
+#   --apps LIST   build only these apps (directory names, space-separated)
+#
+# Writing the ISO to a USB stick is described in README.md ("Writing the image to a USB stick").
+set -euo pipefail
+
+# Everything runs inside main(): bash reads the whole function before executing it, so pulling a
+# newer version of this script into the amadeos checkout cannot change the build halfway through.
+main() {
+    local root_dir parent_dir branch="main"
+    root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    parent_dir="$(dirname "$root_dir")"
+
+    local pull=1 tests=1 quick=0 apps_arg=""
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --no-pull) pull=0 ;;
+            --skip-tests) tests=0 ;;
+            --quick) quick=1 ;;
+            --apps) shift; apps_arg="${1:?--apps needs a list of app directories}" ;;
+            -h|--help) sed -n '2,20p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; return 0 ;;
+            *) echo "Unknown option: $1 (see --help)" >&2; return 1 ;;
+        esac
+        shift
+    done
+
+    # live-build needs root; ask for the password now instead of after the Java builds.
+    if [ "$(id -u)" -ne 0 ]; then
+        command -v sudo >/dev/null 2>&1 || { echo "sudo is required for live-build" >&2; return 1; }
+        sudo -v
+    fi
+
+    local commons_dir="$parent_dir/amade-commons"
+    [ -f "$commons_dir/settings.gradle" ] || {
+        echo "amade-commons not found at $commons_dir; clone it next to amadeos" >&2; return 1; }
+
+    local apps=() app
+    if [ -n "$apps_arg" ]; then
+        for app in $apps_arg; do
+            grep -qs "installToAmadeOs" "$parent_dir/$app/build.gradle" || {
+                echo "$parent_dir/$app is no amade app (no installToAmadeOs task in build.gradle)" >&2; return 1; }
+            apps+=("$app")
+        done
+    else
+        local dir
+        for dir in "$parent_dir"/amade-*/; do
+            app="$(basename "$dir")"
+            [ "$app" = "amade-commons" ] && continue
+            grep -qs "installToAmadeOs" "$dir/build.gradle" && apps+=("$app")
+        done
+    fi
+    [ ${#apps[@]} -gt 0 ] || { echo "No amade apps found in $parent_dir" >&2; return 1; }
+
+    step "Repositories: amadeos amade-commons ${apps[*]}"
+
+    if [ "$pull" = 1 ]; then
+        # Check every repository before touching any, so a dirty checkout does not leave half of
+        # them pulled.
+        local repo dirty=0
+        for repo in amadeos amade-commons "${apps[@]}"; do
+            if [ -n "$(git -C "$parent_dir/$repo" status --porcelain --untracked-files=no)" ]; then
+                echo "$repo has uncommitted changes; commit or stash them, or use --no-pull" >&2
+                dirty=1
+            fi
+        done
+        [ "$dirty" = 0 ] || return 1
+        for repo in amadeos amade-commons "${apps[@]}"; do
+            step "Pulling $repo ($branch)"
+            git -C "$parent_dir/$repo" fetch origin "$branch"
+            if [ "$(git -C "$parent_dir/$repo" branch --show-current)" != "$branch" ]; then
+                echo "  switching $repo from $(git -C "$parent_dir/$repo" branch --show-current || true) to $branch"
+                git -C "$parent_dir/$repo" switch "$branch"
+            fi
+            git -C "$parent_dir/$repo" merge --ff-only "origin/$branch"
+        done
+    fi
+
+    local gradle_args=(--no-daemon clean)
+    if [ "$tests" = 1 ]; then gradle_args+=(build); else gradle_args+=(assemble); fi
+
+    step "Building amade-commons"
+    (cd "$commons_dir" && ./gradlew "${gradle_args[@]}")
+
+    # Remove the app packages of earlier builds, so an app whose version changed is not installed
+    # twice. The icon theme and backdrop packages stay; build.sh only builds them when missing.
+    local packages_dir="$root_dir/config/packages.chroot"
+    mkdir -p "$packages_dir"
+    for app in "${apps[@]}"; do
+        rm -f "$packages_dir/${app}"_*.deb
+    done
+
+    for app in "${apps[@]}"; do
+        step "Building $app and adding it to amadeOS"
+        # settings.gradle of every app includes ../amade-commons, so the app is built against the
+        # checkout pulled above, not against the JitPack version in its build.gradle.
+        (cd "$parent_dir/$app" && ./gradlew "${gradle_args[@]}" installToAmadeOs)
+    done
+
+    step "Building the amadeOS ISO"
+    if [ "$quick" = 1 ]; then
+        AMADEOS_QUICK=1 "$root_dir/build.sh"
+    else
+        "$root_dir/build.sh"
+    fi
+
+    local iso="$root_dir/artifacts/amadeos-amd64.iso"
+    step "Done"
+    echo "Image:    $iso ($(du -h "$iso" | cut -f1))"
+    echo "Packages: $(cd "$packages_dir" && ls -- *.deb | tr '\n' ' ')"
+    cat <<EOF
+
+Test it:      ./run-qemu.sh
+USB stick:    lsblk -d -o NAME,SIZE,MODEL,TRAN      # find the stick, e.g. /dev/sdX
+              sudo dd if=$iso of=/dev/sdX bs=4M status=progress conv=fsync oflag=direct
+              (this erases the whole stick; see README.md, "Writing the image to a USB stick")
+EOF
+}
+
+step() {
+    printf '\n\033[1m[buildDistribution] %s\033[0m\n' "$*"
+}
+
+main "$@"
+exit

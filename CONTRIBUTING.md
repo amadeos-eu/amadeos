@@ -111,10 +111,11 @@ amadeOS uses dynamic XDG desktop entry discovery (`XdgApplicationManager`). The 
 | 📝 **Text Editor** | `Categories=TextEditor;Utility;` |
 | ✉️ **Mail** | `Categories=Network;Email;` |
 | 🎵 **Sound & Video** | `Categories=AudioVideo;Audio;Player;` |
+| 🎨 **Graphics** | `Categories=Graphics;Scanning;` (also `RasterGraphics`, `VectorGraphics`, `Photography`, `Viewer`) |
 | 🖨️ **Printer** | `Categories=Printing;Settings;` |
 | ❓ **Help** | `Categories=Documentation;Help;` |
 
-The first application found in a category also becomes the slot's primary click action. Categories without a drawer (e.g. `Graphics`, `Development`) are listed in the Application Manager.
+The first application found in a category also becomes the slot's primary click action. Categories without a drawer (e.g. `Development`, `Office`) are listed in the Application Manager.
 
 Example `amade-pad.desktop`:
 ```ini
@@ -239,6 +240,14 @@ Because every name is tried in the current theme before falling back to `hicolor
    ./scripts/package-nscde-icons.sh --install-local   # for Xephyr on the host (replaces ~/.local/share/icons/NsCDE)
    ```
    The script downloads NsCDE from upstream, copies `icons/NsCDE/` over it and builds `nscde-icon-theme_<version>-<revision>_all.deb`, replacing the previous build in `config/packages.chroot/`.
+
+The background of the BIOS boot menu is drawn the same way: edit `icons/src/boot-splash.svg` and render it with `rsvg-convert -w 640 -h 480 icons/src/boot-splash.svg -o config/bootloaders/isolinux/splash.png`. Keep the lower part (below y = 330) free for the menu. The default wallpaper comes from `icons/src/wallpaper.svg` and is rendered to both places it is used:
+
+```bash
+for f in config/includes.chroot/usr/share/backgrounds/amadeos/wallpaper.png src/main/resources/wallpapers/default.png; do
+  rsvg-convert -w 1920 -h 1080 icons/src/wallpaper.svg -o "$f"
+done
+```
 
 Always use the `amadeos-` prefix: upstream icons are never replaced, and the theme's `AUTHORS` file marks the `amadeos-*` icons as amadeOS's own (EUPL-1.2), separate from the GPL-3.0 NsCDE icons.
 

@@ -21,7 +21,7 @@ USER_ICONS_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/icons/NsCDE"
 NSCDE_REPO="https://github.com/NsCDE/NsCDE.git"
 NSCDE_VERSION="2.3"
 # Bump when the amadeOS additions in icons/NsCDE change
-PACKAGE_REVISION="1"
+PACKAGE_REVISION="2"
 PACKAGE_VERSION="${NSCDE_VERSION}-${PACKAGE_REVISION}"
 PACKAGE_NAME="nscde-icon-theme"
 # amadeOS's own icons (EUPL-1.2), merged into the theme under amadeos-* names

@@ -44,4 +44,11 @@ libcdio-cdda2t64
 libcdio-paranoia2t64
 fluid-soundfont-gm
 eject
+# Web browser: Firefox ESR (Gecko, MPL-2.0) with the five desktop languages; preconfigured
+# by /usr/share/firefox-esr/distribution/policies.json (no telemetry, Ecosia, uBlock Origin)
+firefox-esr
+firefox-esr-l10n-de
+firefox-esr-l10n-fr
+firefox-esr-l10n-es-es
+firefox-esr-l10n-it
 grub-efi-amd64-bin

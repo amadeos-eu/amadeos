@@ -43,7 +43,12 @@ apt-get install --yes --no-install-recommends \
     libcdio-cdda2t64 \
     libcdio-paranoia2t64 \
     fluid-soundfont-gm \
-    eject
+    eject \
+    firefox-esr \
+    firefox-esr-l10n-de \
+    firefox-esr-l10n-fr \
+    firefox-esr-l10n-es-es \
+    firefox-esr-l10n-it
 
 # Configure locales
 if [ -f /etc/locale.gen ]; then

@@ -44,6 +44,18 @@ libcdio-cdda2t64
 libcdio-paranoia2t64
 fluid-soundfont-gm
 eject
+# Network: NetworkManager (Ethernet via DHCP, WLAN via wpasupplicant, nmcli/nmtui), driven by the
+# network cell of the front panel; polkitd lets the netdev group manage connections without root
+network-manager
+wpasupplicant
+wireless-regdb
+polkitd
+# Firmware for the common WLAN and Ethernet chips (live-build's --firmware-chroot would add all of it)
+firmware-iwlwifi
+firmware-realtek
+firmware-atheros
+firmware-brcm80211
+firmware-mediatek
 # Web browser: Firefox ESR (Gecko, MPL-2.0) with the five desktop languages; preconfigured
 # by /usr/share/firefox-esr/distribution/policies.json (no telemetry, Ecosia, uBlock Origin)
 firefox-esr

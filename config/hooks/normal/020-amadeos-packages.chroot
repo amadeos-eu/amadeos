@@ -44,6 +44,15 @@ apt-get install --yes --no-install-recommends \
     libcdio-paranoia2t64 \
     fluid-soundfont-gm \
     eject \
+    network-manager \
+    wpasupplicant \
+    wireless-regdb \
+    polkitd \
+    firmware-iwlwifi \
+    firmware-realtek \
+    firmware-atheros \
+    firmware-brcm80211 \
+    firmware-mediatek \
     firefox-esr \
     firefox-esr-l10n-de \
     firefox-esr-l10n-fr \

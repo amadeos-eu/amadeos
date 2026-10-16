@@ -1,0 +1,48 @@
+{
+  "policies": {
+    "DisableTelemetry": true,
+    "DisableFirefoxStudies": true,
+    "DisablePocket": true,
+    "DontCheckDefaultBrowser": true,
+    "OverrideFirstRunPage": "",
+    "OverridePostUpdatePage": "",
+    "FirefoxHome": {
+      "SponsoredTopSites": false,
+      "Pocket": false,
+      "SponsoredPocket": false,
+      "Locked": false
+    },
+    "FirefoxSuggest": {
+      "SponsoredSuggestions": false,
+      "ImproveSuggest": false,
+      "Locked": false
+    },
+    "UserMessaging": {
+      "ExtensionRecommendations": false,
+      "FeatureRecommendations": false,
+      "MoreFromMozilla": false,
+      "SkipOnboarding": true,
+      "Locked": false
+    },
+    "SearchEngines": {
+      "Add": [
+        {
+          "Name": "Ecosia",
+          "Description": "Ecosia, the search engine that plants trees (Berlin)",
+          "URLTemplate": "https://www.ecosia.org/search?q={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://www.ecosia.org/favicon.ico",
+          "SuggestURLTemplate": "https://ac.ecosia.org/autocomplete?q={searchTerms}&type=list",
+          "Alias": "@ecosia"
+        }
+      ],
+      "Default": "Ecosia"
+    },
+    "ExtensionSettings": {
+      "uBlock0@raymondhill.net": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
+      }
+    }
+  }
+}

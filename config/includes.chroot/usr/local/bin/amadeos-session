@@ -63,8 +63,8 @@ echo "[amadeos-session] Session config: JAR=$AMADEOS_JAR, DISPLAY=$DISPLAY, WM_E
 
 # Detect Java runtime
 if [ -z "${JAVA_HOME:-}" ]; then
-    if [ -d "/usr/lib/jvm/java-21-openjdk-amd64" ]; then
-        export JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"
+    if [ -d "/usr/lib/jvm/java-25-openjdk-amd64" ]; then
+        export JAVA_HOME="/usr/lib/jvm/java-25-openjdk-amd64"
     elif [ -d "/usr/lib/jvm/default-java" ]; then
         export JAVA_HOME="/usr/lib/jvm/default-java"
     fi

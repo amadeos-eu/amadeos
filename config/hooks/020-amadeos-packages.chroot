@@ -28,7 +28,7 @@ apt-get install --yes --no-install-recommends \
     libpam-systemd \
     x11-xserver-utils \
     xauth \
-    openjdk-21-jre \
+    openjdk-25-jre \
     fontconfig \
     fonts-dejavu-core \
     ca-certificates \
@@ -52,7 +52,12 @@ apt-get install --yes --no-install-recommends \
     firmware-realtek \
     firmware-atheros \
     firmware-brcm80211 \
-    firmware-mediatek
+    firmware-mediatek \
+    firefox-esr \
+    firefox-esr-l10n-de \
+    firefox-esr-l10n-fr \
+    firefox-esr-l10n-es-es \
+    firefox-esr-l10n-it
 
 # Configure locales
 if [ -f /etc/locale.gen ]; then

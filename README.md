@@ -7,7 +7,7 @@ freely available under the European Union Public Licence, so anyone can inspect,
 
 [![Build](https://github.com/datazuul/amadeos/actions/workflows/build.yml/badge.svg)](https://github.com/datazuul/amadeos/actions/workflows/build.yml)
 [![License: EUPL-1.2](https://img.shields.io/badge/license-EUPL--1.2-003399)](LICENSE)
-[![Java 21](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)](https://openjdk.org/projects/jdk/21/)
+[![Java 25](https://img.shields.io/badge/Java-25-ED8B00?logo=openjdk&logoColor=white)](https://openjdk.org/projects/jdk/25/)
 [![Debian 13 trixie](https://img.shields.io/badge/Debian-13%20trixie-A81D33?logo=debian&logoColor=white)](https://www.debian.org/releases/trixie/)
 [![Display: X11](https://img.shields.io/badge/display-Xorg%2FX11-555555)](https://www.x.org/)
 [![Boot: BIOS + UEFI](https://img.shields.io/badge/boot-BIOS%20%2B%20UEFI-555555)](#getting-started)
@@ -71,7 +71,7 @@ component, e.g. `dm`, `wm`, `panel`, `style` (Style Manager), `screen` (screen s
 
 | Component | Description |
 |---|---|
-| **Base** | Debian *trixie* (minimal), Linux, Xorg/X11, OpenJDK 21, BIOS and UEFI boot. |
+| **Base** | Debian *trixie* (minimal), Linux, Xorg/X11, OpenJDK 25, BIOS and UEFI boot. |
 | **Display manager** | `amadeos-dm.service` starts Xorg on VT 7 and shows the Java login greeter, which authenticates through PAM (`/etc/pam.d/amadeos-dm`) and starts the session in the language chosen there. |
 | **Window manager** | A floating, reparenting X11 window manager in Java (Xlib via JNA) with Motif/CDE-style frames, interactive move and resize, minimize to desktop icons, four virtual workspaces, a desktop root menu and the EWMH/ICCCM hints that panels and toolkits rely on (`_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`, `_NET_CURRENT_DESKTOP`, `_NET_WM_STRUT_PARTIAL`, `WM_DELETE_WINDOW`, ...). |
 | **Front panel** | A CDE-style dock with clock, calendar, workspace switcher and drawers that list installed applications from their `.desktop` files. |
@@ -81,6 +81,7 @@ component, e.g. `dm`, `wm`, `panel`, `style` (Style Manager), `screen` (screen s
 | **Backdrops** | The original CDE pattern backdrops (Pebbles, Concave, BrickWall, Toronto, ...) come as the separate package `amadeos-backdrops-cde` (built by `scripts/package-cde-backdrops.sh`, installed to `/usr/share/amadeos/backdrops/cde`) and take their shades from the chosen backdrop color like in dtstyle. Own `.pm`/`.bm` files (XPM/XBM) are found in `~/.dt/backdrops` and `~/.config/amadeos/backdrops`, pictures (PNG/JPEG) as well. |
 | **Input settings** (`input`) | Keyboard repeat and click, mouse handedness, double-click time and acceleration, and the bell; stored in `~/.config/amadeos/input.conf` and applied with `xset`, `xmodmap` and `xrdb` at login (`/etc/amadeos/autostart.d/10-amadeos-input`) and on Apply. |
 | **Screen saver** (`screen`) | CDE's dtscreen: started through `/etc/amadeos/autostart.d/50-amadeos-screen`, uses the X server's idle counter (MIT-SCREEN-SAVER, `libxss1`), shows a saver module (Qix, Swarm, Starfield, Floating Logo, Blank) and locks the screen after the configured time. Settings in `~/.config/amadeos/screen.conf`. |
+| **Web browser** | Firefox ESR from Debian (Gecko, MPL-2.0, security updates through `debian-security`) in the five desktop languages. `/usr/share/firefox-esr/distribution/policies.json` turns off telemetry, studies, Pocket and sponsored content, makes Ecosia the default search engine and installs uBlock Origin; `/etc/xdg/mimeapps.list` makes Firefox the default for web links and HTML files. |
 | **Applications** | Separate Debian packages; `.deb` files placed in `config/packages.chroot/` are installed into the image. |
 
 ## The amadeOS family
@@ -98,7 +99,7 @@ JitPack, or builds a checkout in `../amade-commons` instead.
 
 ## Getting started
 
-Requirements: Java 21, and for the image `live-build`, `sudo` and optionally QEMU or Xephyr.
+Requirements: Java 25, and for the image `live-build`, `sudo` and optionally QEMU or Xephyr.
 [`CONTRIBUTING.md`](CONTRIBUTING.md) lists the packages per distribution.
 
 ```bash

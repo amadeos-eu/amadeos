@@ -25,7 +25,7 @@ desktop-file-utils
 shared-mime-info
 file
 libxss1
-openjdk-21-jre
+openjdk-25-jre
 fontconfig
 fonts-dejavu-core
 ca-certificates
@@ -56,4 +56,11 @@ firmware-realtek
 firmware-atheros
 firmware-brcm80211
 firmware-mediatek
+# Web browser: Firefox ESR (Gecko, MPL-2.0) with the five desktop languages; preconfigured
+# by /usr/share/firefox-esr/distribution/policies.json (no telemetry, Ecosia, uBlock Origin)
+firefox-esr
+firefox-esr-l10n-de
+firefox-esr-l10n-fr
+firefox-esr-l10n-es-es
+firefox-esr-l10n-it
 grub-efi-amd64-bin

@@ -83,7 +83,7 @@ if command -v setxkbmap >/dev/null 2>&1; then
     setxkbmap -layout "de,us" -option "grp:alt_shift_toggle" 2>/dev/null || setxkbmap "de" 2>/dev/null || true
 fi
 
-JAVA_BIN="/usr/lib/jvm/java-21-openjdk-amd64/bin/java"
+JAVA_BIN="/usr/lib/jvm/java-25-openjdk-amd64/bin/java"
 if [ ! -x "$JAVA_BIN" ]; then
     JAVA_BIN="$(command -v java || true)"
 fi

@@ -13,6 +13,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import org.datazuul.amadeos.wm.WindowGeometry;
 import org.datazuul.amadeos.wm.decoration.FrameWindow;
+import org.datazuul.amadeos.wm.panel.X11EwmhHelper;
+import org.datazuul.amadeos.wm.process.LaunchFeedback;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -652,5 +654,38 @@ class X11WindowManagerIntegrationTest {
             }
             assertFalse(loop.isAlive(), "event loop must end after stop()");
         }
+    }
+
+    @Test
+    void launchMessageShowsBusyUntilTheNextWindow() throws Exception {
+        try (X11WindowManagerService wm = X11WindowManagerService.open(display);
+             X11EwmhHelper panel = X11EwmhHelper.open(display)) {
+            assertFalse(panel.isLaunchBusy());
+
+            LaunchFeedback.send(LibX11.INSTANCE, panel.display());
+            assertTrue(waitFor(wm, panel::isLaunchBusy), "The launch message must set the busy flag on the root window");
+
+            Process client = new ProcessBuilder("xmessage", "-display", display, "-buttons", "OK:0", "Started").start();
+            try {
+                assertTrue(waitFor(wm, () -> !panel.isLaunchBusy()), "The new window must end the busy cursor");
+                assertFalse(wm.core().registry().snapshot().isEmpty());
+            } finally {
+                client.destroyForcibly();
+            }
+        }
+    }
+
+    /** Lets the window manager handle its events until the condition holds; slow CI machines need more than a fixed pause. */
+    private static boolean waitFor(X11WindowManagerService wm, java.util.function.BooleanSupplier condition)
+            throws InterruptedException {
+        long deadline = System.currentTimeMillis() + 5000;
+        while (System.currentTimeMillis() < deadline) {
+            wm.processPendingEvents();
+            if (condition.getAsBoolean()) {
+                return true;
+            }
+            Thread.sleep(50);
+        }
+        return false;
     }
 }

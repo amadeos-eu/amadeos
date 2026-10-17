@@ -1,4 +1,8 @@
 #!/bin/sh
+# Runs inside the chroot. Debian's live-build reads config/hooks/normal/*.chroot; for Ubuntu's live-build
+# 3.0, which reads config/hooks/*.chroot, scripts/build-image.sh links the hooks there. Permissions of the files from
+# config/includes.chroot, which git does not keep, and the services to enable. The quick repack mode
+# of scripts/build-image.sh runs this script again after copying the includes into the chroot.
 set -eu
 
 chmod 0755 /usr/local/bin/amadeos-session
@@ -12,9 +16,6 @@ chmod 0755 /etc/skel/.xinitrc
 mkdir -p /opt/amadeos
 if [ -f /opt/amadeos/amadeos.jar ]; then
     chmod 0644 /opt/amadeos/amadeos.jar
-fi
-if [ -f /opt/amadeos/amadeos-demo.jar ]; then
-    chmod 0644 /opt/amadeos/amadeos-demo.jar
 fi
 mkdir -p /etc/X11
 # Only the user on the active console may start Xorg via the setuid wrapper (startx on tty1).
@@ -35,5 +36,3 @@ fi
 if [ -f /etc/pam.d/amadeos-dm ]; then
     chmod 0644 /etc/pam.d/amadeos-dm
 fi
-
-

@@ -14,9 +14,6 @@ export USER="${USER:-$(id -un 2>/dev/null || echo amadeos)}"
 
 # Default configuration values
 AMADEOS_JAR="${AMADEOS_JAR:-/opt/amadeos/amadeos.jar}"
-if [ ! -f "$AMADEOS_JAR" ] && [ -f "/opt/amadeos/amadeos-demo.jar" ]; then
-    AMADEOS_JAR="/opt/amadeos/amadeos-demo.jar"
-fi
 JAVA_OPTS="${JAVA_OPTS:---enable-native-access=ALL-UNNAMED}"
 WM_ENABLED="${WM_ENABLED:-true}"
 WM_AUTO_RESTART="${WM_AUTO_RESTART:-true}"

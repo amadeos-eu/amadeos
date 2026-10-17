@@ -73,7 +73,7 @@ if grep -qw 'boot=live' /proc/cmdline 2>/dev/null && id amadeos >/dev/null 2>&1;
     echo 'amadeos:$6$1xsQWb3aVS24Y0d3$LXLQITUwA2aUMUnBPnD1k8MQV/UHSLTg4aQMHQk0H2EkcJFpn6ScFHQhsLDOeJ6J2zVgwxWjoeKNLT2WJ8ObJ1' | chpasswd -e 2>/dev/null || true
     if [ -d /home/amadeos ]; then
         chown -R amadeos:amadeos /home/amadeos 2>/dev/null || true
-        rm -f /home/amadeos/.amadeos-session.log /home/amadeos/.amadeos-wm.log /home/amadeos/.amadeos-panel.lock /home/amadeos/.amadeos-wm.pid 2>/dev/null || true
+        rm -rf /home/amadeos/.cache/amadeos/logs /home/amadeos/.amadeos-panel.lock /home/amadeos/.amadeos-wm.pid 2>/dev/null || true
     fi
 fi
 

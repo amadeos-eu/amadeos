@@ -75,7 +75,8 @@ fi
 # live-config takes these from the kernel command line before /etc/live/config.conf; keep both files equal.
 # lpadmin: printer administration in amade-print and the CUPS web interface.
 # timezone: the live image's clock, like the German keyboard and locale; changed at login in the greeter.
-BOOTAPPEND="boot=live components username=amadeos user-password=amadeos keyboard-layouts=de timezone=Europe/Berlin hostname=amadeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,lpadmin,sudo"
+# systemd-journal: the whole journal in the Tools drawer's log viewer and journalctl, not only the user's messages.
+BOOTAPPEND="boot=live components username=amadeos user-password=amadeos keyboard-layouts=de timezone=Europe/Berlin hostname=amadeos user-default-groups=audio,cdrom,dip,floppy,video,plugdev,netdev,powerdev,scanner,bluetooth,lpadmin,systemd-journal,sudo"
 
 if [ "${AMADEOS_PACKAGE_ONLY:-0}" = "1" ]; then
     echo "[build-image] Package-only mode requested; packaging existing $BUILD_ROOT/binary..."

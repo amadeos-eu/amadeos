@@ -20,8 +20,10 @@ fi
 JAVA_OPTS="${JAVA_OPTS:---enable-native-access=ALL-UNNAMED}"
 WM_ENABLED="${WM_ENABLED:-true}"
 WM_AUTO_RESTART="${WM_AUTO_RESTART:-true}"
-WM_LOG_FILE="${HOME:-/tmp}/.amadeos-wm.log"
-SESSION_LOG_FILE="${HOME:-/tmp}/.amadeos-session.log"
+# Logs in ~/.cache/amadeos/logs next to the applications' logs; the Tools drawer's log viewer lists them.
+LOG_DIR="${XDG_CACHE_HOME:-${HOME:-/tmp}/.cache}/amadeos/logs"
+WM_LOG_FILE="$LOG_DIR/wm.log"
+SESSION_LOG_FILE="$LOG_DIR/session.log"
 AUTOSTART_APP="${AUTOSTART_APP:-panel}"
 
 # Language: the greeter passes the language chosen at login. Remember it for the desktop
@@ -49,6 +51,7 @@ if [ -f "$USER_CONF" ]; then
 fi
 
 # Ensure log files are writable by current user; fallback to /tmp if necessary
+mkdir -p "$(dirname "$SESSION_LOG_FILE")" "$(dirname "$WM_LOG_FILE")" 2>/dev/null || true
 if ! touch "$SESSION_LOG_FILE" 2>/dev/null; then
     SESSION_LOG_FILE="/tmp/.amadeos-session-$(id -u 2>/dev/null || echo 1000).log"
 fi

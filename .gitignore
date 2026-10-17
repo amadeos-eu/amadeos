@@ -2,11 +2,9 @@
 artifacts/
 build/
 build.root*/
-/bin/
 image/cache/
 image/chroot/
 image/binary/
-config/includes.chroot/opt/amadeos/*.jar
 config/packages.chroot/*.deb
 
 # live-build output in the repository root
@@ -15,11 +13,6 @@ binary/
 cache/
 .build/
 config/auto/
-
-# Java and Gradle
-.gradle/
-**/.gradle/
-**/build/
 
 # IDEs
 .idea/

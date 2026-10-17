@@ -13,10 +13,6 @@ if [ -f /usr/local/bin/rsvg ]; then
     chmod 0755 /usr/local/bin/rsvg
 fi
 chmod 0755 /etc/skel/.xinitrc
-mkdir -p /opt/amadeos
-if [ -f /opt/amadeos/amadeos.jar ]; then
-    chmod 0644 /opt/amadeos/amadeos.jar
-fi
 mkdir -p /etc/X11
 # Only the user on the active console may start Xorg via the setuid wrapper (startx on tty1).
 cat > /etc/X11/Xwrapper.config << 'EOF'

@@ -88,7 +88,7 @@ if [ ! -x "$JAVA_BIN" ]; then
     JAVA_BIN="$(command -v java || true)"
 fi
 
-JAR_BIN="/opt/amadeos/amadeos.jar"
+JAR_BIN="/opt/amade-desktop/amade-desktop.jar"
 
 echo "[amadeos-dm] Launching Java Display Manager daemon..."
 exec "$JAVA_BIN" --enable-native-access=ALL-UNNAMED -jar "$JAR_BIN" dm :0

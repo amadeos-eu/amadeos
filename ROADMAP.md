@@ -429,7 +429,7 @@ Next:
 
 - amade-mail: test Gmail OAuth2; decide whether to ship a datazuul OAuth client by default (Google allows 100 users without verification of the restricted Gmail scope); IMAP IDLE with new-mail state in the Front Panel in-tray; autoconfig (Thunderbird ISPDB, DNS SRV).
 - File Manager (dtfile) for the File Manager slot and the Trash Can (freedesktop trash specification).
-- Calendar (dtcal) for the Calendar slot, replacing the search for orage, gnome-calendar or korganizer.
+- `amade-calendar` (after dtcal) for the Calendar slot: month/week/day views, appointments with reminders, iCalendar (`.ics`) import/export; the slot starts it once installed and shows today's date until then.
 - Help Viewer (dthelp) for the Help slot; Print Manager (dtprintinfo) on CUPS for the Printer slot.
 - Terminal: decide between xterm and an own terminal emulator.
 

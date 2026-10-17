@@ -36,14 +36,16 @@ cd "$ROOT_DIR"
 command -v lb >/dev/null 2>&1 || { echo "live-build (lb) is required" >&2; exit 1; }
 
 mkdir -p "$ARTIFACT_DIR"
-# The desktop (window manager, panel, display manager, ...) is the package amade-desktop from the
-# amade-system repository; like every other package in config/packages.chroot it is installed into the image.
-if ! compgen -G "$CONFIG_DIR/packages.chroot/amade-desktop_*.deb" >/dev/null; then
-    echo "[build-image] No amade-desktop_*.deb in config/packages.chroot. Build it with" >&2
-    echo "    (cd ../amade-system && ./gradlew :desktop:installToAmadeOs)" >&2
-    echo "or build everything with ./buildDistribution.sh." >&2
-    exit 1
-fi
+# The desktop is the packages amade-dm, amade-session, amade-wm, amade-panel-cde and amade-style from the
+# amade-system repository; like every other package in config/packages.chroot they are installed into the image.
+for package in amade-dm amade-session amade-wm amade-panel-cde amade-style; do
+    if ! compgen -G "$CONFIG_DIR/packages.chroot/${package}_*.deb" >/dev/null; then
+        echo "[build-image] No ${package}_*.deb in config/packages.chroot. Build the desktop packages with" >&2
+        echo "    (cd ../amade-system && ./gradlew installToAmadeOs)" >&2
+        echo "or build everything with ./buildDistribution.sh." >&2
+        exit 1
+    fi
+done
 # NsCDE is the default icon theme (GPL-3.0, own package nscde-icon-theme); build it if missing or
 # older than the version in package-nscde-icons.sh (PACKAGE_REVISION is bumped when icons/NsCDE changes).
 # Without it the desktop falls back to hicolor and to icons drawn in Java.

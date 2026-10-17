@@ -63,19 +63,19 @@ flowchart TD
     Panel -->|launches| Apps
 ```
 
-The desktop is the Debian package `amade-desktop` from the
-[amade-system](https://github.com/datazuul/amade-system) repository: one jar at
-`/opt/amade-desktop/amade-desktop.jar`, started as `amade-desktop <component>` with `dm`, `wm`,
-`panel`, `style` (Style Manager), `screen` (screen saver), `input` (apply keyboard, mouse and bell
-settings) or `lock`. This repository holds the live image: its package list, configuration and the
-scripts that start the desktop (`amadeos-dm`, `amadeos-session`).
+The desktop is five Debian packages from the
+[amade-system](https://github.com/datazuul/amade-system) repository: `amade-dm` (display manager and
+login greeter), `amade-session` (the session script `amadeos-session`, screen lock and screen saver),
+`amade-wm` (window manager), `amade-panel-cde` (the Front Panel; it provides `amade-panel`, the panel
+the session starts, so another panel can take its place) and `amade-style` (Style Manager and input
+settings). This repository holds the live image: its package list and configuration.
 
 ## What is in the image
 
 | Component | Description |
 |---|---|
 | **Base** | Debian *trixie* (minimal), Linux, Xorg/X11, OpenJDK 25, BIOS and UEFI boot. |
-| **Display manager** | `amadeos-dm.service` (enabled by the `amade-desktop` package) starts Xorg on VT 7 and shows the Java login greeter, which authenticates through PAM (`/etc/pam.d/amadeos-dm`) and starts the session in the language chosen there. |
+| **Display manager** | `amadeos-dm.service` (enabled by the `amade-dm` package) starts Xorg on VT 7 and shows the Java login greeter, which authenticates through PAM (`/etc/pam.d/amadeos-dm`) and starts the session in the language chosen there. |
 | **Time zone** | Chosen in the login greeter (*Time Zone*, the zones of `zone1970.tab`, preselected with the system's current zone). The display manager runs as root and, once the password is accepted, points `/etc/localtime` at the zone and writes `/etc/timezone` before the session starts. The live image boots with `Europe/Berlin` (`timezone=` on the kernel command line) and `systemd-timesyncd` sets the clock from the network. |
 | **Window manager** | A floating, reparenting X11 window manager in Java (Xlib via JNA) with Motif/CDE-style frames, interactive move and resize, minimize to desktop icons, four virtual workspaces, a desktop root menu and the EWMH/ICCCM hints that panels and toolkits rely on (`_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`, `_NET_CURRENT_DESKTOP`, `_NET_WM_STRUT_PARTIAL`, `WM_DELETE_WINDOW`, ...). |
 | **Front panel** | A CDE-style dock with clock, calendar, workspace switcher and drawers that list installed applications from their `.desktop` files. |
@@ -87,14 +87,14 @@ scripts that start the desktop (`amadeos-dm`, `amadeos-session`).
 | **Input settings** (`input`) | Keyboard repeat and click, mouse handedness, double-click time and acceleration, and the bell; stored in `~/.config/amadeos/input.conf` and applied with `xset`, `xmodmap` and `xrdb` at login (`/etc/amadeos/autostart.d/10-amadeos-input`) and on Apply. |
 | **Screen saver** (`screen`) | CDE's dtscreen: started through `/etc/amadeos/autostart.d/50-amadeos-screen`, uses the X server's idle counter (MIT-SCREEN-SAVER, `libxss1`), shows a saver module (Qix, Swarm, Starfield, Floating Logo, Blank) and locks the screen after the configured time. Settings in `~/.config/amadeos/screen.conf`. |
 | **Web browser** | Firefox ESR from Debian (Gecko, MPL-2.0, security updates through `debian-security`) in the five desktop languages. `/usr/share/firefox-esr/distribution/policies.json` turns off telemetry, studies, Pocket and sponsored content, makes Ecosia the default search engine and installs uBlock Origin; `/etc/xdg/mimeapps.list` makes Firefox the default for web links and HTML files. |
-| **Applications** | Separate Debian packages, like the desktop itself (`amade-desktop`); `.deb` files placed in `config/packages.chroot/` are installed into the image. |
+| **Applications** | Separate Debian packages, like the desktop itself (`amade-dm`, `amade-session`, `amade-wm`, `amade-panel-cde`, `amade-style`); `.deb` files placed in `config/packages.chroot/` are installed into the image. |
 
 ## The amadeOS family
 
 | Repository | Purpose |
 |---|---|
 | [amadeos](https://github.com/datazuul/amadeos) | This repository: the live image (live-build configuration, boot loaders, the scripts of the session) |
-| [amade-system](https://github.com/datazuul/amade-system) | System components, one package per module: `amade-desktop` (display manager, window manager, front panel, Style Manager, lock, screen saver), `amade-print`, `amade-sysinfo` |
+| [amade-system](https://github.com/datazuul/amade-system) | System components, one package per module: `amade-dm` (display manager), `amade-session` (session, lock, screen saver), `amade-wm` (window manager), `amade-panel-cde` (front panel), `amade-style` (Style Manager), `amade-logviewer` (Session Diagnostics & Logs), `amade-print`, `amade-sysinfo` |
 | [amade-commons](https://github.com/datazuul/amade-commons) | Shared library: desktop themes, colors and Motif styling, application scaffold |
 | [amade-pad](https://github.com/datazuul/amade-pad) | Text editor |
 | [amade-mail](https://github.com/datazuul/amade-mail) | Mail client (IMAP/SMTP) in the style of CDE's dtmail |
@@ -120,9 +120,11 @@ scripts/check-config.sh   # the checks CI runs on the configuration
 ./run-qemu.sh             # boot the ISO in QEMU
 ```
 
-`build.sh` needs `amade-desktop_*.deb` in `config/packages.chroot/`. The desktop itself is
-developed in amade-system, where `desktop/run-xephyr.sh` and `desktop/run-greeter.sh` start the
-window manager with the panel, or the login greeter, in a nested X server without an ISO.
+`build.sh` needs the five desktop packages (`amade-dm`, `amade-session`, `amade-wm`, `amade-panel-cde`,
+`amade-style`) in `config/packages.chroot/`; `(cd ../amade-system && ./gradlew installToAmadeOs)` puts
+them there. The desktop itself is developed in amade-system, where `wm/run-xephyr.sh` and
+`dm/run-greeter.sh` start the window manager with the panel, or the login greeter, in a nested X server
+without an ISO.
 
 The live user is `amadeos` with the password `amadeos`.
 
@@ -132,8 +134,8 @@ in `config/includes.chroot/etc/live/config.conf`, the files of the live image un
 `config/includes.chroot/` (the live user's password and a unit drop-in for it, the keyboard and locale
 defaults, Firefox policies, wallpapers), and two hooks in `config/hooks/normal/` (permissions and the X
 server wrapper; security updates and locales). The desktop's own scripts (`amadeos-dm`,
-`amadeos-session`, `amadeos-lock`), its systemd unit, PAM service, polkit rule and autostart scripts are
-part of the `amade-desktop` package. `scripts/build-image.sh` only adds the kernel command line, the UEFI boot
+`amadeos-session`, `amadeos-lock`), its systemd unit, PAM services, polkit rule and autostart scripts are
+part of the desktop packages. `scripts/build-image.sh` only adds the kernel command line, the UEFI boot
 loader and, for live-build 3.0, links to the hooks in `config/hooks/`.
 
 ### Building the complete distribution

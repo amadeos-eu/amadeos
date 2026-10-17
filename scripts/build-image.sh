@@ -99,7 +99,7 @@ elif [ "${AMADEOS_QUICK:-0}" = "1" ] || [ "${AMADEOS_REPACK_ROOTFS:-0}" = "1" ];
     echo "[build-image] Quick repack mode: syncing includes into chroot and rebuilding squashfs..."
     $SUDO cp -a "$CONFIG_DIR/includes.chroot/." "$BUILD_ROOT/chroot/"
     # The same permissions and services as in a full build: the hook, run in the chroot.
-    $SUDO chroot "$BUILD_ROOT/chroot" sh -s < "$CONFIG_DIR/hooks/010-amadeos-permissions.chroot"
+    $SUDO chroot "$BUILD_ROOT/chroot" sh -s < "$CONFIG_DIR/hooks/normal/010-amadeos-permissions.chroot"
 
     # Install drop-in packages from config/packages.chroot if present
     if compgen -G "$CONFIG_DIR/packages.chroot/*.deb" >/dev/null; then

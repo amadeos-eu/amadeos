@@ -1,0 +1,35 @@
+#!/bin/sh
+# Runs inside the chroot after live-build installed config/package-lists/amadeos.list.chroot
+# (the only list of packages) and the .deb files of config/packages.chroot. Linked from config/hooks/
+# for live-build 3.0, see 010-amadeos-permissions.chroot.
+set -eu
+
+export DEBIAN_FRONTEND=noninteractive
+
+# Pull fixes from trixie-security/trixie-updates (config/archives) into the base system too.
+apt-get update
+apt-get dist-upgrade --yes --no-install-recommends
+
+# The locales of the five desktop languages, selectable at login and in the front panel.
+if [ -f /etc/locale.gen ]; then
+    for locale in de_DE en_US fr_FR es_ES it_IT; do
+        grep -q "^$locale.UTF-8 UTF-8" /etc/locale.gen || echo "$locale.UTF-8 UTF-8" >> /etc/locale.gen
+    done
+    locale-gen || true
+fi
+
+# Ensure syslinux/isolinux binaries and modules are available for bootloader creation
+mkdir -p /usr/lib/syslinux
+if [ -f /usr/lib/ISOLINUX/isolinux.bin ]; then
+    ln -sf /usr/lib/ISOLINUX/isolinux.bin /usr/lib/syslinux/isolinux.bin
+fi
+if [ -d /usr/lib/syslinux/modules/bios ]; then
+    for f in /usr/lib/syslinux/modules/bios/*; do
+        if [ -f "$f" ]; then
+            ln -sf "$f" "/usr/lib/syslinux/$(basename "$f")"
+        fi
+    done
+fi
+
+apt-get clean
+rm -rf /var/lib/apt/lists/*

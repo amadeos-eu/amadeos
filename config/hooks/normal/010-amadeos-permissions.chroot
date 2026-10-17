@@ -1,0 +1,38 @@
+#!/bin/sh
+# Runs inside the chroot. Debian's live-build reads config/hooks/normal/*.chroot, Ubuntu's live-build 3.0
+# config/hooks/*.chroot, where links point to these files. Permissions of the files from
+# config/includes.chroot, which git does not keep, and the services to enable. The quick repack mode
+# of scripts/build-image.sh runs this script again after copying the includes into the chroot.
+set -eu
+
+chmod 0755 /usr/local/bin/amadeos-session
+chmod 0755 /usr/local/bin/amadeos-dm 2>/dev/null || true
+chmod 0755 /usr/local/bin/amadeos-lock
+chmod 0755 /etc/amadeos/autostart.d/10-amadeos-input /etc/amadeos/autostart.d/50-amadeos-screen 2>/dev/null || true
+if [ -f /usr/local/bin/rsvg ]; then
+    chmod 0755 /usr/local/bin/rsvg
+fi
+chmod 0755 /etc/skel/.xinitrc
+mkdir -p /opt/amadeos
+if [ -f /opt/amadeos/amadeos.jar ]; then
+    chmod 0644 /opt/amadeos/amadeos.jar
+fi
+mkdir -p /etc/X11
+# Only the user on the active console may start Xorg via the setuid wrapper (startx on tty1).
+cat > /etc/X11/Xwrapper.config << 'EOF'
+allowed_users=console
+needs_root_rights=yes
+EOF
+chmod 0644 /etc/X11/Xwrapper.config
+
+if [ -f /etc/systemd/system/amadeos-dm.service ]; then
+    chmod 0644 /etc/systemd/system/amadeos-dm.service
+    systemctl enable amadeos-dm.service 2>/dev/null || true
+    systemctl set-default graphical.target 2>/dev/null || true
+fi
+if [ -f /etc/polkit-1/rules.d/50-amadeos-network.rules ]; then
+    chmod 0644 /etc/polkit-1/rules.d/50-amadeos-network.rules
+fi
+if [ -f /etc/pam.d/amadeos-dm ]; then
+    chmod 0644 /etc/pam.d/amadeos-dm
+fi

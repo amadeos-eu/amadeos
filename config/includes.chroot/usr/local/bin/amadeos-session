@@ -13,7 +13,7 @@ export HOME="${HOME:-/home/$(id -un 2>/dev/null || echo amadeos)}"
 export USER="${USER:-$(id -un 2>/dev/null || echo amadeos)}"
 
 # Default configuration values
-AMADEOS_JAR="${AMADEOS_JAR:-/opt/amadeos/amadeos.jar}"
+AMADEOS_JAR="${AMADEOS_JAR:-/opt/amade-desktop/amade-desktop.jar}"
 JAVA_OPTS="${JAVA_OPTS:---enable-native-access=ALL-UNNAMED}"
 WM_ENABLED="${WM_ENABLED:-true}"
 WM_AUTO_RESTART="${WM_AUTO_RESTART:-true}"
@@ -88,7 +88,7 @@ if [ -z "$JAVA_BIN" ] || [ ! -x "$JAVA_BIN" ]; then
 fi
 
 if [ ! -f "$AMADEOS_JAR" ]; then
-    report_error_and_fallback "amadeOS application JAR not found at $AMADEOS_JAR."
+    report_error_and_fallback "amadeOS desktop jar not found at $AMADEOS_JAR (package amade-desktop)."
 fi
 
 SESSION_ACTIVE=1

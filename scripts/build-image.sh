@@ -4,7 +4,6 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONFIG_DIR="$ROOT_DIR/config"
 ARTIFACT_DIR="$ROOT_DIR/artifacts"
-JAR_PATH="$CONFIG_DIR/includes.chroot/opt/amadeos/amadeos.jar"
 ISO_PATH="$ARTIFACT_DIR/amadeos-amd64.iso"
 BUILD_ROOT="${AMADEOS_BUILD_ROOT:-${TMPDIR:-/tmp}/amadeos-live-build}"
 
@@ -33,18 +32,18 @@ mounts_below_build_root() {
 
 cd "$ROOT_DIR"
 
-export PATH="$PATH:/snap/bin"
-if [ -x "$ROOT_DIR/gradlew" ]; then
-    GRADLE_BIN="$ROOT_DIR/gradlew"
-else
-    command -v gradle >/dev/null 2>&1 || { echo "gradle is required" >&2; exit 1; }
-    GRADLE_BIN="gradle"
-fi
+"$ROOT_DIR/scripts/check-config.sh"
 command -v lb >/dev/null 2>&1 || { echo "live-build (lb) is required" >&2; exit 1; }
 
-mkdir -p "$ARTIFACT_DIR" "$(dirname "$JAR_PATH")"
-"$GRADLE_BIN" clean jar
-cp build/libs/amadeos-*.jar "$JAR_PATH"
+mkdir -p "$ARTIFACT_DIR"
+# The desktop (window manager, panel, display manager, ...) is the package amade-desktop from the
+# amade-system repository; like every other package in config/packages.chroot it is installed into the image.
+if ! compgen -G "$CONFIG_DIR/packages.chroot/amade-desktop_*.deb" >/dev/null; then
+    echo "[build-image] No amade-desktop_*.deb in config/packages.chroot. Build it with" >&2
+    echo "    (cd ../amade-system && ./gradlew :desktop:installToAmadeOs)" >&2
+    echo "or build everything with ./buildDistribution.sh." >&2
+    exit 1
+fi
 # NsCDE is the default icon theme (GPL-3.0, own package nscde-icon-theme); build it if missing or
 # older than the version in package-nscde-icons.sh (PACKAGE_REVISION is bumped when icons/NsCDE changes).
 # Without it the desktop falls back to hicolor and to icons drawn in Java.
@@ -61,7 +60,7 @@ if ! compgen -G "$CONFIG_DIR/packages.chroot/amadeos-backdrops-cde_*.deb" >/dev/
         || echo "[build-image] Warning: amadeos-backdrops-cde could not be built; continuing without CDE backdrops." >&2
 fi
 if [ -n "${SUDO_USER:-}" ]; then
-    chown -R "$SUDO_USER:" "$ROOT_DIR/build" "$(dirname "$JAR_PATH")" "$ARTIFACT_DIR" 2>/dev/null || true
+    chown -R "$SUDO_USER:" "$ARTIFACT_DIR" 2>/dev/null || true
 fi
 
 if [ "$(id -u)" -eq 0 ]; then
@@ -144,8 +143,6 @@ else
     for hook in "$BUILD_ROOT/config/hooks/normal/"*.chroot; do
         ln -s "normal/$(basename "$hook")" "$BUILD_ROOT/config/hooks/$(basename "$hook")"
     done
-    mkdir -p "$BUILD_ROOT/config/includes.chroot/opt/amadeos"
-    cp -a "$JAR_PATH" "$BUILD_ROOT/config/includes.chroot/opt/amadeos/amadeos.jar"
 
     cd "$BUILD_ROOT"
     rm -rf chroot binary cache
@@ -339,17 +336,8 @@ sha256sum "$ISO_PATH" > "$ISO_PATH.sha256"
 if [ "$(id -u)" -eq 0 ]; then
     owner_uid="$(stat -c '%u' "$ROOT_DIR")"
     owner_gid="$(stat -c '%g' "$ROOT_DIR")"
-    chown "$owner_uid:$owner_gid" "$ISO_PATH" "$ISO_PATH.sha256" "$JAR_PATH"
+    chown "$owner_uid:$owner_gid" "$ISO_PATH" "$ISO_PATH.sha256"
 fi
 
 printf 'Created %s\n' "$ISO_PATH"
 printf 'Build workspace: %s\n' "$BUILD_ROOT"
-
-
-
-
-
-
-
-
-

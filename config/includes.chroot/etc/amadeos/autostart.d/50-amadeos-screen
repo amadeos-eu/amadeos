@@ -3,7 +3,7 @@
 # Restarted if it crashes; stops when the X display is gone (exit 5) or on a clean exit (0).
 set -u
 
-AMADEOS_JAR="${AMADEOS_JAR:-/opt/amadeos/amadeos.jar}"
+AMADEOS_JAR="${AMADEOS_JAR:-/opt/amade-desktop/amade-desktop.jar}"
 JAVA_BIN="${JAVA_HOME:+$JAVA_HOME/bin/java}"
 JAVA_BIN="${JAVA_BIN:-$(command -v java)}"
 LOG_FILE="${HOME:-/tmp}/.amadeos-screen.log"

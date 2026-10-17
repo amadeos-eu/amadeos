@@ -10,7 +10,7 @@ set -euo pipefail
 # and colours them from the backdrop colour, as dtstyle does.
 #
 # CDE is licensed under the LGPL (version 2 or later). Keeping the backdrops in
-# their own package leaves amadeos.jar and this repository purely EUPL-1.2; the
+# their own package leaves amade-desktop and this repository purely EUPL-1.2; the
 # package carries the CDE copyright notices and licence in
 # /usr/share/doc/amadeos-backdrops-cde/copyright.
 # ==============================================================================

@@ -3,7 +3,7 @@
 # only a successful unlock (exit 0) ends the loop.
 set -u
 
-AMADEOS_JAR="${AMADEOS_JAR:-/opt/amadeos/amadeos.jar}"
+AMADEOS_JAR="${AMADEOS_JAR:-/opt/amade-desktop/amade-desktop.jar}"
 if [ -n "${JAVA_HOME:-}" ] && [ -x "$JAVA_HOME/bin/java" ]; then
     JAVA_BIN="$JAVA_HOME/bin/java"
 elif [ -x /usr/lib/jvm/java-25-openjdk-amd64/bin/java ]; then

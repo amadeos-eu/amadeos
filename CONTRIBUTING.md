@@ -249,7 +249,7 @@ Always use the `amadeos-` prefix: upstream icons are never replaced, and the the
 
 ## File permissions and Git executable flags
 
-All shell scripts and hooks (`build.sh`, `scripts/build-image.sh`, chroot hooks in `config/hooks/`, and session scripts in `config/includes.chroot/`) must have their executable bit preserved in Git.
+All shell scripts and hooks (`build.sh`, `scripts/build-image.sh`, chroot hooks in `config/hooks/`, and the scripts in `config/includes.chroot/usr/local/bin/`) must have their executable bit preserved in Git; `scripts/check-config.sh` checks it.
 
 On Linux/Unix:
 ```bash

@@ -63,4 +63,16 @@ firefox-esr-l10n-de
 firefox-esr-l10n-fr
 firefox-esr-l10n-es-es
 firefox-esr-l10n-it
+# Printing: CUPS with driverless printing (IPP Everywhere, AirPrint). avahi finds network printers,
+# cups-browsed sets them up as queues, ipp-usb serves USB printers over IPP. amade-print manages them;
+# the live user is in lpadmin (/etc/live/config.conf), so no password is needed for that.
+cups
+cups-client
+cups-filters
+cups-browsed
+ipp-usb
+avahi-daemon
+libnss-mdns
+# amade-sysinfo names the graphics adapter with lspci
+pciutils
 grub-efi-amd64-bin

@@ -8,7 +8,7 @@ if [[ $# -gt 0 && "$1" != -* ]]; then
     ISO="$1"
     shift
 fi
-RAM="${QEMU_RAM:-1024}"
+RAM="${QEMU_RAM:-2048}"  # Default to 2GB RAM if QEMU_RAM is not set
 
 if [[ ! -f "$ISO" ]]; then
     echo "Error: ISO image not found at: $ISO" >&2

@@ -424,13 +424,14 @@ Available:
 - [`amade-commons`](https://github.com/datazuul/amade-commons): shared themes, Motif look-and-feel, XDG directories, keyring (`secret-tool`) and application start-up; taken from JitPack or a local checkout through a Gradle composite build.
 - [`amade-pad`](https://github.com/datazuul/amade-pad) (Text Editor slot): tabbed documents, line numbers, find/replace, file encodings and line endings preserved, atomic saving; Guice-based layers, CI, EUPL-1.2, uses amade-commons.
 - [`amade-mail`](https://github.com/datazuul/amade-mail) (Mail slot, 0.1.0): IMAP/SMTP mailer after the CDE Mailer (dtmail) with folder column, several accounts and *All inboxes*, sanitised HTML mail (jsoup + Flying Saucer) with remote images blocked, attachments, compose/reply/forward, Sent copy, passwords in the keyring, `mailto:` handler. Gmail with OAuth2 (browser sign-in, XOAUTH2) or an app password; OAuth2 still untested against Google.
+- [`amade-system`](https://github.com/datazuul/amade-system) (private): the system components as one Gradle multi-project, one package per module. First modules: `amade-print` (Printer slot, after dtprintinfo) shows the CUPS printers and their jobs, cancels, holds and releases jobs, pauses and resumes printers, sets the default printer and prints a test page; it talks IPP over the CUPS socket with PeerCred, so the live user (in `lpadmin`) needs no password. `amade-sysinfo` (Tools drawer) shows the operating system, processor, memory, storage, graphics, network and battery. The image installs CUPS with driverless printing (cups-browsed, avahi, ipp-usb). The window manager, front panel, greeter, session and Style Manager are to move there next.
 
 Next:
 
 - amade-mail: test Gmail OAuth2; decide whether to ship a datazuul OAuth client by default (Google allows 100 users without verification of the restricted Gmail scope); IMAP IDLE with new-mail state in the Front Panel in-tray; autoconfig (Thunderbird ISPDB, DNS SRV).
 - File Manager (dtfile) for the File Manager slot and the Trash Can (freedesktop trash specification).
 - `amade-calendar` (after dtcal) for the Calendar slot: month/week/day views, appointments with reminders, iCalendar (`.ics`) import/export; the slot starts it once installed and shows today's date until then.
-- Help Viewer (dthelp) for the Help slot; Print Manager (dtprintinfo) on CUPS for the Printer slot.
+- Help Viewer (dthelp) for the Help slot.
 - Terminal: decide between xterm and an own terminal emulator.
 
 **Exit criteria:** Each Front Panel slot opens an amadeOS application instead of an `xterm` command, and all applications follow the Style Manager theme.

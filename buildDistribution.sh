@@ -101,8 +101,13 @@ main() {
     # twice. The icon theme and backdrop packages stay; build.sh only builds them when missing.
     local packages_dir="$root_dir/config/packages.chroot"
     mkdir -p "$packages_dir"
+    local module
     for app in "${apps[@]}"; do
         rm -f "$packages_dir/${app}"_*.deb
+        # A multi-project build (amade-system) makes one amade-<module> package per included module.
+        for module in $(sed -n "s/^include '\([a-z0-9-]*\)'.*/\1/p" "$parent_dir/$app/settings.gradle" 2>/dev/null); do
+            rm -f "$packages_dir/amade-${module}"_*.deb
+        done
     done
 
     for app in "${apps[@]}"; do

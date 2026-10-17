@@ -3,8 +3,8 @@
 # 3.0, which reads config/hooks/*.chroot, scripts/build-image.sh links the hooks there. Permissions of the
 # files from config/includes.chroot, which live-build does not keep, and the X server settings of the live
 # image. The quick repack mode of scripts/build-image.sh runs this script again after copying the includes
-# into the chroot. The desktop's own scripts, unit, PAM and polkit files come with the package amade-desktop,
-# whose postinst enables amadeos-dm.service.
+# into the chroot. The desktop's own scripts, unit, PAM and polkit files come with the desktop packages
+# (amade-dm, amade-session, amade-wm, amade-panel-cde, amade-style); amade-dm's postinst enables amadeos-dm.service.
 set -eu
 
 chmod 0755 /usr/local/bin/amadeos-live-user

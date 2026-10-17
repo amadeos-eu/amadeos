@@ -296,12 +296,12 @@ desktop and the applications are tested in their own repositories.
 ```bash
 cd amadeos
 
-# Check the configuration and build the live ISO (needs amade-desktop_*.deb in config/packages.chroot).
+# Check the configuration and build the live ISO (needs the desktop packages in config/packages.chroot).
 scripts/check-config.sh
 ./build.sh
 ```
 
-`build.sh` checks the configuration, sets up the live-build tree, and executes `live-build` in a temporary workspace (by default `/tmp/amadeos-live-build`, configurable via `AMADEOS_BUILD_ROOT`). The image installs the packages from `config/packages.chroot/` (the desktop `amade-desktop` among them) and starts the display manager at boot. Once an ISO has been built, inspect and test it with:
+`build.sh` checks the configuration, sets up the live-build tree, and executes `live-build` in a temporary workspace (by default `/tmp/amadeos-live-build`, configurable via `AMADEOS_BUILD_ROOT`). The image installs the packages from `config/packages.chroot/` (the desktop packages `amade-dm`, `amade-session`, `amade-wm`, `amade-panel-cde` and `amade-style` among them) and starts the display manager at boot. Once an ISO has been built, inspect and test it with:
 
 ```bash
 cd amadeos

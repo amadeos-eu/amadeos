@@ -43,13 +43,29 @@ done
 grep -q lpadmin "$live_config" && grep -q systemd-journal "$live_config" \
     || fail "the live user needs lpadmin (printing) and systemd-journal (log viewer) in $live_config"
 
-# The desktop is the package amade-desktop; nothing may still expect the jar of the old amadeos build.
+# The desktop is the package amade-desktop (amade-system repository): its jar, scripts, unit, PAM and
+# polkit files come with the package. The image may not carry a second copy of any of them and nothing
+# may still expect the old paths.
 grep -rn --exclude=check-config.sh "/opt/amadeos/amadeos.jar" config scripts \
     && fail "the desktop jar is /opt/amade-desktop/amade-desktop.jar (package amade-desktop)"
+grep -rn --exclude=check-config.sh "/usr/local/bin/amadeos-\(session\|dm\|lock\)" config scripts \
+    && fail "amadeos-session, amadeos-dm and amadeos-lock are /usr/bin/... from the package amade-desktop"
+for owned in usr/local/bin/amadeos-session usr/local/bin/amadeos-dm usr/local/bin/amadeos-lock \
+        etc/amadeos etc/pam.d/amadeos-dm etc/systemd/system/amadeos-dm.service \
+        etc/polkit-1/rules.d/50-amadeos-network.rules; do
+    [ -e "config/includes.chroot/$owned" ] && fail "config/includes.chroot/$owned belongs to the package amade-desktop (amade-system: desktop/packaging/root)"
+done
+# With the package at hand, compare its whole file list with the includes (a file in both would be
+# overwritten or, as a conffile, provoke a dpkg prompt).
+desktop_deb="$(ls config/packages.chroot/amade-desktop_*.deb 2>/dev/null | head -n 1)"
+if [ -n "$desktop_deb" ] && command -v dpkg-deb >/dev/null 2>&1; then
+    for path in $(dpkg-deb --fsys-tarfile "$desktop_deb" | tar -t | sed -n 's|^\./\(.*[^/]\)$|\1|p'); do
+        [ -f "config/includes.chroot/$path" ] && fail "config/includes.chroot/$path is also in $desktop_deb"
+    done
+fi
 
 # Scripts installed into the image, and their syntax.
-for script in config/includes.chroot/usr/local/bin/* config/includes.chroot/etc/amadeos/autostart.d/*; do
-    case "$script" in *README) continue ;; esac
+for script in config/includes.chroot/usr/local/bin/*; do
     [ -x "$script" ] || fail "$script must be executable (git update-index --chmod=+x)"
     sh -n "$script" || fail "$script does not parse"
 done

@@ -75,7 +75,7 @@ scripts that start the desktop (`amadeos-dm`, `amadeos-session`).
 | Component | Description |
 |---|---|
 | **Base** | Debian *trixie* (minimal), Linux, Xorg/X11, OpenJDK 25, BIOS and UEFI boot. |
-| **Display manager** | `amadeos-dm.service` starts Xorg on VT 7 and shows the Java login greeter, which authenticates through PAM (`/etc/pam.d/amadeos-dm`) and starts the session in the language chosen there. |
+| **Display manager** | `amadeos-dm.service` (enabled by the `amade-desktop` package) starts Xorg on VT 7 and shows the Java login greeter, which authenticates through PAM (`/etc/pam.d/amadeos-dm`) and starts the session in the language chosen there. |
 | **Time zone** | Chosen in the login greeter (*Time Zone*, the zones of `zone1970.tab`, preselected with the system's current zone). The display manager runs as root and, once the password is accepted, points `/etc/localtime` at the zone and writes `/etc/timezone` before the session starts. The live image boots with `Europe/Berlin` (`timezone=` on the kernel command line) and `systemd-timesyncd` sets the clock from the network. |
 | **Window manager** | A floating, reparenting X11 window manager in Java (Xlib via JNA) with Motif/CDE-style frames, interactive move and resize, minimize to desktop icons, four virtual workspaces, a desktop root menu and the EWMH/ICCCM hints that panels and toolkits rely on (`_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`, `_NET_CURRENT_DESKTOP`, `_NET_WM_STRUT_PARTIAL`, `WM_DELETE_WINDOW`, ...). |
 | **Front panel** | A CDE-style dock with clock, calendar, workspace switcher and drawers that list installed applications from their `.desktop` files. |
@@ -128,9 +128,12 @@ The live user is `amadeos` with the password `amadeos`.
 
 The image is described in `config/`: the packages in `config/package-lists/amadeos.list.chroot`
 (the only list of them), the live-config settings of the live user, keyboard, time zone and host name
-in `config/includes.chroot/etc/live/config.conf`, the files of the image under
-`config/includes.chroot/`, and two hooks in `config/hooks/normal/` (permissions and services;
-security updates and locales). `scripts/build-image.sh` only adds the kernel command line, the UEFI boot
+in `config/includes.chroot/etc/live/config.conf`, the files of the live image under
+`config/includes.chroot/` (the live user's password and a unit drop-in for it, the keyboard and locale
+defaults, Firefox policies, wallpapers), and two hooks in `config/hooks/normal/` (permissions and the X
+server wrapper; security updates and locales). The desktop's own scripts (`amadeos-dm`,
+`amadeos-session`, `amadeos-lock`), its systemd unit, PAM service, polkit rule and autostart scripts are
+part of the `amade-desktop` package. `scripts/build-image.sh` only adds the kernel command line, the UEFI boot
 loader and, for live-build 3.0, links to the hooks in `config/hooks/`.
 
 ### Building the complete distribution

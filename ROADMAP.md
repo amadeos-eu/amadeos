@@ -97,7 +97,7 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
   - Login bypasses closed: no password shortcut for the live user outside PAM, mock PAM only with `AMADEOS_MOCK_PAM=1` and never as root (#1).
   - X server protected by an MIT cookie (`/run/amadeos/Xauthority`, `Xorg -auth`) instead of `xhost +local:`; world-writable `/dev/input` rule removed; `Xwrapper.config` restricted to the console user; `trixie-security` and `trixie-updates` added to the image (#1).
   - Each login runs in its own root session worker that owns the PAM session; the session starts with `setpriv` and the PAM environment, so logind, `XDG_RUNTIME_DIR` and user D-Bus work (#5).
-  - Screen lock as its own process (`amadeos.jar lock`, `/usr/local/bin/amadeos-lock`) with keyboard and pointer grabs, the `_AMADEOS_LOCK` X selection as session-wide state, all monitors covered, and relocking if the lock process dies (#6).
+  - Screen lock as its own process (`amadeos.jar lock`, `/usr/bin/amadeos-lock`) with keyboard and pointer grabs, the `_AMADEOS_LOCK` X selection as session-wide state, all monitors covered, and relocking if the lock process dies (#6).
   - All Xlib calls from the window manager's event-loop thread (#4); applications started detached instead of on unread pipes (#3); desktop settings under `$XDG_CONFIG_HOME` (#9); guarded image build scripts (#8); Gradle tests in CI (#2); licensed under EUPL-1.2 (#7).
   - Login failure "Failed to open PAM session" fixed (`pam_loginuid` needs the thread-group leader: the worker starts through `/bin/sh`), verified in the QEMU live ISO; root menu anchor no longer framed and the menu closes on every outside click, verified on Xvfb (#12).
 - **Live image of 2026-10-13 boot-tested:** the ISO with amade-commons, Style Manager and screen saver (#14), NsCDE as default icon theme (#15), the CDE backdrops package, amade-pad and amade-mail boots and works.
@@ -328,7 +328,7 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 4. **Session Spawning & Privilege Dropping (`SessionLauncher`):**
    - Resolves user UID, GID, home directory, and default shell via POSIX `getpwnam`.
    - Drops root privileges via `runuser -u <user>` or POSIX user switching.
-   - Initializes complete session environment (`USER`, `HOME`, `SHELL`, `DISPLAY`, `XDG_SESSION_TYPE=x11`, `XDG_CURRENT_DESKTOP=amadeOS`) and spawns `/usr/local/bin/amadeos-session`.
+   - Initializes complete session environment (`USER`, `HOME`, `SHELL`, `DISPLAY`, `XDG_SESSION_TYPE=x11`, `XDG_CURRENT_DESKTOP=amadeOS`) and spawns `/usr/bin/amadeos-session`.
    - On user logout or session termination, Display Manager catches exit, cleans up PAM credentials, handles action requests (`poweroff`/`reboot`), and cleanly re-arms the login greeter.
 5. **System Configuration:**
    - Dedicated PAM service manifest `/etc/pam.d/amadeos-dm`.

@@ -1,0 +1,15 @@
+#!/bin/sh
+# Live image only: gives the live user its documented password 'amadeos' and cleans up its home before
+# the display manager starts (ExecStartPre of amadeos-dm.service, see etc/systemd/system/amadeos-dm.service.d).
+# live-config creates the user but has no option for a password. On an installed system (no boot=live)
+# the user's own password must never be overwritten, so this does nothing there.
+set -u
+
+if grep -qw 'boot=live' /proc/cmdline 2>/dev/null && id amadeos >/dev/null 2>&1; then
+    echo 'amadeos:$6$1xsQWb3aVS24Y0d3$LXLQITUwA2aUMUnBPnD1k8MQV/UHSLTg4aQMHQk0H2EkcJFpn6ScFHQhsLDOeJ6J2zVgwxWjoeKNLT2WJ8ObJ1' | chpasswd -e 2>/dev/null || true
+    if [ -d /home/amadeos ]; then
+        chown -R amadeos:amadeos /home/amadeos 2>/dev/null || true
+        rm -rf /home/amadeos/.cache/amadeos/logs /home/amadeos/.amadeos-panel.lock /home/amadeos/.amadeos-wm.pid 2>/dev/null || true
+    fi
+fi
+exit 0

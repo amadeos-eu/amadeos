@@ -1,72 +1,19 @@
 #!/bin/sh
+# Runs inside the chroot after live-build installed config/package-lists/amadeos.list.chroot
+# (the only list of packages) and the .deb files of config/packages.chroot.
 set -eu
 
 export DEBIAN_FRONTEND=noninteractive
 
-apt-get update
 # Pull fixes from trixie-security/trixie-updates (config/archives) into the base system too.
+apt-get update
 apt-get dist-upgrade --yes --no-install-recommends
-apt-get install --yes --no-install-recommends \
-    live-boot \
-    live-config \
-    live-config-systemd \
-    systemd-sysv \
-    user-setup \
-    sudo \
-    locales \
-    isolinux \
-    syslinux-common \
-    syslinux-utils \
-    xserver-xorg \
-    xserver-xorg-input-all \
-    xserver-xorg-video-all \
-    xserver-xorg-legacy \
-    xinit \
-    xterm \
-    dbus \
-    dbus-x11 \
-    libpam-systemd \
-    x11-xserver-utils \
-    xauth \
-    openjdk-25-jre \
-    fontconfig \
-    fonts-dejavu-core \
-    ca-certificates \
-    grub-efi-amd64-bin \
-    pipewire \
-    pipewire-pulse \
-    pipewire-alsa \
-    wireplumber \
-    pulseaudio-utils \
-    alsa-utils \
-    libcdio19t64 \
-    libcdio-cdda2t64 \
-    libcdio-paranoia2t64 \
-    fluid-soundfont-gm \
-    eject \
-    network-manager \
-    wpasupplicant \
-    wireless-regdb \
-    polkitd \
-    firmware-iwlwifi \
-    firmware-realtek \
-    firmware-atheros \
-    firmware-brcm80211 \
-    firmware-mediatek \
-    firefox-esr \
-    firefox-esr-l10n-de \
-    firefox-esr-l10n-fr \
-    firefox-esr-l10n-es-es \
-    firefox-esr-l10n-it
 
-# Configure locales
+# The locales of the five desktop languages, selectable at login and in the front panel.
 if [ -f /etc/locale.gen ]; then
-    echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen
-    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-    # The other languages of the desktop, selectable at login and in the front panel
-    echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen
-    echo "es_ES.UTF-8 UTF-8" >> /etc/locale.gen
-    echo "it_IT.UTF-8 UTF-8" >> /etc/locale.gen
+    for locale in de_DE en_US fr_FR es_ES it_IT; do
+        grep -q "^$locale.UTF-8 UTF-8" /etc/locale.gen || echo "$locale.UTF-8 UTF-8" >> /etc/locale.gen
+    done
     locale-gen || true
 fi
 
@@ -85,4 +32,3 @@ fi
 
 apt-get clean
 rm -rf /var/lib/apt/lists/*
-

@@ -117,6 +117,13 @@ cd amadeos
 
 The live user is `amadeos` with the password `amadeos`.
 
+The image is described in `config/`: the packages in `config/package-lists/amadeos.list.chroot`
+(the only list of them), the live-config settings of the live user, keyboard, time zone and host name
+in `config/includes.chroot/etc/live/config.conf`, the files of the image under
+`config/includes.chroot/`, and two hooks in `config/hooks/` (permissions and services; security
+updates and locales). `scripts/build-image.sh` only adds the kernel command line and the UEFI boot
+loader.
+
 ### Building the complete distribution
 
 `build.sh` puts into the image whatever application packages are already in

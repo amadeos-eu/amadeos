@@ -2,9 +2,9 @@ label live-@FLAVOUR@
 	menu label ^amadeOS Live (amd64)
 	menu default
 	kernel @KERNEL@
-	append initrd=@INITRD@ boot=live config @LB_BOOTAPPEND_LIVE@
+	append initrd=@INITRD@ @LB_BOOTAPPEND_LIVE@
 
 label live-@FLAVOUR@-failsafe
 	menu label amadeOS Live (amd64 ^failsafe)
 	kernel @KERNEL@
-	append initrd=@INITRD@ boot=live config @LB_BOOTAPPEND_LIVE@ @LB_BOOTAPPEND_FAILSAFE@
+	append initrd=@INITRD@ @LB_BOOTAPPEND_LIVE@ @LB_BOOTAPPEND_FAILSAFE@

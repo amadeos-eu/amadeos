@@ -139,6 +139,11 @@ else
     mkdir -p "$BUILD_ROOT"
     touch "$BUILD_ROOT/$BUILD_ROOT_MARKER"
     cp -a "$CONFIG_DIR" "$BUILD_ROOT/config"
+    # The hooks are in config/hooks/normal, where Debian's live-build runs them; live-build 3.0
+    # (Ubuntu) runs config/hooks/*.chroot, so link them there in the build copy.
+    for hook in "$BUILD_ROOT/config/hooks/normal/"*.chroot; do
+        ln -s "normal/$(basename "$hook")" "$BUILD_ROOT/config/hooks/$(basename "$hook")"
+    done
     mkdir -p "$BUILD_ROOT/config/includes.chroot/opt/amadeos"
     cp -a "$JAR_PATH" "$BUILD_ROOT/config/includes.chroot/opt/amadeos/amadeos.jar"
 

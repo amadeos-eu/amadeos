@@ -121,8 +121,8 @@ The image is described in `config/`: the packages in `config/package-lists/amade
 (the only list of them), the live-config settings of the live user, keyboard, time zone and host name
 in `config/includes.chroot/etc/live/config.conf`, the files of the image under
 `config/includes.chroot/`, and two hooks in `config/hooks/normal/` (permissions and services;
-security updates and locales), linked from `config/hooks/` for live-build 3.0. `scripts/build-image.sh`
-only adds the kernel command line and the UEFI boot loader.
+security updates and locales). `scripts/build-image.sh` only adds the kernel command line, the UEFI boot
+loader and, for live-build 3.0, links to the hooks in `config/hooks/`.
 
 ### Building the complete distribution
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 # Runs inside the chroot after live-build installed config/package-lists/amadeos.list.chroot
-# (the only list of packages) and the .deb files of config/packages.chroot. Linked from config/hooks/
-# for live-build 3.0, see 010-amadeos-permissions.chroot.
+# (the only list of packages) and the .deb files of config/packages.chroot. See 010-amadeos-permissions.chroot
+# for live-build 3.0.
 set -eu
 
 export DEBIAN_FRONTEND=noninteractive

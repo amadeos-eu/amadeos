@@ -54,7 +54,7 @@ flowchart TD
         WM["Window manager<br>reparenting, Motif/CDE frames"]
         Panel["Front panel<br>clock, workspaces, drawers"]
         Tools["Style Manager, screen saver,<br>input settings"]
-        Apps["Applications<br>amade-pad, amade-mail, any X11 client"]
+        Apps["Applications<br>amade-pad, amade-mail, amade-calendar, any X11 client"]
     end
     DM -->|starts| Xorg
     DM -->|authenticates & starts| Session
@@ -98,6 +98,7 @@ settings). This repository holds the live image: its package list and configurat
 | [amade-commons](https://github.com/datazuul/amade-commons) | Shared library: desktop themes, colors and Motif styling, application scaffold |
 | [amade-pad](https://github.com/datazuul/amade-pad) | Text editor |
 | [amade-mail](https://github.com/datazuul/amade-mail) | Mail client (IMAP/SMTP) in the style of CDE's dtmail |
+| [amade-calendar](https://github.com/datazuul/amade-calendar) | Calendar with appointments, reminders and To Do items in the style of CDE's dtcm, stored as iCalendar |
 
 The Style Manager writes the chosen theme to `~/.config/amadeos/theme.conf`; applications follow
 that file and switch together with window frames and front panel. Gradle takes amade-commons from

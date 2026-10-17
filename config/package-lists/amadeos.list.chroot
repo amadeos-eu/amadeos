@@ -2,6 +2,8 @@ live-boot
 live-config
 live-config-systemd
 systemd-sysv
+# Sets the clock from the network once it is connected; the time zone is chosen in the login greeter
+systemd-timesyncd
 user-setup
 sudo
 locales

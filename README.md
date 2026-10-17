@@ -94,7 +94,7 @@ settings). This repository holds the live image: its package list and configurat
 | Repository | Purpose |
 |---|---|
 | [amadeos](https://github.com/datazuul/amadeos) | This repository: the live image (live-build configuration, boot loaders, the scripts of the session) |
-| [amade-system](https://github.com/datazuul/amade-system) | System components, one package per module: `amade-dm` (display manager), `amade-session` (session, lock, screen saver), `amade-wm` (window manager), `amade-panel-cde` (front panel), `amade-style` (Style Manager), `amade-print`, `amade-sysinfo` |
+| [amade-system](https://github.com/datazuul/amade-system) | System components, one package per module: `amade-dm` (display manager), `amade-session` (session, lock, screen saver), `amade-wm` (window manager), `amade-panel-cde` (front panel), `amade-style` (Style Manager), `amade-logviewer` (Session Diagnostics & Logs), `amade-print`, `amade-sysinfo` |
 | [amade-commons](https://github.com/datazuul/amade-commons) | Shared library: desktop themes, colors and Motif styling, application scaffold |
 | [amade-pad](https://github.com/datazuul/amade-pad) | Text editor |
 | [amade-mail](https://github.com/datazuul/amade-mail) | Mail client (IMAP/SMTP) in the style of CDE's dtmail |

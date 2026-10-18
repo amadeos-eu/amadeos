@@ -31,5 +31,15 @@ if [ -d /usr/lib/syslinux/modules/bios ]; then
     done
 fi
 
+# The installer (package amadeos-installer) gives the installed system GRUB's meta package for its
+# firmware, grub-pc or grub-efi-amd64, so that later GRUB upgrades reinstall the boot loader. The two
+# conflict with each other, so the image cannot hold them installed; their .deb files are kept for the
+# installer instead (amadeos-install reads /var/lib/amadeos-installer and removes it from the target).
+if dpkg -s amadeos-installer >/dev/null 2>&1; then
+    mkdir -p /var/lib/amadeos-installer
+    (cd /var/lib/amadeos-installer && apt-get download grub-pc grub-efi-amd64) \
+        || echo "Warning: grub-pc and grub-efi-amd64 could not be downloaded; installed systems need grub-install by hand after GRUB upgrades" >&2
+fi
+
 apt-get clean
 rm -rf /var/lib/apt/lists/*

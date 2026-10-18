@@ -6,7 +6,7 @@
 #   3. drops every app's .deb into config/packages.chroot/ (gradlew installToAmadeOs)
 #   4. builds artifacts/amadeos-amd64.iso (./build.sh, uses sudo for live-build)
 #
-# Expected layout (an app is every ../amade-*/ whose build.gradle has an installToAmadeOs task):
+# Expected layout (an app is every ../amade-*/ or ../amadeos-*/ whose build.gradle has an installToAmadeOs task):
 #
 #   <parent>/amadeos  <parent>/amade-commons  <parent>/amade-pad  <parent>/amade-mail  ...
 #
@@ -59,7 +59,9 @@ main() {
         done
     else
         local dir
-        for dir in "$parent_dir"/amade-*/; do
+        # ../amade-* are the applications and amade-system, ../amadeos-* the installer (amadeos itself has no hyphen).
+        for dir in "$parent_dir"/amade-*/ "$parent_dir"/amadeos-*/; do
+            [ -d "$dir" ] || continue
             app="$(basename "$dir")"
             [ "$app" = "amade-commons" ] && continue
             grep -qs "installToAmadeOs" "$dir/build.gradle" && apps+=("$app")

@@ -46,6 +46,22 @@ for package in amade-dm amade-session amade-wm amade-panel-cde amade-style; do
         exit 1
     fi
 done
+# The applications: every ../amade-*/ or ../amadeos-*/ repository with an installToAmadeOs task should
+# have its package here; a missing one is only a warning (buildDistribution.sh builds them all).
+for app_dir in "$ROOT_DIR"/../amade-*/ "$ROOT_DIR"/../amadeos-*/; do
+    [ -d "$app_dir" ] || continue
+    app="$(basename "$app_dir")"
+    [ "$app" = "amade-commons" ] && continue
+    grep -qs "installToAmadeOs" "$app_dir/build.gradle" || continue
+    if [ -f "$app_dir/settings.gradle" ] && grep -q "^include '" "$app_dir/settings.gradle"; then
+        continue  # a multi-project build (amade-system): its modules are checked above
+    fi
+    if ! compgen -G "$CONFIG_DIR/packages.chroot/${app}_*.deb" >/dev/null; then
+        echo "[build-image] Warning: no ${app}_*.deb in config/packages.chroot; the image will lack $app" >&2
+        echo "    (cd ../$app && ./gradlew installToAmadeOs) puts it there." >&2
+    fi
+done
+
 # NsCDE is the default icon theme (GPL-3.0, own package nscde-icon-theme); build it if missing or
 # older than the version in package-nscde-icons.sh (PACKAGE_REVISION is bumped when icons/NsCDE changes).
 # Without it the desktop falls back to hicolor and to icons drawn in Java.
@@ -95,6 +111,21 @@ if [ "${AMADEOS_PACKAGE_ONLY:-0}" = "1" ]; then
 elif [ "${AMADEOS_QUICK:-0}" = "1" ] || [ "${AMADEOS_REPACK_ROOTFS:-0}" = "1" ]; then
     if [ ! -d "$BUILD_ROOT/chroot" ] || [ ! -d "$BUILD_ROOT/binary" ]; then
         echo "[build-image] Quick repack mode requires existing $BUILD_ROOT/chroot and $BUILD_ROOT/binary. Run full build first." >&2
+        exit 1
+    fi
+    # The quick mode only reinstalls the .deb files of config/packages.chroot; a package added to the
+    # package list since the chroot was built needs a full build, so stop here instead of making an image
+    # without it (apt has no lists in the chroot, so it cannot be fetched now either).
+    missing_packages=""
+    for package in $(sed 's/#.*//' "$CONFIG_DIR/package-lists/amadeos.list.chroot"); do
+        if [ "$($SUDO chroot "$BUILD_ROOT/chroot" dpkg-query -W -f='${db:Status-Status}' "$package" 2>/dev/null)" != "installed" ]; then
+            missing_packages="$missing_packages $package"
+        fi
+    done
+    if [ -n "$missing_packages" ]; then
+        echo "[build-image] Quick repack mode cannot add packages from config/package-lists/amadeos.list.chroot;" >&2
+        echo "    not in the chroot yet:$missing_packages" >&2
+        echo "    Run a full build (sudo ./build.sh) instead." >&2
         exit 1
     fi
     echo "[build-image] Quick repack mode: syncing includes into chroot and rebuilding squashfs..."

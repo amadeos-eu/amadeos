@@ -78,3 +78,19 @@ libnss-mdns
 # amade-sysinfo names the graphics adapter with lspci
 pciutils
 grub-efi-amd64-bin
+# Installation to disk (amadeos-installer, own repository): the system is copied with unsquashfs,
+# partitions and file systems come from util-linux, dosfstools and e2fsprogs, GRUB for BIOS and UEFI
+# from grub-pc-bin and grub-efi-amd64-bin (the meta packages grub-pc and grub-efi-amd64 conflict with
+# each other, so the packages hook keeps their .deb files for the installer), the signed shim and GRUB
+# let an installed system boot with Secure Boot, pkexec runs amadeos-install as root from the wizard,
+# os-prober gives Windows and other systems on the computer their GRUB entries.
+squashfs-tools
+dosfstools
+e2fsprogs
+grub2-common
+grub-pc-bin
+grub-efi-amd64-signed
+shim-signed
+efibootmgr
+pkexec
+os-prober

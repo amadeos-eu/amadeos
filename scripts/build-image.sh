@@ -97,6 +97,21 @@ elif [ "${AMADEOS_QUICK:-0}" = "1" ] || [ "${AMADEOS_REPACK_ROOTFS:-0}" = "1" ];
         echo "[build-image] Quick repack mode requires existing $BUILD_ROOT/chroot and $BUILD_ROOT/binary. Run full build first." >&2
         exit 1
     fi
+    # The quick mode only reinstalls the .deb files of config/packages.chroot; a package added to the
+    # package list since the chroot was built needs a full build, so stop here instead of making an image
+    # without it (apt has no lists in the chroot, so it cannot be fetched now either).
+    missing_packages=""
+    for package in $(sed 's/#.*//' "$CONFIG_DIR/package-lists/amadeos.list.chroot"); do
+        if [ "$($SUDO chroot "$BUILD_ROOT/chroot" dpkg-query -W -f='${db:Status-Status}' "$package" 2>/dev/null)" != "installed" ]; then
+            missing_packages="$missing_packages $package"
+        fi
+    done
+    if [ -n "$missing_packages" ]; then
+        echo "[build-image] Quick repack mode cannot add packages from config/package-lists/amadeos.list.chroot;" >&2
+        echo "    not in the chroot yet:$missing_packages" >&2
+        echo "    Run a full build (sudo ./build.sh) instead." >&2
+        exit 1
+    fi
     echo "[build-image] Quick repack mode: syncing includes into chroot and rebuilding squashfs..."
     $SUDO cp -a "$CONFIG_DIR/includes.chroot/." "$BUILD_ROOT/chroot/"
     # The same permissions and services as in a full build: the hook, run in the chroot.

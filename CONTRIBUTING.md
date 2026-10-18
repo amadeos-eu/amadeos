@@ -214,7 +214,7 @@ image around that package.
 ## Icons
 
 Panel and desktop icons are looked up by **icon key** in `IconManager` of the desktop (amadeos-system,
-`desktop/src/main/java/org/datazuul/amadeos/wm/theme/`). Each key maps to a list of Freedesktop icon names (`FREEDESKTOP_NAMES`). The current icon theme (default: NsCDE) is searched for each name in turn, then its inherited themes and `hicolor`; the first match wins. If nothing is found, a simple icon is drawn in code (`generatePixmaps`).
+`desktop/src/main/java/eu/amadeos/wm/theme/`). Each key maps to a list of Freedesktop icon names (`FREEDESKTOP_NAMES`). The current icon theme (default: NsCDE) is searched for each name in turn, then its inherited themes and `hicolor`; the first match wins. If nothing is found, a simple icon is drawn in code (`generatePixmaps`).
 
 Because every name is tried in the current theme before falling back to `hicolor`, an icon installed to `hicolor` does not win against a later name that NsCDE has. To give amadeOS its own look, add the icon to the NsCDE theme, which this repository builds:
 

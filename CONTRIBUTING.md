@@ -112,6 +112,7 @@ amadeOS uses dynamic XDG desktop entry discovery (`XdgApplicationManager`). The 
 | 🎨 **Graphics** | `Categories=Graphics;Scanning;` (also `RasterGraphics`, `VectorGraphics`, `Photography`, `Viewer`) |
 | 🖨️ **Printer** | `Categories=Printing;Settings;` |
 | ❓ **Help** | `Categories=Documentation;Help;` |
+| 🛠️ **Tools** | `Categories=Settings;` or `Categories=System;` (after the fixed entries: Style Manager, Application Manager, terminals, logs, system information) |
 
 The first application found in a category also becomes the slot's primary click action. Categories without a drawer (e.g. `Development`, `Office`) are listed in the Application Manager.
 

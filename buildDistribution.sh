@@ -59,7 +59,7 @@ main() {
         done
     else
         local dir
-        # ../amade-* are the applications and amade-system, ../amadeos-* the installer (amadeos itself has no hyphen).
+        # ../amade-* are the applications and amadeos-system, ../amadeos-* the installer (amadeos itself has no hyphen).
         for dir in "$parent_dir"/amade-*/ "$parent_dir"/amadeos-*/; do
             [ -d "$dir" ] || continue
             app="$(basename "$dir")"
@@ -106,9 +106,10 @@ main() {
     local module
     for app in "${apps[@]}"; do
         rm -f "$packages_dir/${app}"_*.deb
-        # A multi-project build (amade-system) makes one amade-<module> package per included module.
+        # A multi-project build (amadeos-system) makes one amadeos-<module> package per included module.
         for module in $(sed -n "s/^include '\([a-z0-9-]*\)'.*/\1/p" "$parent_dir/$app/settings.gradle" 2>/dev/null); do
-            rm -f "$packages_dir/amade-${module}"_*.deb
+            rm -f "$packages_dir/amadeos-${module}"_*.deb
+            rm -f "$packages_dir/amade-${module}"_*.deb  # name before the rename to amadeos-*
         done
     done
 

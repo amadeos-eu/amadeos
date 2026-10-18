@@ -53,25 +53,30 @@ done
 grep -q lpadmin "$live_config" && grep -q systemd-journal "$live_config" \
     || fail "the live user needs lpadmin (printing) and systemd-journal (log viewer) in $live_config"
 
-# The desktop is the packages amade-dm, amade-session, amade-wm, amade-panel-cde and amade-style
-# (amade-system repository): their jars, scripts, unit, PAM and polkit files come with the packages. The
+# The desktop is the packages amadeos-dm, amadeos-session, amadeos-wm, amadeos-panel-cde and amadeos-style
+# (amadeos-system repository): their jars, scripts, unit, PAM and polkit files come with the packages. The
 # image may not carry a second copy of any of them and nothing may still expect the old paths.
 grep -rn --exclude=check-config.sh "/opt/amadeos/amadeos.jar\|/opt/amade-desktop/" config scripts \
-    && fail "the desktop is the packages amade-dm, amade-session, amade-wm, amade-panel-cde and amade-style, each with its jar under /opt/<package>/"
+    && fail "the desktop is the packages amadeos-dm, amadeos-session, amadeos-wm, amadeos-panel-cde and amadeos-style, each with its jar under /opt/<package>/"
 grep -rn --exclude=check-config.sh "/usr/local/bin/amadeos-\(session\|dm\|lock\)" config scripts \
-    && fail "amadeos-session, amadeos-dm and amadeos-lock are /usr/bin/... from the packages amade-session and amade-dm"
+    && fail "amadeos-session, amadeos-dm and amadeos-lock are /usr/bin/... from the packages amadeos-session and amadeos-dm"
 for owned in usr/local/bin/amadeos-session usr/local/bin/amadeos-dm usr/local/bin/amadeos-lock \
         etc/amadeos etc/pam.d/amadeos-dm etc/pam.d/amadeos-lock etc/systemd/system/amadeos-dm.service \
         etc/polkit-1/rules.d/50-amadeos-network.rules; do
-    [ -e "config/includes.chroot/$owned" ] && fail "config/includes.chroot/$owned belongs to a desktop package (amade-system: <module>/packaging/root)"
+    [ -e "config/includes.chroot/$owned" ] && fail "config/includes.chroot/$owned belongs to a desktop package (amadeos-system: <module>/packaging/root)"
 done
 # The old single package would conflict with the five.
 compgen -G "config/packages.chroot/amade-desktop_*.deb" >/dev/null \
     && fail "config/packages.chroot still holds amade-desktop, which the desktop packages replace; remove it"
+# The system packages were renamed from amade-* to amadeos-*; an old one would conflict with its successor.
+for old in dm session wm panel-cde style logviewer print sysinfo; do
+    compgen -G "config/packages.chroot/amade-${old}_*.deb" >/dev/null \
+        && fail "config/packages.chroot still holds amade-$old, which amadeos-$old replaces; remove it"
+done
 # With the packages at hand, compare their whole file lists with the includes (a file in both would be
 # overwritten or, as a conffile, provoke a dpkg prompt).
 if command -v dpkg-deb >/dev/null 2>&1; then
-    for desktop_deb in $(ls config/packages.chroot/amade-{dm,session,wm,panel-cde,style}_*.deb 2>/dev/null); do
+    for desktop_deb in $(ls config/packages.chroot/amadeos-{dm,session,wm,panel-cde,style}_*.deb 2>/dev/null); do
         for path in $(dpkg-deb --fsys-tarfile "$desktop_deb" | tar -t | sed -n 's|^\./\(.*[^/]\)$|\1|p'); do
             [ -f "config/includes.chroot/$path" ] && fail "config/includes.chroot/$path is also in $desktop_deb"
         done

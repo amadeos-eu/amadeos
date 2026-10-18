@@ -47,6 +47,9 @@ flowchart LR
     M10 --> M11["M11: Virtual Workspaces & Root Menu (Done)"]
     M11 --> M12["M12: Release Hardening (In Progress)"]
     M10 --> M13["M13: Application Suite (In Progress)"]
+    M13 --> M14["M14: Installation to Disk (In Progress)"]
+    M14 --> M15["M15: Updates & Software (Planned)"]
+    M15 --> M16["M16: amadeOS Package Repository (Planned)"]
 ```
 
 The architectural decisions and rejected alternatives are documented in [`CONCEPT.md`](CONCEPT.md).
@@ -408,7 +411,7 @@ Open:
 - Pin and document the supported Java baseline and correct documentation inconsistencies.
 - Test fonts, HiDPI scaling, keyboard layouts, focus/modality, clipboard behavior, and representative Swing/AWT applications.
 - Evaluate multi-monitor behavior, graphics drivers, WLAN firmware, audio, suspend/resume, and USB boot on representative hardware.
-- Define Debian security-update handling, dependency update policy, image signing, artifact provenance, and rollback/recovery.
+- Debian security-update handling and the update workflow are planned in M15; define dependency update policy, image signing, artifact provenance, and rollback/recovery.
 - Add reproducible-build checks and a release manifest containing image version, package inputs, checksum, and test results.
 - Decide whether JNA/libX11 remains appropriate or whether FFM or JNI/XCB is justified.
 - Reassess Wayland only after the X11 desktop model and compatibility requirements are understood.
@@ -424,7 +427,7 @@ Available:
 - [`amade-commons`](https://github.com/datazuul/amade-commons): shared themes, Motif look-and-feel, XDG directories, keyring (`secret-tool`) and application start-up; taken from JitPack or a local checkout through a Gradle composite build.
 - [`amade-pad`](https://github.com/datazuul/amade-pad) (Text Editor slot): tabbed documents, line numbers, find/replace, file encodings and line endings preserved, atomic saving; Guice-based layers, CI, EUPL-1.2, uses amade-commons.
 - [`amade-mail`](https://github.com/datazuul/amade-mail) (Mail slot, 0.1.0): IMAP/SMTP mailer after the CDE Mailer (dtmail) with folder column, several accounts and *All inboxes*, sanitised HTML mail (jsoup + Flying Saucer) with remote images blocked, attachments, compose/reply/forward, Sent copy, passwords in the keyring, `mailto:` handler. Gmail with OAuth2 (browser sign-in, XOAUTH2) or an app password; OAuth2 still untested against Google.
-- [`amade-system`](https://github.com/datazuul/amade-system) (private): the system components as one Gradle multi-project, one package per module. First modules: `amade-print` (Printer slot, after dtprintinfo) shows the CUPS printers and their jobs, cancels, holds and releases jobs, pauses and resumes printers, sets the default printer and prints a test page; it talks IPP over the CUPS socket with PeerCred, so the live user (in `lpadmin`) needs no password. `amade-sysinfo` (Tools drawer) shows the operating system, processor, memory, storage, graphics, network and battery. The image installs CUPS with driverless printing (cups-browsed, avahi, ipp-usb). The window manager, front panel, greeter, session and Style Manager are to move there next.
+- [`amadeos-system`](https://github.com/datazuul/amadeos-system) (private): the system components as one Gradle multi-project, one package per module. First modules: `amadeos-print` (Printer slot, after dtprintinfo) shows the CUPS printers and their jobs, cancels, holds and releases jobs, pauses and resumes printers, sets the default printer and prints a test page; it talks IPP over the CUPS socket with PeerCred, so the live user (in `lpadmin`) needs no password. `amadeos-sysinfo` (Tools drawer) shows the operating system, processor, memory, storage, graphics, network and battery. The image installs CUPS with driverless printing (cups-browsed, avahi, ipp-usb). The window manager, front panel, greeter, session and Style Manager are to move there next.
 
 Next:
 
@@ -442,7 +445,7 @@ Next:
 
 Done (2026-10-18; a whole-disk BIOS installation in QEMU boots into the desktop and the created user logs in):
 
-- New repository [`amadeos-installer`](https://github.com/datazuul/amadeos-installer) (package `amadeos-installer`), separate from amade-system because the installed system must not keep it. Two parts:
+- New repository [`amadeos-installer`](https://github.com/datazuul/amadeos-installer) (package `amadeos-installer`), separate from amadeos-system because the installed system must not keep it. Two parts:
   - The assistant (`amadeos-installer`, Swing on amade-commons, five languages): Welcome and language → Keyboard (XKB layouts, tried live) → Time Zone (zone1970.tab) → Target Disk (erase a whole disk with an optional swap partition, or an existing partition; the live medium, mounted disks and small disks are not offered) → User (full name, login, password, computer name) → Summary with an explicit confirmation → Installation with progress and log → Finished (restart).
   - The script `amadeos-install` (`/usr/sbin`, run by the assistant through `pkexec`, polkit rule for members of `sudo`; usable unattended with options or `--config`): checks, GPT partitioning (BIOS boot, EFI System, swap, root) or formatting the chosen partition, `unsquashfs` of the live squashfs, purge of `live-boot`/`live-config`/`amadeos-installer` and the live-only files, fstab by UUID, host name, locale, keyboard, time zone, machine id, first user with the live user's groups, root locked, `update-initramfs`, `grub-install` for UEFI (signed shim when present, plus a removable copy) or BIOS and the matching meta package from `/var/lib/amadeos-installer`, `update-grub`. Nothing downloaded.
 - amadeos: `squashfs-tools`, `dosfstools`, `e2fsprogs`, `grub2-common`, `grub-pc-bin`, `grub-efi-amd64-signed`, `shim-signed`, `efibootmgr`, `pkexec` in the package list; the packages hook downloads `grub-pc` and `grub-efi-amd64` for the installer; `run-qemu.sh --install-disk`, `--boot-disk` and `--uefi` (OVMF with persistent variables); `buildDistribution.sh` builds `../amadeos-*` repositories too.
@@ -452,10 +455,52 @@ Open:
 - QEMU test of the UEFI path (`--uefi`) and of the existing-partition mode next to Windows (`scripts/make-dualboot-test-disk.sh` in amadeos-installer makes the test disk), then real hardware: the Zephyrus laptop (UEFI, NVMe, Windows kept, amadeOS into the former Linux partition, Secure Boot with the signed shim).
 - Dual boot: `os-prober` is in the image and switched on in the installed GRUB; shrinking a Windows partition from the installer, and the hardware clock in local time next to Windows, come later. Encryption (LUKS), a separate home partition.
 - The login greeter should propose the last user who logged in (or the first regular user), not `amadeos`, on an installed system.
-- The language, keyboard and time zone code shared with the login greeter (amade-system `dm`) belongs in amade-commons.
+- The language, keyboard and time zone code shared with the login greeter (amadeos-system `dm`) belongs in amade-commons.
 - Boot menu entry "Install" in `config/bootloaders/isolinux/install.cfg` (still a placeholder) that starts the live system with the assistant open.
 
 **Exit criteria:** An installation from the live image boots on a BIOS and on a UEFI machine (QEMU and hardware) into the amadeOS desktop with the chosen language, keyboard, time zone and user, and the installed system no longer contains the live-only parts.
+
+### M15 — Updates and software management (Planned, plan reviewed 2026-10-18)
+
+**Goal:** An installed amadeOS is kept current from the desktop: Debian security and stable updates now, amadeOS and amade application updates once M16 provides the repository, and software can be found and installed without a terminal.
+
+**Decisions**
+
+- *Where the code lives* (decided 2026-10-18, see [`AGENTS.md`](AGENTS.md)): everything here is Debian-specific, so it is all in `amadeos-system`, none of it in `amade-commons` or a standalone application repository. New modules: `packages` (apt library, fat jar bundled into the modules that use it like `base`; package `amadeos-packages` with the helper and the polkit action), `package-updates` (`amadeos-package-updates`, the update window) and `appstore` (`amadeos-appstore`). The status cell goes into `panel-cde`.
+- *Backend:* `apt` through one privileged helper, `/usr/libexec/amadeos-packages` (a small shell script in `amadeos-packages`, so root runs no Java; `check`, `upgrade [--security-only] [pkg…]`, `install`, `remove`, `refresh`), started through `pkexec` with a polkit action, the pattern already used by `amadeos-install` (no D-Bus Java library, no PackageKit daemon in the image). Progress comes from `APT::Status-Fd`, a log goes to the caller. The helper takes the dpkg lock, so it cannot collide with `unattended-upgrades`; a busy lock is reported as "another update is running". Authentication is asked each time (`auth_admin_keep`); only `refresh` (apt-get update) and read-only queries need no password. Open check: the session must run a polkit authentication agent for `pkexec` outside the installer.
+- *Shared library, module `packages`* (`org.datazuul.amadeos.packages`): `PackageService` (installed/available/upgradable lists, search, install/remove/upgrade with progress events) with an apt implementation that parses `apt-get -s`, `apt-cache dumpavail` and `dpkg-query`; used by the panel cell, the update window and the app store, so no other module parses apt.
+- *Checking:* Debian's `apt-daily.timer` already refreshes the package lists; the panel cell only reads the result (every 30 minutes and when `/var/lib/dpkg/status` or `/var/lib/apt/lists` change), so it needs no privileges and generates no extra traffic. `unattended-upgrades` for security updates is offered as a setting, off by default for amade packages.
+
+**Parts**
+
+1. *Helper and library* — `amadeos-packages`, polkit action, module `packages` with tests against a fake apt (fixtures of real `apt` output). Exit: `upgrade` and `install` work in the live/installed image from a terminal and from a test.
+2. *Updates slot in the status cell* (amadeos-system `panel-cde`, a `StatusCell` next to the network cell; the slot takes up to four): an icon that appears only when updates exist, with a count; red for security updates; tooltip "12 updates, 3 security". Click opens a menu: the first entries of the list, **Show updates…**, **Install all updates**, **Install security updates only**, **Check now**, **Settings…**. Unavailable (hidden) while nothing is pending.
+3. *Update window* (module `package-updates`, package `amadeos-package-updates`, Tools drawer and Settings): table of upgradable packages (name, installed → new version, size, security flag, origin Debian/amadeOS), check boxes, buttons *Select all* / *Security only* / *Install selected*, a progress bar with the apt log, a "restart needed" hint (kernel, libc, `/run/reboot-required`) with *Restart now* going through the session power menu, and a settings page: check interval, automatic security updates (writes `/etc/apt/apt.conf.d/50amadeos-unattended` through the helper), allow amade packages. Release notes come from the package changelog on request.
+4. *App store* (module `appstore`, package `amadeos-appstore`, in amadeos-system because it only makes sense on a Debian system; XDG category *System*; answer to "is it possible": yes): lists packages of all configured repositories (`/etc/apt/sources.list.d`, with an origin filter) in three groups, searchable (name, summary, description, instant filter), detail view with description, size, version, dependencies, homepage and *Install* / *Remove* / *Update* buttons that go through the helper with a progress bar.
+   - *GUI applications:* AppStream metadata (`appstreamcli`, Debian's DEP-11 data) for name, summary, icon, screenshots and category; fallback: packages that ship a `.desktop` file.
+   - *Command-line applications:* debtags `role::program` + `interface::commandline`, fallback: packages in sections other than `libs`/`devel` that install into `/usr/bin` without a `.desktop` file.
+   - *Libraries:* sections `libs`, `libdevel`, `oldlibs`, debtags `role::shared-lib`/`role::devel-lib`; collapsed by default because they arrive as dependencies.
+   - The grouping is heuristic (Debian has no single "kind" field); packages that fit no rule are shown under *Other*. The package index (about 60,000 entries) is built in the background and cached in `~/.cache/amadeos/appstore`. Installed packages are marked; a package the user did not install explicitly is shown as "Dependency of …" and not offered for removal.
+5. *Integration* — `amadeos-desktop` meta package keeps the amadeOS packages together; both windows are in the image and in the Tools drawer; documentation in README and CONTRIBUTING; tests with Xvfb (cell and windows) and an end-to-end test in QEMU (installed system with an outdated package, update through the cell).
+
+**Risks and limits**
+
+- Partial upgrades that remove packages: the helper uses `full-upgrade` and shows packages to be removed before it starts; the window asks for confirmation.
+- An interrupted dpkg run: the window offers `dpkg --configure -a` through the helper.
+- No snapshots or rollback yet (M12 open item); a failed amade update can only be fixed by downgrading with `apt install pkg=version` from the old repository version.
+- Flatpak/Snap are not in the scope; the app store shows apt repositories only.
+
+**Exit criteria:** On an installed system a pending Debian security update shows in the front panel, can be installed from the window with a progress display, and a software package (one GUI, one command-line application) can be found by search and installed and removed from the app store; verified in QEMU.
+
+### M16 — amadeOS package repository (Planned)
+
+**Goal:** amadeOS and the amade applications are delivered as updates, not only inside the ISO.
+
+- Signed apt repository (`reprepro` or `aptly`, static files on GitHub Pages or an own server), key and source file in the image (`/etc/apt/keyrings/amadeos.gpg`, `/etc/apt/sources.list.d/amadeos.sources`).
+- Versioned `.deb` files published from each repository's CI on tags; `amadeos-desktop` meta package; `postinst` scripts for configuration that image hooks set up today; `build-image.sh` takes the packages from the repository instead of `config/packages.chroot/`.
+- The update cell and the app store then show amade updates and applications automatically (M15 needs no change).
+
+**Exit criteria:** Publishing a tag of an amade application makes the update appear on an installed system within the check interval.
 
 ## Deferred by design
 
@@ -467,7 +512,7 @@ The following are intentionally outside the scope of current milestones:
 - persistence of the live system (installation to disk is M14)
 - Secure Boot signing of the live image (an installed system boots with Secure Boot through Debian's signed shim, see M14)
 - broad hardware certification
-- automatic runtime package updates
+- fully automatic package updates without the user's knowledge (checking and notifying, and installing security updates on request, are M15; the user stays in control)
 
 *(Note: Server-side window decorations, reparenting WM, desktop panel/taskbar, display manager, XDG discovery, and virtual workspaces were originally deferred, but were implemented in milestones M6 through M11).*
 

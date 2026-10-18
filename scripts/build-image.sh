@@ -36,12 +36,12 @@ cd "$ROOT_DIR"
 command -v lb >/dev/null 2>&1 || { echo "live-build (lb) is required" >&2; exit 1; }
 
 mkdir -p "$ARTIFACT_DIR"
-# The desktop is the packages amade-dm, amade-session, amade-wm, amade-panel-cde and amade-style from the
-# amade-system repository; like every other package in config/packages.chroot they are installed into the image.
-for package in amade-dm amade-session amade-wm amade-panel-cde amade-style; do
+# The desktop is the packages amadeos-dm, amadeos-session, amadeos-wm, amadeos-panel-cde and amadeos-style from the
+# amadeos-system repository; like every other package in config/packages.chroot they are installed into the image.
+for package in amadeos-dm amadeos-session amadeos-wm amadeos-panel-cde amadeos-style; do
     if ! compgen -G "$CONFIG_DIR/packages.chroot/${package}_*.deb" >/dev/null; then
         echo "[build-image] No ${package}_*.deb in config/packages.chroot. Build the desktop packages with" >&2
-        echo "    (cd ../amade-system && ./gradlew installToAmadeOs)" >&2
+        echo "    (cd ../amadeos-system && ./gradlew installToAmadeOs)" >&2
         echo "or build everything with ./buildDistribution.sh." >&2
         exit 1
     fi
@@ -54,7 +54,7 @@ for app_dir in "$ROOT_DIR"/../amade-*/ "$ROOT_DIR"/../amadeos-*/; do
     [ "$app" = "amade-commons" ] && continue
     grep -qs "installToAmadeOs" "$app_dir/build.gradle" || continue
     if [ -f "$app_dir/settings.gradle" ] && grep -q "^include '" "$app_dir/settings.gradle"; then
-        continue  # a multi-project build (amade-system): its modules are checked above
+        continue  # a multi-project build (amadeos-system): its modules are checked above
     fi
     if ! compgen -G "$CONFIG_DIR/packages.chroot/${app}_*.deb" >/dev/null; then
         echo "[build-image] Warning: no ${app}_*.deb in config/packages.chroot; the image will lack $app" >&2

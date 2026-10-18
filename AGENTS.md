@@ -23,6 +23,13 @@ portable (applications and `amade-commons`). Renamed 2026-10-18 from `amade-syst
 whose script has its package's name (`amadeos-session`, `amadeos-dm`) keeps the jar launcher in
 `/usr/libexec/<package>`.
 
+**Java packages** of every repository start with `eu.amadeos`. Applications (`amade-<app>`) live in
+`eu.amadeos.apps.<app>.*` (`eu.amadeos.apps.pad.*`, `eu.amadeos.apps.mail.*`, …); the shared library
+is `eu.amadeos.commons.*`, and system modules and the installer use `eu.amadeos.<module>.*`
+(`eu.amadeos.wm.*`, `eu.amadeos.installer.*`, …). The sub-package structure below that stays as it is. The Gradle group of the applications is `eu.amadeos`; amade-commons keeps
+`com.github.datazuul` because JitPack derives it from the repository. Renamed 2026-10-18 from
+`org.datazuul.amadeos`.
+
 The test for a new piece of code: *would it still make sense on another operating system?* If yes, it
 is an application (own repository, on `amade-commons`). If it only works on Debian or only has a
 meaning inside amadeOS, it is a module of `amadeos-system`. Direction of dependency:

@@ -31,6 +31,16 @@ grep -q "apt-get install" config/hooks/normal/020-amadeos-packages.chroot \
     && fail "packages belong in config/package-lists/amadeos.list.chroot, not in the packages hook"
 [ -f config/package-lists/amadeos.list.chroot ] || fail "config/package-lists/amadeos.list.chroot is missing"
 
+# The installer (amadeos-installer) needs its tools in the image and the GRUB meta packages the hook downloads.
+if compgen -G "config/packages.chroot/amadeos-installer_*.deb" >/dev/null; then
+    for package in squashfs-tools dosfstools e2fsprogs grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr pkexec shim-signed grub-efi-amd64-signed; do
+        grep -qx "$package" config/package-lists/amadeos.list.chroot \
+            || fail "amadeos-installer is in the image but $package is missing from config/package-lists/amadeos.list.chroot"
+    done
+    grep -q "apt-get download grub-pc grub-efi-amd64" config/hooks/normal/020-amadeos-packages.chroot \
+        || fail "the packages hook must download grub-pc and grub-efi-amd64 for amadeos-installer"
+fi
+
 # live-config takes the kernel command line before /etc/live/config.conf, so the settings of the live
 # image live in config.conf alone and the command line only starts live-config.
 bootappend="$(sed -n 's/^BOOTAPPEND="\([^"]*\)"$/\1/p' scripts/build-image.sh)"

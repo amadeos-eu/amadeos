@@ -121,7 +121,7 @@ The architectural decisions and rejected alternatives are documented in [`CONCEP
 ### Not yet verified
 
 - Real hardware, graphics acceleration, firmware, WLAN, audio, suspend/resume, multiple displays, and USB boot have not been tested.
-- Security updates, image signing, rollback, persistence, installation, and release procedures are not defined.
+- Security updates, image signing, rollback, persistence, and release procedures are not defined. Installation to disk exists (M14) but is not yet tested in QEMU or on hardware.
 
 ## Milestones
 
@@ -436,6 +436,26 @@ Next:
 
 **Exit criteria:** Each Front Panel slot opens an amadeOS application instead of an `xterm` command, and all applications follow the Style Manager theme.
 
+### M14 — Installation to disk (In Progress)
+
+**Goal:** Install the running live system onto a hard disk from the live session, with a step-by-step assistant, so that amadeOS can be used as the computer's own system.
+
+Done (2026-10-18, not yet boot-tested):
+
+- New repository [`amadeos-installer`](https://github.com/datazuul/amadeos-installer) (package `amadeos-installer`), separate from amade-system because the installed system must not keep it. Two parts:
+  - The assistant (`amadeos-installer`, Swing on amade-commons, five languages): Welcome and language → Keyboard (XKB layouts, tried live) → Time Zone (zone1970.tab) → Target Disk (erase a whole disk with an optional swap partition, or an existing partition; the live medium, mounted disks and small disks are not offered) → User (full name, login, password, computer name) → Summary with an explicit confirmation → Installation with progress and log → Finished (restart).
+  - The script `amadeos-install` (`/usr/sbin`, run by the assistant through `pkexec`, polkit rule for members of `sudo`; usable unattended with options or `--config`): checks, GPT partitioning (BIOS boot, EFI System, swap, root) or formatting the chosen partition, `unsquashfs` of the live squashfs, purge of `live-boot`/`live-config`/`amadeos-installer` and the live-only files, fstab by UUID, host name, locale, keyboard, time zone, machine id, first user with the live user's groups, root locked, `update-initramfs`, `grub-install` for UEFI (signed shim when present, plus a removable copy) or BIOS and the matching meta package from `/var/lib/amadeos-installer`, `update-grub`. Nothing downloaded.
+- amadeos: `squashfs-tools`, `dosfstools`, `e2fsprogs`, `grub2-common`, `grub-pc-bin`, `grub-efi-amd64-signed`, `shim-signed`, `efibootmgr`, `pkexec` in the package list; the packages hook downloads `grub-pc` and `grub-efi-amd64` for the installer; `run-qemu.sh --install-disk`, `--boot-disk` and `--uefi` (OVMF with persistent variables); `buildDistribution.sh` builds `../amadeos-*` repositories too.
+
+Open:
+
+- QEMU test of both paths (`./run-qemu.sh --install-disk`, install, `./run-qemu.sh --boot-disk`; the same with `--uefi`), then real hardware: UEFI and BIOS machines, NVMe, Secure Boot with the signed shim.
+- Dual boot (shrinking partitions, `os-prober`), encryption (LUKS), a separate home partition.
+- The language, keyboard and time zone code shared with the login greeter (amade-system `dm`) belongs in amade-commons.
+- Boot menu entry "Install" in `config/bootloaders/isolinux/install.cfg` (still a placeholder) that starts the live system with the assistant open.
+
+**Exit criteria:** An installation from the live image boots on a BIOS and on a UEFI machine (QEMU and hardware) into the amadeOS desktop with the chosen language, keyboard, time zone and user, and the installed system no longer contains the live-only parts.
+
 ## Deferred by design
 
 The following are intentionally outside the scope of current milestones:
@@ -443,8 +463,8 @@ The following are intentionally outside the scope of current milestones:
 - replacing the Linux kernel or Debian low-level userland
 - a Wayland compositor (reassessed post-M12)
 - compositing effects and 3D visual effects (drop shadows, blur, transparency)
-- persistence and installation to disk
-- Secure Boot signing
+- persistence of the live system (installation to disk is M14)
+- Secure Boot signing of the live image (an installed system boots with Secure Boot through Debian's signed shim, see M14)
 - broad hardware certification
 - automatic runtime package updates
 

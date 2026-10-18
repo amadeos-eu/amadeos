@@ -25,8 +25,8 @@ whose script has its package's name (`amadeos-session`, `amadeos-dm`) keeps the 
 
 **Java packages** of every repository start with `eu.amadeos`. Applications (`amade-<app>`) live in
 `eu.amadeos.apps.<app>.*` (`eu.amadeos.apps.pad.*`, `eu.amadeos.apps.mail.*`, …); the shared library
-is `eu.amadeos.commons.*`, and system modules and the installer use `eu.amadeos.<module>.*`
-(`eu.amadeos.wm.*`, `eu.amadeos.installer.*`, …). The sub-package structure below that stays as it is. The Gradle group of the applications is `eu.amadeos`; amade-commons keeps
+is `eu.amadeos.commons.*`, system modules use `eu.amadeos.system.<module>.*`
+(`eu.amadeos.system.wm.*`, `eu.amadeos.system.base.*`, …) and the installer uses `eu.amadeos.installer.*`. The sub-package structure below that stays as it is. The Gradle group of the applications is `eu.amadeos`; amade-commons keeps
 `com.github.datazuul` because JitPack derives it from the repository. Renamed 2026-10-18 from
 `org.datazuul.amadeos`.
 

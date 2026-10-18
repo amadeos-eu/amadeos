@@ -13,6 +13,8 @@ module or deciding which repository a piece of code belongs in. The reasons behi
 | `amadeos-system` | System components, one Gradle module and one Debian package per module: `base`, `wm`, `panel-cde`, `dm`, `session`, `style`, `logviewer`, `print`, `sysinfo`, and the package-management modules (`packages`, `package-updates`, `appstore`) | Everything that is **Debian-specific or only makes sense together with amadeOS**: the desktop, the display manager, anything that talks to apt, systemd, logind, polkit, CUPS or NetworkManager, and the tools that administer the system. |
 | `amade-commons` | Shared library for applications: themes, Motif look-and-feel, XDG directories, keyring, start-up | **Operating-system neutral.** It must not depend on Debian, apt, systemd or amadeOS services. |
 | `amade-<app>` (pad, mail, files, web, calendar, audio, video, fractals, imagescan, writepad) | Standalone end-user applications, each in its own repository | They should **run on other operating systems too**. They depend on `amade-commons` only, never on `amadeos-system`. |
+| `amade-game-engine` | Shared game library: high scores, standard game menu, later game loop, rendering, input, sound | Operating-system neutral like `amade-commons`, on which it builds. Grows game by game: code moves here when a second game needs it. |
+| `amade-<name>-game` (mines, …) | Games, each in its own repository | Like applications: run on other operating systems, depend on `amade-game-engine` (and through it `amade-commons`) only. Rules in plain Java without AWT, so they are tested headless. Own names and artwork, no trademarks of the games they resemble. |
 | `amadeos-installer` | The installer assistant and the `amadeos-install` script | Own repository (it is a build-time and image concern with its own release cycle). |
 
 **Names follow the same split:** `amadeos-*` (repositories, Debian packages, commands) is
@@ -24,16 +26,17 @@ whose script has its package's name (`amadeos-session`, `amadeos-dm`) keeps the 
 `/usr/libexec/<package>`.
 
 **Java packages** of every repository start with `eu.amadeos`. Applications (`amade-<app>`) live in
-`eu.amadeos.apps.<app>.*` (`eu.amadeos.apps.pad.*`, `eu.amadeos.apps.mail.*`, …); the shared library
+`eu.amadeos.apps.<app>.*` (`eu.amadeos.apps.pad.*`, `eu.amadeos.apps.mail.*`, …); games (`amade-<name>-game`)
+live in `eu.amadeos.games.<name>.*` and the game library in `eu.amadeos.gameengine.*`; the shared library
 is `eu.amadeos.commons.*`, system modules use `eu.amadeos.system.<module>.*`
-(`eu.amadeos.system.wm.*`, `eu.amadeos.system.base.*`, …) and the installer uses `eu.amadeos.installer.*`. The sub-package structure below that stays as it is. The Gradle group of the applications is `eu.amadeos`; amade-commons keeps
-`com.github.datazuul` because JitPack derives it from the repository. Renamed 2026-10-18 from
+(`eu.amadeos.system.wm.*`, `eu.amadeos.system.base.*`, …) and the installer uses `eu.amadeos.installer.*`. The sub-package structure below that stays as it is. The Gradle group of the applications and games is `eu.amadeos`; amade-commons and
+amade-game-engine keep `com.github.datazuul` because JitPack derives it from the repository. Renamed 2026-10-18 from
 `org.datazuul.amadeos`.
 
 The test for a new piece of code: *would it still make sense on another operating system?* If yes, it
 is an application (own repository, on `amade-commons`). If it only works on Debian or only has a
 meaning inside amadeOS, it is a module of `amadeos-system`. Direction of dependency:
-applications → `amade-commons`; `amadeos-system` modules → `base` (and `amade-commons`); never
+applications → `amade-commons`; games → `amade-game-engine` → `amade-commons`; `amadeos-system` modules → `base` (and `amade-commons`); never
 the other way round, and applications never depend on `amadeos-system`.
 
 Examples: the text editor, mail client and file manager are applications. Package management

@@ -15,7 +15,7 @@ The verified development environment is:
 
 - Native Linux (Debian 13 trixie or Ubuntu 25.10 x86_64)
 - Git 2.47+
-- Java/OpenJDK 25+ for the packages that go into the image (amade-system, the applications; each
+- Java/OpenJDK 25+ for the packages that go into the image (amadeos-system, the applications; each
   brings its Gradle wrapper). This repository itself holds no Java code.
 - Native build tools `build-essential` (`gcc`, `make`)
 - Debian live image tools `debootstrap`, `lb` (live-build), `xorriso`, `squashfs-tools`, `mtools`, `grub-pc-bin`, `grub-efi-amd64-bin`
@@ -47,7 +47,7 @@ sudo apt-get install -y \
 
 ### 2. Install Java
 
-Needed to build the desktop package (`../amade-system`) and the applications; they use their Gradle
+Needed to build the desktop package (`../amadeos-system`) and the applications; they use their Gradle
 wrapper.
 
 ```bash
@@ -56,7 +56,7 @@ sudo apt-get install -y openjdk-25-jdk
 
 ### 3. Install X11 inspection and headless testing tools
 
-For the X11 integration tests of the desktop (amade-system) and for trying the window manager in a
+For the X11 integration tests of the desktop (amadeos-system) and for trying the window manager in a
 nested X server without taking over your main desktop:
 ```bash
 sudo apt-get install -y \
@@ -207,13 +207,13 @@ tasks.register('installToAmadeOs') {
 ## The desktop
 
 The window manager, front panel, display manager, Style Manager, lock and screen saver are the module
-`desktop` of [amade-system](https://github.com/datazuul/amade-system); its `desktop/README.md`
+`desktop` of [amadeos-system](https://github.com/datazuul/amadeos-system); its `desktop/README.md`
 describes the components and how to add front panel slots and widgets. This repository builds the
 image around that package.
 
 ## Icons
 
-Panel and desktop icons are looked up by **icon key** in `IconManager` of the desktop (amade-system,
+Panel and desktop icons are looked up by **icon key** in `IconManager` of the desktop (amadeos-system,
 `desktop/src/main/java/org/datazuul/amadeos/wm/theme/`). Each key maps to a list of Freedesktop icon names (`FREEDESKTOP_NAMES`). The current icon theme (default: NsCDE) is searched for each name in turn, then its inherited themes and `hicolor`; the first match wins. If nothing is found, a simple icon is drawn in code (`generatePixmaps`).
 
 Because every name is tried in the current theme before falling back to `hicolor`, an icon installed to `hicolor` does not win against a later name that NsCDE has. To give amadeOS its own look, add the icon to the NsCDE theme, which this repository builds:
@@ -227,7 +227,7 @@ Because every name is tried in the current theme before falling back to `hicolor
    done
    ```
    Check the 16 px version; small details may need simplifying.
-3. In amade-system, put `amadeos-<name>` first in the key's list in `FREEDESKTOP_NAMES`, keeping the standard names after it as a fallback for other icon themes:
+3. In amadeos-system, put `amadeos-<name>` first in the key's list in `FREEDESKTOP_NAMES`, keeping the standard names after it as a fallback for other icon themes:
    ```java
    map.put("multimedia", List.of("amadeos-multimedia", "applications-multimedia", "audio-x-generic"));
    ```
@@ -241,7 +241,7 @@ Because every name is tried in the current theme before falling back to `hicolor
 The background of the BIOS boot menu is drawn the same way: edit `icons/src/boot-splash.svg` and render it with `rsvg-convert -w 640 -h 480 icons/src/boot-splash.svg -o config/bootloaders/isolinux/splash.png`. Keep the lower part (below y = 330) free for the menu. The default wallpaper comes from `icons/src/wallpaper.svg` and is rendered to both places it is used:
 
 ```bash
-for f in config/includes.chroot/usr/share/backgrounds/amadeos/wallpaper.png ../amade-system/desktop/src/main/resources/wallpapers/default.png; do
+for f in config/includes.chroot/usr/share/backgrounds/amadeos/wallpaper.png ../amadeos-system/desktop/src/main/resources/wallpapers/default.png; do
   rsvg-convert -w 1920 -h 1080 icons/src/wallpaper.svg -o "$f"
 done
 ```
@@ -270,7 +270,7 @@ Verify tool availability before starting a build:
 ```bash
 . /etc/os-release && echo "$PRETTY_NAME ($VERSION_CODENAME)"
 git --version
-java -version                  # OpenJDK 25+, for amade-system and the applications
+java -version                  # OpenJDK 25+, for amadeos-system and the applications
 cd amadeos
 git status --short --branch
 command -v git lb debootstrap xorriso grub-mkstandalone mkfs.fat mcopy qemu-system-x86_64 java
@@ -302,7 +302,7 @@ scripts/check-config.sh
 ./build.sh
 ```
 
-`build.sh` checks the configuration, sets up the live-build tree, and executes `live-build` in a temporary workspace (by default `/tmp/amadeos-live-build`, configurable via `AMADEOS_BUILD_ROOT`). The image installs the packages from `config/packages.chroot/` (the desktop packages `amade-dm`, `amade-session`, `amade-wm`, `amade-panel-cde` and `amade-style` among them) and starts the display manager at boot. Once an ISO has been built, inspect and test it with:
+`build.sh` checks the configuration, sets up the live-build tree, and executes `live-build` in a temporary workspace (by default `/tmp/amadeos-live-build`, configurable via `AMADEOS_BUILD_ROOT`). The image installs the packages from `config/packages.chroot/` (the desktop packages `amadeos-dm`, `amadeos-session`, `amadeos-wm`, `amadeos-panel-cde` and `amadeos-style` among them) and starts the display manager at boot. Once an ISO has been built, inspect and test it with:
 
 ```bash
 cd amadeos

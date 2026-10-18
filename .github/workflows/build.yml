@@ -14,6 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       # The live-build configuration and the scripts; the desktop and the applications are built and
-      # tested in their own repositories (amade-system, amade-*).
+      # tested in their own repositories (amadeos-system, amade-*).
       - name: Check the image configuration
         run: scripts/check-config.sh

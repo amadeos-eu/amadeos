@@ -33,7 +33,7 @@ grep -q "apt-get install" config/hooks/normal/020-amadeos-packages.chroot \
 
 # The installer (amadeos-installer) needs its tools in the image and the GRUB meta packages the hook downloads.
 if compgen -G "config/packages.chroot/amadeos-installer_*.deb" >/dev/null; then
-    for package in squashfs-tools dosfstools e2fsprogs grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr pkexec shim-signed grub-efi-amd64-signed; do
+    for package in squashfs-tools dosfstools e2fsprogs grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr pkexec shim-signed grub-efi-amd64-signed os-prober; do
         grep -qx "$package" config/package-lists/amadeos.list.chroot \
             || fail "amadeos-installer is in the image but $package is missing from config/package-lists/amadeos.list.chroot"
     done

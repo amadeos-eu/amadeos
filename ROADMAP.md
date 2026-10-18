@@ -440,7 +440,7 @@ Next:
 
 **Goal:** Install the running live system onto a hard disk from the live session, with a step-by-step assistant, so that amadeOS can be used as the computer's own system.
 
-Done (2026-10-18, not yet boot-tested):
+Done (2026-10-18; a whole-disk BIOS installation in QEMU boots into the desktop and the created user logs in):
 
 - New repository [`amadeos-installer`](https://github.com/datazuul/amadeos-installer) (package `amadeos-installer`), separate from amade-system because the installed system must not keep it. Two parts:
   - The assistant (`amadeos-installer`, Swing on amade-commons, five languages): Welcome and language → Keyboard (XKB layouts, tried live) → Time Zone (zone1970.tab) → Target Disk (erase a whole disk with an optional swap partition, or an existing partition; the live medium, mounted disks and small disks are not offered) → User (full name, login, password, computer name) → Summary with an explicit confirmation → Installation with progress and log → Finished (restart).
@@ -449,8 +449,9 @@ Done (2026-10-18, not yet boot-tested):
 
 Open:
 
-- QEMU test of both paths (`./run-qemu.sh --install-disk`, install, `./run-qemu.sh --boot-disk`; the same with `--uefi`), then real hardware: UEFI and BIOS machines, NVMe, Secure Boot with the signed shim.
-- Dual boot (shrinking partitions, `os-prober`), encryption (LUKS), a separate home partition.
+- QEMU test of the UEFI path (`--uefi`) and of the existing-partition mode next to Windows (`scripts/make-dualboot-test-disk.sh` in amadeos-installer makes the test disk), then real hardware: the Zephyrus laptop (UEFI, NVMe, Windows kept, amadeOS into the former Linux partition, Secure Boot with the signed shim).
+- Dual boot: `os-prober` is in the image and switched on in the installed GRUB; shrinking a Windows partition from the installer, and the hardware clock in local time next to Windows, come later. Encryption (LUKS), a separate home partition.
+- The login greeter should propose the last user who logged in (or the first regular user), not `amadeos`, on an installed system.
 - The language, keyboard and time zone code shared with the login greeter (amade-system `dm`) belongs in amade-commons.
 - Boot menu entry "Install" in `config/bootloaders/isolinux/install.cfg` (still a placeholder) that starts the live system with the assistant open.
 

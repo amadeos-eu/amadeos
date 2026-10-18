@@ -46,6 +46,22 @@ for package in amade-dm amade-session amade-wm amade-panel-cde amade-style; do
         exit 1
     fi
 done
+# The applications: every ../amade-*/ or ../amadeos-*/ repository with an installToAmadeOs task should
+# have its package here; a missing one is only a warning (buildDistribution.sh builds them all).
+for app_dir in "$ROOT_DIR"/../amade-*/ "$ROOT_DIR"/../amadeos-*/; do
+    [ -d "$app_dir" ] || continue
+    app="$(basename "$app_dir")"
+    [ "$app" = "amade-commons" ] && continue
+    grep -qs "installToAmadeOs" "$app_dir/build.gradle" || continue
+    if [ -f "$app_dir/settings.gradle" ] && grep -q "^include '" "$app_dir/settings.gradle"; then
+        continue  # a multi-project build (amade-system): its modules are checked above
+    fi
+    if ! compgen -G "$CONFIG_DIR/packages.chroot/${app}_*.deb" >/dev/null; then
+        echo "[build-image] Warning: no ${app}_*.deb in config/packages.chroot; the image will lack $app" >&2
+        echo "    (cd ../$app && ./gradlew installToAmadeOs) puts it there." >&2
+    fi
+done
+
 # NsCDE is the default icon theme (GPL-3.0, own package nscde-icon-theme); build it if missing or
 # older than the version in package-nscde-icons.sh (PACKAGE_REVISION is bumped when icons/NsCDE changes).
 # Without it the desktop falls back to hicolor and to icons drawn in Java.

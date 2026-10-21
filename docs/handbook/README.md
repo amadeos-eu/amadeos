@@ -51,7 +51,21 @@ search without a server and the `privacy` plugin, which stores fonts and scripts
 Screenshots are made by scripts, so they can be renewed whenever the desktop changes, always in the
 same size (1280×800), theme (Warm Motif) and language (English):
 
-- desktop and applications on **Xvfb**: the window manager and Front Panel from the built packages, the
-  applications and games with an invented demo home, driven with `xdotool`, saved with `import`;
-- boot menu, installer and login screen in **QEMU** without a window, driven through the monitor
-  (`sendkey`, `screendump`).
+```sh
+docs/handbook/screenshots/shoot.sh --install          # all scenes, on a throw-away machine as root
+docs/handbook/screenshots/shoot.sh drawers windows    # only these scenes
+```
+
+`shoot.sh` starts an **Xvfb** screen, the amadeOS session from the installed packages and the programs
+with the invented demo home of `screenshots/home/` (user Alex Example), drives them with `xdotool` and
+saves the pictures with `import` as `chapters/images/<chapter>/<name>.jpg`. The scenes, and the screen
+coordinates they click, are in `screenshots/scenes.sh`; when the Front Panel changes, adjust its
+`PANEL_*` values. `--install` installs `config/packages.chroot/*.deb` (from `buildDistribution.sh`),
+creates the demo user `alex` and bind-mounts a live kernel command line over `/proc/cmdline` for the
+installer pictures, so run it only in a container or virtual machine. The installer runs with
+`AMADEOS_INSTALL_COMMAND` pointing at `fake-install.sh` of a checkout of amadeos-installer next to
+this repository, and with a pretend `lsblk` (`screenshots/fake-bin/`) that shows one empty disk:
+nothing is ever written to a disk. Needs `xvfb`, `xdotool`, `x11-utils` and `imagemagick`.
+
+The boot menu of the stick and GRUB are still missing; they will be taken in **QEMU** without a
+window, driven through the monitor (`sendkey`, `screendump`).

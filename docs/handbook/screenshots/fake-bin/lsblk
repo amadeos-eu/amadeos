@@ -1,0 +1,6 @@
+#!/bin/sh
+# A pretend lsblk for the installer pictures of shoot.sh: one empty 256 GB disk, so that the Target
+# Disk page has something to offer. Only the installer started by scene_installer sees it.
+cat <<'END'
+NAME="sda" PATH="/dev/sda" SIZE="256060514304" MODEL="Demo SSD 256GB" TYPE="disk" RM="0" RO="0" MOUNTPOINTS="" PKNAME="" FSTYPE="" TRAN="sata" PARTTYPE="" LABEL=""
+END

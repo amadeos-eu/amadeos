@@ -4,7 +4,7 @@ The Front Panel is the long bar at the bottom of the screen. It stays above all 
 
 ![The Front Panel](images/22/front-panel.jpg)
 
-Every slot does two things: **clicking its icon** starts its main program, and **clicking the small arrow** above it opens its **drawer**, a list of more programs. A second click on the arrow, or a click elsewhere, closes the drawer again. The drawers fill themselves from the programs installed on the computer: install a new graphics program, and it appears in the Graphics drawer. Programs that fit no drawer, such as WritePad, are in the **Application Manager** (Tools slot), which lists every installed program.
+Every slot does two things: **clicking its icon** starts its main program, and **clicking the small arrow** above it opens its **drawer**, a list of more programs. A second click on the arrow, or a click elsewhere, closes the drawer again. The drawers fill themselves from the programs installed on the computer: install a new graphics program, and it appears in the Graphics drawer. Programs that fit no drawer, such as programming tools, are in the **Application Manager** (Tools slot), which lists every installed program.
 
 ## The left side
 
@@ -13,11 +13,13 @@ Every slot does two things: **clicking its icon** starts its main program, and *
 | **Clock** | — (a right click chooses *Analog Clock* or *Digital Clock*) | — |
 | **Calendar** | Opens the Calendar, today's date on the icon | — |
 | **File Manager** | Opens your home folder | The file managers, *Home Directory (~)* and *Root Filesystem (/)* |
-| **Text Editor** | Starts the Text Editor | The installed text editors |
+| **Text & Office** | Starts the Text Editor | The text editors and WritePad, then the other office programs: the Calendar, spreadsheets, presentations |
 | **Mail & Internet** | Starts the Mailer | The mail programs, then the web browser and other internet programs |
 | **Sound & Video** | Starts the first program of the drawer | Audio Station, Video Player and other media programs |
 | **Graphics** | Starts the first program of the drawer | Image Scan, Fractals and other graphics programs |
 | **Games** | Starts the first game of the drawer | All installed games, from Blast to Town (chapter 49) |
+
+![The Text & Office drawer](images/22/drawer-office.jpg)
 
 ## The workspace switch in the middle
 
@@ -72,4 +74,4 @@ The **updates cell** appears only while software updates wait: an arrow into a t
     The Front Panel follows CDE's: the clock and calendar on the left, the workspace switch with lock and EXIT in the middle, the Print Manager, Tools, Help and Trash Can on the right, and drawers ("subpanels" in CDE) above the slots. CDE's drawers were configured by hand; those of amadeOS fill themselves. The Games drawer and the status slot are new, and so is the language button, in the corner CDE left empty.
 
 ??? hood "Under the hood"
-    The Front Panel is the program `amadeos-panel-cde`, started by the session as `/usr/bin/amadeos-panel`. The drawers list the `.desktop` files in `/usr/share/applications` and `~/.local/share/applications` by their *Categories*: `FileManager`, `TextEditor`, `Email` and `Network`, `AudioVideo`, `Graphics`, `Game`, `Printing`, `Settings` and `System`, `Documentation`. A program started from the panel writes its messages to `~/.cache/amadeos/logs/<program>.log`.
+    The Front Panel is the program `amadeos-panel-cde`, started by the session as `/usr/bin/amadeos-panel`. The drawers list the `.desktop` files in `/usr/share/applications` and `~/.local/share/applications` by their *Categories*: `FileManager`, `TextEditor` and `Office`, `Email` and `Network`, `AudioVideo`, `Graphics`, `Game`, `Printing`, `Settings` and `System`, `Documentation`. A program started from the panel writes its messages to `~/.cache/amadeos/logs/<program>.log`.

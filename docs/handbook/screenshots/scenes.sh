@@ -63,12 +63,13 @@ scene_panel() {
     shot 22 front-panel "$PANEL_GEOMETRY"
 }
 
-# The drawers: Games for the tour, Tools and Help for the Front Panel chapter.
+# The drawers: Games for the tour, Text & Office, Tools and Help for the Front Panel chapter.
 scene_drawers() {
     [ -n "$session_pid" ] || start_session
     open_drawer "$PANEL_GAMES_X"; shot 22 drawer-games 560x390+330+410; close_drawer "$PANEL_GAMES_X"
+    open_drawer "$PANEL_EDITOR_X"; shot 22 drawer-office 520x300+150+500; close_drawer "$PANEL_EDITOR_X"
     open_drawer "$PANEL_TOOLS_X"; shot 22 drawer-tools 620x330+580+470; close_drawer "$PANEL_TOOLS_X"
-    open_drawer "$PANEL_HELP_X"; shot 22 drawer-help 620x200+600+600; close_drawer "$PANEL_HELP_X"
+    open_drawer "$PANEL_HELP_X"; shot 22 drawer-help 640x200+640+600; close_drawer "$PANEL_HELP_X"
 }
 
 open_drawer() { click "$1" "$PANEL_ARROW_Y"; sleep 1; }
@@ -98,6 +99,12 @@ scene_windows() {
     sleep 2
     shot 21 desktop-with-windows
     shot_window 23 window-frame "Text Editor"
+    # The window menu of the button at the left end of the title bar
+    if frame_geometry "Text Editor"; then
+        click $((FX + 12)) $((FY + 12))
+        shot 23 window-menu "360x220+$((FX > 20 ? FX - 20 : 0))+$((FY > 20 ? FY - 20 : 0))"
+        key Escape
+    fi
 }
 
 # place WINDOW X Y [WIDTH HEIGHT]: moves (and sizes) the window whose title matches WINDOW.
@@ -134,21 +141,27 @@ scene_lock() {
     close_programs
 }
 
-# shot_window CHAPTER NAME WINDOW: the window whose title matches WINDOW, with the frame the window
-# manager put around it (the child of the root window that holds it).
-shot_window() {
-    local id root parent info x y w h
-    id="$(xdotool search --onlyvisible --name "$3" | head -n 1)"
-    [ -n "$id" ] || { echo "shoot.sh: no window '$3' to shoot" >&2; return 0; }
+# frame_geometry WINDOW: sets FX, FY, FW and FH to the frame the window manager put around the window
+# whose title matches WINDOW (the child of the root window that holds it); fails without such a window.
+frame_geometry() {
+    local id root parent info
+    id="$(xdotool search --onlyvisible --name "$1" | head -n 1)"
+    [ -n "$id" ] || { echo "shoot.sh: no window '$1'" >&2; return 1; }
     root="$(xwininfo -root | awk '/Window id:/ {print $4}')"
     while parent="$(xwininfo -tree -id "$id" | awk '/Parent window id:/ {print $4}')" && [ "$parent" != "$root" ]; do
         id="$parent"
     done
     info="$(xwininfo -id "$id")"
-    x="$(awk '/Absolute upper-left X:/ {print $4}' <<<"$info")"
-    y="$(awk '/Absolute upper-left Y:/ {print $4}' <<<"$info")"
-    w="$(awk '/Width:/ {print $2}' <<<"$info")"
-    h="$(awk '/Height:/ {print $2}' <<<"$info")"
+    FX="$(awk '/Absolute upper-left X:/ {print $4}' <<<"$info")"
+    FY="$(awk '/Absolute upper-left Y:/ {print $4}' <<<"$info")"
+    FW="$(awk '/Width:/ {print $2}' <<<"$info")"
+    FH="$(awk '/Height:/ {print $2}' <<<"$info")"
+}
+
+# shot_window CHAPTER NAME WINDOW: the window whose title matches WINDOW, with its frame.
+shot_window() {
+    frame_geometry "$3" || return 0
+    local x="$FX" y="$FY" w="$FW" h="$FH"
     [ "$x" -ge 0 ] || { w=$((w + x)); x=0; }
     [ "$y" -ge 0 ] || { h=$((h + y)); y=0; }
     shot "$1" "$2" "${w}x${h}+${x}+${y}"

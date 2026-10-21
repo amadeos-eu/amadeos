@@ -73,6 +73,21 @@ export USER="$(id -un)"
 # of the desktop is the one of ~/.config/amadeos/locale.conf in the demo home.
 if locale -a 2>/dev/null | grep -qi '^en_GB.utf-\?8$'; then export LANG=en_GB.UTF-8; else export LANG=C.UTF-8; fi
 
+# The drawers show only the programs of the amadeOS image, not whatever else the build machine has
+# installed: XDG_DATA_DIRS points at a directory with the desktop entries of the image's packages (the
+# package list and config/packages.chroot) and the system's icons and MIME data.
+xdg="$work/xdg"
+mkdir -p "$xdg/applications"
+for dir in icons mime pixmaps; do ln -s "/usr/share/$dir" "$xdg/$dir"; done
+{
+    grep -hv '^\s*#' "$root_dir"/config/package-lists/*.list.chroot 2>/dev/null | tr -s ' \t' '\n'
+    for deb in "$root_dir"/config/packages.chroot/*.deb; do dpkg-deb -f "$deb" Package; done
+} | sort -u | while read -r package; do
+    [ -n "$package" ] || continue
+    dpkg-query -L "$package" 2>/dev/null | grep '^/usr/share/applications/.*\.desktop$' || true
+done | while read -r entry; do ln -sf "$entry" "$xdg/applications/"; done
+export XDG_DATA_DIRS="$xdg"
+
 # The launchers find the Java 25 runtime of amadeOS themselves; a JAVA_HOME of the build machine (an
 # older Java) would get in the way.
 unset JAVA_HOME

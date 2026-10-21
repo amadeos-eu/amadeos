@@ -41,7 +41,7 @@ The live system has one user:
 |---|---|
 | `amadeos` | `amadeos` |
 
-The login screen proposes the user already, so you type the password and press ++enter++. In the same screen you can choose your language, your keyboard and your time zone (chapter 20 explains them). The login screen starts with a German keyboard; if yours is different, choose *English (US - QWERTY)* under *Keyboard* before you type the password.
+The login screen proposes the user already, so you type the password and press ++enter++. In the same screen you can choose your language, your keyboard and your time zone (chapter 20 explains them). The live system starts with a German keyboard; if yours is different, choose your layout under *Keyboard*, for example *English (US) (us)*, before you type the password.
 
 !!! sovereignty "Your data"
     Nothing you do in the live system is kept: files, settings and WLAN passwords are gone when you switch off. Save anything you want to keep onto another USB stick, or install amadeOS (next chapter), which takes the WLAN connections of the live session along.

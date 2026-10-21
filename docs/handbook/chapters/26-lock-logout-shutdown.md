@@ -26,7 +26,7 @@ The **screen saver** locks the screen by itself after a time without keyboard or
 | **Log Out** | Ends your session and returns to the login screen. |
 | **Reboot** | Ends the session and restarts the computer; asks once more. |
 | **Shut Down** | Ends the session and switches the computer off; asks once more. |
-| **Exit to Shell** | For experts; for now it does the same as *Log Out*. |
+| **Exit to Shell** | Logs out and switches the screen to the text console, for repairs with commands. The login screen is still there: ++ctrl+alt+f7++ brings it back. |
 | **Cancel** | Closes the window. |
 
 *Log Out…* in the Workspace Menu does the same.

@@ -25,7 +25,7 @@ Click the **right mouse button on the backdrop** to open the Workspace Menu.
 | Entry | What it does |
 |---|---|
 | **Programs** | All installed programs, sorted by kind, the same ones as in the drawers. |
-| **New Window** | A *Terminal Emulator*, a simple *Text Editor* in a terminal, or a *File Manager* window with your home folder. |
+| **New Window** | A *Terminal Emulator*, the *Text Editor* or a *File Manager* window with your home folder. |
 | **Workspaces** | Switches to *Workspace 1: One* to *Workspace 4: Four*; the current one has a tick. |
 | **Window Management** | *Shuffle Up* and *Shuffle Down* bring the bottom window to the front or send the front window to the back, one at a time; *Minimize All Windows* clears the workspace, *Restore All Windows* brings them back. |
 | **Style Manager…** | Opens the Style Manager (Part IV). |

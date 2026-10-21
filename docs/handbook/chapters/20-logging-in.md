@@ -14,16 +14,13 @@ At the top left the screen names the computer (*amadeOS UNIX Workstation* and th
 | **Password** | Your password. The cursor waits here, so you can type at once. |
 | **Session** | *amadeOS CDE Desktop*, the normal desktop, or *Failsafe Terminal*, a single terminal window for repairs when the desktop does not start (chapter 57). |
 | **Language** | The language of the desktop and the applications: English, Deutsch, Français, Español or Italiano. Your last choice is preselected. |
-| **Keyboard** | *German (DE - QWERTZ)* or *English (US - QWERTY)*. It switches at once, before you type the password. |
+| **Keyboard** | The keyboard layout, preselected with the one of the computer (chosen in the installer; German on the live system). Another layout switches at once, before you type the password. |
 | **Time Zone** | The time zone of the computer's clock. The current one is preselected; a change holds for the whole computer, not only for you. |
 
 Press ++enter++ or click **Log In**. **Clear** empties the fields. If the password is wrong, the box says so under the fields, and you can try again.
 
 !!! tip "The password is not accepted?"
     Check the keyboard first. On a German keyboard ++y++ and ++z++ are swapped, and some symbols are elsewhere. Typing the password into the user name field shows what the keyboard really types; delete it again afterwards.
-
-!!! planned "Planned"
-    The login screen offers only two keyboard layouts and always starts with the German one, even if the computer was installed with another layout. It is to take the layout of the installed system and to offer the other layouts too.
 
 ## Switching off without logging in
 

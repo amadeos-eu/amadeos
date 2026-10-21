@@ -8,7 +8,7 @@ Every program opens in a window, and every window gets the same frame from amade
 
 | Part | Where | What it does |
 |---|---|---|
-| **Window menu button** | Left end of the title bar, a small bar | Closes the window, as the program's own *Close* or *Exit* would. |
+| **Window menu button** | Left end of the title bar, a small bar | Opens the window menu (below). A double click closes the window. |
 | **Title bar** | Top | Shows the window's name. Drag it to move the window. The active window's title bar has the active colour of the palette. |
 | **Minimise button** | Right, the small square | Hides the window and puts an icon for it on the desktop. |
 | **Maximise button** | Right, the large square | Makes the window as large as the screen above the Front Panel; a second click gives it back its size. |
@@ -16,7 +16,23 @@ Every program opens in a window, and every window gets the same frame from amade
 | **Edges and corners** | All around | Drag them to resize the window; the mouse pointer changes to show the direction. |
 
 !!! cde "CDE heritage"
-    The frame is the Motif frame of CDE's window manager `dtwm`, with its raised edges and corner pieces. In CDE, the button on the left opened the *window menu* with Restore, Move, Size, Minimize, Maximize, Lower and Close; in amadeOS it closes the window at once, and the cross on the right, which CDE did not have, does the same.
+    The frame is the Motif frame of CDE's window manager `dtwm`, with its raised edges and corner pieces, and the window menu on the left button. CDE's menu also had *Move* and *Size* for the keyboard; amadeOS leaves them out, since the frame is moved and resized with the mouse. The cross on the right, which CDE did not have, is there for everyone used to closing a window at the top right.
+
+## The window menu
+
+Click the button at the left end of the title bar to open the **window menu** of that window:
+
+![The window menu](images/23/window-menu.jpg)
+
+| Entry | What it does |
+|---|---|
+| **Restore** | Gives a maximised window its earlier size back. |
+| **Minimize** | Like the minimise button. |
+| **Maximize** | Like the maximise button. |
+| **Lower** | Puts the window behind all the others. |
+| **Close** | Closes the window. |
+
+A **double click** on the button closes the window at once.
 
 ## The active window
 

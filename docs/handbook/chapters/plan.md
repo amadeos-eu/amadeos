@@ -43,16 +43,16 @@ The handbook grows chapter by chapter. This page lists every chapter, the writte
 
 ## Part V: The Applications
 
-- **40. Applications at a Glance**
-- **41. File Manager**
-- **42. Text Editor**
-- **43. WritePad**
-- **44. Mailer**
-- **45. Calendar**
-- **46. Audio Station and Video Player**
-- **47. Image Scan and Fractals**
-- **48. Web Browser and Handbooks:** Firefox, the documentation viewer, this handbook, the Application Developer's Handbook and the Game Developer's Handbook under Help.
-- **49. Games:** Mines, Solitaire, Paddle, Bricks, Snake, Rocks, Swarm, Maze, Blast, Jump, Towers, Sands, Colony and Town.
+40. [Applications at a Glance](40-applications.md)
+41. [File Manager](41-file-manager.md)
+42. [Text Editor](42-text-editor.md)
+43. [WritePad](43-writepad.md)
+44. [Mailer](44-mailer.md)
+45. [Calendar](45-calendar.md)
+46. [Audio Station and Video Player](46-audio-video.md)
+47. [Image Scan and Fractals](47-image-scan-fractals.md)
+48. [Web Browser and Handbooks](48-web-and-handbooks.md)
+49. [Games](49-games.md)
 
 ## Part VI: Administering amadeOS
 

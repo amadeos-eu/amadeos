@@ -84,6 +84,17 @@ cups-browsed
 ipp-usb
 avahi-daemon
 libnss-mdns
+# Scanning (amade-imagescan through SANE): sane-airscan finds network scanners and the scanners of
+# all-in-one printers (eSCL/AirScan, WSD) without vendor drivers, also over USB through ipp-usb above
+sane-airscan
+# Passwords: gnome-keyring as the Secret Service of the session (no GNOME desktop, no keyring GUI),
+# unlocked at login by pam_gnome_keyring in /etc/pam.d/amadeos-dm; amade-mail and amade-audio store
+# their passwords there through secret-tool. dbus-user-session gives the session the user bus that
+# the keyring daemon and secret-tool meet on.
+dbus-user-session
+gnome-keyring
+libpam-gnome-keyring
+libsecret-tools
 # amadeos-sysinfo names the graphics adapter with lspci
 pciutils
 grub-efi-amd64-bin

@@ -409,6 +409,7 @@ Done (2026-10-12/13):
 Open:
 
 - Pin and document the supported Java baseline and correct documentation inconsistencies.
+- Passwords (2026-10-21): the image has gnome-keyring as the Secret Service, unlocked at login by `pam_gnome_keyring` in `/etc/pam.d/amadeos-dm` (amadeos-system [#28](https://github.com/datazuul/amadeos-system/pull/28)); still to be verified in QEMU. Later: an own Secret Service daemon in Java in amadeos-system (D-Bus `org.freedesktop.secrets`, encrypted keyring file, unlocked by the login password, a Motif prompt like the polkit agent), which would replace gnome-keyring and its GTK prompter.
 - Test fonts, HiDPI scaling, keyboard layouts, focus/modality, clipboard behavior, and representative Swing/AWT applications.
 - Evaluate multi-monitor behavior, graphics drivers, WLAN firmware, audio, suspend/resume, and USB boot on representative hardware.
 - Debian security-update handling and the update workflow are planned in M15; define dependency update policy, image signing, artifact provenance, and rollback/recovery.

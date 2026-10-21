@@ -82,9 +82,12 @@ main() {
     fi
     [ ${#apps[@]} -gt 0 ] || { echo "No amade apps found in $parent_dir" >&2; return 1; }
 
-    # The libraries are pulled like the apps; the apps' composite builds compile them.
+    # The libraries are pulled like the apps; the apps' composite builds compile them. amade-game-engine
+    # is also an app when it has an installToAmadeOs task (the package of its handbook).
     local libraries=(amade-commons)
-    [ -f "$parent_dir/amade-game-engine/settings.gradle" ] && libraries+=(amade-game-engine)
+    if [ -f "$parent_dir/amade-game-engine/settings.gradle" ] && [[ " ${apps[*]} " != *" amade-game-engine "* ]]; then
+        libraries+=(amade-game-engine)
+    fi
 
     step "Repositories: amadeos ${libraries[*]} ${apps[*]}"
 

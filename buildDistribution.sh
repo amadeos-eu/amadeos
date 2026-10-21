@@ -4,7 +4,7 @@
 #   0. clones the repositories of repositories.list that are not checked out next to amadeos yet
 #   1. pulls main of amadeos, the libraries (amade-commons, amade-game-engine) and every amade app
 #   2. builds amade-commons, then every app against that checkout (composite build)
-#   3. drops every app's .deb into config/packages.chroot/ (gradlew installToAmadeOs)
+#   3. drops every app's .deb into config/packages.chroot/ (gradlew installToAmadeOs), and the handbooks
 #   4. builds artifacts/amadeos-amd64.iso (./build.sh, uses sudo for live-build)
 #
 # Expected layout (an app is every ../amade-*/ or ../amadeos-*/ whose build.gradle has an installToAmadeOs task):
@@ -139,6 +139,16 @@ main() {
         # checkout pulled above, not against the JitPack version in its build.gradle.
         (cd "$parent_dir/$app" && ./gradlew "${gradle_args[@]}" installToAmadeOs)
     done
+
+    # amade-commons carries the Application Developer's Handbook (docs/handbook), which shows code from
+    # the apps checked out above; its installToAmadeOs task packages it as amade-app-handbook. A missing
+    # handbook does not stop the image: the Help drawer just lacks it.
+    if grep -qs "installToAmadeOs" "$commons_dir/build.gradle"; then
+        step "Building the Application Developer's Handbook (amade-app-handbook)"
+        rm -f "$packages_dir"/amade-app-handbook_*.deb
+        (cd "$commons_dir" && ./gradlew --no-daemon installToAmadeOs) \
+            || echo "[buildDistribution] Warning: amade-app-handbook could not be built; continuing without it." >&2
+    fi
 
     # As the user, not as root inside build.sh: MkDocs goes into docs/handbook/.venv.
     step "Building the User's Handbook (amadeos-handbook)"

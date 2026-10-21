@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Builds the complete amadeOS distribution from the main branches of all repositories:
 #
-#   1. pulls main of amadeos, amade-commons and every amade app checked out next to amadeos
+#   0. clones the repositories of repositories.list that are not checked out next to amadeos yet
+#   1. pulls main of amadeos, the libraries (amade-commons, amade-game-engine) and every amade app
 #   2. builds amade-commons, then every app against that checkout (composite build)
 #   3. drops every app's .deb into config/packages.chroot/ (gradlew installToAmadeOs)
 #   4. builds artifacts/amadeos-amd64.iso (./build.sh, uses sudo for live-build)
@@ -10,8 +11,9 @@
 #
 #   <parent>/amadeos  <parent>/amade-commons  <parent>/amade-pad  <parent>/amade-mail  ...
 #
-# Usage: ./buildDistribution.sh [--no-pull] [--skip-tests] [--quick] [--apps "amade-pad amade-mail"]
+# Usage: ./buildDistribution.sh [--no-clone] [--no-pull] [--skip-tests] [--quick] [--apps "amade-pad amade-mail"]
 #
+#   --no-clone    do not clone missing repositories; build only what is checked out
 #   --no-pull     build the checkouts as they are (no git fetch, no branch switch)
 #   --skip-tests  skip the unit tests of amade-commons and the apps
 #   --quick       repack the previous image instead of a full live-build (AMADEOS_QUICK=1)
@@ -27,14 +29,15 @@ main() {
     root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     parent_dir="$(dirname "$root_dir")"
 
-    local pull=1 tests=1 quick=0 apps_arg=""
+    local clone=1 pull=1 tests=1 quick=0 apps_arg=""
     while [ $# -gt 0 ]; do
         case "$1" in
+            --no-clone) clone=0 ;;
             --no-pull) pull=0 ;;
             --skip-tests) tests=0 ;;
             --quick) quick=1 ;;
             --apps) shift; apps_arg="${1:?--apps needs a list of app directories}" ;;
-            -h|--help) sed -n '2,20p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; return 0 ;;
+            -h|--help) sed -n '2,22p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; return 0 ;;
             *) echo "Unknown option: $1 (see --help)" >&2; return 1 ;;
         esac
         shift
@@ -44,6 +47,16 @@ main() {
     if [ "$(id -u)" -ne 0 ]; then
         command -v sudo >/dev/null 2>&1 || { echo "sudo is required for live-build" >&2; return 1; }
         sudo -v
+    fi
+
+    # With --apps only the named checkouts are built, so nothing is cloned.
+    if [ "$clone" = 1 ] && [ -z "$apps_arg" ]; then
+        local name
+        while read -r name; do
+            [ -d "$parent_dir/$name" ] && continue
+            step "Cloning $name"
+            git clone "https://github.com/datazuul/$name.git" "$parent_dir/$name"
+        done < <(sed -e 's/#.*//' -e '/^[[:space:]]*$/d' "$root_dir/repositories.list")
     fi
 
     local commons_dir="$parent_dir/amade-commons"
@@ -69,20 +82,24 @@ main() {
     fi
     [ ${#apps[@]} -gt 0 ] || { echo "No amade apps found in $parent_dir" >&2; return 1; }
 
-    step "Repositories: amadeos amade-commons ${apps[*]}"
+    # The libraries are pulled like the apps; the apps' composite builds compile them.
+    local libraries=(amade-commons)
+    [ -f "$parent_dir/amade-game-engine/settings.gradle" ] && libraries+=(amade-game-engine)
+
+    step "Repositories: amadeos ${libraries[*]} ${apps[*]}"
 
     if [ "$pull" = 1 ]; then
         # Check every repository before touching any, so a dirty checkout does not leave half of
         # them pulled.
         local repo dirty=0
-        for repo in amadeos amade-commons "${apps[@]}"; do
+        for repo in amadeos "${libraries[@]}" "${apps[@]}"; do
             if [ -n "$(git -C "$parent_dir/$repo" status --porcelain --untracked-files=no)" ]; then
                 echo "$repo has uncommitted changes; commit or stash them, or use --no-pull" >&2
                 dirty=1
             fi
         done
         [ "$dirty" = 0 ] || return 1
-        for repo in amadeos amade-commons "${apps[@]}"; do
+        for repo in amadeos "${libraries[@]}" "${apps[@]}"; do
             step "Pulling $repo ($branch)"
             git -C "$parent_dir/$repo" fetch origin "$branch"
             if [ "$(git -C "$parent_dir/$repo" branch --show-current)" != "$branch" ]; then

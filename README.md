@@ -78,7 +78,7 @@ settings). This repository holds the live image: its package list and configurat
 | **Display manager** | `amadeos-dm.service` (enabled by the `amadeos-dm` package) starts Xorg on VT 7 and shows the Java login greeter, which authenticates through PAM (`/etc/pam.d/amadeos-dm`) and starts the session in the language chosen there. |
 | **Time zone** | Chosen in the login greeter (*Time Zone*, the zones of `zone1970.tab`, preselected with the system's current zone). The display manager runs as root and, once the password is accepted, points `/etc/localtime` at the zone and writes `/etc/timezone` before the session starts. The live image boots with `Europe/Berlin` (`timezone=` on the kernel command line) and `systemd-timesyncd` sets the clock from the network. |
 | **Window manager** | A floating, reparenting X11 window manager in Java (Xlib via JNA) with Motif/CDE-style frames, interactive move and resize, minimize to desktop icons, four virtual workspaces, a desktop root menu and the EWMH/ICCCM hints that panels and toolkits rely on (`_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`, `_NET_CURRENT_DESKTOP`, `_NET_WM_STRUT_PARTIAL`, `WM_DELETE_WINDOW`, ...). |
-| **Front panel** | A CDE-style dock with clock, calendar, workspace switcher and drawers that list installed applications from their `.desktop` files. |
+| **Front panel** | A CDE-style dock with clock, calendar, workspace switcher and drawers that list installed applications from their `.desktop` files, among them a Games drawer with the amade games (Mines, Solitaire, Paddle, ..., Town). The Help drawer opens the amadeOS User's Handbook in Firefox. |
 | **Logs** | One log per application in `~/.cache/amadeos/logs` (`firefox-esr.log`, `amade-files.log`, ...), written by the panel when it starts a program, next to `session.log` and `wm.log` from `amadeos-session`. *Session Diagnostics & Logs* in the Tools drawer (the program `amadeos-logviewer`) shows one of them at a time, chosen from a list, with the display manager's logs from `/var/log` and the system journal of this boot (the live user is in `systemd-journal`); *Follow* reloads every two seconds. |
 | **Language** | English, Deutsch, Français, Español, Italiano. Chosen in the login greeter (*Language*, preselected with the user's last choice) for the whole session, or with the language button under the lock in the front panel. Both write `~/.config/amadeos/locale.conf`; applications built on amade-commons start in that language, the panel and terminals follow at the next login (`LANG`). An application's own *Settings* can override it. |
 | **Style Manager** (`style`) | The controls of CDE's dtstyle. Color (palette and icon theme), Backdrop, Keyboard, Mouse, Beep and Screen work; Font, Window and Startup are shown but not yet available. |
@@ -146,9 +146,10 @@ loader and, for live-build 3.0, links to the hooks in `config/hooks/`.
 ### Building the complete distribution
 
 `build.sh` puts into the image whatever application packages are already in
-`config/packages.chroot/`. To build everything from the current `main` branches instead, clone
-amade-commons and the applications next to this repository (`../amade-commons`, `../amade-pad`,
-`../amade-mail`, ...) and run:
+`config/packages.chroot/`. To build everything from the current `main` branches instead, run the
+script below. It clones the repositories of [`repositories.list`](repositories.list) that are not yet
+next to this repository (`../amade-commons`, `../amade-game-engine`, `../amade-pad`, ...,
+`../amade-mines-game`, ...), so every application and every game is installed by default:
 
 ```bash
 ./buildDistribution.sh
@@ -159,7 +160,7 @@ has an `installToAmadeOs` Gradle task (amadeos-system with the desktop and amade
 the packages against that checkout
 (with tests), copies their `.deb` packages into `config/packages.chroot/` and builds
 `artifacts/amadeos-amd64.iso`. It stops before pulling if a repository has uncommitted changes.
-Options: `--no-pull` (build the checkouts as they are), `--skip-tests`, `--quick` (repack the
+Options: `--no-clone` (only what is checked out), `--no-pull` (build the checkouts as they are), `--skip-tests`, `--quick` (repack the
 previous image, see `AMADEOS_QUICK`) and `--apps "amade-pad amade-mail"` (only these
 applications).
 

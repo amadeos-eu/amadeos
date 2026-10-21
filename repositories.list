@@ -1,0 +1,39 @@
+# The repositories of the amadeOS distribution. buildDistribution.sh clones the missing ones next to
+# this repository (https://github.com/datazuul/<name>) and builds every one with an installToAmadeOs
+# task into the image. A new application or game is added here, and is then installed by default.
+
+# Libraries (built through the composite builds of the packages that use them)
+amade-commons
+amade-game-engine
+
+# System components and the installer
+amadeos-system
+amadeos-installer
+
+# Applications
+amade-files
+amade-pad
+amade-writepad
+amade-mail
+amade-calendar
+amade-web
+amade-audio
+amade-video
+amade-imagescan
+amade-fractals
+
+# Games (Games drawer of the Front Panel)
+amade-mines-game
+amade-solitaire-game
+amade-paddle-game
+amade-bricks-game
+amade-snake-game
+amade-rocks-game
+amade-swarm-game
+amade-maze-game
+amade-blast-game
+amade-jump-game
+amade-towers-game
+amade-sands-game
+amade-colony-game
+amade-town-game

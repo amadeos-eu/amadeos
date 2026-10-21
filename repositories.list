@@ -7,33 +7,33 @@ amade-commons
 amade-game-engine
 
 # System components and the installer
-amadeos-system
 amadeos-installer
+amadeos-system
 
 # Applications
-amade-files
-amade-pad
-amade-writepad
-amade-mail
-amade-calendar
-amade-web
 amade-audio
-amade-video
-amade-imagescan
+amade-calendar
+amade-files
 amade-fractals
+amade-imagescan
+amade-mail
+amade-pad
+amade-video
+amade-web
+amade-writepad
 
 # Games (Games drawer of the Front Panel)
-amade-mines-game
-amade-solitaire-game
-amade-paddle-game
-amade-bricks-game
-amade-snake-game
-amade-rocks-game
-amade-swarm-game
-amade-maze-game
 amade-blast-game
-amade-jump-game
-amade-towers-game
-amade-sands-game
+amade-bricks-game
 amade-colony-game
+amade-jump-game
+amade-maze-game
+amade-mines-game
+amade-paddle-game
+amade-rocks-game
+amade-sands-game
+amade-snake-game
+amade-solitaire-game
+amade-swarm-game
+amade-towers-game
 amade-town-game

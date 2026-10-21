@@ -3,7 +3,7 @@
 # (thirteen slots); when the panel changes, adjust the PANEL_* values below.
 # shellcheck shell=bash
 
-ALL_SCENES=(greeter installer desktop panel drawers menu windows workspaces style lock)
+ALL_SCENES=(greeter installer desktop panel drawers menu windows workspaces style lock apps games)
 
 # Where things are on the screen: the drawer arrows of the Front Panel (x, at the height PANEL_ARROW_Y)
 # and the workspace buttons.
@@ -189,4 +189,57 @@ shot_window() {
     [ "$x" -ge 0 ] || { w=$((w + x)); x=0; }
     [ "$y" -ge 0 ] || { h=$((h + y)); y=0; }
     shot "$1" "$2" "${w}x${h}+${x}+${y}"
+}
+
+# app_shot CHAPTER NAME WINDOW X Y W H COMMAND...: starts the program, puts its window at X Y with the
+# size W x H (no size when W is 0), takes it with its frame and closes it again.
+app_shot() {
+    local chapter="$1" name="$2" window="$3" x="$4" y="$5" w="$6" h="$7"
+    shift 7
+    start "$@"
+    wait_window "$window" 40 || { close_programs; return 0; }
+    sleep 3
+    if [ "$w" = 0 ]; then place "$window" "$x" "$y"; else place "$window" "$x" "$y" "$w" "$h"; fi
+    sleep 2
+    shot_window "$chapter" "$name" "$window"
+    close_programs
+}
+
+# The applications of Part V, each in a window of 1000 x 640 where the program lets itself be sized.
+scene_apps() {
+    [ -n "$session_pid" ] || start_session
+    # The Application Manager: the icon of the Tools slot
+    click "$PANEL_TOOLS_X" 765
+    if wait_window "Application Manager" 15; then
+        sleep 2; shot_window 40 application-manager "Application Manager"; key Escape
+        xdotool search --onlyvisible --name "Application Manager" windowclose 2>/dev/null || true
+    fi
+    mkdir -p "$HOME/Pictures"
+    cp "$root_dir/config/includes.chroot/usr/share/backgrounds/amadeos/mountain-lake.png" "$HOME/Pictures/"
+    app_shot 41 file-manager "File Manager" 140 60 1000 640 amade-files "$HOME" "$HOME/Documents"
+    app_shot 42 text-editor "Text Editor" 140 60 1000 640 amade-pad "$HOME/Documents/letter-to-the-club.txt"
+    app_shot 43 writepad "Writepad|WritePad" 140 30 1000 680 amade-writepad --sample
+    app_shot 44 mailer "Mailer" 140 60 1000 640 amade-mail
+    app_shot 45 calendar "Calendar" 140 60 1000 640 amade-calendar
+    app_shot 46 audio-station "Audio Station" 60 20 0 0 amade-audio
+    # Without a GPU some builds of libmpv refuse the video output and say so in a message; Enter
+    # closes it, and the window shows what it shows before a video is opened.
+    start amade-video
+    if wait_window "Video Player" 40; then
+        sleep 3; key Return; place "^Video Player$" 140 60 900 600
+        shot_window 46 video-player "^Video Player$"
+    fi
+    close_programs
+    app_shot 47 image-scan "Image Scan" 140 60 1000 640 amade-imagescan "$HOME/Pictures/mountain-lake.png"
+    app_shot 47 fractals "Fractals" 140 60 1000 640 amade-fractals
+    app_shot 48 documentation-viewer "Documentation Viewer|/usr/share/doc" 140 60 1000 640 amade-web
+}
+
+# The title screen of every game, where the computer plays.
+scene_games() {
+    [ -n "$session_pid" ] || start_session
+    local game
+    for game in mines solitaire paddle bricks snake rocks swarm maze blast jump towers sands colony town; do
+        app_shot 49 "$game" "$(tr '[:lower:]' '[:upper:]' <<<"${game:0:1}")${game:1}" 140 60 0 0 "amade-$game-game"
+    done
 }

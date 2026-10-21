@@ -65,6 +65,15 @@ firefox-esr-l10n-de
 firefox-esr-l10n-fr
 firefox-esr-l10n-es-es
 firefox-esr-l10n-it
+# Office: LibreOffice Writer (MPL-2.0) with the five desktop languages. A full word processor for
+# what amade-writepad does not do, and amade-writepad's converter for the old binary Word format:
+# it opens .doc files through soffice --headless --convert-to docx and saves .doc the same way.
+# Without recommends Writer draws with its own X11 toolkit, no GTK or Qt.
+libreoffice-writer
+libreoffice-l10n-de
+libreoffice-l10n-fr
+libreoffice-l10n-es
+libreoffice-l10n-it
 # Printing: CUPS with driverless printing (IPP Everywhere, AirPrint). avahi finds network printers,
 # cups-browsed sets them up as queues, ipp-usb serves USB printers over IPP. amadeos-print manages them;
 # the live user is in lpadmin (/etc/live/config.conf), so no password is needed for that.

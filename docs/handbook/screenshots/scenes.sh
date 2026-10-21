@@ -131,7 +131,31 @@ scene_style() {
     wait_window "Style Manager" 30 || return 0
     shot_window 30 style-manager "Style Manager"
     close_programs
+    # Each control in a Style Manager of its own: the button, then the dialog "Style Manager - <name>"
+    local control name index chapter
+    for control in Color:0:31 Backdrop:2:32 Keyboard:3:33 Mouse:4:33 Beep:5:33 Screen:6:34; do
+        IFS=: read -r name index chapter <<<"$control"
+        # The Screen dialog with the settings of a new user; the demo home keeps the saver off
+        [ "$name" != Screen ] || { cp "$HOME/.config/amadeos/screen.conf" "$work/screen.conf"
+            printf 'saver.enabled=true\nsaver.minutes=10\nsaver.module=qix\nlock.enabled=true\nlock.minutes=15\n' \
+                >"$HOME/.config/amadeos/screen.conf"; }
+        start amadeos-style
+        wait_window "^Style Manager$" 30 || continue
+        frame_geometry "^Style Manager$" || continue
+        click $((FX + STYLE_FIRST_X + index * STYLE_STEP_X)) $((FY + STYLE_BUTTON_Y))
+        wait_window "Style Manager - $name" 15 || { close_programs; continue; }
+        sleep 1
+        shot_window "$chapter" "style-$(tr '[:upper:]' '[:lower:]' <<<"$name")" "Style Manager - $name"
+        close_programs
+        [ "$name" != Screen ] || cp "$work/screen.conf" "$HOME/.config/amadeos/screen.conf"
+    done
 }
+
+# The row of controls in the Style Manager window, relative to its frame: the centre of the first
+# button and the distance between two buttons.
+STYLE_FIRST_X=56
+STYLE_STEP_X=89
+STYLE_BUTTON_Y=80
 
 scene_lock() {
     [ -n "$session_pid" ] || start_session

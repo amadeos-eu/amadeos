@@ -34,12 +34,12 @@ The handbook grows chapter by chapter. This page lists every chapter, the writte
 
 ## Part IV: The Style Manager
 
-- **30. The Style Manager**
-- **31. Color:** the five palettes, workspace colours, the icon theme.
-- **32. Backdrop:** the CDE backdrops and your own pictures.
-- **33. Keyboard, Mouse and Beep**
-- **34. Screen:** screen savers and locking.
-- **35. Font, Window and Startup** (planned)
+30. [The Style Manager](30-style-manager.md)
+31. [Color](31-color.md)
+32. [Backdrop](32-backdrop.md)
+33. [Keyboard, Mouse and Beep](33-keyboard-mouse-beep.md)
+34. [Screen](34-screen.md)
+35. [Font, Window and Startup](35-font-window-startup.md)
 
 ## Part V: The Applications
 

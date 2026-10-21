@@ -1,6 +1,6 @@
 # The Plan of This Book
 
-The handbook grows chapter by chapter. This page lists every chapter, the written ones as links. When a chapter is written, it moves from this list into the navigation.
+The handbook grows chapter by chapter. This page lists every chapter, the written ones as links; the written ones are also in the navigation.
 
 ## Part I: Why amadeOS
 
@@ -13,24 +13,24 @@ The handbook grows chapter by chapter. This page lists every chapter, the writte
 
 ## Part II: Getting amadeOS
 
-- **10. What You Need:** a PC with BIOS or UEFI, memory and disk space, a USB stick.
-- **11. Getting the Image:** downloading the image and checking it.
-- **12. Writing a USB Stick:** on Linux, Windows and macOS.
-- **13. Starting the Live System:** the boot menu, Secure Boot, trying amadeOS in a virtual machine.
-- **14. Installing amadeOS:** the *Install amadeOS* assistant, step by step.
-- **15. Next to Windows:** a free partition, the shared EFI partition, the boot menu with Windows.
-- **16. The First Start:** the login screen of the installed system.
+10. [What You Need](10-what-you-need.md)
+11. [Getting the Image](11-getting-the-image.md)
+12. [Writing a USB Stick](12-writing-a-usb-stick.md)
+13. [Starting the Live System](13-starting-the-live-system.md)
+14. [Installing amadeOS](14-installing.md)
+15. [Next to Windows](15-next-to-windows.md)
+16. [The First Start](16-first-start.md)
 
 ## Part III: Using the Desktop
 
-- **20. Logging In:** user, password, language, time zone, power buttons.
-- **21. A Tour of the Desktop:** backdrop, Front Panel, windows, desktop icons, the three mouse buttons.
-- **22. The Front Panel:** every slot, from the clock to the Games drawer, Help and the status cell.
-- **23. Working with Windows:** frames, moving and resizing, minimising, closing.
-- **24. Workspaces and the Desktop Menu:** four workspaces, the menu on the right mouse button.
-- **25. Your Language:** five languages and where to choose them.
-- **26. Locking, Logging Out, Shutting Down.**
-- **27. Network, Sound and Printing.**
+20. [Logging In](20-logging-in.md)
+21. [A Tour of the Desktop](21-tour.md)
+22. [The Front Panel](22-front-panel.md)
+23. [Working with Windows](23-windows.md)
+24. [Workspaces and the Workspace Menu](24-workspaces-and-menu.md)
+25. [Your Language](25-language.md)
+26. [Locking, Logging Out, Shutting Down](26-lock-logout-shutdown.md)
+27. [Network, Sound and Printing](27-network-sound-printing.md)
 
 ## Part IV: The Style Manager
 

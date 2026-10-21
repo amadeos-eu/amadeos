@@ -26,7 +26,7 @@ You are curious how a desktop works. The last part of the book opens the bonnet:
 | VI. Administering amadeOS | Software, updates, users, the session, settings files, troubleshooting and security. |
 | VII. Under the hood | How amadeOS is put together, and how to build it or write for it. |
 
-Part I is written; [the plan of this book](plan.md) lists every chapter that follows.
+Parts I to III are written; [the plan of this book](plan.md) lists every chapter that follows.
 
 ## Conventions
 

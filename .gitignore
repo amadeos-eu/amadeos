@@ -32,3 +32,8 @@ config/auto/
 .env.*
 !.env.example
 
+
+# The User's Handbook: built site, MkDocs environment and download cache
+docs/handbook/site/
+docs/handbook/.venv/
+docs/handbook/.cache/

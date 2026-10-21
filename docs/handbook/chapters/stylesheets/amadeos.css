@@ -1,0 +1,40 @@
+/* The colours of the Warm Motif palette, the default theme of the amadeOS desktop. */
+:root {
+  --md-primary-fg-color: #6e625c;
+  --md-primary-fg-color--light: #8f837d;
+  --md-primary-fg-color--dark: #50463f;
+}
+
+/* The recurring boxes of the handbook: !!! planned, !!! switching, !!! cde, ??? hood, !!! sovereignty. */
+:root {
+  --amadeos-icon-planned: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>');
+  --amadeos-icon-switching: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 9 17 5v3h-7v2h7v3m-10-2-4 4 4 4v-3h7v-2H7z"/></svg>');
+  --amadeos-icon-cde: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.5 8H12v5l4.28 2.54.72-1.21-3.5-2.08zM13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.9 8.9 0 0 0 13 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9"/></svg>');
+  --amadeos-icon-hood: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22.7 19-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4"/></svg>');
+  --amadeos-icon-sovereignty: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11z"/></svg>');
+}
+.md-typeset .admonition.planned, .md-typeset details.planned { border-color: #a07a1e; }
+.md-typeset .planned > .admonition-title, .md-typeset .planned > summary { background-color: rgba(160, 122, 30, .1); }
+.md-typeset .planned > .admonition-title::before, .md-typeset .planned > summary::before {
+  background-color: #a07a1e; -webkit-mask-image: var(--amadeos-icon-planned); mask-image: var(--amadeos-icon-planned);
+}
+.md-typeset .admonition.switching, .md-typeset details.switching { border-color: #3c78b4; }
+.md-typeset .switching > .admonition-title, .md-typeset .switching > summary { background-color: rgba(60, 120, 180, .1); }
+.md-typeset .switching > .admonition-title::before, .md-typeset .switching > summary::before {
+  background-color: #3c78b4; -webkit-mask-image: var(--amadeos-icon-switching); mask-image: var(--amadeos-icon-switching);
+}
+.md-typeset .admonition.cde, .md-typeset details.cde { border-color: #8a5a8a; }
+.md-typeset .cde > .admonition-title, .md-typeset .cde > summary { background-color: rgba(138, 90, 138, .1); }
+.md-typeset .cde > .admonition-title::before, .md-typeset .cde > summary::before {
+  background-color: #8a5a8a; -webkit-mask-image: var(--amadeos-icon-cde); mask-image: var(--amadeos-icon-cde);
+}
+.md-typeset .admonition.hood, .md-typeset details.hood { border-color: #6e625c; }
+.md-typeset .hood > .admonition-title, .md-typeset .hood > summary { background-color: rgba(110, 98, 92, .1); }
+.md-typeset .hood > .admonition-title::before, .md-typeset .hood > summary::before {
+  background-color: #6e625c; -webkit-mask-image: var(--amadeos-icon-hood); mask-image: var(--amadeos-icon-hood);
+}
+.md-typeset .admonition.sovereignty, .md-typeset details.sovereignty { border-color: #2e7d5b; }
+.md-typeset .sovereignty > .admonition-title, .md-typeset .sovereignty > summary { background-color: rgba(46, 125, 91, .1); }
+.md-typeset .sovereignty > .admonition-title::before, .md-typeset .sovereignty > summary::before {
+  background-color: #2e7d5b; -webkit-mask-image: var(--amadeos-icon-sovereignty); mask-image: var(--amadeos-icon-sovereignty);
+}

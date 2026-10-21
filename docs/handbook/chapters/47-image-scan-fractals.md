@@ -25,7 +25,7 @@ Crop to the frame, turn left, right or by 180°, mirror; undo and redo. The pict
 *File → Save* stores the scan as **PNG** (the default), **JPEG** or **TIFF**, with a dated name in your Pictures folder. The resolution is written into the file, so a scanned A4 page prints as A4 again. Image Scan also opens existing pictures to crop or turn them, prints them at their true size, and copies them to the clipboard.
 
 !!! tip "No scanner found?"
-    Image Scan uses SANE, the scanner system of Linux. Many USB scanners work without an extra driver; network scanners need the package `sane-airscan` (chapter 51). If none is found, check that the scanner is switched on and connected, and type `scanimage -L` in a terminal: it lists the scanners SANE sees.
+    Image Scan uses SANE, the scanner system of Linux. Most USB scanners, network scanners and the scanners of all-in-one printers work without a driver from the maker. If none is found, check that the scanner is switched on and connected, and type `scanimage -L` in a terminal: it lists the scanners SANE sees.
 
 !!! planned "Planned"
     Several pages into one PDF, brightness and contrast, straightening a crooked scan, and the scan button on the scanner.

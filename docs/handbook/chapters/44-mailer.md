@@ -17,9 +17,6 @@ On the first start, the Mailer opens *Mail Options* with the **Accounts** page, 
 5. Enter the **user name**, usually the address, and the **password**.
 6. Click **Test connection**, then **OK**.
 
-!!! warning "The password at every start"
-    amadeOS does not have a keyring for passwords yet. The Mailer therefore keeps the password only while it runs and asks for it again after the next start: *Password for … on …*. *Remember password* stays greyed out with the note *No keyring available*.
-
 Each account gets a **colour**, which marks its mail when the inboxes are shown together. **Signature** is added below every message you write from that account.
 
 !!! tip "Gmail"
@@ -44,11 +41,11 @@ A mail with an appointment in it, as an `.ics` file or as text from the Calendar
     - **Pictures from the internet are blocked** in HTML mail, because senders use them to see whether and when you read their mail. A bar offers *Load images* for this message or *Always for this sender*.
     - **Links** are never followed inside the Mailer. A click shows where the link really goes and asks before opening the web browser.
     - Scripts, forms and frames are removed from HTML mail before it is shown.
-    - **Passwords** are never written to a settings file. Once amadeOS has a keyring, the Mailer keeps them there.
+    - **Passwords** are never written to a settings file. They are kept in your **keyring**, which your login password locks and unlocks: it opens when you log in and stays closed to everybody else.
     - The connection to the server is encrypted and the server's certificate checked. *STARTTLS* never falls back to an unencrypted connection.
 
 !!! planned "Planned"
-    A keyring for the passwords. In the Mailer: new mail shown at once, folders to create and rename, drafts and templates, search, threads and printing, and reading mail without a network.
+    In the Mailer: new mail shown at once, folders to create and rename, drafts and templates, search, threads and printing, and reading mail without a network.
 
 ??? hood "Under the hood"
     The accounts, without passwords, are in `~/.config/amadeos/mail/accounts.conf`, the settings of *Message View* in `mail.conf`. The Mailer reads mail over IMAP and keeps it on the server; it sends over SMTP.

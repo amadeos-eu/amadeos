@@ -71,6 +71,14 @@ if [ ! -f "$CONFIG_DIR/packages.chroot/nscde-icon-theme_${ICONS_VERSION}_all.deb
     "$ROOT_DIR/scripts/package-nscde-icons.sh" --deb-only --install-iso \
         || echo "[build-image] Warning: nscde-icon-theme could not be built; continuing without the default icon theme." >&2
 fi
+# The User's Handbook (docs/handbook) as the package amadeos-handbook, rebuilt when the book changed
+# (its version carries the date of the last commit to docs/handbook). Needs python3 for MkDocs; without
+# it, the Help drawer opens the copy on the web.
+HANDBOOK_STAMP="$(git -C "$ROOT_DIR" log -1 --format=%cd --date=format:%Y%m%d%H%M -- docs/handbook 2>/dev/null || true)"
+if [ -z "$HANDBOOK_STAMP" ] || [ ! -f "$CONFIG_DIR/packages.chroot/amadeos-handbook_0.1.0+${HANDBOOK_STAMP}_all.deb" ]; then
+    "$ROOT_DIR/scripts/package-handbook.sh" --install-iso \
+        || echo "[build-image] Warning: amadeos-handbook could not be built; continuing without the offline handbook." >&2
+fi
 # The original CDE backdrops are LGPL and live in their own package (amadeos-backdrops-cde);
 # build it once if it is not in config/packages.chroot yet. Without it the image just lacks the patterns.
 if ! compgen -G "$CONFIG_DIR/packages.chroot/amadeos-backdrops-cde_*.deb" >/dev/null; then

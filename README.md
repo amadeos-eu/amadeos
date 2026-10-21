@@ -34,6 +34,12 @@ settings tools are Swing applications on Xorg, styled after the Common Desktop E
 - **A desktop that stays.** The classic CDE look and workflow: a front panel, workspaces and
   Motif-style windows, without fashion-driven redesigns.
 
+## Documentation
+
+The [**amadeOS User's Handbook**](https://datazuul.github.io/amadeos/) explains why amadeOS exists, how to
+install it and how to use and administer it ([source](docs/handbook)). On amadeOS it is installed as the
+package `amadeos-handbook` and opened from the Help drawer of the Front Panel.
+
 ## Status
 
 amadeOS is in active development and has not had a release yet. Milestones M0 to M11 are complete

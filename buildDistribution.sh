@@ -120,6 +120,10 @@ main() {
         (cd "$parent_dir/$app" && ./gradlew "${gradle_args[@]}" installToAmadeOs)
     done
 
+    # As the user, not as root inside build.sh: MkDocs goes into docs/handbook/.venv.
+    step "Building the User's Handbook (amadeos-handbook)"
+    "$root_dir/scripts/package-handbook.sh" --install-iso
+
     step "Building the amadeOS ISO"
     if [ "$quick" = 1 ]; then
         AMADEOS_QUICK=1 "$root_dir/build.sh"

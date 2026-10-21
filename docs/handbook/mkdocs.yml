@@ -1,0 +1,68 @@
+site_name: amadeOS User's Handbook
+site_description: Why amadeOS, how to install it, how to use and administer it.
+site_author: datazuul
+site_url: https://datazuul.github.io/amadeos/
+repo_url: https://github.com/datazuul/amadeos
+edit_uri: edit/main/docs/handbook/chapters/
+copyright: © 2026 datazuul.com · EUPL-1.2
+docs_dir: chapters
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.footer
+    - navigation.top
+    - toc.follow
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+
+extra_css:
+  - stylesheets/amadeos.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Welcome: index.md
+  - "Part I: Why amadeOS":
+      - 1. Digital Sovereignty Starts on Your Desktop: 01-sovereignty.md
+      - 2. Why Another Linux Distribution?: 02-why-another-distribution.md
+      - 3. A Java-Centred Desktop: 03-java-desktop.md
+      - 4. Free, Open and European: 04-free-open-european.md
+      - 5. A Desktop That Stays: 05-desktop-that-stays.md
+      - 6. Status and Limits: 06-status-and-limits.md
+  - The Plan of This Book: plan.md

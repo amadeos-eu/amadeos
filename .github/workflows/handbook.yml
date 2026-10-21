@@ -1,0 +1,50 @@
+name: Handbook
+
+# Builds the amadeOS User's Handbook (docs/handbook) and publishes it on GitHub Pages; also builds the
+# offline variant that scripts/package-handbook.sh puts into the package amadeos-handbook.
+
+on:
+  push:
+    branches: [main]
+    paths: ['docs/handbook/**', '.github/workflows/handbook.yml']
+  pull_request:
+    paths: ['docs/handbook/**', '.github/workflows/handbook.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - name: Install MkDocs
+        run: pip install -r docs/handbook/requirements.txt
+      # Strict: a broken link fails the build.
+      - name: Build
+        working-directory: docs/handbook
+        run: mkdocs build --strict --site-dir "$GITHUB_WORKSPACE/site"
+      - name: Build offline variant
+        working-directory: docs/handbook
+        run: mkdocs build --strict -f mkdocs-offline.yml --site-dir "$RUNNER_TEMP/site-offline"
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

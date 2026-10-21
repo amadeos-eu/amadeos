@@ -48,7 +48,7 @@ flowchart LR
     M11 --> M12["M12: Release Hardening (In Progress)"]
     M10 --> M13["M13: Application Suite (In Progress)"]
     M13 --> M14["M14: Installation to Disk (In Progress)"]
-    M14 --> M15["M15: Updates & Software (Planned)"]
+    M14 --> M15["M15: Updates & Software (In progress)"]
     M15 --> M16["M16: amadeOS Package Repository (Planned)"]
 ```
 
@@ -460,7 +460,7 @@ Open:
 
 **Exit criteria:** An installation from the live image boots on a BIOS and on a UEFI machine (QEMU and hardware) into the amadeOS desktop with the chosen language, keyboard, time zone and user, and the installed system no longer contains the live-only parts.
 
-### M15 — Updates and software management (Planned, plan reviewed 2026-10-18)
+### M15 — Updates and software management (In progress, plan reviewed 2026-10-18)
 
 **Goal:** An installed amadeOS is kept current from the desktop: Debian security and stable updates now, amadeOS and amade application updates once M16 provides the repository, and software can be found and installed without a terminal.
 
@@ -474,6 +474,7 @@ Open:
 **Parts**
 
 1. *Helper and library* — `amadeos-packages`, polkit action, module `packages` with tests against a fake apt (fixtures of real `apt` output). Exit: `upgrade` and `install` work in the live/installed image from a terminal and from a test.
+   - *Status 2026-10-21:* implemented in amadeos-system [#18](https://github.com/datazuul/amadeos-system/pull/18) (in review): module `packages` with `PackageService`/`AptPackageService`, package `amadeos-packages` (helper, polkit action `eu.amadeos.packages.manage` with `auth_admin_keep`, rule for a password-free `refresh`). Evidence: 22 Gradle tests (recorded apt output, the real helper against a fake apt-get); in an Ubuntu 24.04 container as root against real apt, `upgrade --security-only`, `install`, `remove`, an unknown package (exit 2) and a held dpkg lock (exit 3) behaved as specified, and `available()` read 87,815 packages in about 7 s. Not yet run in the amadeOS image or through `pkexec`; the exit criterion stays open until it is.
 2. *Updates slot in the status cell* (amadeos-system `panel-cde`, a `StatusCell` next to the network cell; the slot takes up to four): an icon that appears only when updates exist, with a count; red for security updates; tooltip "12 updates, 3 security". Click opens a menu: the first entries of the list, **Show updates…**, **Install all updates**, **Install security updates only**, **Check now**, **Settings…**. Unavailable (hidden) while nothing is pending.
 3. *Update window* (module `package-updates`, package `amadeos-package-updates`, Tools drawer and Settings): table of upgradable packages (name, installed → new version, size, security flag, origin Debian/amadeOS), check boxes, buttons *Select all* / *Security only* / *Install selected*, a progress bar with the apt log, a "restart needed" hint (kernel, libc, `/run/reboot-required`) with *Restart now* going through the session power menu, and a settings page: check interval, automatic security updates (writes `/etc/apt/apt.conf.d/50amadeos-unattended` through the helper), allow amade packages. Release notes come from the package changelog on request.
 4. *App store* (module `appstore`, package `amadeos-appstore`, in amadeos-system because it only makes sense on a Debian system; XDG category *System*; answer to "is it possible": yes): lists packages of all configured repositories (`/etc/apt/sources.list.d`, with an origin filter) in three groups, searchable (name, summary, description, instant filter), detail view with description, size, version, dependencies, homepage and *Install* / *Remove* / *Update* buttons that go through the helper with a progress bar.

@@ -51,7 +51,7 @@ The handbook grows chapter by chapter. This page lists every chapter, the writte
 - **45. Calendar**
 - **46. Audio Station and Video Player**
 - **47. Image Scan and Fractals**
-- **48. Web Browser and Handbooks:** Firefox, the documentation viewer, this handbook and the Game Developer's Handbook under Help.
+- **48. Web Browser and Handbooks:** Firefox, the documentation viewer, this handbook, the Application Developer's Handbook and the Game Developer's Handbook under Help.
 - **49. Games:** Mines, Solitaire, Paddle, Bricks, Snake, Rocks, Swarm, Maze, Blast, Jump, Towers, Sands, Colony and Town.
 
 ## Part VI: Administering amadeOS

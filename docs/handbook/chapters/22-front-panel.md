@@ -59,7 +59,7 @@ Below them come the other installed settings and system programs: *amadeOS Print
 
 ![The Help drawer](images/22/drawer-help.jpg)
 
-The first entry, **amadeOS User's Handbook**, opens this book in the web browser. It is installed on the computer (package `amadeos-handbook`), so it opens without a network; if the package is missing, the browser opens the copy on the web. The other entries are the handbooks installed as programs of the kind *Documentation*: the **Game Developer's Handbook** for writing games with the amade game engine, and the *Documentation Viewer* for the documentation of the installed packages.
+The first entry, **amadeOS User's Handbook**, opens this book in the web browser. It is installed on the computer (package `amadeos-handbook`), so it opens without a network; if the package is missing, the browser opens the copy on the web. The other entries are the handbooks installed as programs of the kind *Documentation*: the **Application Developer's Handbook** for writing amadeOS applications, the **Game Developer's Handbook** for writing games with the amade game engine, and the *Documentation Viewer* for the documentation of the installed packages.
 
 ### The status cell
 

@@ -69,10 +69,10 @@ The handbook grows chapter by chapter. This page lists every chapter, the writte
 
 ## Part VII: Under the Hood
 
-- **60. How amadeOS Is Built**
-- **61. The Desktop and X11**
-- **62. Building amadeOS Yourself**
-- **63. Writing an Application for amadeOS**
+60. [How amadeOS Is Built](60-how-amadeos-is-built.md)
+61. [The Desktop and X11](61-desktop-and-x11.md)
+62. [Building amadeOS Yourself](62-building-amadeos.md)
+63. [Writing an Application for amadeOS](63-writing-an-application.md)
 
 ## Appendices
 

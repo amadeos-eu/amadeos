@@ -46,12 +46,13 @@ The middle of the panel holds the controls of the session:
 
 | Entry | What it is |
 |---|---|
-| Style Manager | Colours, backdrop, keyboard, mouse, beep and screen saver (Part IV). |
+| Style Manager | Colours, backdrop, keyboard, mouse, beep, screen saver and clipboard (Part IV). |
 | Application Manager | All installed programs, sorted by kind. |
 | Terminal (xterm) | A terminal window for commands. |
 | Root Console (sudo) | A terminal with administrator rights; asks for your password (chapter 50). |
+| Clipboard History | Your last copies, to paste them again (chapter 36). |
 | Session Diagnostics & Logs | The logs of the desktop and the programs (chapter 57). |
-| Hardware & System Info | Processor, memory, disks, graphics, network and battery on one page. |
+| Hardware & System Info | Processor, memory, disks, graphics, network and battery on one page (chapter 57). |
 
 Below them come the other installed settings and system programs: *amadeOS Print Manager*, *amadeOS Software* for updates (chapters 51 and 52), *Install amadeOS* in the live system (chapter 14), the File Manager and the terminals.
 

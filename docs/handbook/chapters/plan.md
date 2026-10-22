@@ -40,6 +40,7 @@ The handbook grows chapter by chapter. This page lists every chapter, the writte
 33. [Keyboard, Mouse and Beep](33-keyboard-mouse-beep.md)
 34. [Screen](34-screen.md)
 35. [Font, Window and Startup](35-font-window-startup.md)
+36. [Clipboard](36-clipboard.md)
 
 ## Part V: The Applications
 
@@ -56,15 +57,15 @@ The handbook grows chapter by chapter. This page lists every chapter, the writte
 
 ## Part VI: Administering amadeOS
 
-- **50. Administrator Basics:** administrators, passwords, polkit.
-- **51. Installing and Removing Software** (App Store planned)
-- **52. Keeping amadeOS Up to Date** (update notice planned)
-- **53. Users and Groups**
-- **54. Network and Printers in Depth**
-- **55. The Session:** session settings, autostart, another panel.
-- **56. Settings and Files Reference**
-- **57. Troubleshooting:** logs, system information, when the desktop does not start.
-- **58. Security and Privacy**
+50. [Administrator Basics](50-administrator-basics.md)
+51. [Installing and Removing Software](51-software.md)
+52. [Keeping amadeOS Up to Date](52-updates.md)
+53. [Users and Groups](53-users-and-groups.md)
+54. [Network and Printers in Depth](54-network-and-printers.md)
+55. [The Session](55-session.md)
+56. [Settings and Files Reference](56-settings-reference.md)
+57. [Troubleshooting](57-troubleshooting.md)
+58. [Security and Privacy](58-security-and-privacy.md)
 
 ## Part VII: Under the Hood
 

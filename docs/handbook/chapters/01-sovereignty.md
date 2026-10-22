@@ -28,8 +28,7 @@ amadeOS is built so that the answer is: **you**.
 
 **You decide about updates.** amadeOS gets its updates from Debian, a community project, over ordinary package mirrors. Updates are offered, not forced.
 
-!!! planned "Planned"
-    The Front Panel will show when updates are waiting and install them on request, with an extra mark for security updates (ROADMAP milestone M15). Until then, updates are installed with `apt` in a terminal, as Part VI describes.
+The Front Panel shows when updates are waiting, in red when security updates are among them, and installs them when you ask (chapter 52). Automatic security updates are a setting you can turn on; they are off until you do.
 
 **You can read every line.** All of amadeOS is free software. Anyone can read its source code, check what it does, change it and pass it on. Chapter 4 explains the licence, the EUPL.
 

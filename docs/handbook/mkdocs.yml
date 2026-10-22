@@ -89,6 +89,7 @@ nav:
       - 33. Keyboard, Mouse and Beep: 33-keyboard-mouse-beep.md
       - 34. Screen: 34-screen.md
       - 35. Font, Window and Startup: 35-font-window-startup.md
+      - 36. Clipboard: 36-clipboard.md
   - "Part V: The Applications":
       - 40. Applications at a Glance: 40-applications.md
       - 41. File Manager: 41-file-manager.md
@@ -100,4 +101,14 @@ nav:
       - 47. Image Scan and Fractals: 47-image-scan-fractals.md
       - 48. Web Browser and Handbooks: 48-web-and-handbooks.md
       - 49. Games: 49-games.md
+  - "Part VI: Administering amadeOS":
+      - 50. Administrator Basics: 50-administrator-basics.md
+      - 51. Installing and Removing Software: 51-software.md
+      - 52. Keeping amadeOS Up to Date: 52-updates.md
+      - 53. Users and Groups: 53-users-and-groups.md
+      - 54. Network and Printers in Depth: 54-network-and-printers.md
+      - 55. The Session: 55-session.md
+      - 56. Settings and Files Reference: 56-settings-reference.md
+      - 57. Troubleshooting: 57-troubleshooting.md
+      - 58. Security and Privacy: 58-security-and-privacy.md
   - The Plan of This Book: plan.md

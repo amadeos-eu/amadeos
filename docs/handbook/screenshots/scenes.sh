@@ -3,7 +3,7 @@
 # (thirteen slots); when the panel changes, adjust the PANEL_* values below.
 # shellcheck shell=bash
 
-ALL_SCENES=(greeter installer desktop panel drawers menu windows workspaces style lock apps games)
+ALL_SCENES=(greeter installer desktop panel drawers menu windows workspaces style lock apps games admin)
 
 # Where things are on the screen: the drawer arrows of the Front Panel (x, at the height PANEL_ARROW_Y)
 # and the workspace buttons.
@@ -133,7 +133,7 @@ scene_style() {
     close_programs
     # Each control in a Style Manager of its own: the button, then the dialog "Style Manager - <name>"
     local control name index chapter
-    for control in Color:0:31 Backdrop:2:32 Keyboard:3:33 Mouse:4:33 Beep:5:33 Screen:6:34; do
+    for control in Color:0:31 Backdrop:2:32 Keyboard:3:33 Mouse:4:33 Beep:5:33 Screen:6:34 Clipboard:7:36; do
         IFS=: read -r name index chapter <<<"$control"
         # The Screen dialog with the settings of a new user; the demo home keeps the saver off
         [ "$name" != Screen ] || { cp "$HOME/.config/amadeos/screen.conf" "$work/screen.conf"
@@ -242,4 +242,43 @@ scene_games() {
     for game in mines solitaire paddle bricks snake rocks swarm maze blast jump towers sands colony town; do
         app_shot 49 "$game" "$(tr '[:lower:]' '[:upper:]' <<<"${game:0:1}")${game:1}" 140 60 0 0 "amade-$game-game"
     done
+}
+
+# The system programs of Part VI and the clipboard history of Part IV.
+scene_admin() {
+    [ -n "$session_pid" ] || start_session
+    # Software, with the programs of amadeOS found by the search field
+    start amadeos-software
+    if wait_window "^Software$" 60; then
+        sleep 20; place "^Software$" 100 40 1080 660; sleep 2
+        frame_geometry "^Software$" && click $((FX + 200)) $((FY + 67)) && type_text "amade" && sleep 3
+        shot_window 51 software "^Software$"
+    fi
+    close_programs
+    app_shot 57 session-logs "Session Diagnostics" 100 40 1080 660 amadeos-logviewer
+    # The Print Manager with a job held in the queue, when CUPS runs and knows a printer
+    if command -v lp >/dev/null && lpstat -d >/dev/null 2>&1; then
+        lp -H hold -t "letter-to-the-club.txt" "$HOME/Documents/letter-to-the-club.txt" >/dev/null || true
+    fi
+    app_shot 54 print-manager "Print Manager" 140 60 1000 600 amadeos-print
+    ! command -v cancel >/dev/null || cancel -a 2>/dev/null || true
+    # The clipboard history after three copies in the Text Editor
+    start amade-pad "$HOME/Documents/letter-to-the-club.txt"
+    if wait_window "Text Editor" 40; then
+        sleep 3
+        local line
+        for line in 0 2 5; do
+            key ctrl+Home
+            [ "$line" = 0 ] || key --repeat "$line" Down
+            key Home shift+End ctrl+c
+            sleep 1
+        done
+        key ctrl+alt+v
+        if wait_window "Clipboard History" 15; then
+            sleep 1; place "Clipboard History" 340 120; sleep 1
+            shot_window 36 clipboard-history "Clipboard History"
+            key Escape
+        fi
+    fi
+    close_programs
 }

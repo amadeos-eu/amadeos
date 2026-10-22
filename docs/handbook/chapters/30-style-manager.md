@@ -1,6 +1,6 @@
 # 30. The Style Manager
 
-The **Style Manager** is where you make the desktop your own: its colours, the picture behind the windows, how the keyboard and mouse react, the sound of the beep and the screen saver. It is the same tool CDE had, with the same row of buttons.
+The **Style Manager** is where you make the desktop your own: its colours, the picture behind the windows, how the keyboard and mouse react, the sound of the beep, the screen saver and the clipboard. It is the same tool CDE had, with the same row of buttons.
 
 ## Opening it
 
@@ -23,6 +23,7 @@ Each button opens one control in a window of its own. Hold the mouse over a butt
 | **Mouse** | Left or right hand, double-click speed, acceleration | 33 |
 | **Beep** | Volume, tone and length of the beep | 33 |
 | **Screen** | Screen saver and screen lock | 34 |
+| **Clipboard** | The clipboard history, and copies that outlive their program | 36 |
 | **Window** | Window focus and minimized windows (planned) | 35 |
 | **Startup** | What the session restores at login (planned) | 35 |
 
@@ -45,4 +46,4 @@ The settings are yours alone. Another user of the same computer keeps their own 
 **File → Exit** closes the Style Manager; **Help → About Style Manager** says what it is for.
 
 ??? hood "Under the hood"
-    The Style Manager writes small text files to `~/.config/amadeos/`, one per control: `theme.conf` and `icon_theme.conf` (Color), `wallpaper.conf` (Backdrop), `input.conf` (Keyboard, Mouse and Beep) and `screen.conf` (Screen). The desktop and the amadeOS applications watch these files, so a change reaches them at once. Chapter 56 lists all settings files.
+    The Style Manager writes small text files to `~/.config/amadeos/`, one per control: `theme.conf` and `icon_theme.conf` (Color), `wallpaper.conf` (Backdrop), `input.conf` (Keyboard, Mouse and Beep), `screen.conf` (Screen) and `clipboard.conf` (Clipboard). The desktop and the amadeOS applications watch these files, so a change reaches them at once. Chapter 56 lists all settings files.

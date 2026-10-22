@@ -29,5 +29,5 @@ The WLAN connections you used in the live system were carried over, so the netwo
 ## If the computer does not start amadeOS
 
 - **It starts Windows, or the stick again.** Remove the stick. If Windows starts, choose amadeOS in the firmware's boot menu (chapter 13) or put it first in the boot order.
-- **A black screen after the boot menu.** Restart, and in the boot menu choose *Advanced options for amadeOS*, then the *recovery mode*; chapter 57 helps further.
+- **A black screen after the boot menu.** Restart; chapter 57 shows how to start once with the simplest graphics settings (`nomodeset`).
 - **The password is not accepted.** Check the keyboard layout in the login screen: with a German layout, ++y++ and ++z++ are swapped.

@@ -160,7 +160,8 @@ type_text() { xdotool type --delay 30 "$1"; sleep 0.3; }
 
 session_pid=""
 start_session() {
-    amadeos-session "$DISPLAY" >>"$work/session.log" 2>&1 &
+    # Without the Java options of the machine that takes the pictures, which the logs would show
+    env -u JAVA_TOOL_OPTIONS amadeos-session "$DISPLAY" >>"$work/session.log" 2>&1 &
     session_pid=$!
     wait_window "Front Panel|CDE|amadeOS" 60 || true
     sleep 6

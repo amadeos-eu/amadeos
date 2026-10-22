@@ -25,7 +25,6 @@ amadeOS is in active development and has **not had its first release yet**. This
 ## What amadeOS does not do yet
 
 !!! planned "Planned"
-    - **Updates from the desktop:** a notice in the Front Panel and a window to install updates, and an App Store to find and install software (ROADMAP milestone M15).
     - **An amadeOS package repository**, so that amadeOS and its applications are updated like Debian, not only through a new image (M16).
     - **Disk encryption** and a separate home partition in the installer (M14).
     - **The Style Manager's Font, Window and Startup controls.**
@@ -38,7 +37,7 @@ Some things amadeOS leaves out on purpose:
 - **X11, not Wayland.** amadeOS uses the Xorg display server. Wayland may be considered later, once the desktop is complete on X11.
 - **No visual effects.** No transparency, shadows, blur or animations; see chapter 5.
 - **The live system forgets.** Changes you make in the live system from the USB stick are lost at the next start. To keep your work, install amadeOS (chapter 14).
-- **No automatic updates behind your back.** amadeOS will tell you about updates and install them when you ask, but never silently (see chapter 1).
+- **No automatic updates behind your back.** amadeOS tells you about updates and installs them when you ask (chapter 52). Only security updates can be installed automatically, and only once you turn that on.
 
 ## Should you use amadeOS today?
 

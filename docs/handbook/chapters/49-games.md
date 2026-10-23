@@ -1,13 +1,13 @@
 # 49. Games
 
-amadeOS comes with **fourteen games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
+amadeOS comes with **fifteen games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
 
 ## What all games share
 
 - **Best scores and times**, ten for each game (*Game → High Scores…* in Mines and Solitaire).
 - Every game speaks the five languages of amadeOS.
 
-The twelve action and strategy games also share:
+The thirteen action and strategy games also share:
 
 | Key | What it does |
 |---|---|
@@ -50,6 +50,7 @@ Klondike, the classic patience. Build the four piles at the top right from ace t
 | ![](images/49/maze.jpg){ width="200" } | **Maze** | Eat every dot while four ghosts hunt you, each in its own way. After an energizer, you hunt them. |
 | ![](images/49/blast.jpg){ width="200" } | **Blast** | Up to four players lay bombs among crates, on the keyboard and on gamepads; the computer fills the empty seats. The last one standing wins. |
 | ![](images/49/jump.jpg){ width="200" } | **Jump** | Run and jump through a meadow, caves and the clouds, take the coins, land on beetles and birds, reach the red flag. Gamepads work too. |
+| ![](images/49/hovercab.jpg){ width="200" } | **Hover Cab** | Fly a cab on jets between rooftops: ++arrow-up++ lifts, the side arrows steer, ++space++ moves the gear. Land gently on the passenger's pad, fly them where they ask, and earn the fare and a tip. The passengers call out loud. Twelve shifts, from the city to an orbit station and a storm at sea. |
 
 ## Strategy and building
 
@@ -68,4 +69,4 @@ In the strategy games, ++f5++ saves and ++f9++ loads, and a mission opens when t
 The games are in the spirit of the classics of the 1980s and 1990s, drawn anew, and built so that each one can be read and learned from: the **Game Developer's Handbook** in the Help drawer explains them chapter by chapter.
 
 ??? hood "Under the hood"
-    Every game is a package of its own, `amade-mines-game` to `amade-town-game`, and all are installed by default. They are built on *amade-game-engine*, a 2D game engine in Java. The best scores are in `~/.local/share/amadeos/games/<game>/`, the settings in `~/.config/amadeos/<game>/`.
+    Every game is a package of its own, such as `amade-mines-game` or `amade-hover-cab-game`, and all are installed by default. They are built on *amade-game-engine*, a 2D game engine in Java. The best scores are in `~/.local/share/amadeos/games/<game>/`, the settings in `~/.config/amadeos/<game>/`.

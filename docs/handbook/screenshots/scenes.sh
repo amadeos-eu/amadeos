@@ -228,6 +228,26 @@ app_shot() {
     close_programs
 }
 
+# calculator_shot NAME SETTINGS KEYS...: the Calculator with these settings (lines of calculator.properties,
+# separated by \n), after typing the keys; at its own size, since its window fits its keys.
+calculator_shot() {
+    local name="$1" settings="$2"
+    shift 2
+    mkdir -p "$HOME/.config/amadeos/calculator"
+    printf "$settings\n" > "$HOME/.config/amadeos/calculator/calculator.properties"
+    start amade-calculator
+    wait_window "^Calculator$" 40 || { close_programs; return 0; }
+    sleep 2
+    place "^Calculator$" 140 60
+    xdotool search --onlyvisible --name "^Calculator$" windowactivate --sync 2>/dev/null || true
+    local keys
+    for keys in "$@"; do type_text "$keys"; done
+    xdotool mousemove 5 5
+    sleep 1
+    shot_window 48 "$name" "^Calculator$"
+    close_programs
+}
+
 # The applications of Part V, each in a window of 1000 x 640 where the program lets itself be sized.
 scene_apps() {
     [ -n "$session_pid" ] || start_session
@@ -255,6 +275,9 @@ scene_apps() {
     close_programs
     app_shot 47 image-scan "Image Scan" 140 60 1000 640 amade-imagescan "$HOME/Pictures/mountain-lake.png"
     app_shot 47 fractals "Fractals" 140 60 1000 640 amade-fractals
+    calculator_shot calculator "mode=basic\npaper-tape=true" "1234.5*3=" "19.99+4.5+7.25=" "200+10%=" "1/3*3=" "1234567.89*12"
+    calculator_shot calculator-scientific "mode=scientific\npaper-tape=false" "(2+3)^2*p="
+    calculator_shot calculator-programmer "mode=programmer\npaper-tape=false\nradix=hex\nword-size=64\nsigned=true" "ff00|2a="
     app_shot 48 documentation-viewer "Documentation Viewer|/usr/share/doc" 140 60 1000 640 amade-web
 }
 

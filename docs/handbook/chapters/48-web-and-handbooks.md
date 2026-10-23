@@ -1,4 +1,66 @@
-# 48. Web Browser and Handbooks
+# 48. Calculator, Web Browser and Handbooks
+
+## Calculator
+
+The **Calculator** is a desk calculator, a scientific calculator and a programmer's calculator in one window. It computes exactly with decimal numbers, so 0.1 + 0.2 is 0.3 and not 0.30000000000000004, and it follows the rules of arithmetic: 2 + 3 × 4 is 14.
+
+Start it from the Text & Office drawer, or with `amade-calculator`.
+
+![The Calculator with the paper tape](images/48/calculator.jpg)
+
+### Three modes
+
+The **View** menu switches between the modes; the Calculator starts in the one you used last.
+
+- **Basic** (++ctrl+1++): the four basic operations, percent, ± and the memory.
+- **Scientific** (++ctrl+2++): brackets, powers and roots, logarithms, trigonometry, π and e.
+- **Programmer** (++ctrl+3++): whole numbers in hexadecimal, decimal, octal and binary, and operations on bits.
+
+The number you are working with stays when you change the mode. Going to Programmer drops the part after the decimal point.
+
+### Calculating
+
+Type a calculation as you would write it, with the mouse or the keyboard, and finish it with **=** or ++enter++. The small line at the top of the display shows the whole calculation, the large number the result or the number you are typing.
+
+- **Functions** such as √x, x² or sin work at once on the number in the display, as on a pocket calculator: type 16 and press √x, and the display shows 4 and the line above `√(16)`.
+- **Percent** works as on a desk calculator: 200 + 10 % is 220 (200 plus 10 % of it), 100 × 19 % is 19.
+- Pressing **=** again repeats the last operation: 2 + 3 = = = counts 5, 8, 11.
+- **C** (++esc++, **AC** in Programmer) clears everything, **⌫** (++backspace++) the last digit. A wrong calculation, such as a division by zero, shows a message in the display until the next key.
+- **MC, MR, M+, M−** use the memory: M+ adds the number in the display to it, MR brings it back. An **M** in the display shows that something is in the memory.
+- *Edit → Copy* (++ctrl+c++) copies the result for other programs, *Edit → Paste* (++ctrl+v++) takes a number from them. Numbers such as `1.234,50`, `1,234.50` or `1 234,50` are understood.
+
+### The keyboard
+
+All the main keys have a key on the keyboard: the digits, `.` or `,` for the decimal point, `+ - * /`, `^` for powers, `%`, `(` and `)`, `!` for the factorial, ++enter++ for =, ++delete++ to clear the number you are typing. The key on the screen lights up when you type it.
+
+### The paper tape
+
+*View → Paper Tape* (++ctrl+t++) shows a strip of paper next to the keys, as on an adding machine: every finished calculation with its result. **Copy** puts the whole tape on the clipboard as text, for a mail or a document; **Clear** starts a new one. The tape is kept while the Calculator is open.
+
+### Scientific
+
+![The Scientific mode](images/48/calculator-scientific.jpg)
+
+Next to the basic keys are brackets, x², x³, xʸ, √x and the y-th root, 1/x, the factorial n!, the trigonometric functions and their hyperbolic forms, logarithms to the base e, 10 and 2, the powers eˣ, 10ˣ and 2ˣ, the absolute value |x|, π and e. **2nd** turns sin, cos and tan into their inverses for one key press. **DEG** switches between degrees and radians; sin 30 in degrees is exactly 0.5. **EE** enters a power of ten (1.5 EE 3 is 1500), **mod** gives the remainder of a division, **Rnd** a random number, **Ans** the last result.
+
+Very large and very small numbers appear as `1.5e+20`, which means 1.5 × 10²⁰. The Calculator keeps 34 digits and shows 16.
+
+### Programmer
+
+![The Programmer mode](images/48/calculator-programmer.jpg)
+
+The Programmer mode works with whole numbers as a computer does. The number is shown in all four number bases at once, **HEX**, **DEC**, **OCT** and **BIN**; click one to type numbers in that base (the keys A to F are for hexadecimal). The **word size**, from 8 to 64 bits, and **Signed** decide how large a number can be: in 8 bits with a sign, 127 + 1 gives −128, as in a computer's register. Division drops the remainder.
+
+The keys **AND, OR, XOR, NOT, NAND, NOR** combine the bits of two numbers, **<<** and **>>** shift them, **RoL** and **RoR** rotate them by one place, **mod** gives the remainder. The field of bits shows each bit of the number, numbered from 0 on the right; click a bit to switch it between 0 and 1.
+
+!!! tip "Grouping"
+    The Calculator groups digits as your language does, `1,234,567.5` in English and `1.234.567,5` in German. *View → Digit Grouping* switches that off.
+
+!!! planned "Planned"
+    A fourth mode for converting units such as length, weight and temperature, and later currencies.
+
+??? hood "Under the hood"
+    The Calculator computes with Java's `BigDecimal` to 34 digits, the precision of the decimal numbers of the IEEE 754 standard. Roots of non-square numbers, logarithms and the trigonometric functions are rounded to 15 digits. Its settings are in `~/.config/amadeos/calculator/calculator.properties`.
 
 ## Firefox
 

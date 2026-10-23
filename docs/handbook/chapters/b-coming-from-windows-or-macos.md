@@ -25,6 +25,7 @@ Where to find on amadeOS what you know from Windows or macOS.
 | WordPad, Word | Pages, Word | WritePad; LibreOffice Writer for larger documents | 43 |
 | Outlook, Mail | Mail | Mailer | 44 |
 | Outlook calendar | Calendar | Calendar | 45 |
+| Outlook contacts, People | Contacts | Contacts, in the Text & Office and Mail & Internet drawers | 45 |
 | Media Player | Music, QuickTime | Audio Station, Video Player | 46 |
 | Photos | Preview, Photos | Image Viewer | 47 |
 | Windows Fax and Scan | Image Capture | Image Scan | 47 |

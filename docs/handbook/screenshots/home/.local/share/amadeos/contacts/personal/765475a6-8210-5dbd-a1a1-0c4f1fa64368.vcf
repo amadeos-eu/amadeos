@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:765475a6-8210-5dbd-a1a1-0c4f1fa64368
+FN:David Okafor
+N:Okafor;David;;;
+ORG:City Library
+TITLE:Librarian
+EMAIL;TYPE=work:d.okafor@example.org
+CATEGORIES:Choir
+END:VCARD

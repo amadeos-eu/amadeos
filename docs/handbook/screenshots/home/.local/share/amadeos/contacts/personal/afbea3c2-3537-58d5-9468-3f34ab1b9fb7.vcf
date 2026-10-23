@@ -1,0 +1,9 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:afbea3c2-3537-58d5-9468-3f34ab1b9fb7
+FN:Ingrid Lund
+N:Lund;Ingrid;;;
+ORG:Nordic Choirs
+EMAIL;TYPE=work:ingrid.lund@example.se
+CATEGORIES:Choir
+END:VCARD

@@ -49,7 +49,7 @@ Every chapter of the book, part by part. The book keeps growing with amadeOS: ne
 42. [Text Editor](42-text-editor.md)
 43. [WritePad](43-writepad.md)
 44. [Mailer](44-mailer.md)
-45. [Calendar](45-calendar.md)
+45. [Calendar and Contacts](45-calendar.md)
 46. [Audio Station and Video Player](46-audio-video.md)
 47. [Image Viewer, Image Scan and Fractals](47-image-scan-fractals.md)
 48. [Calculator, PDF Viewer, Books, Web Browser and Handbooks](48-web-and-handbooks.md)

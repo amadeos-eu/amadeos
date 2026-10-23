@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:f6e924ad-ee98-513d-bf6e-53122b02a203
+FN:Gilbert Martin
+N:Martin;Gilbert;;;
+TEL;TYPE=work,voice:+33 1 55 50 12 34
+EMAIL;TYPE=work:g.martin@example.fr
+ADR;TYPE=work:;;12 rue de la Paix;Paris;;75002;France
+CATEGORIES:Work
+END:VCARD

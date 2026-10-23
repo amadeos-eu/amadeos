@@ -341,6 +341,29 @@ pdfviewer_shots() {
     close_programs
 }
 
+# Contacts with the demo address book of the home: the window with Anna Berger's card, her card in the
+# editor, and the import of a table from Google Contacts.
+contacts_shots() {
+    start amade-contacts
+    wait_window "Contacts" 40 || { close_programs; return 0; }
+    sleep 3
+    place "Contacts" 140 60 1000 640
+    sleep 2
+    shot_window 45 contacts "Contacts"
+    click 480 220; key ctrl+e
+    if wait_window "Edit Contact" 15; then
+        sleep 2; shot_window 45 contacts-editor "Edit Contact"; key Escape
+    fi
+    key ctrl+i
+    if wait_window "Import Contacts" 15; then
+        sleep 1; type_text "$HOME/Documents/google-contacts.csv"; key Return
+        if wait_window "Import google-contacts.csv" 15; then
+            sleep 2; shot_window 45 contacts-import "Import google-contacts.csv"; key Escape
+        fi
+    fi
+    close_programs
+}
+
 # The applications of Part V, each in a window of 1000 x 640 where the program lets itself be sized.
 scene_apps() {
     [ -n "$session_pid" ] || start_session
@@ -357,6 +380,7 @@ scene_apps() {
     app_shot 43 writepad "Writepad|WritePad" 140 30 1000 680 amade-writepad --sample
     app_shot 44 mailer "Mailer" 140 60 1000 640 amade-mail
     app_shot 45 calendar "Calendar" 140 60 1000 640 amade-calendar
+    contacts_shots
     app_shot 46 audio-station "Audio Station" 60 20 0 0 amade-audio
     # Without a GPU some builds of libmpv refuse the video output and say so in a message; Enter
     # closes it, and the window shows what it shows before a video is opened.

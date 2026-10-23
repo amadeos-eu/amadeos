@@ -1,0 +1,9 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:ecd98c36-df4f-562b-a0be-fca6f17cbaa2
+FN:Liberty Print Shop
+ORG:Liberty Print Shop
+TEL;TYPE=work,voice:+49 89 5550 777
+EMAIL;TYPE=work:info@liberty-print.example
+URL:https://liberty-print.example
+END:VCARD

@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:e2b210c9-5e00-5a44-b107-a910a559d6f6
+FN:Hubert Kranz
+N:Kranz;Hubert;;;
+TEL;TYPE=cell,voice:+49 89 5550199
+EMAIL;TYPE=home:h.kranz@example.de
+BDAY:--1101
+CATEGORIES:Choir
+END:VCARD

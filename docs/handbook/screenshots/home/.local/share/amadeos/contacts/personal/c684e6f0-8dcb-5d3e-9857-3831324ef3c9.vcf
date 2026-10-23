@@ -1,0 +1,17 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:c684e6f0-8dcb-5d3e-9857-3831324ef3c9
+FN:Anna Berger
+N:Berger;Anna;;;
+ORG:Lindner & Partner
+TITLE:Project Manager
+TEL;TYPE=cell,voice:+49 170 5550142
+TEL;TYPE=work,voice:+49 89 5550 1200
+EMAIL;TYPE=work:anna.berger@example.org
+EMAIL;TYPE=home:anna@berger-home.example
+ADR;TYPE=home:;;Lindenstraße 12;München;;80331;Germany
+BDAY:19861114
+URL:https://lindner-partner.example
+CATEGORIES:Work,Choir
+NOTE:Alto in the choir. Prefers calls after 5 pm.
+END:VCARD

@@ -20,6 +20,7 @@ Your settings are in your home folder, in folders whose names start with a dot a
 | `font.conf` | Settings: Font | 35 |
 | `wallpaper.conf` | Settings: Backdrop | 32 |
 | `input.conf` | Settings: Keyboard, Mouse, Beep | 33 |
+| `display.conf` | Settings: Display (one arrangement per set of monitors) | 39 |
 | `screen.conf` | Settings: Screen | 34 |
 | `window.conf` | Settings: Window | 35 |
 | `clipboard.conf` | Settings: Clipboard | 36 |

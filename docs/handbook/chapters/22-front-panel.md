@@ -62,6 +62,19 @@ Below them come the other installed settings and system programs: *amadeOS Print
 
 The first entry, **amadeOS User's Handbook**, opens this book in the web browser. It is installed on the computer (package `amadeos-handbook`), so it opens without a network; if the package is missing, the browser opens the copy on the web. The other entries are the handbooks installed as programs of the kind *Documentation*: the **Application Developer's Handbook** for writing amadeOS applications, the **Game Developer's Handbook** for writing games with the amade game engine, and the *Documentation Viewer* for the documentation of the installed packages.
 
+### The busy light
+
+The slit above **EXIT** shows what the computer is busy with. It is dark when nothing happens.
+
+| The light | What it means |
+|---|---|
+| All dashes **blink yellow** | A program is starting. The light goes out when its window appears. |
+| An **amber** run of dashes moves from left to right | Software is being installed or removed, by Software, the updates cell or a terminal (chapter 52). |
+| The left half lights **green** | The disks are reading or writing. The more dashes, the more data. |
+| The right half lights **cyan** | Data goes through the network. |
+
+Point at the light to see the rates, for example *Disk 12 MB/s · Network 340 KB/s*. A click opens **Hardware & System Info** (chapter 57). If you prefer the plain busy light of CDE, switch off the green and cyan halves in Settings > Front Panel (chapter 37).
+
 ### The status cell
 
 The **network cell** shows the connection: a cable for a wired network, bars for the WLAN signal, a cross when there is none. Clicking it opens the list of WLAN networks (chapter 27).
@@ -72,7 +85,7 @@ The **updates cell** appears only while software updates wait: an arrow into a t
     Cells for the sound volume, the battery and Bluetooth will join the status slot.
 
 !!! cde "CDE heritage"
-    The Front Panel follows CDE's: the clock and calendar on the left, the workspace switch with lock and EXIT in the middle, the Print Manager, Tools, Help and Trash Can on the right, and drawers ("subpanels" in CDE) above the slots. CDE's drawers were configured by hand; those of amadeOS fill themselves. The Games drawer and the status slot are new, and so is the language button, in the corner CDE left empty.
+    The Front Panel follows CDE's: the clock and calendar on the left, the workspace switch with lock and EXIT in the middle, the Print Manager, Tools, Help and Trash Can on the right, and drawers ("subpanels" in CDE) above the slots. CDE's drawers were configured by hand; those of amadeOS fill themselves. The Games drawer and the status slot are new, and so is the language button, in the corner CDE left empty. CDE's busy light only blinked while an action started; the disk, network and install signals are new.
 
 ??? hood "Under the hood"
-    The Front Panel is the program `amadeos-panel-cde`, started by the session as `/usr/bin/amadeos-panel`. The drawers list the `.desktop` files in `/usr/share/applications` and `~/.local/share/applications` by their *Categories*: `FileManager`, `TextEditor` and `Office`, `Email` and `Network`, `AudioVideo`, `Graphics`, `Game`, `Printing`, `Settings` and `System`, `Documentation`. A program started from the panel writes its messages to `~/.cache/amadeos/logs/<program>.log`.
+    The Front Panel is the program `amadeos-panel-cde`, started by the session as `/usr/bin/amadeos-panel`. The drawers list the `.desktop` files in `/usr/share/applications` and `~/.local/share/applications` by their *Categories*: `FileManager`, `TextEditor` and `Office`, `Email` and `Network`, `AudioVideo`, `Graphics`, `Game`, `Printing`, `Settings` and `System`, `Documentation`. A program started from the panel writes its messages to `~/.cache/amadeos/logs/<program>.log`. The busy light reads `/proc/diskstats` (whole disks only) and `/proc/net/dev` (all interfaces but `lo`) four times a second, and looks for a running `dpkg` every two seconds.

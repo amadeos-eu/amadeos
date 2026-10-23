@@ -111,4 +111,9 @@ nav:
       - 56. Settings and Files Reference: 56-settings-reference.md
       - 57. Troubleshooting: 57-troubleshooting.md
       - 58. Security and Privacy: 58-security-and-privacy.md
+  - "Part VII: Under the Hood":
+      - 60. How amadeOS Is Built: 60-how-amadeos-is-built.md
+      - 61. The Desktop and X11: 61-desktop-and-x11.md
+      - 62. Building amadeOS Yourself: 62-building-amadeos.md
+      - 63. Writing an Application for amadeOS: 63-writing-an-application.md
   - The Plan of This Book: plan.md

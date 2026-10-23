@@ -3,7 +3,7 @@
 # (thirteen slots); when the panel changes, adjust the PANEL_* values below.
 # shellcheck shell=bash
 
-ALL_SCENES=(greeter installer desktop panel drawers menu windows workspaces style lock apps games admin)
+ALL_SCENES=(greeter installer desktop panel drawers menu windows workspaces style lock apps games admin develop)
 
 # Where things are on the screen: the drawer arrows of the Front Panel (x, at the height PANEL_ARROW_Y)
 # and the workspace buttons.
@@ -281,4 +281,24 @@ scene_admin() {
         fi
     fi
     close_programs
+}
+
+# Chapter 63: a desktop entry of one's own in the Tools drawer.
+scene_develop() {
+    # The panel watches the folder only if it exists when the panel starts
+    mkdir -p "$HOME/.local/share/applications"
+    [ -n "$session_pid" ] || start_session
+    cat >"$HOME/.local/share/applications/backup.desktop" <<END
+[Desktop Entry]
+Type=Application
+Name=Back Up Documents
+Comment=Copies the documents folder to the backup disk
+Exec=/bin/true
+Icon=drive-harddisk
+Terminal=true
+Categories=System;
+END
+    sleep 4
+    open_drawer "$PANEL_TOOLS_X"; shot 63 drawer-tools-own-entry 620x380+580+420; close_drawer "$PANEL_TOOLS_X"
+    rm -f "$HOME/.local/share/applications/backup.desktop"
 }

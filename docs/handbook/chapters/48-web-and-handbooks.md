@@ -52,6 +52,7 @@ The **Help** slot of the Front Panel opens this handbook, the *amadeOS User's Ha
 | Entry | What it is |
 |---|---|
 | **amadeOS User's Handbook** | This book. It is installed on the computer, so it opens in Firefox without a network. |
+| **Application Developer's Handbook** | How the amade applications of Part V are made, and how to write your own with amade-commons (chapter 63). |
 | **Game Developer's Handbook** | How the games of chapter 49 are made, and how to write your own with the amade game engine. |
 | **Documentation Viewer** | The documentation of the installed packages, see above. |
 

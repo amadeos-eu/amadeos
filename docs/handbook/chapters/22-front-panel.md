@@ -10,7 +10,7 @@ Every slot does two things: **clicking its icon** starts its main program, and *
 
 | Slot | Click on the icon | The drawer |
 |---|---|---|
-| **Clock** | — (a right click chooses *Analog Clock* or *Digital Clock*) | — |
+| **Clock** | — (a right click chooses *Analog Clock* or *Digital Clock*, as does *Settings → Front Panel*, chapter 37) | — |
 | **Calendar** | Opens the Calendar, today's date on the icon | — |
 | **File Manager** | Opens your home folder | The file managers, *Home Directory (~)* and *Root Filesystem (/)* |
 | **Text & Office** | Starts the Text Editor | The text editors and WritePad, then the other office programs: the Calendar, spreadsheets, presentations |

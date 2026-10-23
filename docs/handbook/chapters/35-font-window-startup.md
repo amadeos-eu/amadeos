@@ -1,6 +1,6 @@
 # 35. Font, Window and Startup
 
-**Font** sets the size of the text, **Window** how the windows behave. **Startup**, the third control that CDE's Style Manager had here, is still to come.
+**Font** sets the size of the text, **Window** how the windows behave, and **Startup** what starts when you log in: the three controls that CDE's Style Manager had for this.
 
 ## Font
 
@@ -29,8 +29,16 @@ A click on a window's title bar always brings it to the front, whatever *Raise w
 !!! switching "Coming from Windows or macOS"
     The defaults behave like Windows and macOS: click into a window and it comes to the front with the keyboard. *Point in window to make active* is the classic behaviour of many Unix desktops; try it with *Raise window* switched off, so that a window can be typed into while another one covers part of it.
 
-!!! planned "Planned: Startup"
-    What the desktop does when you log in and out: whether it opens the windows of your last session again, or always starts with an empty desktop. Until then, programs that should start at every login can be added to the autostart (chapter 55).
+## Startup
+
+![The Startup page](images/35/settings-startup.jpg)
+
+**Programs Started at Login** lists the programs that start each time you log in, after the desktop is ready. **Add…** offers the installed programs; choose one, for example the Mailer, and click **Apply**. **Remove** takes the selected program off the list. A program that has been uninstalled since is skipped at login.
+
+**Desktop Services** are the parts of the desktop that the session starts at login (chapter 55). Clear a check box to leave a service out, for example *Clipboard history* if you do not want one. The grey services are needed by the desktop and always run. Changes take effect at the next login.
+
+!!! planned "Planned: resuming the last session"
+    Opening the windows of your last session again at login, as CDE could. Until then the desktop starts empty, with the programs of the list above.
 
 ??? hood "Under the hood"
-    The font size is stored as a number from 1 to 7 in `~/.config/amadeos/font.conf`; programs built on *amade-commons* watch the file and scale all the fonts of their Motif look by the same factor, from 75 % to 150 %. The window settings are in `~/.config/amadeos/window.conf` (`focus=click` or `pointer`, `raise.when.active`, `move.contents`), which the window manager watches.
+    The font size is stored as a number from 1 to 7 in `~/.config/amadeos/font.conf`; programs built on *amade-commons* watch the file and scale all the fonts of their Motif look by the same factor, from 75 % to 150 %. The window settings are in `~/.config/amadeos/window.conf` (`focus=click` or `pointer`, `raise.when.active`, `move.contents`), which the window manager watches. Startup keeps a desktop entry (a `.desktop` file) for each program in `~/.config/autostart/`, the folder other desktops use for the same purpose, and the services you switched off in `~/.config/amadeos/startup.conf` (`disabled=40-amadeos-clipboard`).

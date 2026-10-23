@@ -20,7 +20,7 @@ What the computer does contact by itself: the Debian mirror once a day to look f
 | WLAN passwords | In the network settings of the system, readable only by administrators (chapter 54). |
 | Passwords saved in Firefox | In Firefox's own store; protect it with a *Primary Password* in Firefox's settings. |
 
-The login keyring is opened when you log in, with the same password, so programs can use their passwords without asking you again. It is closed when you log out. In a terminal, `secret-tool search --all service amade-mail` shows what the Mailer has stored.
+The login keyring is opened when you log in, with the same password, so programs can use their passwords without asking you again. It is closed when you log out. *Settings → Passwords* (chapter 38) locks it, unlocks it and changes its password. In a terminal, `secret-tool search --all service amade-mail` shows what the Mailer has stored.
 
 !!! planned "Planned"
     A keyring service of amadeOS's own, written in Java like the rest of the desktop, with a password window in the style of the desktop, to take GNOME Keyring's place (ROADMAP milestone M12).

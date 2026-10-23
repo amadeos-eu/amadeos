@@ -22,7 +22,7 @@ A name such as *Mail* or *Letters* tells you better than *Two* what a workspace 
 
 A double click on any workspace button does both clicks at once. You can also click the **right mouse button** on a workspace button and choose **Rename**.
 
-++escape++ keeps the old name. An empty name gives the workspace back its own name, *One* to *Four* in the language of the desktop. A name can be up to 24 characters long; when it is wider than the button, the button shows its beginning with "…", and the tooltip shows it in full. The Workspace Menu (below) and the Backdrop page of Settings use the new names too.
+++escape++ keeps the old name. An empty name gives the workspace back its own name, *One* to *Four* in the language of the desktop. A name can be up to 24 characters long; when it is wider than the button, the button shows its beginning with "…", and the tooltip shows it in full. The Workspace Menu (below) and the Backdrop page of Settings use the new names too. The *Workspaces* page of Settings (chapter 37) renames all four in one place.
 
 !!! cde "CDE heritage"
     CDE gave every workspace its own colour from the palette, so you always see where you are; amadeOS keeps that. Renaming works as in CDE: click the current workspace's button, type, press Return. Each workspace can also have its own backdrop, as in CDE. CDE could also change the number of workspaces; amadeOS has four for now.

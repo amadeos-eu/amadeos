@@ -98,12 +98,26 @@ xvfb_pid=$!
 cleanup() {
     pkill -P $$ 2>/dev/null || true
     kill "$xvfb_pid" 2>/dev/null || true
+    [ -z "${dbus_pid:-}" ] || kill "$dbus_pid" 2>/dev/null || true
     [ -z "$fake_cmdline" ] || { umount /proc/cmdline; rm -f "$fake_cmdline"; }
     sleep 1
     rm -rf "$work"
 }
 trap cleanup EXIT
 for _ in $(seq 1 50); do xdpyinfo >/dev/null 2>&1 && break; sleep 0.1; done
+
+# A session bus and a login keyring with a few passwords, unlocked as PAM unlocks it at login, so that
+# Settings > Passwords has a keyring to show (gnome-keyring and libsecret-tools; skipped without them).
+if [ -z "${DBUS_SESSION_BUS_ADDRESS:-}" ] && command -v dbus-launch >/dev/null 2>&1; then
+    eval "$(dbus-launch --sh-syntax)"
+    dbus_pid="$DBUS_SESSION_BUS_PID"
+fi
+if command -v gnome-keyring-daemon >/dev/null 2>&1 && command -v secret-tool >/dev/null 2>&1; then
+    printf 'alex' | gnome-keyring-daemon --unlock --components=secrets >/dev/null 2>&1 || true
+    for service in mail.example.org web.example.org printer; do
+        printf 'demo' | secret-tool store --label="$service" service "$service" user alex 2>/dev/null || true
+    done
+fi
 
 # shellcheck source=scenes.sh
 . "$here/scenes.sh"

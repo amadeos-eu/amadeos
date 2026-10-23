@@ -7,12 +7,14 @@ The **session** is everything that runs between your login and your logout: the 
 After the greeter has checked your password (chapter 20), the session starts in this order:
 
 1. The **window manager**, which draws the window frames. If it ever crashes, the session starts it again, and your windows stay open.
-2. The **autostart scripts**, all at once: the keyboard and mouse settings, the password window of chapter 50, the clipboard manager, the screen saver, and your own.
+2. The **autostart scripts**, all at once: the keyboard and mouse settings, the password window of chapter 50, the clipboard manager, the screen saver, and your own, except those you switched off in *Settings → Startup*.
 3. The **Front Panel**. The session lasts as long as the panel: when you log out with *EXIT* (chapter 26), the panel ends, and the session with it.
 
 ## Starting programs at login
 
-Programs that should start at every login go into your own autostart folder, `~/.config/amadeos/autostart.d`. Each entry there is a small script, and every script that is executable runs at login, in the background.
+The simple way is the *Startup* page of Settings (chapter 35): **Add…** a program and click **Apply**. It keeps a desktop entry for each program in `~/.config/autostart/`, and the session starts them after the autostart scripts.
+
+For anything a desktop entry cannot do, such as waiting a moment or passing options, write a script into your own autostart folder, `~/.config/amadeos/autostart.d`. Every script there that is executable runs at login, in the background.
 
 For example, to open the Mailer at every login:
 
@@ -32,7 +34,7 @@ The `sleep 5` lets the panel appear first. To stop the program from starting, de
     The scripts run in the order of their names, but they do not wait for each other. A two-digit number at the front, as in `60-mailer`, keeps them sorted.
 
 !!! planned "Planned"
-    The *Startup* page of Settings (chapter 35) will manage the autostart and whether the session opens the windows of your last session again.
+    Opening the windows of your last session again at login (chapter 35).
 
 ## The session's settings
 
@@ -66,4 +68,4 @@ A single user can choose another one for themselves with `AUTOSTART_APP` in thei
     Today the CDE Front Panel is the only panel of amadeOS. The way to replace it is there so that other desktops can follow without changing the rest of the system.
 
 ??? hood "Under the hood"
-    The session is the shell script `/usr/bin/amadeos-session`; the greeter starts it as you, and it is also registered as `x-session-manager`, so `startx` starts the desktop too. The system's autostart scripts are in `/etc/amadeos/autostart.d`: `10-amadeos-input`, `30-amadeos-polkit-agent`, `40-amadeos-clipboard` and `50-amadeos-screen`. The language chosen at login is written to `~/.config/amadeos/locale.conf`.
+    The session is the shell script `/usr/bin/amadeos-session`; the greeter starts it as you, and it is also registered as `x-session-manager`, so `startx` starts the desktop too. The system's autostart scripts are in `/etc/amadeos/autostart.d`: `10-amadeos-input`, `30-amadeos-polkit-agent`, `40-amadeos-clipboard` and `50-amadeos-screen`; those named in `disabled=` of `~/.config/amadeos/startup.conf` are skipped. Afterwards `amadeos-session autostart` starts the desktop entries of `~/.config/autostart/`. The language chosen at login is written to `~/.config/amadeos/locale.conf`.

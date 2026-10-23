@@ -37,7 +37,7 @@ Most updates take effect when you next start the program. An update of the Linux
 
 ## Automatic security updates
 
-**Software → Settings…** (or *Settings…* in the updates cell) has one switch: **Install security updates automatically**. Turned on, amadeOS installs security updates once a day in the background, without asking. Other updates still wait for you.
+**Software → Settings…** (or *Settings…* in the updates cell, or the *Updates* page of Settings, chapter 38) has one switch: **Install security updates automatically**. Turned on, amadeOS installs security updates once a day in the background, without asking. Other updates still wait for you.
 
 It is off at first, because amadeOS changes nothing without you. Turn it on for a computer that others use, or one you do not look after every week.
 

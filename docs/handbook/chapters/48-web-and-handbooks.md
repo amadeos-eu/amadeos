@@ -170,7 +170,7 @@ The **Aa** button opens the **Appearance** window. What you change there is show
 - **Page**: *Paper* (dark on white), *Sepia* (dark brown on cream) or *Night* (light grey on dark, for reading in bed; pictures are dimmed a little).
 - **Pages**: one page, or two side by side (++ctrl+2++).
 
-The settings count for all books. A larger font means fewer words on a page, so the page numbers change; your place in the book stays.
+Books remembers the settings for the book you are reading, and uses them for every book you open that has none of its own yet. A larger font means fewer words on a page, so the page numbers change; your place in the book stays.
 
 ### Comics and manga
 

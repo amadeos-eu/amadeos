@@ -63,8 +63,11 @@ for app_dir in "$ROOT_DIR"/../amade-*/ "$ROOT_DIR"/../amadeos-*/; do
     if [ -f "$app_dir/settings.gradle" ] && grep -q "^include '" "$app_dir/settings.gradle"; then
         continue  # a multi-project build (amadeos-system): its modules are checked above
     fi
-    if ! compgen -G "$CONFIG_DIR/packages.chroot/${app}_*.deb" >/dev/null; then
-        echo "[build-image] Warning: no ${app}_*.deb in config/packages.chroot; the image will lack $app" >&2
+    # The package may be named differently (amade-game-engine makes amade-game-handbook).
+    deb="$(sed -n 's|.*distributions/\([a-z0-9-]*\)_\${project.version}.*|\1|p' "$app_dir/build.gradle" | head -n 1)"
+    deb="${deb:-$app}"
+    if ! compgen -G "$CONFIG_DIR/packages.chroot/${deb}_*.deb" >/dev/null; then
+        echo "[build-image] Warning: no ${deb}_*.deb in config/packages.chroot; the image will lack $app" >&2
         echo "    (cd ../$app && ./gradlew installToAmadeOs) puts it there." >&2
     fi
 done

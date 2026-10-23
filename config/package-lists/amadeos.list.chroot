@@ -74,6 +74,13 @@ libreoffice-l10n-de
 libreoffice-l10n-fr
 libreoffice-l10n-es
 libreoffice-l10n-it
+# Hyphenation patterns of the five desktop languages for amade-books, which justifies and hyphenates
+# the text of e-books itself; recommended by the package but the image installs no recommends
+hyphen-en-us
+hyphen-de
+hyphen-fr
+hyphen-it
+hyphen-es
 # Printing: CUPS with driverless printing (IPP Everywhere, AirPrint). avahi finds network printers,
 # cups-browsed sets them up as queues, ipp-usb serves USB printers over IPP. amadeos-print manages them;
 # the live user is in lpadmin (/etc/live/config.conf), so no password is needed for that.

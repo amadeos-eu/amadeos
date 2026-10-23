@@ -1,4 +1,4 @@
-# 48. Calculator, PDF Viewer, Web Browser and Handbooks
+# 48. Calculator, PDF Viewer, Books, Web Browser and Handbooks
 
 ## Calculator
 
@@ -115,10 +115,82 @@ When the file changes on disk while it is open, for example because you saved it
     The PDF Viewer never goes online by itself. It only opens a web link when you click one, and then in Firefox.
 
 !!! planned "Planned"
-    A night mode with light text on dark pages, filling in PDF forms, highlighting and notes, and comic archives (CBZ). E-books (EPUB) will get a program of their own, because their text flows like a web page instead of lying on fixed pages.
+    A night mode with light text on dark pages, filling in PDF forms, highlighting and notes, and and comic archives inside PDF. E-books (EPUB) and comics (CBZ) open in Books, described next.
 
 ??? hood "Under the hood"
     The PDF Viewer draws the pages with Apache PDFBox, a free PDF library of the Apache Software Foundation. Its settings are in `~/.config/amadeos/pdfviewer/pdfviewer.properties`, the reading positions of the last 300 documents in `positions.properties` next to it.
+
+## Books
+
+**Books** reads e-books and comics: novels and non-fiction as EPUB files, comics and manga as CBZ archives. It keeps them on a bookshelf of your own, sets the text on real pages with the font, size and colours you like, and remembers in every book where you stopped.
+
+Start it from the Text & Office drawer, double-click an `.epub` or `.cbz` file in the File Manager, or type `amade-books` (with a file name to open it at once). It starts on the shelf.
+
+![The bookshelf with covers, shelves and progress](images/48/books.jpg)
+
+### The bookshelf
+
+Books looks for books and comics in the folder **Books** of your home folder and in all its subfolders. Put your EPUB and CBZ files there, from a shop that sells them without copy protection or from a library of free books such as Project Gutenberg, and they appear on the shelf. *File → Add to Library* (the **+** button) copies files into it, and you can also drop files on the window. *File → Library Folders* adds more folders, for example one on an external disk; *File → Rescan Library* (++f5++) looks for new books at once.
+
+The list at the left sorts the books into **shelves**:
+
+- **Library**: all books, those you are *Reading*, those *Not started* and those *Finished*.
+- **Format**: *Books* and *Comics*.
+- **Genre**, **Author** and **Series**, as the books themselves say.
+- **Collections**: your own groups, such as "Holiday". Right-click a book and choose *Add to Collection*.
+
+The two buttons in the toolbar show the books as **covers** or as a **list** with title, author, series, format, how much you read and when. *Sort by* orders them by the last read, title, author, series (with the volumes of a series in their order) or the date they were added. The search box finds a book by its title, author or series as you type; ++esc++ clears it. Under each cover Books shows how far you read, or ✓ Finished. The right mouse button on a book opens it, marks it as finished or not, adds it to a collection or shows its file in the File Manager.
+
+Double-click a book to open it. *File → Show Library* (++ctrl+l++) or the first button of the toolbar goes back to the shelf.
+
+### Reading a book
+
+![Two pages of a book with the table of contents](images/48/books-reader.jpg)
+
+Books lays out the text on pages, two side by side as in an open book, with the title of the book and of the chapter at the top and the page numbers at the bottom. Turn the pages with the arrow keys, ++page-down++, ++space++ or the mouse wheel, or click into the outer third of a page; ++home++ and ++end++ go to the start and the end of the chapter. The bar at the bottom shows where you are in the whole book, with a mark for every chapter; click it to jump there.
+
+The **sidebar** (++f9++) shows the **Contents** of the book; click a chapter to go there. The **Bookmarks** tab lists your bookmarks with the first words of their page: ++ctrl+d++ or the ribbon button sets a bookmark on the pages you see, and removes it again. ++delete++ removes the chosen bookmark in the list.
+
+Links work as on the web: a link inside the book jumps to its target, a link to a web page opens Firefox. *Go → Back* (++alt+arrow-left++) returns to where you were before the jump. A footnote opens in a small window next to its number, so you do not lose your place.
+
+Type a word into the search box at the right of the toolbar (++ctrl+f++) and press ++enter++: Books searches the whole book, marks every place and shows how many it found. ++f3++ goes to the next place, ++shift+f3++ to the previous one. To copy text, drag over it with the mouse and press ++ctrl+c++.
+
+Books remembers in every book the page where you stopped, and opens it there the next time. With *Options → Reopen the Last Book on Start* it opens the book you read last straight away. *View → Full Screen* (++f11++) shows only the pages; ++esc++ brings back the window.
+
+### Font, size and colours
+
+![Night colours and the Appearance window](images/48/books-night.jpg)
+
+The **Aa** button opens the **Appearance** window. What you change there is shown in the book at once:
+
+- **Font**: the font the book brings with it (*Publisher's font*), or one of the fonts installed on the computer.
+- **Size**: ++ctrl+plus++ and ++ctrl+minus++ also make the text bigger and smaller.
+- **Line spacing** and **Margins**.
+- **Justify** sets the lines flush on both sides, as in a printed book, and **Hyphenate** divides long words at the end of a line, so that there are no wide gaps. Words are divided by the rules of the book's language.
+- **Page**: *Paper* (dark on white), *Sepia* (dark brown on cream) or *Night* (light grey on dark, for reading in bed; pictures are dimmed a little).
+- **Pages**: one page, or two side by side (++ctrl+2++).
+
+Books remembers the settings for the book you are reading, and uses them for every book you open that has none of its own yet. A larger font means fewer words on a page, so the page numbers change; your place in the book stays.
+
+### Comics and manga
+
+![A manga, two pages read from right to left](images/48/books-comic.jpg)
+
+A comic shows its pages as pictures, two side by side; the cover stands alone. The toolbar and *View → Comic Pages* choose how a page fits into the window: the **whole page**, the **width** or the **height**. Zoom in with the magnifier buttons or ++ctrl+plus++, ++ctrl+0++ shows the pages at their real size. When a page is larger than the window, ++space++ and ++arrow-down++ first scroll down and then turn the page.
+
+A **manga** is read from right to left: the first page is on the right, and the left arrow key and a click on the left half turn forward. Books knows this from the information in the archive (ComicInfo.xml); *View → Comic Pages → Right to Left (Manga)* switches it by hand, and the button with the arrow in the toolbar too.
+
+!!! tip "Where do I get books?"
+    Free classics in many languages come from Project Gutenberg (gutenberg.org) and Wikisource. Many publishers and shops sell EPUB books without copy protection, often marked "DRM-free". Books with copy protection (Adobe DRM) cannot be opened.
+
+!!! sovereignty "Your data"
+    Books never goes online by itself and sends nothing anywhere. Your shelf, your reading positions and your bookmarks stay on your computer. A web link in a book opens only when you click it, and then in Firefox.
+
+!!! planned "Planned"
+    A scrolling view without pages, comics in CBR (RAR) and PDF form, notes and highlighting in the text, tables and vertical Japanese writing.
+
+??? hood "Under the hood"
+    Books sets the text itself instead of showing it as a web page: it reads the XHTML of the book with jsoup, understands the most used parts of its CSS, and breaks the lines with Java's text layout, with the hyphenation patterns of the `hyphen-*` packages, which also LibreOffice uses. That is what makes real pages with justified text, page numbers and pictures with the text flowing around them possible. The settings are in `~/.config/amadeos/books/books.properties`, the reading positions, bookmarks and collections in `~/.local/share/amadeos/books/library.json`.
 
 ## Firefox
 

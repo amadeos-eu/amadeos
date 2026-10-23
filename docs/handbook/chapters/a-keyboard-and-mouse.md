@@ -54,6 +54,7 @@ On a touchpad, the right button is a click at the bottom right or with two finge
 | Calendar | Chapter 45 |
 | Audio Station and Video Player | Chapter 46 |
 | Fractals | Chapter 47 |
+| Books | Chapter 48 |
 | Documentation Viewer | Chapter 48 |
 | The games | Chapter 49 |
 | The network settings (`nmtui`) | Chapter 54 |

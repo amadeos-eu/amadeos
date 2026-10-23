@@ -1,6 +1,6 @@
 # 30. Settings
 
-**Settings** is where you make the desktop your own: its colours, the size of its text, the picture behind the windows, how the keyboard, the mouse and the windows behave, the sound of the beep, the screen saver and the clipboard. It grew out of CDE's Style Manager, and it can still look like it (see *The compact view* below).
+**Settings** is where you make the desktop your own: its colours, the size of its text, the picture behind the windows, the names of the workspaces and the Front Panel, how the keyboard, the mouse and the windows behave, the sound of the beep, the screen saver, the clipboard and what starts at login, and, for the system, the keyring, the updates, the language and the time zone. It grew out of CDE's Style Manager, and it can still look like it (see *The compact view* below).
 
 ## Opening it
 
@@ -19,15 +19,20 @@ On the left, the controls are grouped by what they set. Click one, or move throu
 | Appearance | **Color** | The colour palette of the desktop and the icon theme | 31 |
 | | **Font** | The size of the text | 35 |
 | | **Backdrop** | The pattern, picture or colour behind the windows | 32 |
+| | **Workspaces** | The names of the four workspaces | 37 |
+| | **Front Panel** | The clock and the status cells | 37 |
 | Input and Sound | **Keyboard** | Key repeat and key click | 33 |
 | | **Mouse** | Left or right hand, double-click speed, acceleration | 33 |
 | | **Beep** | Volume, tone and length of the beep | 33 |
 | Desktop | **Screen** | Screen saver and screen lock | 34 |
 | | **Window** | How windows get the focus, come to the front and move | 35 |
 | | **Clipboard** | The clipboard history, and copies that outlive their program | 36 |
-| | **Startup** | What the session restores at login (planned) | 35 |
+| | **Startup** | Programs and desktop services started at login | 35 |
+| System | **Passwords** | The login keyring: lock, unlock, change its password | 38 |
+| | **Updates** | Automatic security updates, the updates waiting | 38 |
+| | **Language** | The language of the desktop and the time zone | 38 |
 
-*Startup* is grey: amadeOS does not have it yet.
+The pages of the *System* group change things for the whole computer or your keyring; some of them ask for the administrator's password on **Apply**.
 
 ## Apply and Reset
 
@@ -68,4 +73,4 @@ In that window, **OK** saves, applies and closes; **Apply** saves and applies an
     CDE's Style Manager, `dtstyle`, was a row of buttons, each opening a small window. That worked for a handful of controls; amadeOS has more to set, so the sidebar groups them and a search finds them. The compact view keeps the CDE row for those who prefer it.
 
 ??? hood "Under the hood"
-    Settings writes small text files to `~/.config/amadeos/`, one per control: `theme.conf` and `icon_theme.conf` (Color), `font.conf` (Font), `wallpaper.conf` (Backdrop), `input.conf` (Keyboard, Mouse and Beep), `screen.conf` (Screen), `window.conf` (Window) and `clipboard.conf` (Clipboard); its own view is kept in `settings.conf`. The desktop and the amadeOS applications watch these files, so a change reaches them at once. Chapter 56 lists all settings files.
+    Settings writes small text files to `~/.config/amadeos/`, one per control: `theme.conf` and `icon_theme.conf` (Color), `font.conf` (Font), `wallpaper.conf` (Backdrop), `input.conf` (Keyboard, Mouse and Beep), `screen.conf` (Screen), `window.conf` (Window), `clipboard.conf` (Clipboard), `workspaces.conf` (Workspaces), `panel.conf` (Front Panel), `startup.conf` (Startup) and `locale.conf` (Language); the programs started at login are in `~/.config/autostart/`; its own view is kept in `settings.conf`. The desktop and the amadeOS applications watch these files, so a change reaches them at once. Chapter 56 lists all settings files.

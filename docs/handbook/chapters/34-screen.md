@@ -1,6 +1,6 @@
 # 34. Screen
 
-**Screen** sets the **screen saver**, the moving picture that appears when you have not used the computer for a while, and the **screen lock**, which closes the screen after a longer time.
+**Screen** sets the **screen saver**, the moving picture that appears when you have not used the computer for a while, and the **screen lock**, which closes the screen after a longer time. The resolution of the monitors is set in **Display** (chapter 39).
 
 ![The Screen page](images/34/settings-screen.jpg)
 

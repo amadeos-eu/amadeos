@@ -13,7 +13,7 @@ Every slot does two things: **clicking its icon** starts its main program, and *
 | **Clock** | — (a right click chooses *Analog Clock* or *Digital Clock*, as does *Settings → Front Panel*, chapter 37) | — |
 | **Calendar** | Opens the Calendar, today's date on the icon | — |
 | **File Manager** | Opens your home folder | The file managers, *Home Directory (~)* and *Root Filesystem (/)* |
-| **Text & Office** | Starts the Text Editor | The text editors and WritePad, then the other office programs: the Calendar, spreadsheets, presentations |
+| **Text & Office** | Starts the Text Editor | The text editors and WritePad, then the other office programs: the PDF Viewer, the Calculator, the Calendar, spreadsheets, presentations |
 | **Mail & Internet** | Starts the Mailer | The mail programs, then the web browser and other internet programs |
 | **Sound & Video** | Starts the first program of the drawer | Audio Station, Video Player and other media programs |
 | **Graphics** | Starts the first program of the drawer | Image Viewer, Image Scan, Fractals and other graphics programs |

@@ -121,6 +121,15 @@ scene_workspaces() {
     [ -n "$session_pid" ] || start_session
     click "${PANEL_WS_TWO[@]}"
     shot 24 workspace-two
+    # Renaming, as in CDE: a second click on the current workspace's button, a new name, Return; an
+    # empty name gives the demo account back its "Two"
+    click "${PANEL_WS_TWO[@]}"
+    key ctrl+a
+    type_text "Letters"
+    shot 24 workspace-rename "$PANEL_GEOMETRY"
+    key Return
+    click "${PANEL_WS_TWO[@]}"
+    key ctrl+a BackSpace Return
     click "${PANEL_WS_ONE[@]}"
     close_programs
 }

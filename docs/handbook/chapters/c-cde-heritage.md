@@ -6,7 +6,7 @@ amadeOS follows the **Common Desktop Environment** (CDE), the desktop of the lar
 |---|---|---|---|
 | Login screen (`amadeos-dm`) | `dtlogin` | Language and session are fields, not hidden in an *Options* menu; keyboard layout and time zone are chosen there too. | 20 |
 | Window frames (`amadeos-wm`) | `dtwm` | A close button on the right; no *Move* and *Size* in the window menu. | 23 |
-| Workspaces | `dtwm` workspaces | Four fixed workspaces; they cannot be renamed yet. | 24 |
+| Workspaces | `dtwm` workspaces | Four workspaces, renamed as in CDE by clicking the current one's button; each can have its own backdrop. Their number is fixed. | 24, 32 |
 | Workspace Menu | The `dtwm` root menu | Built from the installed programs instead of a hand-edited `dtwmrc`. | 24 |
 | Front Panel (`amadeos-panel-cde`) | The Front Panel | Drawers (CDE's *subpanels*) fill themselves from the installed programs. New: the Games drawer, the status slot, the language button. | 22 |
 | Lock and EXIT | Lock and EXIT of the Front Panel | ++super+l++ locks; EXIT also offers *Reboot* and *Shut Down*. | 26 |

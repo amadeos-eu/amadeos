@@ -27,7 +27,7 @@ The middle of the panel holds the controls of the session:
 
 - **The padlock** at the top left locks the screen (chapter 26).
 - **The language button** under it, with the code of the current language such as *EN*, switches the language (chapter 25).
-- **The four buttons One to Four** switch between the workspaces. Each has its workspace's colour; the current one is pressed in (chapter 24).
+- **The four buttons One to Four** switch between the workspaces. Each has its workspace's colour; the current one is pressed in. A second click on the current one renames its workspace (chapter 24).
 - **The busy light**, the slit at the top right, and under it **EXIT**, which logs out, restarts or shuts down (chapter 26).
 
 ## The right side

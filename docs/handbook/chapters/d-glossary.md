@@ -120,7 +120,7 @@ The technical words of this book, in alphabetical order, with the chapter that e
 :   The program that draws the window frames and moves, resizes and arranges the windows; on amadeOS `amadeos-wm` (chapters 23 and 61).
 
 **Workspace**
-:   One of four desktops, each with its own windows (chapter 24).
+:   One of four desktops, each with its own windows, its own name and, if you like, its own backdrop (chapters 24 and 32).
 
 **X11, Xorg**
 :   The display system of amadeOS: X11 is the protocol, Xorg the program that owns screen, keyboard and mouse (chapter 61).

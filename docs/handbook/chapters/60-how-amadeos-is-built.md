@@ -9,7 +9,7 @@ amadeOS is a stack of four layers. Each one uses only the layer below it, throug
 ```mermaid
 flowchart TB
     A["Applications and games<br>amade-pad, amade-mail, … · Firefox, LibreOffice · any X11 program"]
-    D["The desktop, in Java<br>greeter · window manager · Front Panel · Style Manager · system tools"]
+    D["The desktop, in Java<br>greeter · window manager · Front Panel · Settings · system tools"]
     S["The system, from Debian<br>Xorg · systemd · NetworkManager · PipeWire · CUPS · polkit · OpenJDK 25"]
     K["Linux<br>the kernel and the drivers"]
     A --> D --> S --> K
@@ -34,7 +34,7 @@ Every part of amadeOS is an ordinary **Debian package**, a `.deb` file. The desk
 | `amadeos-session` | The session, screen lock and screen saver, the password window, the clipboard manager | 26, 34, 36, 55 |
 | `amadeos-wm` | The window manager | 23, 24, 61 |
 | `amadeos-panel-cde` | The Front Panel | 22 |
-| `amadeos-style` | The Style Manager | Part IV |
+| `amadeos-settings` | Settings | Part IV |
 | `amadeos-software`, `amadeos-packages` | Software and its helper | 51, 52 |
 | `amadeos-print`, `amadeos-logviewer`, `amadeos-sysinfo` | Print Manager, logs, system information | 54, 57 |
 | `amadeos-installer` | *Install amadeOS* | 14 |

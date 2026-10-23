@@ -13,7 +13,7 @@ Where to find on amadeOS what you know from Windows or macOS.
 | Desktop context menu | — | The Workspace Menu, right mouse button on the backdrop | 24 |
 | ++win+l++ | ++ctrl+cmd+q++ | ++super+l++, or the padlock in the Front Panel | 26 |
 | ++win+v++ | — | ++ctrl+alt+v++, the clipboard history | 36 |
-| Settings, Personalisation | System Settings | The Style Manager | Part IV |
+| Settings, Personalisation | System Settings | Settings | Part IV |
 | Shut down in the Start menu | Apple menu | EXIT in the Front Panel | 26 |
 
 ## Programs

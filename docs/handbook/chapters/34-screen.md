@@ -2,7 +2,7 @@
 
 **Screen** sets the **screen saver**, the moving picture that appears when you have not used the computer for a while, and the **screen lock**, which closes the screen after a longer time.
 
-![The Screen control](images/34/style-screen.jpg)
+![The Screen page](images/34/settings-screen.jpg)
 
 ## The screen saver
 

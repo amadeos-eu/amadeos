@@ -55,7 +55,7 @@ The Front Panel is a window of the kind *dock*: the window manager keeps it in f
 
 The amade applications are **Swing** programs, the toolkit that comes with Java. Swing draws every button and menu itself, which makes it easy to give all of them the same CDE look. The library *amade-commons* does that for every application: the Motif look and feel, the colours of the chosen palette, the language, the settings files.
 
-When you choose a palette in the Style Manager, it writes `~/.config/amadeos/theme.conf`. The window manager, the panel and every running amade application watch that file and change their colours at once. No message bus and no daemon are involved: a small text file is the whole interface, and you can read it.
+When you choose a palette in Settings, it writes `~/.config/amadeos/theme.conf`. The window manager, the panel and every running amade application watch that file and change their colours at once. No message bus and no daemon are involved: a small text file is the whole interface, and you can read it.
 
 ## Why X11 and not Wayland
 

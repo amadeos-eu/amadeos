@@ -27,11 +27,11 @@ The login keyring is opened when you log in, with the same password, so programs
 
 ## The clipboard
 
-The clipboard history (chapter 36) keeps the last things you copied, **in memory only**: it is gone when you log out and never written to the disk. Copies that a password manager marks as secret are never recorded. **Clear History** in the Style Manager's *Clipboard* control, or *Clear All* in the history, forgets everything at once; *Pause recording* stops it for a while.
+The clipboard history (chapter 36) keeps the last things you copied, **in memory only**: it is gone when you log out and never written to the disk. Copies that a password manager marks as secret are never recorded. **Clear History** on the *Clipboard* page of Settings, or *Clear All* in the history, forgets everything at once; *Pause recording* stops it for a while.
 
 ## Lock the screen
 
-Lock the screen when you leave the computer: ++super+l++, or the lock in the Front Panel (chapter 26). The screen saver locks it by itself after a time that you set in the Style Manager's *Screen* control (chapter 34).
+Lock the screen when you leave the computer: ++super+l++, or the lock in the Front Panel (chapter 26). The screen saver locks it by itself after a time that you set on the *Screen* page of Settings (chapter 34).
 
 ## Updates
 

@@ -84,7 +84,7 @@ The technical words of this book, in alphabetical order, with the chapter that e
 :   A program or a part of the system as one file (`.deb`), installed and updated by the package manager (chapters 51 and 60).
 
 **Palette**
-:   The set of colours of the desktop, chosen in the Style Manager (chapter 31).
+:   The set of colours of the desktop, chosen in Settings (chapter 31).
 
 **PAM**
 :   The service that checks passwords at login and at the screen lock (chapter 61).
@@ -106,6 +106,9 @@ The technical words of this book, in alphabetical order, with the chapter that e
 
 **Session**
 :   Everything that runs between login and logout (chapter 55).
+
+**Settings**
+:   The program that sets the look and behaviour of the desktop: colours, text size, backdrop, keyboard, mouse, windows and more; CDE called it the Style Manager (Part IV).
 
 **Status slot**
 :   The small cells at the right of the Front Panel, for the network and the updates (chapter 22).

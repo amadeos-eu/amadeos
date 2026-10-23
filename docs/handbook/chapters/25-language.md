@@ -1,6 +1,6 @@
 # 25. Your Language
 
-amadeOS speaks five languages: **English**, **Deutsch**, **Français**, **Español** and **Italiano**. The desktop, the Front Panel, the Style Manager and the amadeOS applications all follow the language you choose.
+amadeOS speaks five languages: **English**, **Deutsch**, **Français**, **Español** and **Italiano**. The desktop, the Front Panel, Settings and the amadeOS applications all follow the language you choose.
 
 ## Where to choose it
 
@@ -15,7 +15,7 @@ amadeOS speaks five languages: **English**, **Deutsch**, **Français**, **Españ
 
 ## The keyboard is separate
 
-The language does not change the keyboard. A French desktop can be typed on a German keyboard and the other way round. The keyboard layout is chosen at the login screen and, for good, in the installer; the Style Manager's *Keyboard* settings (chapter 33) set its repeat rate and click.
+The language does not change the keyboard. A French desktop can be typed on a German keyboard and the other way round. The keyboard layout is chosen at the login screen and, for good, in the installer; the *Keyboard* page of Settings (chapter 33) set its repeat rate and click.
 
 ## Region
 

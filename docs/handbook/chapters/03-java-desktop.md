@@ -13,12 +13,12 @@ In amadeOS, these are all Java programs, built on the same libraries:
 | Login screen | `amadeos-dm` (display manager and greeter) |
 | Window frames, workspaces, desktop menu | `amadeos-wm` (window manager) |
 | Front Panel | `amadeos-panel-cde` |
-| Settings | `amadeos-style` (Style Manager) |
+| Settings | `amadeos-settings` |
 | Screen saver and screen lock | `amadeos-session` |
 | System tools | `amadeos-logviewer`, `amadeos-sysinfo`, `amadeos-print`, the installer |
 | Applications and games | `amade-pad`, `amade-mail`, `amade-files`, …, `amade-mines-game`, … |
 
-The applications use the shared library *amade-commons* for their colours, their Motif look and their language, so a change in the Style Manager reaches all of them at once.
+The applications use the shared library *amade-commons* for their colours, their Motif look and their language, so a change in Settings reaches all of them at once.
 
 ## Why Java?
 

@@ -21,7 +21,7 @@ The WLAN connections you used in the live system were carried over, so the netwo
 ## Five first steps
 
 1. **Look around.** Chapter 21 gives a tour of the desktop.
-2. **Choose your colours** in the Style Manager (Part IV).
+2. **Choose your colours** in Settings (Part IV), and a larger text size if you like.
 3. **Check for updates.** The update cell in the Front Panel shows when updates are waiting (chapter 52).
 4. **Set up your mail** in the Mailer (chapter 44).
 5. **Copy your files back** from the backup, into the folders *Documents*, *Pictures*, *Music* and so on in your home folder.

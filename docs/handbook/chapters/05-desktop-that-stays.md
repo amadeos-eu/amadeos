@@ -11,12 +11,12 @@ CDE was designed for people who work at a computer all day. It is calm, clear an
 - **The Front Panel** at the bottom of the screen holds a clock, a calendar, the most-used programs and the workspace switch. Small arrows above the buttons open *drawers* with more programs.
 - **Four workspaces**, *One* to *Four*, each in its own colour, keep the windows of different tasks apart.
 - **Windows** have solid frames with three-dimensional edges in the Motif style, a title bar and buttons to minimise and maximise.
-- **The Style Manager** changes colours, backdrop, keyboard, mouse and screen saver in one place.
+- **The Style Manager** changes colours, fonts, backdrop, keyboard, mouse, windows and screen saver in one place.
 - **Palettes** colour the whole desktop at once, with matching light and shadow tones.
 
 ## What amadeOS keeps, and what it changes
 
-amadeOS reproduces this desktop faithfully: the layout of the Front Panel and its drawers, the workspace switch, the window frames, the Style Manager with its row of controls, the palettes and the original CDE backdrops. If you have used CDE, you will feel at home at once.
+amadeOS reproduces this desktop faithfully: the layout of the Front Panel and its drawers, the workspace switch, the window frames, the controls of the Style Manager (called Settings in amadeOS), the palettes and the original CDE backdrops. If you have used CDE, you will feel at home at once.
 
 It is not a museum piece, though. Under the familiar surface amadeOS is a new program, written in Java, and adds what a desktop needs today:
 
@@ -30,7 +30,7 @@ It is not a museum piece, though. Under the familiar surface amadeOS is a new pr
 | Fonts | Bitmap fonts | Smooth, scalable fonts |
 
 !!! cde "CDE heritage"
-    Boxes like this one appear wherever an amadeOS part follows a CDE program: the login screen follows `dtlogin`, the window manager `dtwm`, the Style Manager `dtstyle`, the Mailer `dtmail`, the Calendar `dtcm`, the Print Manager `dtprintinfo`, the screen saver `dtscreen`. Appendix C lists them all.
+    Boxes like this one appear wherever an amadeOS part follows a CDE program: the login screen follows `dtlogin`, the window manager `dtwm`, Settings `dtstyle`, the Mailer `dtmail`, the Calendar `dtcm`, the Print Manager `dtprintinfo`, the screen saver `dtscreen`. Appendix C lists them all.
 
 ## Why timeless?
 

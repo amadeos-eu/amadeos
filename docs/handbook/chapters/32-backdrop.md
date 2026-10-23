@@ -2,7 +2,7 @@
 
 The **backdrop** is what you see behind the windows. **Backdrop** chooses a CDE pattern, a picture or just a colour, for one workspace or for all four.
 
-![The Backdrop control](images/32/style-backdrop.jpg)
+![The Backdrop page](images/32/settings-backdrop.jpg)
 
 ## For which workspace
 
@@ -19,7 +19,7 @@ The list on the left offers, from top to bottom:
 - **The CDE backdrops**: the 26 patterns of the original CDE, from *Ankh*, *BrickWall* and *Corduroy* to *Pebbles*, *RicePaper*, *SkyDark*, *WaterDrops* and *Wooly*.
 - **Your pictures**: the pictures in the folders below.
 
-Click an entry and the **Preview** on the right shows the desktop with it. **Apply** or **OK** puts it on the screen.
+Click an entry and the **Preview** on the right shows the desktop with it. **Apply** puts it on the screen.
 
 ## Your own pictures
 

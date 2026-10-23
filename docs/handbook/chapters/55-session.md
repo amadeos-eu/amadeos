@@ -32,7 +32,7 @@ The `sleep 5` lets the panel appear first. To stop the program from starting, de
     The scripts run in the order of their names, but they do not wait for each other. A two-digit number at the front, as in `60-mailer`, keeps them sorted.
 
 !!! planned "Planned"
-    The Style Manager's *Startup* control (chapter 35) will manage the autostart and whether the session opens the windows of your last session again.
+    The *Startup* page of Settings (chapter 35) will manage the autostart and whether the session opens the windows of your last session again.
 
 ## The session's settings
 

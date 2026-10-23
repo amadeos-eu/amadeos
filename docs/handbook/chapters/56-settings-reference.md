@@ -16,11 +16,14 @@ Your settings are in your home folder, in folders whose names start with a dot a
 
 | File in `~/.config/amadeos/` | Written by | Chapter |
 |---|---|---|
-| `theme.conf`, `icon_theme.conf` | Style Manager: Color | 31 |
-| `wallpaper.conf` | Style Manager: Backdrop | 32 |
-| `input.conf` | Style Manager: Keyboard, Mouse, Beep | 33 |
-| `screen.conf` | Style Manager: Screen | 34 |
-| `clipboard.conf` | Style Manager: Clipboard | 36 |
+| `theme.conf`, `icon_theme.conf` | Settings: Color | 31 |
+| `font.conf` | Settings: Font | 35 |
+| `wallpaper.conf` | Settings: Backdrop | 32 |
+| `input.conf` | Settings: Keyboard, Mouse, Beep | 33 |
+| `screen.conf` | Settings: Screen | 34 |
+| `window.conf` | Settings: Window | 35 |
+| `clipboard.conf` | Settings: Clipboard | 36 |
+| `settings.conf` | Settings: the sidebar or the compact view | 30 |
 | `locale.conf` | The greeter and the language button | 25 |
 | `session.conf` | You, by hand | 55 |
 | `autostart.d/` | You, by hand | 55 |

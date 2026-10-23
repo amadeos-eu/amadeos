@@ -29,7 +29,7 @@ On top of that foundation, amadeOS brings a **desktop of its own**, written from
 - a login screen (the display manager),
 - a window manager that draws the window frames,
 - the Front Panel, with clock, calendar, workspaces and drawers of applications,
-- the Style Manager for colours, backdrops, keyboard, mouse and screen saver,
+- Settings for colours, text size, backdrops, keyboard, mouse, windows and screen saver,
 - tools to look after the system: log viewer, system information, Print Manager, installer,
 - and a family of everyday applications: File Manager, Text Editor, WritePad, Mailer, Calendar, Audio Station, Video Player, Image Scan, Fractals and a collection of games.
 

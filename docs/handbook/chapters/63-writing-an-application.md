@@ -49,7 +49,7 @@ Programs of other kinds, such as `Utility`, `Development` or `Education`, are li
 
 The programs of Part V are **amade applications**: Java 25 programs with Swing, built on the shared library **amade-commons**. The library gives every application, with a few lines of code:
 
-- the Motif look of CDE, in the colours of the palette chosen in the Style Manager, changing with it while the program runs;
+- the Motif look of CDE, in the colours of the palette and text size chosen in Settings, changing with them while the program runs;
 - the five languages of the desktop, from simple text files, and the language chosen at login;
 - its settings in `~/.config/amadeos/<application>`, its data in `~/.local/share/amadeos/<application>`;
 - the standard menus, *About* window, toolbar buttons and printing;
@@ -82,4 +82,4 @@ Ideas and questions go to <https://github.com/datazuul/amadeos/issues>; `CONTRIB
     An application for amadeOS should do what the desktop does: keep the user's data on the computer, in open formats, and send nothing anywhere unless the user asks for it. The handbooks show how.
 
 ??? hood "Under the hood"
-    The panel reads desktop entries from `~/.local/share/applications`, `/usr/local/share/applications` and `/usr/share/applications` (or the folders of `XDG_DATA_HOME` and `XDG_DATA_DIRS`) and watches them for changes. A folder that does not exist yet when you log in is watched as soon as it is created. An entry with `NoDisplay=true` or `Hidden=true` is left out. Icons are looked up by name in the icon theme chosen in the Style Manager, then in `hicolor`.
+    The panel reads desktop entries from `~/.local/share/applications`, `/usr/local/share/applications` and `/usr/share/applications` (or the folders of `XDG_DATA_HOME` and `XDG_DATA_DIRS`) and watches them for changes. A folder that does not exist yet when you log in is watched as soon as it is created. An entry with `NoDisplay=true` or `Hidden=true` is left out. Icons are looked up by name in the icon theme chosen in Settings, then in `hicolor`.

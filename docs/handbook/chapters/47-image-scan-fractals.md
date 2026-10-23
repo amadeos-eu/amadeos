@@ -55,7 +55,7 @@ The **Places** menu goes straight to famous spots: Seahorse Valley, Elephant Val
 
 ### Formulas and colours
 
-The panel on the left chooses the **formula**: Mandelbrot, Multibrot, Burning Ship, Tricorn, Celtic, Buffalo, Phoenix, Magnet and Newton's method, each but Newton also as a Julia set. **Colouring** and **Palette** change the colours without calculating again; the palette *Desktop Colours* takes the colours of your Style Manager palette, and colour cycling sets the colours moving.
+The panel on the left chooses the **formula**: Mandelbrot, Multibrot, Burning Ship, Tricorn, Celtic, Buffalo, Phoenix, Magnet and Newton's method, each but Newton also as a Julia set. **Colouring** and **Palette** change the colours without calculating again; the palette *Desktop Colours* takes the colours of your palette in Settings, and colour cycling sets the colours moving.
 
 ### Saving
 

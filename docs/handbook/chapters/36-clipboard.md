@@ -1,6 +1,6 @@
 # 36. Clipboard
 
-What you copy with ++ctrl+c++ stays available in amadeOS after you have copied something else, and even after the program you copied from has closed. The **clipboard history** keeps the last copies; the Style Manager's **Clipboard** control sets how many, and what else the clipboard does.
+What you copy with ++ctrl+c++ stays available in amadeOS after you have copied something else, and even after the program you copied from has closed. The **clipboard history** keeps the last copies; the **Clipboard** page of Settings sets how many, and what else the clipboard does.
 
 ## The clipboard history
 
@@ -24,9 +24,9 @@ To paste an older copy:
 
 ## The Clipboard control
 
-Open the Style Manager and click **Clipboard** (chapter 30).
+Open Settings and click **Clipboard** (chapter 30).
 
-![The Clipboard control](images/36/style-clipboard.jpg)
+![The Clipboard page](images/36/settings-clipboard.jpg)
 
 | Setting | What it does |
 |---|---|
@@ -36,7 +36,7 @@ Open the Style Manager and click **Clipboard** (chapter 30).
 | **Keep a copy on the clipboard when the program that made it closes** | Without it, a copy disappears when you close the program you copied from, as on many Linux desktops. With it, the copy stays. |
 | **Also record selected text and put it on the clipboard** | Linux has a second clipboard: text you select with the mouse can be pasted with the middle mouse button. With this setting, selected text also goes into the history and onto the normal clipboard. |
 
-*OK*, *Apply* and *Cancel* work as in every control.
+*Apply* and *Reset* work as on every page.
 
 !!! switching "Coming from Windows or macOS"
     ++ctrl+alt+v++ is what ++win+v++ is on Windows. macOS has no clipboard history of its own.

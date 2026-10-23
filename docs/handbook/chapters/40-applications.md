@@ -35,7 +35,7 @@ The Application Manager lists **every installed program** with a desktop entry, 
 
 ## What all amade applications share
 
-- **The look of the desktop.** They use the palette chosen in the Style Manager and change with it at once, even while they are open (chapter 31).
+- **The look of the desktop.** They use the palette and the text size chosen in Settings and change with them at once, even while they are open (chapter 31).
 - **Five languages.** They follow the desktop language (chapter 25). Each has a language setting of its own as well, which applies to that program alone from its next start.
 - **Your settings stay with you.** Each program keeps its settings in a folder of its own under `~/.config/amadeos/`, readable only by you.
 - **Safe saving.** A file is written to a temporary file first and put in place when it is complete, so a crash or a full disk never leaves half a document behind.

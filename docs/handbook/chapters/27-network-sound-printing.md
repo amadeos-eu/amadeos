@@ -30,7 +30,7 @@ Set the volume in the program that plays; most of them have a volume control.
 !!! planned "Planned"
     A sound cell in the Front Panel, with the volume and the choice of the output device, will join the network and update cells. Until then, `pactl set-sink-volume @DEFAULT_SINK@ 50%` in a terminal sets the volume, and `pactl list short sinks` lists the devices.
 
-The **beep**, the short sound the desktop makes for a mistake, is set in the Style Manager's *Beep* settings (chapter 33).
+The **beep**, the short sound the desktop makes for a mistake, is set on the *Beep* page of Settings (chapter 33).
 
 ## Printing
 

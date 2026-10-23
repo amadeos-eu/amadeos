@@ -1,4 +1,4 @@
-# 48. Calculator, Web Browser and Handbooks
+# 48. Calculator, PDF Viewer, Web Browser and Handbooks
 
 ## Calculator
 
@@ -61,6 +61,64 @@ The keys **AND, OR, XOR, NOT, NAND, NOR** combine the bits of two numbers, **<<*
 
 ??? hood "Under the hood"
     The Calculator computes with Java's `BigDecimal` to 34 digits, the precision of the decimal numbers of the IEEE 754 standard. Roots of non-square numbers, logarithms and the trigonometric functions are rounded to 15 digits. Its settings are in `~/.config/amadeos/calculator/calculator.properties`.
+
+## PDF Viewer
+
+The **PDF Viewer** shows PDF documents: manuals, forms you received, bank statements, tickets, papers. It shows the pages as they were made, with the table of contents of the document, and finds words on all pages.
+
+Double-click a PDF file in the File Manager, start it from the Text & Office drawer, or type `amade-pdfviewer file.pdf`. *File → Open* (++ctrl+o++) opens another file, *File → Recent* one of the last ten; you can also drop a file on the window. A document with a password asks for it.
+
+![The PDF Viewer with the page thumbnails and a search](images/48/pdf-viewer.jpg)
+
+### Reading
+
+The pages lie below each other, and the mouse wheel, the scroll bar, ++page-up++, ++page-down++ and ++space++ move through them. ++ctrl+page-up++ and ++ctrl+page-down++ turn a whole page, ++ctrl+home++ and ++ctrl+end++ go to the first and the last page. Type a page number into the box in the toolbar, or use *Go → Go to Page* (++ctrl+g++). The status bar shows the page, its paper size and the zoom.
+
+The **View** menu has three ways to lay out the pages:
+
+- **Continuous** (++ctrl+1++): all pages below each other.
+- **Single Page** (++ctrl+2++): one page at a time.
+- **Two Pages** (++ctrl+3++): two pages side by side, as in an open book; the first page stands alone on the right.
+
+**Zoom** with the magnifier buttons, ++ctrl+plus++ and ++ctrl+minus++, or ++ctrl++ and the mouse wheel, which keeps the place under the pointer still. The box in the toolbar offers *Fit Page*, which shows whole pages, *Fit Width*, which fills the width of the window, and fixed sizes from 10 % to 800 %; you can also type a number. ++ctrl+0++ shows the pages at 100 %, their size on paper. A page that was scanned the wrong way round turns with the two arrow buttons or ++ctrl+arrow-left++ and ++ctrl+arrow-right++; the file itself is not changed.
+
+The PDF Viewer remembers for every document the page, the zoom and the turn where you stopped, and opens it there the next time.
+
+### The sidebar
+
+![The table of contents and two pages](images/48/pdf-viewer-contents.jpg)
+
+The sidebar (++f9++, or the first button of the toolbar) shows either **Pages**, small pictures of all pages, or **Contents**, the table of contents of the document, if it has one. Click a page or a heading to go there.
+
+Links in a document work as on the web: a link inside the document jumps to its target, a link to a web page opens Firefox. *Go → Back* (++alt+arrow-left++) returns to where you were before the jump, *Go → Forward* (++alt+arrow-right++) goes there again.
+
+### Finding and copying text
+
+Type a word into the search box at the right of the toolbar (++ctrl+f++ puts the cursor there) and press ++enter++. The PDF Viewer searches all pages, marks every place in yellow and the current one in orange, and shows how many it found, such as "2 of 49". ++enter++ or ++f3++ goes to the next place, ++shift+f3++ to the previous one. Upper and lower case do not count, and a phrase is found even when it is broken over two lines.
+
+To copy text, drag over it with the mouse, or double-click a word, and press ++ctrl+c++. ++ctrl+a++ selects the whole page.
+
+!!! tip "Scanned documents"
+    A PDF made by a scanner often holds only pictures of the pages, without text. Then search and copying find nothing, because there are only pixels.
+
+### Printing, presenting and properties
+
+*File → Print* (++ctrl+p++) opens the print dialog, with the choice of printer, pages and copies; chapter 27 explains how to set up a printer.
+
+*View → Presentation* (++f5++) shows the document on the whole screen, one page at a time, for slides made as a PDF. A click, ++space++, ++page-down++ or the arrow keys go on, ++esc++ ends it.
+
+*File → Properties* (++alt+enter++) shows what the document says about itself: title, author, subject, keywords, the program that made it, the dates, the PDF version, the page count, the paper size in millimetres and its name (A4, Letter), the size of the file and whether it is encrypted.
+
+When the file changes on disk while it is open, for example because you saved it again from another program, the PDF Viewer loads it again and stays on the same page. *File → Reload* (++ctrl+r++) does that by hand.
+
+!!! sovereignty "Your data"
+    The PDF Viewer never goes online by itself. It only opens a web link when you click one, and then in Firefox.
+
+!!! planned "Planned"
+    A night mode with light text on dark pages, filling in PDF forms, highlighting and notes, and comic archives (CBZ). E-books (EPUB) will get a program of their own, because their text flows like a web page instead of lying on fixed pages.
+
+??? hood "Under the hood"
+    The PDF Viewer draws the pages with Apache PDFBox, a free PDF library of the Apache Software Foundation. Its settings are in `~/.config/amadeos/pdfviewer/pdfviewer.properties`, the reading positions of the last 300 documents in `positions.properties` next to it.
 
 ## Firefox
 

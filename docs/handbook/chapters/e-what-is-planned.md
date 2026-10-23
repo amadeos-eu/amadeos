@@ -41,6 +41,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 | Video Player | A face like the Audio Station's, DVD titles and chapters, playlists, audio and subtitle tracks, full screen, volume | 46 |
 | Image Viewer | A picture as the backdrop of a workspace, moving GIF and WebP pictures, HEIC photos, cropping, brightness and contrast, editing title and keywords | 47 |
 | Image Scan | Several pages into one PDF, brightness and contrast, straightening, the scanner's button | 47 |
+| PDF Viewer | A night mode, filling in forms, highlighting and notes, comic archives (CBZ); e-books (EPUB) in a program of their own | 48 |
 | Calculator | A mode for converting units, later currencies | 48 |
 | Documentation Viewer | A table of contents of all documentation, full-text search, manual pages, bookmarks | 48 |
 

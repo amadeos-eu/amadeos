@@ -310,6 +310,37 @@ imageviewer_shots() {
     close_programs
 }
 
+# pdfviewer_shots: the PDF Viewer with the page thumbnails and a search, then two pages at a time with
+# the table of contents. The document is Part I of this handbook, made with reportlab
+# (home/Documents/amadeos-handbook-part-1.pdf).
+pdfviewer_shots() {
+    local settings="$HOME/.config/amadeos/pdfviewer/pdfviewer.properties"
+    local document="$HOME/Documents/amadeos-handbook-part-1.pdf"
+    mkdir -p "$(dirname "$settings")"
+    printf 'view=continuous\nzoom=fit-width\nsidebar=true\nsidebar-tab=pages\n' > "$settings"
+    start amade-pdfviewer "$document"
+    wait_window "PDF Viewer" 40 || { close_programs; return 0; }
+    sleep 3
+    place "PDF Viewer" 140 60 1000 640
+    xdotool search --onlyvisible --name "PDF Viewer" windowactivate --sync 2>/dev/null || true
+    key ctrl+f; type_text "desktop"; key Return; sleep 2; key Return
+    xdotool mousemove 5 5
+    sleep 2
+    shot_window 48 pdf-viewer "PDF Viewer"
+    close_programs
+    printf 'view=two-pages\nzoom=fit-page\nsidebar=true\nsidebar-tab=contents\n' > "$settings"
+    start amade-pdfviewer "$document"
+    wait_window "PDF Viewer" 40 || { close_programs; return 0; }
+    sleep 3
+    place "PDF Viewer" 140 60 1000 640
+    xdotool search --onlyvisible --name "PDF Viewer" windowactivate --sync 2>/dev/null || true
+    key ctrl+g; type_text "3"; key Return
+    xdotool mousemove 5 5
+    sleep 3
+    shot_window 48 pdf-viewer-contents "PDF Viewer"
+    close_programs
+}
+
 # The applications of Part V, each in a window of 1000 x 640 where the program lets itself be sized.
 scene_apps() {
     [ -n "$session_pid" ] || start_session
@@ -341,6 +372,7 @@ scene_apps() {
     calculator_shot calculator "mode=basic\npaper-tape=true" "1234.5*3=" "19.99+4.5+7.25=" "200+10%=" "1/3*3=" "1234567.89*12"
     calculator_shot calculator-scientific "mode=scientific\npaper-tape=false" "(2+3)^2*p="
     calculator_shot calculator-programmer "mode=programmer\npaper-tape=false\nradix=hex\nword-size=64\nsigned=true" "ff00|2a="
+    pdfviewer_shots
     app_shot 48 documentation-viewer "Documentation Viewer|/usr/share/doc" 140 60 1000 640 amade-web
 }
 

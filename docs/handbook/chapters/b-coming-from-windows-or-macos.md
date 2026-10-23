@@ -28,6 +28,7 @@ Where to find on amadeOS what you know from Windows or macOS.
 | Media Player | Music, QuickTime | Audio Station, Video Player | 46 |
 | Photos | Preview, Photos | Image Viewer | 47 |
 | Windows Fax and Scan | Image Capture | Image Scan | 47 |
+| Adobe Acrobat Reader, Edge | Preview | PDF Viewer, in the Text & Office drawer | 48 |
 | Calculator | Calculator | Calculator, in the Text & Office drawer | 48 |
 | Edge | Safari | Firefox | 48 |
 | Snipping Tool | Screenshot | Screenshot, in the Graphics drawer | — |
@@ -47,4 +48,4 @@ Where to find on amadeOS what you know from Windows or macOS.
 - **Three mouse buttons.** The middle button pastes the last selected text (chapter 21).
 - **Drive letters.** There are none. Everything is in one tree of folders that starts at `/`, and your own files are in your home folder, `/home/<name>` (chapter 41).
 - **File names.** Upper and lower case count: `Letter.txt` and `letter.txt` are two files.
-- **Files of Windows and macOS.** Word documents open in LibreOffice Writer, PDF files in Firefox (chapters 43 and 48).
+- **Files of Windows and macOS.** Word documents open in LibreOffice Writer, PDF files in the PDF Viewer (chapters 43 and 48).

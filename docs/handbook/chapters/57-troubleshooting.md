@@ -53,7 +53,7 @@ If the greeter appears but the desktop does not come up after the login, choose 
 
 1. Look at the session's log: `less ~/.cache/amadeos/logs/session.log` (++q++ ends it).
 2. If you changed the session's settings, move them aside: `mv ~/.config/amadeos/session.conf ~/session.conf.old`.
-3. If a Style Manager setting is the cause, move the whole folder aside: `mv ~/.config/amadeos ~/amadeos-settings.old`. The desktop then starts with its defaults.
+3. If one of your settings is the cause, move the whole folder aside: `mv ~/.config/amadeos ~/amadeos-config.old`. The desktop then starts with its defaults.
 4. Type `exit` to log out, and log in with *amadeOS CDE Desktop* again.
 
 ### Without the greeter

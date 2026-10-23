@@ -32,9 +32,9 @@ Every chapter of the book, part by part. The book keeps growing with amadeOS: ne
 26. [Locking, Logging Out, Shutting Down](26-lock-logout-shutdown.md)
 27. [Network, Sound and Printing](27-network-sound-printing.md)
 
-## Part IV: The Style Manager
+## Part IV: Settings
 
-30. [The Style Manager](30-style-manager.md)
+30. [Settings](30-settings.md)
 31. [Color](31-color.md)
 32. [Backdrop](32-backdrop.md)
 33. [Keyboard, Mouse and Beep](33-keyboard-mouse-beep.md)

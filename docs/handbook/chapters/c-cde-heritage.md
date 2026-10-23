@@ -10,7 +10,7 @@ amadeOS follows the **Common Desktop Environment** (CDE), the desktop of the lar
 | Workspace Menu | The `dtwm` root menu | Built from the installed programs instead of a hand-edited `dtwmrc`. | 24 |
 | Front Panel (`amadeos-panel-cde`) | The Front Panel | Drawers (CDE's *subpanels*) fill themselves from the installed programs. New: the Games drawer, the status slot, the language button. | 22 |
 | Lock and EXIT | Lock and EXIT of the Front Panel | ++super+l++ locks; EXIT also offers *Reboot* and *Shut Down*. | 26 |
-| Style Manager (`amadeos-style`) | `dtstyle` | The same row of controls; *Clipboard* is new; *Font*, *Window* and *Startup* are still to come. | Part IV |
+| Settings (`amadeos-settings`) | `dtstyle` (Style Manager) | The same controls, in a sidebar with a search; *View → Compact* shows CDE's row of buttons. *Clipboard* is new; *Startup* is still to come. | Part IV |
 | Palettes and workspace colours | `dtstyle` palettes | The original palettes such as *Brocade* and *Desert*, and new ones. | 31 |
 | Backdrops | The CDE backdrops | The 26 original patterns, plus pictures and plain colours. | 32 |
 | Screen saver and lock | `dtscreen`, `dtsession` lock | Modules such as Qix and Swarm. | 34 |

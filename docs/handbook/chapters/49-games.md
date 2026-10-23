@@ -20,7 +20,7 @@ The twelve action and strategy games also share:
 - ***Game → Graphics*** chooses how the picture reaches the screen: **Direct**, sharp at the full size of the screen, or **Pixels**, at 640 × 400 enlarged with square pixels, as on the home computers of the 1980s. If a game runs jerkily on an old computer, try *Pixels*.
 - ***Game → Sound*** switches sound effects and music off.
 
-Mines and Solitaire take the colours of your Style Manager palette; ++f2++ starts a new game in Mines.
+Mines and Solitaire take the colours of your palette in Settings; ++f2++ starts a new game in Mines.
 
 ## Thinking and cards
 

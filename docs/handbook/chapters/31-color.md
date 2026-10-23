@@ -2,7 +2,7 @@
 
 **Color** chooses the **palette**, the set of colours for the whole desktop: window frames, buttons, menus, the Front Panel, the four workspaces, and every amadeOS application. It also chooses the **icon theme**.
 
-![The Color control](images/31/style-color.jpg)
+![The Color page](images/31/settings-color.jpg)
 
 ## The palettes
 
@@ -24,7 +24,7 @@ Click a palette in the list. The colour chips to the right show its colours; hol
 - **Text** and **Inactive text**;
 - **Workspace One** to **Four**, the colours of the workspace buttons in the Front Panel (chapter 24).
 
-Click **Apply** or **OK**. The window frames, the Front Panel and the open amadeOS applications change at once. Programs that are not part of amadeOS, such as Firefox or LibreOffice, keep their own look.
+Click **Apply**. The window frames, the Front Panel and the open amadeOS applications change at once. Programs that are not part of amadeOS, such as Firefox or LibreOffice, keep their own look.
 
 ## The icon theme
 

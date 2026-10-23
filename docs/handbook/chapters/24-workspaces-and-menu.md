@@ -8,7 +8,7 @@ The four buttons in the middle of the Front Panel switch between the workspaces.
 
 ![Workspace Two, still empty, with the windows of workspace One out of sight](images/24/workspace-two.jpg)
 
-The Front Panel is the same on all workspaces. The backdrop is too, until you give a workspace one of its own in the Style Manager (chapter 32): then switching to that workspace changes the backdrop with the windows.
+The Front Panel is the same on all workspaces. The backdrop is too, until you give a workspace one of its own in Settings (chapter 32): then switching to that workspace changes the backdrop with the windows.
 
 ## Naming a workspace
 
@@ -22,7 +22,7 @@ A name such as *Mail* or *Letters* tells you better than *Two* what a workspace 
 
 A double click on any workspace button does both clicks at once. You can also click the **right mouse button** on a workspace button and choose **Rename**.
 
-++escape++ keeps the old name. An empty name gives the workspace back its own name, *One* to *Four* in the language of the desktop. A name can be up to 24 characters long; when it is wider than the button, the button shows its beginning with "…", and the tooltip shows it in full. The Workspace Menu (below) and the Style Manager's Backdrop control use the new names too.
+++escape++ keeps the old name. An empty name gives the workspace back its own name, *One* to *Four* in the language of the desktop. A name can be up to 24 characters long; when it is wider than the button, the button shows its beginning with "…", and the tooltip shows it in full. The Workspace Menu (below) and the Backdrop page of Settings use the new names too.
 
 !!! cde "CDE heritage"
     CDE gave every workspace its own colour from the palette, so you always see where you are; amadeOS keeps that. Renaming works as in CDE: click the current workspace's button, type, press Return. Each workspace can also have its own backdrop, as in CDE. CDE could also change the number of workspaces; amadeOS has four for now.
@@ -45,7 +45,7 @@ Click the **right mouse button on the backdrop** to open the Workspace Menu.
 | **New Window** | A *Terminal Emulator*, the *Text Editor* or a *File Manager* window with your home folder. |
 | **Workspaces** | Switches to *Workspace 1: One* to *Workspace 4: Four*, under the names you gave them; the current one has a tick. |
 | **Window Management** | *Shuffle Up* and *Shuffle Down* bring the bottom window to the front or send the front window to the back, one at a time; *Minimize All Windows* clears the workspace, *Restore All Windows* brings them back. |
-| **Style Manager…** | Opens the Style Manager (Part IV). |
+| **Settings…** | Opens Settings (Part IV). |
 | **Refresh Desktop** | Draws the desktop and all frames anew, if something on the screen looks wrong. |
 | **Lock Screen** | Locks the screen (chapter 26). |
 | **Log Out…** | Ends the session (chapter 26). |

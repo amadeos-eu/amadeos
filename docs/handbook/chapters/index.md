@@ -21,7 +21,7 @@ You are curious how a desktop works. The last part of the book opens the bonnet:
 | I. Why amadeOS | The ideas behind amadeOS: sovereignty, a Java desktop, free and European, a desktop that stays, and where it stands today. |
 | II. Getting amadeOS | What you need, writing a USB stick, starting the live system, installing amadeOS, next to Windows. |
 | III. Using the desktop | Logging in, the Front Panel, windows, workspaces, language, network, sound and printing. |
-| IV. The Style Manager | Colours, backdrops, keyboard, mouse, beep, screen saver and clipboard. |
+| IV. Settings | Colours, text size, backdrops, keyboard, mouse, beep, screen saver, windows and clipboard. |
 | V. The applications | The amadeOS applications and games, one chapter each. |
 | VI. Administering amadeOS | Software, updates, users, the session, settings files, troubleshooting and security. |
 | VII. Under the hood | How amadeOS is put together, and how to build it or write for it. |

@@ -46,7 +46,7 @@ The middle of the panel holds the controls of the session:
 
 | Entry | What it is |
 |---|---|
-| Style Manager | Colours, backdrop, keyboard, mouse, beep, screen saver and clipboard (Part IV). |
+| Settings | Colours, text size, backdrop, keyboard, mouse, beep, screen saver, windows and clipboard (Part IV). |
 | Application Manager | All installed programs, sorted by kind. |
 | Terminal (xterm) | A terminal window for commands. |
 | Root Console (sudo) | A terminal with administrator rights; asks for your password (chapter 50). |

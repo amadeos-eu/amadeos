@@ -73,13 +73,13 @@ The desktop is developed in `amadeos-system`. You do not need a new image to try
 ```sh
 cd ../amadeos-system
 ./gradlew build                 # build and test every module
-./gradlew :style:run            # start the Style Manager from the build
+./gradlew :settings:run         # start Settings from the build
 wm/run-xephyr.sh                # window manager and Front Panel in a window of their own
 dm/run-greeter.sh               # the login greeter in a window
 ./gradlew deb                   # the packages, in <module>/build/distributions/
 ```
 
-`sudo dpkg -i style/build/distributions/amadeos-style_*.deb` installs a changed package on a running amadeOS; log out and in again to see it everywhere. `./gradlew installToAmadeOs` puts the packages into `../amadeos/config/packages.chroot/` for the next image.
+`sudo dpkg -i settings/build/distributions/amadeos-settings_*.deb` installs a changed package on a running amadeOS; log out and in again to see it everywhere. `./gradlew installToAmadeOs` puts the packages into `../amadeos/config/packages.chroot/` for the next image.
 
 ## This book
 

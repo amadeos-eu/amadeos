@@ -1,10 +1,10 @@
 # 33. Keyboard, Mouse and Beep
 
-Three small controls set how the keyboard and mouse react and how the desktop sounds. Each has a **Defaults** button, which puts the values of a new account back into the window; click *Apply* or *OK* to keep them.
+Three small pages set how the keyboard and mouse react and how the desktop sounds. Each has a **Defaults** button, which puts the values of a new account back on the page; click *Apply* to keep them.
 
 ## Keyboard
 
-![The Keyboard control](images/33/style-keyboard.jpg)
+![The Keyboard page](images/33/settings-keyboard.jpg)
 
 | Setting | What it does | Default |
 |---|---|---|
@@ -19,7 +19,7 @@ The keyboard **layout**, German, French or another, is not set here: choose it a
 
 ## Mouse
 
-![The Mouse control](images/33/style-mouse.jpg)
+![The Mouse page](images/33/settings-mouse.jpg)
 
 | Setting | What it does | Default |
 |---|---|---|
@@ -35,7 +35,7 @@ The **Double-click test** box opens and closes when you double-click it at the s
 
 ## Beep
 
-![The Beep control](images/33/style-beep.jpg)
+![The Beep page](images/33/settings-beep.jpg)
 
 The **beep** is the short sound the desktop and the programs make to say no, for example when a key does nothing where you pressed it.
 
@@ -45,7 +45,7 @@ The **beep** is the short sound the desktop and the programs make to say no, for
 | **Tone** | From a deep 55 Hz to a high 4000 Hz. | 400 Hz |
 | **Duration** | 10 to 2000 milliseconds. | 100 ms |
 
-**Test** plays the beep with the values shown. *Cancel* goes back to the saved beep.
+**Test** plays the beep with the values shown. *Reset* goes back to the saved beep.
 
 ??? hood "Under the hood"
-    The three controls share one file, `~/.config/amadeos/input.conf`. *Apply* hands the settings to the X server with the standard tools `xset` (repeat, click, acceleration, beep), `xmodmap` (handedness) and `xrdb` (double-click time). At login, `/etc/amadeos/autostart.d/10-amadeos-input` runs `amadeos-style input`, which applies the file again.
+    The three controls share one file, `~/.config/amadeos/input.conf`. *Apply* hands the settings to the X server with the standard tools `xset` (repeat, click, acceleration, beep), `xmodmap` (handedness) and `xrdb` (double-click time). At login, `/etc/amadeos/autostart.d/10-amadeos-input` runs `amadeos-settings input`, which applies the file again.

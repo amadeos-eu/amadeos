@@ -32,7 +32,7 @@ The keys and mouse actions of the desktop, in one place. The keys of each progra
 | **A workspace button** | Switches to the workspace; on the current one: renames it (24) | — | Rename (24) |
 | **A minimised window's icon** | Brings the window back (23) | — | — |
 
-On a touchpad, the right button is a click at the bottom right or with two fingers; the middle button is often a click with three fingers, or both buttons at once (chapter 21). Left-handed users swap the buttons in the Style Manager's *Mouse* control (chapter 33).
+On a touchpad, the right button is a click at the bottom right or with two fingers; the middle button is often a click with three fingers, or both buttons at once (chapter 21). Left-handed users swap the buttons on the *Mouse* page of Settings (chapter 33).
 
 ## Locked screen and clipboard history
 

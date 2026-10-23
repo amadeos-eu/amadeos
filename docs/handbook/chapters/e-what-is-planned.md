@@ -21,7 +21,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 | Keys for the windows, such as ++alt+tab++ | 21, A |
 | Moving a window to another workspace, or showing it on all of them | 24 |
 | Cells for the sound volume, the battery and Bluetooth in the Front Panel | 22, 27 |
-| The Style Manager's *Font*, *Window* and *Startup* controls | 35, 55 |
+| The *Startup* page of Settings | 35, 55 |
 | A *Users* program for accounts | 53 |
 | A network settings window for fixed addresses, hidden networks and VPNs | 54 |
 | More panels than the CDE Front Panel | 55 |

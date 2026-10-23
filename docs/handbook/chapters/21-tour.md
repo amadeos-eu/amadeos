@@ -6,7 +6,7 @@ After logging in, you see the amadeOS desktop: a calm backdrop and, at the botto
 
 ## The parts of the desktop
 
-**The backdrop** fills the screen behind the windows. The Style Manager changes it (chapter 32): the original CDE patterns, a plain colour or a picture of your own.
+**The backdrop** fills the screen behind the windows. Settings changes it (chapter 32): the original CDE patterns, a plain colour or a picture of your own.
 
 **The Front Panel** at the bottom is the centre of the desktop. From left to right it holds the clock, the calendar, the drawers with the programs, the workspace switch in the middle, then the Print Manager, the tools, the help, the trash can and the status cell. Chapter 22 describes every part of it.
 

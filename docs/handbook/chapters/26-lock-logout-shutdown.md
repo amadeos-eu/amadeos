@@ -12,7 +12,7 @@ When you leave the computer for a moment, **lock** it. Your windows stay open be
 
 To unlock, type your password and press ++enter++.
 
-After a time without keyboard or mouse, the **screen saver** starts, and a little later the screen locks by itself. How long that takes, and which picture the screen saver shows, is set in the Style Manager's *Screen* settings (chapter 34).
+After a time without keyboard or mouse, the **screen saver** starts, and a little later the screen locks by itself. How long that takes, and which picture the screen saver shows, is set on the *Screen* page of Settings (chapter 34).
 
 !!! sovereignty "Your data"
     The lock grabs the keyboard and mouse for itself, so no program behind it can read what you type. If the lock program should ever crash, it starts again at once and the screen stays locked.

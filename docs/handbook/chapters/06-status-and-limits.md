@@ -10,7 +10,7 @@ amadeOS is in active development and has **not had its first release yet**. This
 | Installation | The assistant *Install amadeOS* installs the system onto a hard disk, on a whole disk or on a free partition. A whole-disk installation with BIOS boots into the desktop in QEMU. |
 | Login | Login screen with language and time zone, password check through PAM. |
 | Desktop | Window manager with Motif frames, four workspaces, desktop menu, Front Panel with drawers, screen lock and screen saver. |
-| Settings | Style Manager: colour, backdrop, keyboard, mouse, beep and screen. |
+| Settings | Colour, text size, backdrop, keyboard, mouse, beep, screen, windows and clipboard. |
 | Languages | English, Deutsch, Français, Español, Italiano. |
 | Network | Ethernet by itself; wireless networks through a text dialog. |
 | Printing | Network and USB printers without drivers (IPP Everywhere, AirPrint); Print Manager for printers and jobs. |
@@ -27,7 +27,7 @@ amadeOS is in active development and has **not had its first release yet**. This
 !!! planned "Planned"
     - **An amadeOS package repository**, so that amadeOS and its applications are updated like Debian, not only through a new image (M16).
     - **Disk encryption** and a separate home partition in the installer (M14).
-    - **The Style Manager's Font, Window and Startup controls.**
+    - **The Startup control of Settings.**
     - **A first release** with a documented release process, signed images and release notes (M12).
 
 ## Limits by design

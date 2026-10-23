@@ -3,7 +3,7 @@
 # (thirteen slots); when the panel changes, adjust the PANEL_* values below.
 # shellcheck shell=bash
 
-ALL_SCENES=(greeter installer desktop panel drawers menu windows workspaces style lock apps games admin develop)
+ALL_SCENES=(greeter installer desktop panel drawers menu windows workspaces style lock apps games admin develop polkit)
 
 # Where things are on the screen: the drawer arrows of the Front Panel (x, at the height PANEL_ARROW_Y)
 # and the workspace buttons.
@@ -301,4 +301,20 @@ END
     sleep 4
     open_drawer "$PANEL_TOOLS_X"; shot 63 drawer-tools-own-entry 620x380+580+420; close_drawer "$PANEL_TOOLS_X"
     rm -f "$HOME/.local/share/applications/backup.desktop"
+}
+
+# Chapter 50: the password window. A machine without a login session (the virtual screen of shoot.sh) has
+# no agent for the session, so an agent of its own serves the shell that runs pkexec (pkexec asks for its
+# parent process). It needs polkitd and, without an active session, a local rule that asks for the
+# password instead of refusing, such as
+# /etc/polkit-1/rules.d/90-shoot.rules: if (action.id === "eu.amadeos.packages.manage") AUTH_ADMIN_KEEP.
+scene_polkit() {
+    [ -n "$session_pid" ] || start_session
+    pgrep -x polkitd >/dev/null || { echo "shoot.sh: polkitd is not running, no password window" >&2; return 0; }
+    start sh -c '/usr/libexec/amadeos-session polkit-agent --process $$ & sleep 6; pkexec /usr/libexec/amadeos-packages check'
+    if wait_window "Authentication Required" 40; then
+        sleep 2; place "Authentication Required" 380 200; sleep 1
+        shot_window 50 password-window "Authentication Required"
+    fi
+    close_programs
 }

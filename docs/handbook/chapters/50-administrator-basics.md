@@ -16,7 +16,9 @@ There is **no root password**. The account `root` exists, as on every Linux syst
 
 ## When amadeOS asks for your password
 
-When a program needs an administrator's permission, a window **Authentication Required** appears in the middle of the screen. It says what the program wants to do, for example *Install software*.
+When a program needs an administrator's permission, a window **Authentication Required** appears in the middle of the screen. It says what the program wants to do, for example *Authentication is required to change the installed software*.
+
+![The password window](images/50/password-window.jpg)
 
 - Type your password and press **Authenticate** (or ++enter++).
 - **Cancel** refuses; the program then says *Not done: the password was not given*.

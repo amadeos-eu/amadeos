@@ -14,6 +14,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | **Video Player** | Video files, streams and DVDs | Sound & Video | 46 |
 | **Image Scan** | Scanning photos and letters | Graphics | 47 |
 | **Fractals** | Exploring the Mandelbrot set | Graphics | 47 |
+| **Calculator** | Basic, scientific and programmer calculations | Text & Office | 48 |
 | **Firefox** | The web | Mail & Internet | 48 |
 | **Documentation Viewer** | The documentation installed on the computer | Help | 48 |
 | **Games** | Fourteen games, from Mines to Town | Games | 49 |

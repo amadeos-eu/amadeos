@@ -40,6 +40,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 | Calendar | One place for all accounts, other calendars next to your own, keeping in step with a CalDAV server | 45 |
 | Video Player | A face like the Audio Station's, DVD titles and chapters, playlists, audio and subtitle tracks, full screen, volume | 46 |
 | Image Scan | Several pages into one PDF, brightness and contrast, straightening, the scanner's button | 47 |
+| Calculator | A mode for converting units, later currencies | 48 |
 | Documentation Viewer | A table of contents of all documentation, full-text search, manual pages, bookmarks | 48 |
 
 !!! tip

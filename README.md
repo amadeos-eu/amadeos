@@ -59,7 +59,7 @@ flowchart TD
     subgraph Session ["User session"]
         WM["Window manager<br>reparenting, Motif/CDE frames"]
         Panel["Front panel<br>clock, workspaces, drawers"]
-        Tools["Style Manager, screen saver,<br>input settings"]
+        Tools["Settings, screen saver,<br>input settings"]
         Apps["Applications<br>amade-pad, amade-mail, amade-calendar, any X11 client"]
     end
     DM -->|starts| Xorg
@@ -73,7 +73,7 @@ The desktop is five Debian packages from the
 [amadeos-system](https://github.com/datazuul/amadeos-system) repository: `amadeos-dm` (display manager and
 login greeter), `amadeos-session` (the session script `amadeos-session`, screen lock and screen saver),
 `amadeos-wm` (window manager), `amadeos-panel-cde` (the Front Panel; it provides `amadeos-panel`, the panel
-the session starts, so another panel can take its place) and `amadeos-style` (Style Manager and input
+the session starts, so another panel can take its place) and `amadeos-settings` (Settings and input
 settings). This repository holds the live image: its package list and configuration.
 
 ## What is in the image
@@ -87,28 +87,28 @@ settings). This repository holds the live image: its package list and configurat
 | **Front panel** | A CDE-style dock with clock, calendar, workspace switcher and drawers that list installed applications from their `.desktop` files, among them a Games drawer with the amade games (Mines, Solitaire, Paddle, ..., Town). The Help drawer opens the amadeOS User's Handbook in Firefox. |
 | **Logs** | One log per application in `~/.cache/amadeos/logs` (`firefox-esr.log`, `amade-files.log`, ...), written by the panel when it starts a program, next to `session.log` and `wm.log` from `amadeos-session`. *Session Diagnostics & Logs* in the Tools drawer (the program `amadeos-logviewer`) shows one of them at a time, chosen from a list, with the display manager's logs from `/var/log` and the system journal of this boot (the live user is in `systemd-journal`); *Follow* reloads every two seconds. |
 | **Language** | English, Deutsch, Français, Español, Italiano. Chosen in the login greeter (*Language*, preselected with the user's last choice) for the whole session, or with the language button under the lock in the front panel. Both write `~/.config/amadeos/locale.conf`; applications built on amade-commons start in that language, the panel and terminals follow at the next login (`LANG`). An application's own *Settings* can override it. |
-| **Style Manager** (`style`) | The controls of CDE's dtstyle. Color (palette and icon theme), Backdrop, Keyboard, Mouse, Beep and Screen work; Font, Window and Startup are shown but not yet available. |
-| **Icons** | The NsCDE icon theme is the default (package `nscde-icon-theme`, built by `scripts/package-nscde-icons.sh`, included in the image automatically). Any other installed Freedesktop icon theme can be chosen in the Style Manager. |
+| **Settings** (`settings`, formerly the Style Manager) | The controls of CDE's dtstyle in one window with a sidebar and a search, or as CDE's compact row (View > Compact). Color (palette and icon theme), Font, Backdrop, Keyboard, Mouse, Beep, Screen, Window and Clipboard work; Startup is shown but not yet available. |
+| **Icons** | The NsCDE icon theme is the default (package `nscde-icon-theme`, built by `scripts/package-nscde-icons.sh`, included in the image automatically). Any other installed Freedesktop icon theme can be chosen in the Settings. |
 | **Backdrops** | The original CDE pattern backdrops (Pebbles, Concave, BrickWall, Toronto, ...) come as the separate package `amadeos-backdrops-cde` (built by `scripts/package-cde-backdrops.sh`, installed to `/usr/share/amadeos/backdrops/cde`) and take their shades from the chosen backdrop color like in dtstyle. Own `.pm`/`.bm` files (XPM/XBM) are found in `~/.dt/backdrops` and `~/.config/amadeos/backdrops`, pictures (PNG/JPEG) as well. |
 | **Input settings** (`input`) | Keyboard repeat and click, mouse handedness, double-click time and acceleration, and the bell; stored in `~/.config/amadeos/input.conf` and applied with `xset`, `xmodmap` and `xrdb` at login (`/etc/amadeos/autostart.d/10-amadeos-input`) and on Apply. |
 | **Screen saver** (`screen`) | CDE's dtscreen: started through `/etc/amadeos/autostart.d/50-amadeos-screen`, uses the X server's idle counter (MIT-SCREEN-SAVER, `libxss1`), shows a saver module (Qix, Swarm, Starfield, Floating Logo, Blank) and locks the screen after the configured time. Settings in `~/.config/amadeos/screen.conf`. |
 | **Web browser** | Firefox ESR from Debian (Gecko, MPL-2.0, security updates through `debian-security`) in the five desktop languages. `/usr/share/firefox-esr/distribution/policies.json` turns off telemetry, studies, Pocket and sponsored content, makes Ecosia the default search engine and installs uBlock Origin; `/etc/xdg/mimeapps.list` makes Firefox the default for web links and HTML files. |
 | **Installer** | *Install amadeOS* in the Tools drawer (package `amadeos-installer`, own repository): language, keyboard, time zone, target disk and first user, then `amadeos-install` partitions the disk (GPT, EFI System Partition, optional swap) or formats a chosen partition (next to Windows, for example: the EFI System Partition is shared, Windows' own loader stays and `os-prober` gives it a GRUB entry), unpacks the live squashfs, removes the live-only parts, writes the settings and installs GRUB for UEFI (Debian's signed shim, so Secure Boot works) or BIOS. The image carries `squashfs-tools`, `grub-pc-bin`, `grub-efi-amd64-bin`, `shim-signed` and the `.deb` files of `grub-pc` and `grub-efi-amd64` for it. |
-| **Applications** | Separate Debian packages, like the desktop itself (`amadeos-dm`, `amadeos-session`, `amadeos-wm`, `amadeos-panel-cde`, `amadeos-style`); `.deb` files placed in `config/packages.chroot/` are installed into the image. |
+| **Applications** | Separate Debian packages, like the desktop itself (`amadeos-dm`, `amadeos-session`, `amadeos-wm`, `amadeos-panel-cde`, `amadeos-settings`); `.deb` files placed in `config/packages.chroot/` are installed into the image. |
 
 ## The amadeOS family
 
 | Repository | Purpose |
 |---|---|
 | [amadeos](https://github.com/datazuul/amadeos) | This repository: the live image (live-build configuration, boot loaders, the scripts of the session) |
-| [amadeos-system](https://github.com/datazuul/amadeos-system) | System components, one package per module: `amadeos-dm` (display manager), `amadeos-session` (session, lock, screen saver), `amadeos-wm` (window manager), `amadeos-panel-cde` (front panel), `amadeos-style` (Style Manager), `amadeos-logviewer` (Session Diagnostics & Logs), `amadeos-print`, `amadeos-sysinfo` |
+| [amadeos-system](https://github.com/datazuul/amadeos-system) | System components, one package per module: `amadeos-dm` (display manager), `amadeos-session` (session, lock, screen saver), `amadeos-wm` (window manager), `amadeos-panel-cde` (front panel), `amadeos-settings` (Settings, formerly the Style Manager), `amadeos-logviewer` (Session Diagnostics & Logs), `amadeos-print`, `amadeos-sysinfo` |
 | [amade-commons](https://github.com/datazuul/amade-commons) | Shared library: desktop themes, colors and Motif styling, application scaffold |
 | [amade-pad](https://github.com/datazuul/amade-pad) | Text editor |
 | [amade-mail](https://github.com/datazuul/amade-mail) | Mail client (IMAP/SMTP) in the style of CDE's dtmail |
 | [amade-calendar](https://github.com/datazuul/amade-calendar) | Calendar with appointments, reminders and To Do items in the style of CDE's dtcm, stored as iCalendar |
 | [amadeos-installer](https://github.com/datazuul/amadeos-installer) | Installation of the live system onto a hard disk: the step-by-step assistant *Install amadeOS* and the script `amadeos-install` |
 
-The Style Manager writes the chosen theme to `~/.config/amadeos/theme.conf`; applications follow
+The Settings write the chosen theme to `~/.config/amadeos/theme.conf`; applications follow
 that file and switch together with window frames and front panel. Gradle takes amade-commons from
 JitPack, or builds a checkout in `../amade-commons` instead.
 

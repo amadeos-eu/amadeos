@@ -64,7 +64,7 @@ Examples: the text editor, mail client and file manager are applications. Packag
   every component; no registry or settings daemon.
 - **Xlib access** only from the window manager's event-loop thread; native access through JNA
   (X11, PAM) or FFM, with `Enable-Native-Access: ALL-UNNAMED` in the jar manifest of programs that need it.
-- **Look and feel:** applications and tools follow the theme chosen in the Style Manager
+- **Look and feel:** applications and tools follow the theme chosen in the Settings
   (`DesktopTheme` from `amade-commons`) and the CDE style; icons come from the NsCDE icon theme.
 - **Texts** are internationalised (English, Deutsch, Français, Español, Italiano).
 

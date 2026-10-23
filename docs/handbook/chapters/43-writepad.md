@@ -52,9 +52,21 @@ Tables, pictures, notes and comments in a document from elsewhere are left out f
 !!! planned "Planned"
     Pictures, header and footer, print preview and *Find*, then tables, spell checking and saving as PDF.
 
-## LibreOffice Writer
+## LibreOffice
 
 For everything WritePad does not do yet, tables, pictures, tables of contents, PDF export, **LibreOffice Writer** is installed in amadeOS, in the Text & Office drawer, in the five languages of amadeOS. It reads and writes the same ODT files.
+
+Next to Writer, the drawer holds the other LibreOffice programs:
+
+| Program | What it is for | Files |
+|---|---|---|
+| **LibreOffice Calc** | Spreadsheets: tables, formulas, charts | ODS, Excel (XLSX, XLS), CSV |
+| **LibreOffice Impress** | Presentations and slide shows | ODP, PowerPoint (PPTX, PPT) |
+| **LibreOffice Draw** | Drawings, diagrams, flyers; small changes in PDF files | ODG, PDF |
+| **LibreOffice Math** | Mathematical formulas, also inside Writer documents | ODF |
+| **LibreOffice** | The Start Center: opens any of them and shows the recent documents | |
+
+Double-click a spreadsheet or a presentation in the File Manager and it opens in Calc or Impress. A PDF file still opens in the PDF Viewer; to change one, choose *Open with → LibreOffice Draw*. The database program LibreOffice Base is not installed.
 
 ??? hood "Under the hood"
     WritePad reads and writes ODT and DOCX with its own code, without a large office library; it runs LibreOffice in the background (`soffice --headless`) only to convert DOC files. Its settings are in `~/.config/amadeos/writepad/writepad.properties`.

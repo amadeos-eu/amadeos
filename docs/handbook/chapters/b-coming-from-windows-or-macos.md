@@ -23,6 +23,9 @@ Where to find on amadeOS what you know from Windows or macOS.
 | File Explorer | Finder | File Manager | 41 |
 | Notepad | TextEdit (plain text) | Text Editor | 42 |
 | WordPad, Word | Pages, Word | WritePad; LibreOffice Writer for larger documents | 43 |
+| Excel | Numbers, Excel | LibreOffice Calc | 43 |
+| PowerPoint | Keynote, PowerPoint | LibreOffice Impress | 43 |
+| Visio | — | LibreOffice Draw | 43 |
 | Outlook, Mail | Mail | Mailer | 44 |
 | Outlook calendar | Calendar | Calendar | 45 |
 | Outlook contacts, People | Contacts | Contacts, in the Text & Office and Mail & Internet drawers | 45 |
@@ -49,4 +52,4 @@ Where to find on amadeOS what you know from Windows or macOS.
 - **Three mouse buttons.** The middle button pastes the last selected text (chapter 21).
 - **Drive letters.** There are none. Everything is in one tree of folders that starts at `/`, and your own files are in your home folder, `/home/<name>` (chapter 41).
 - **File names.** Upper and lower case count: `Letter.txt` and `letter.txt` are two files.
-- **Files of Windows and macOS.** Word documents open in LibreOffice Writer, PDF files in the PDF Viewer (chapters 43 and 48).
+- **Files of Windows and macOS.** Word documents open in LibreOffice Writer, Excel and PowerPoint files in LibreOffice Calc and Impress, PDF files in the PDF Viewer (chapters 43 and 48).

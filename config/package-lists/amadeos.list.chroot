@@ -65,11 +65,17 @@ firefox-esr-l10n-de
 firefox-esr-l10n-fr
 firefox-esr-l10n-es-es
 firefox-esr-l10n-it
-# Office: LibreOffice Writer (MPL-2.0) with the five desktop languages. A full word processor for
-# what amade-writepad does not do, and amade-writepad's converter for the old binary Word format:
-# it opens .doc files through soffice --headless --convert-to docx and saves .doc the same way.
-# Without recommends Writer draws with its own X11 toolkit, no GTK or Qt.
+# Office: LibreOffice (MPL-2.0) with the five desktop languages: Writer, Calc, Impress, Draw and
+# Math, all in the Text & Office drawer (Draw also in Graphics). Writer is the full word processor
+# for what amade-writepad does not do, and amade-writepad's converter for the old binary Word
+# format: it opens .doc files through soffice --headless --convert-to docx and saves .doc the same
+# way. Base is left out: it needs a Java database engine and has no counterpart in the desktop yet.
+# Without recommends LibreOffice draws with its own X11 toolkit, no GTK or Qt.
 libreoffice-writer
+libreoffice-calc
+libreoffice-impress
+libreoffice-draw
+libreoffice-math
 libreoffice-l10n-de
 libreoffice-l10n-fr
 libreoffice-l10n-es

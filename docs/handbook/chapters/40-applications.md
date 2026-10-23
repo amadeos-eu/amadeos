@@ -1,6 +1,6 @@
 # 40. Applications at a Glance
 
-amadeOS comes with its own set of programs, the **amade applications**, written in Java for this desktop. Next to them are two well-known programs from the wider free software world: **Firefox** for the web and **LibreOffice Writer** for documents that need more than WritePad offers.
+amadeOS comes with its own set of programs, the **amade applications**, written in Java for this desktop. Next to them are two well-known programs from the wider free software world: **Firefox** for the web and **LibreOffice** for documents, spreadsheets, presentations and drawings that need more than WritePad offers.
 
 | Program | What it is for | Front Panel | Chapter |
 |---|---|---|---|
@@ -8,6 +8,10 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | **Text Editor** | Plain text: notes, lists, configuration files | Text & Office | 42 |
 | **WritePad** | Letters and documents on real pages, ODT and Word | Text & Office | 43 |
 | **LibreOffice Writer** | The full office word processor | Text & Office | 43 |
+| **LibreOffice Calc** | Spreadsheets, Excel and ODS files | Text & Office | 43 |
+| **LibreOffice Impress** | Presentations, PowerPoint and ODP files | Text & Office | 43 |
+| **LibreOffice Draw** | Drawings, diagrams and editing PDF files | Text & Office, Graphics | 43 |
+| **LibreOffice Math** | Mathematical formulas | Text & Office | 43 |
 | **Mailer** | E-mail from one or more accounts | Mail & Internet | 44 |
 | **Calendar** | Appointments, reminders and To Do items | Calendar | 45 |
 | **Contacts** | Addresses, phone numbers and birthdays | Text & Office, Mail & Internet | 45 |

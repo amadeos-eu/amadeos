@@ -39,6 +39,7 @@ extra_css:
 markdown_extensions:
   - admonition
   - attr_list
+  - def_list
   - md_in_html
   - tables
   - toc:
@@ -116,4 +117,11 @@ nav:
       - 61. The Desktop and X11: 61-desktop-and-x11.md
       - 62. Building amadeOS Yourself: 62-building-amadeos.md
       - 63. Writing an Application for amadeOS: 63-writing-an-application.md
+  - Appendices:
+      - A. Keyboard and Mouse: a-keyboard-and-mouse.md
+      - B. Coming from Windows or macOS: b-coming-from-windows-or-macos.md
+      - C. CDE Heritage: c-cde-heritage.md
+      - D. Glossary: d-glossary.md
+      - E. What Is Planned: e-what-is-planned.md
+      - F. Licences: f-licences.md
   - The Plan of This Book: plan.md

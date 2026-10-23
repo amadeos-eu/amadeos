@@ -1,6 +1,6 @@
 # The Plan of This Book
 
-The handbook grows chapter by chapter. This page lists every chapter, the written ones as links; the written ones are also in the navigation.
+Every chapter of the book, part by part. The book keeps growing with amadeOS: new chapters appear here and in the navigation.
 
 ## Part I: Why amadeOS
 
@@ -76,9 +76,9 @@ The handbook grows chapter by chapter. This page lists every chapter, the writte
 
 ## Appendices
 
-- **A. Keyboard and Mouse**
-- **B. Coming from Windows or macOS**
-- **C. CDE Heritage**
-- **D. Glossary**
-- **E. What Is Planned**
-- **F. Licences**
+- [A. Keyboard and Mouse](a-keyboard-and-mouse.md)
+- [B. Coming from Windows or macOS](b-coming-from-windows-or-macos.md)
+- [C. CDE Heritage](c-cde-heritage.md)
+- [D. Glossary](d-glossary.md)
+- [E. What Is Planned](e-what-is-planned.md)
+- [F. Licences](f-licences.md)

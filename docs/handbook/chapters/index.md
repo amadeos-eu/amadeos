@@ -25,8 +25,9 @@ You are curious how a desktop works. The last part of the book opens the bonnet:
 | V. The applications | The amadeOS applications and games, one chapter each. |
 | VI. Administering amadeOS | Software, updates, users, the session, settings files, troubleshooting and security. |
 | VII. Under the hood | How amadeOS is put together, and how to build it or write for it. |
+| Appendices | Keys and mouse, coming from Windows or macOS, CDE heritage, glossary, what is planned, licences. |
 
-Parts I to VII are written; [the plan of this book](plan.md) lists every chapter that follows.
+All seven parts and the appendices are written; [the plan of this book](plan.md) lists every chapter. The appendices collect the keys and mouse actions, a guide for people coming from Windows or macOS, the CDE heritage, a glossary, what is planned and the licences.
 
 ## Conventions
 

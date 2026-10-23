@@ -29,6 +29,7 @@ The keys and mouse actions of the desktop, in one place. The keys of each progra
 | **The edges and corners of a frame** | Drag: resizes the window (23) | — | — |
 | **Inside a window** | Select, click, drag | Pastes the text selected last | The program's context menu, if it has one |
 | **A slot of the Front Panel** | Starts its program; the arrow above opens the drawer (22) | — | On the clock: analog or digital (22) |
+| **A workspace button** | Switches to the workspace; on the current one: renames it (24) | — | Rename (24) |
 | **A minimised window's icon** | Brings the window back (23) | — | — |
 
 On a touchpad, the right button is a click at the bottom right or with two fingers; the middle button is often a click with three fingers, or both buttons at once (chapter 21). Left-handed users swap the buttons in the Style Manager's *Mouse* control (chapter 33).

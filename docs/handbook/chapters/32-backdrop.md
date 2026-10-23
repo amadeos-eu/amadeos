@@ -1,8 +1,14 @@
 # 32. Backdrop
 
-The **backdrop** is what you see behind the windows. **Backdrop** chooses a CDE pattern, a picture or just a colour.
+The **backdrop** is what you see behind the windows. **Backdrop** chooses a CDE pattern, a picture or just a colour, for one workspace or for all four.
 
 ![The Backdrop control](images/32/style-backdrop.jpg)
+
+## For which workspace
+
+**Workspace** at the top says whose backdrop you are changing. It opens on the workspace you are in, so *Apply* changes the backdrop you see, as in CDE. Choose another workspace to give it a backdrop of its own: the fields below show its backdrop, and *Apply* stores it without changing the screen. You see it the next time you switch to that workspace. The workspaces are listed under the names you gave them (chapter 24).
+
+**All workspaces** gives all four the same backdrop and drops the ones they had of their own.
 
 ## Choosing a backdrop
 
@@ -46,8 +52,8 @@ A picture rarely has exactly the size of the screen. **Scaling** decides what ha
 
 **Color…** chooses the backdrop colour: the colour of *No Backdrop*, and of the bars around a picture. The CDE patterns are drawn in shades of this colour, so the same pattern looks quite different in blue, sand or green, just as in CDE.
 
-!!! tip "One backdrop for all workspaces"
-    The backdrop is the same in all four workspaces. The workspace buttons in the Front Panel keep their own colours (chapter 31).
+!!! tip "A backdrop for each workspace"
+    Different backdrops make it easy to see at a glance where you are, for example a calm colour for the workspace with your mail and a photo for the one with your games. The workspace buttons in the Front Panel keep their own colours (chapter 31).
 
 ??? hood "Under the hood"
-    The backdrop is stored in `~/.config/amadeos/wallpaper.conf`: the picture, the scaling and the colour. *Apply* draws it on the X11 root window, the screen behind all windows, and the window manager draws it there again at every login.
+    The backdrops are stored in `~/.config/amadeos/wallpaper.conf`: the picture, the scaling and the colour for all workspaces (`wallpaper`, `mode`, `color`), and for each workspace with a backdrop of its own the same three under `workspace.2.` and so on. *Apply* draws the backdrop on the X11 root window, the screen behind all windows, if it belongs to the workspace you are in. The window manager reads the file at every workspace switch, draws each backdrop once and then only swaps them, so switching stays quick.

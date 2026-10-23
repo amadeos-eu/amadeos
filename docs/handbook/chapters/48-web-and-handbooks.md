@@ -132,9 +132,11 @@ Start it from the Text & Office drawer, double-click an `.epub` or `.cbz` file i
 
 Books looks for books and comics in the folder **Books** of your home folder and in all its subfolders. Put your EPUB and CBZ files there, from a shop that sells them without copy protection or from a library of free books such as Project Gutenberg, and they appear on the shelf. *File → Add to Library* (the **+** button) copies files into it, and you can also drop files on the window. *File → Library Folders* adds more folders, for example one on an external disk; *File → Rescan Library* (++f5++) looks for new books at once.
 
+amadeOS comes with fifteen classics to start with, three in each language of the desktop: *Alice's Adventures in Wonderland*, *Pride and Prejudice*, *The Time Machine*, *Die Verwandlung*, *Faust*, Grimm's fairy tales, *Le tour du monde en quatre-vingts jours*, *Candide*, *Les misérables*, *Pinocchio*, *Novelle rusticane*, Dante's *Inferno*, *Don Quijote*, Bécquer's *Rimas* and *Lazarillo de Tormes*. They are in the public domain and lie in `/usr/share/amadeos/books`, which is a library folder until you remove it in *File → Library Folders*; they are on the shelf *Included with amadeOS*. Your place in them and your bookmarks are kept for you alone.
+
 The list at the left sorts the books into **shelves**:
 
-- **Library**: all books, those you are *Reading*, those *Not started* and those *Finished*.
+- **Library**: all books, those you are *Reading*, those *Not started* and those *Finished*, and the books *Included with amadeOS*.
 - **Format**: *Books* and *Comics*.
 - **Genre**, **Author** and **Series**, as the books themselves say.
 - **Collections**: your own groups, such as "Holiday". Right-click a book and choose *Add to Collection*.

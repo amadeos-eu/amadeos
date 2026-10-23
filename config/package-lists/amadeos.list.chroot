@@ -81,6 +81,9 @@ hyphen-de
 hyphen-fr
 hyphen-it
 hyphen-es
+# jpegtran for amade-imageviewer, which saves turned JPEGs without loss; recommended by the package
+# but the image installs no recommends
+libjpeg-turbo-progs
 # Printing: CUPS with driverless printing (IPP Everywhere, AirPrint). avahi finds network printers,
 # cups-browsed sets them up as queues, ipp-usb serves USB printers over IPP. amadeos-print manages them;
 # the live user is in lpadmin (/etc/live/config.conf), so no password is needed for that.

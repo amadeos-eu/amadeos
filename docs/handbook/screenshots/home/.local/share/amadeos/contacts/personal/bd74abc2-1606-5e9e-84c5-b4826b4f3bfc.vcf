@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:bd74abc2-1606-5e9e-84c5-b4826b4f3bfc
+FN:Robert Bergmann
+N:Bergmann;Robert;;;
+ORG:Bergmann Bau GmbH
+TEL;TYPE=work,voice:+49 8141 555 230
+EMAIL;TYPE=work:r.bergmann@example.com
+CATEGORIES:Work
+END:VCARD

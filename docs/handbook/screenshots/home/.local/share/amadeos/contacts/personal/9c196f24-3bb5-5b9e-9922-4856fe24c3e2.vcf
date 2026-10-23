@@ -1,0 +1,8 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:9c196f24-3bb5-5b9e-9922-4856fe24c3e2
+FN:Bernd Albers
+N:Albers;Bernd;;;
+TEL;TYPE=cell,voice:+49 170 5550123
+CATEGORIES:Friends
+END:VCARD

@@ -1,0 +1,9 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:5bdb6cd0-5cea-5dea-a259-e63c66d91800
+FN:Clara Novak
+N:Novak;Clara;;;
+EMAIL;TYPE=home:clara.novak@example.net
+BDAY:19921029
+CATEGORIES:Friends
+END:VCARD

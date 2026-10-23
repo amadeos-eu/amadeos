@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:41c18ed3-4b20-53a6-877c-4105b7707e47
+FN:Berta Huber
+N:Huber;Berta;;;
+EMAIL;TYPE=home:berta@huber-family.example
+ADR;TYPE=home:;;Am Bach 3;Freising;;85354;Germany
+BDAY:19480302
+CATEGORIES:Family
+END:VCARD

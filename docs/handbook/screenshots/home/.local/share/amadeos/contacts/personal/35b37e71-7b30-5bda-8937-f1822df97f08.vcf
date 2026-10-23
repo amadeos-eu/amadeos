@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:35b37e71-7b30-5bda-8937-f1822df97f08
+FN:Elena Rossi
+N:Rossi;Elena;;;
+TEL;TYPE=cell,voice:+39 333 555 0101
+EMAIL;TYPE=home:elena.rossi@example.it
+BDAY:--1105
+CATEGORIES:Friends
+END:VCARD

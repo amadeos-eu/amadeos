@@ -1,0 +1,8 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:3480c850-78ba-54cc-b718-4d0231186fd1
+FN:Grete Schulz
+N:Schulz;Grete;;;
+TEL;TYPE=home,voice:+49 89 5550 345
+CATEGORIES:Family
+END:VCARD

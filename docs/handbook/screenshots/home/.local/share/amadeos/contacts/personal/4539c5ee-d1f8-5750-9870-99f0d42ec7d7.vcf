@@ -1,0 +1,9 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:4539c5ee-d1f8-5750-9870-99f0d42ec7d7
+FN:Jonas Peters
+N:Peters;Jonas;;;
+TEL;TYPE=cell,voice:+49 151 5550 678
+EMAIL;TYPE=home:jonas.peters@example.com
+CATEGORIES:Friends
+END:VCARD

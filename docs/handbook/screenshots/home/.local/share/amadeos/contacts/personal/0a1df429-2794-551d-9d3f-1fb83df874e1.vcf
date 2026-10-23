@@ -1,0 +1,9 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:urn:uuid:0a1df429-2794-551d-9d3f-1fb83df874e1
+FN:Felix Wagner
+N:Wagner;Felix;;;
+EMAIL;TYPE=home:felix@wagner.example
+BDAY:20150612
+CATEGORIES:Family
+END:VCARD

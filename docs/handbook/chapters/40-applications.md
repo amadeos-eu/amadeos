@@ -12,6 +12,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | **Calendar** | Appointments, reminders and To Do items | Calendar | 45 |
 | **Audio Station** | Audio CDs, music files and internet radio | Sound & Video | 46 |
 | **Video Player** | Video files, streams and DVDs | Sound & Video | 46 |
+| **Image Viewer** | Photos and pictures, slideshows, camera data and maps | Graphics | 47 |
 | **Image Scan** | Scanning photos and letters | Graphics | 47 |
 | **Fractals** | Exploring the Mandelbrot set | Graphics | 47 |
 | **Calculator** | Basic, scientific and programmer calculations | Text & Office | 48 |

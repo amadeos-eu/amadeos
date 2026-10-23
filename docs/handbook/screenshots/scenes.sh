@@ -248,6 +248,48 @@ calculator_shot() {
     close_programs
 }
 
+# files_shots: the File Manager in its tree view with two files selected, their context menu, the
+# note while dragging them onto a folder of the tree (Escape cancels, nothing moves), the path bar as
+# text with Tab completion, and the two-panel view. Clicks are relative to the window of 1000 x 640.
+files_shots() {
+    rm -f "$HOME/.config/amadeos/files/files.conf"
+    start amade-files "$HOME/Documents"
+    wait_window "File Manager" 40 || { close_programs; return 0; }
+    sleep 3
+    place "File Manager" 140 60 1000 640
+    sleep 2
+    local id i
+    id="$(xdotool search --onlyvisible --name "File Manager" | head -n 1)"
+    xdotool windowactivate --sync "$id" 2>/dev/null || true
+    # The two lines of ~/Documents, the second one with Ctrl
+    xdotool mousemove --window "$id" 500 93 click 1; sleep 0.3
+    xdotool keydown ctrl mousemove --window "$id" 500 111 click 1 keyup ctrl
+    xdotool mousemove --window "$id" 900 500; sleep 0.5
+    shot_window 41 file-manager "File Manager"
+    xdotool mousemove --window "$id" 470 111 click 3; sleep 0.8
+    shot_window 41 file-manager-context-menu "File Manager"
+    key Escape
+    # Dragging both onto Downloads in the tree: rows of the tree are 20 pixels high, Home first
+    xdotool mousemove --window "$id" 470 93 mousedown 1; sleep 0.2
+    for i in $(seq 1 25); do xdotool mousemove --window "$id" $((470 - i * 15)) $((93 + i)); sleep 0.03; done
+    xdotool mousemove --window "$id" 96 116; sleep 0.4
+    xdotool mousemove --window "$id" 98 115; sleep 0.5
+    shot_window 41 file-manager-drag "File Manager"
+    key Escape
+    xdotool mouseup 1; sleep 0.5
+    # The path bar as text: Ctrl+L, a path, Tab completes the folder name
+    key ctrl+l ctrl+a
+    type_text "~/Pic"
+    key Tab
+    shot_window 41 file-manager-path-bar "File Manager"
+    key Escape
+    key ctrl+2
+    shot_window 41 file-manager-two-panels "File Manager"
+    # Back to the tree view, the default, for the next run
+    key ctrl+1
+    close_programs
+}
+
 # imageviewer_shots: the Image Viewer with its sidebar, and the same picture on the whole screen with
 # the control bar that a mouse move brings up.
 imageviewer_shots() {
@@ -279,7 +321,7 @@ scene_apps() {
     fi
     mkdir -p "$HOME/Pictures"
     cp "$root_dir/config/includes.chroot/usr/share/backgrounds/amadeos/mountain-lake.png" "$HOME/Pictures/"
-    app_shot 41 file-manager "File Manager" 140 60 1000 640 amade-files "$HOME" "$HOME/Documents"
+    files_shots
     app_shot 42 text-editor "Text Editor" 140 60 1000 640 amade-pad "$HOME/Documents/letter-to-the-club.txt"
     app_shot 43 writepad "Writepad|WritePad" 140 30 1000 680 amade-writepad --sample
     app_shot 44 mailer "Mailer" 140 60 1000 640 amade-mail

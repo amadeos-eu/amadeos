@@ -16,7 +16,7 @@ amadeOS follows the **Common Desktop Environment** (CDE), the desktop of the lar
 | Screen saver and lock | `dtscreen`, `dtsession` lock | Modules such as Qix and Swarm. | 34 |
 | Icons | The CDE icons | The NsCDE icon theme, in the style of CDE. | 31 |
 | Application Manager | `dtappmgr` | Lists all installed programs by kind, by itself. | 22 |
-| File Manager (`amade-files`) | `dtfile` | Two panels side by side; the path bar of CDE above each. | 41 |
+| File Manager (`amade-files`) | `dtfile` | A folder tree, or two panels side by side; the path bar of CDE above. | 41 |
 | Text Editor (`amade-pad`) | `dtpad` | Tabs for several files. | 42 |
 | Mailer (`amade-mail`) | `dtmail` | Folders of the mail server in a column, several accounts, HTML mail shown safely; CDE's letters `N`, `A`, `!`, `@` in the list. | 44 |
 | Calendar (`amade-calendar`) | `dtcm` | Stored as iCalendar, the standard format of other calendars. | 45 |

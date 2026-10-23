@@ -49,6 +49,10 @@ Reminders appear while the Calendar runs, so leave it open, on another workspace
 - In a mail with an appointment, **Schedule in Calendar** adds it.
 - In the Appointment Editor, **Mail…** opens the Mailer with the appointment as the message, and the **Drag Appointment** icon carries the appointment out to the File Manager or a mail as an `.ics` file.
 
+**Birthdays** of the people in [Contacts](#contacts) appear on their day, "Birthday: Anna Berger (40)", with the age when the year of birth is known. They are not part of your calendar: to change one, change the contact. A double-click on a birthday offers to open Contacts. The *Mail To* address of a Mail reminder is completed from your contacts as in the Mailer.
+
+![October with three birthdays from Contacts](images/45/calendar-birthdays.jpg)
+
 An export of your Google Calendar opens without losses: repeating appointments with their exceptions, appointments spanning several days and times in other time zones.
 
 ### Printing
@@ -57,7 +61,7 @@ An export of your Google Calendar opens without losses: repeating appointments w
 
 ### Options
 
-*File → Options…* has a *Category* menu: **Editor Defaults** for new appointments, **Display Settings** (the hours of the Day and Week views, 12- or 24-hour time, the view to start with), **Date Format**, **Printer Settings** and **Language**.
+*File → Options…* has a *Category* menu: **Editor Defaults** for new appointments, **Display Settings** (the hours of the Day and Week views, 12- or 24-hour time, the view to start with, and whether birthdays from Contacts are shown), **Date Format**, **Printer Settings** and **Language**.
 
 !!! planned "Planned"
     One place for all your accounts, shared by the Mailer and the Calendar; showing other calendars next to your own (Google, Nextcloud and other CalDAV servers); keeping your calendar in step with a server both ways, which also lets you share a calendar with another person.
@@ -123,7 +127,7 @@ Contacts whose e-mail address is already in your address book are **merged** wit
 *Contacts → Export…* (++ctrl+shift+e++) saves the selected contacts, or all that the list shows, for another program: **vCard 4.0**, **vCard 3.0** for older phones and programs, **CSV for Google Contacts**, **CSV for Outlook** or **LDIF for Thunderbird**.
 
 !!! planned "Planned"
-    Completing addresses from your contacts in the Mailer, and attendees and a calendar of birthdays in the Calendar; keeping your contacts in step with a server (Nextcloud and other CardDAV servers) from the program itself; merging two contacts by hand.
+    Inviting attendees from your contacts in the Calendar; keeping your contacts in step with a server (Nextcloud and other CardDAV servers) from the program itself; merging two contacts by hand.
 
 ??? hood "Under the hood"
     Every contact is a vCard 4.0 file (RFC 6350) of its own in `~/.local/share/amadeos/contacts/personal/`, named after the contact's unique ID; the file `displayname` holds the name of the address book, and further folders next to `personal` are further address books. This is the layout that [vdirsyncer](https://vdirsyncer.pimutils.org/) uses, so it can already keep the folder in step with a CardDAV server. Contacts writes each file anew as a whole and only changes the properties you edited; what other programs put into a card stays. When the window becomes active, it reads files that other programs changed. The sort order is in `~/.config/amadeos/contacts/contacts.properties`.

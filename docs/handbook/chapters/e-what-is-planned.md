@@ -39,7 +39,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 | WritePad | Opening and saving OpenDocument, Word and RTF; pictures, header and footer, print preview, *Find*, tables, spell checking, PDF | 4, 43 |
 | Mailer | New mail shown at once, folder management, drafts and templates, search, threads, printing, reading without a network | 44 |
 | Calendar | One place for all accounts, other calendars next to your own, keeping in step with a CalDAV server | 45 |
-| Contacts | Addresses completed in the Mailer, attendees and birthdays in the Calendar, keeping in step with a CardDAV server, merging two contacts by hand | 45 |
+| Contacts | Attendees from your contacts in the Calendar, keeping in step with a CardDAV server, merging two contacts by hand | 45 |
 | Video Player | A face like the Audio Station's, DVD titles and chapters, playlists, audio and subtitle tracks, full screen, volume | 46 |
 | Image Viewer | A picture as the backdrop of a workspace, moving GIF and WebP pictures, HEIC photos, cropping, brightness and contrast, editing title and keywords | 47 |
 | Image Scan | Several pages into one PDF, brightness and contrast, straightening, the scanner's button | 47 |

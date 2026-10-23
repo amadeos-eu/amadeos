@@ -112,7 +112,7 @@ amadeOS uses dynamic XDG desktop entry discovery (`XdgApplicationManager`). The 
 | 🎨 **Graphics** | `Categories=Graphics;Scanning;` (also `RasterGraphics`, `VectorGraphics`, `Photography`, `Viewer`) |
 | 🖨️ **Printer** | `Categories=Printing;Settings;` |
 | ❓ **Help** | `Categories=Documentation;Help;` |
-| 🛠️ **Tools** | `Categories=Settings;` or `Categories=System;` (after the fixed entries: Style Manager, Application Manager, terminals, logs, system information) |
+| 🛠️ **Tools** | `Categories=Settings;` or `Categories=System;` (after the fixed entries: Settings, Application Manager, terminals, logs, system information) |
 
 The first application found in a category also becomes the slot's primary click action. Categories without a drawer (e.g. `Development`, `Office`) are listed in the Application Manager.
 
@@ -302,7 +302,7 @@ scripts/check-config.sh
 ./build.sh
 ```
 
-`build.sh` checks the configuration, sets up the live-build tree, and executes `live-build` in a temporary workspace (by default `/tmp/amadeos-live-build`, configurable via `AMADEOS_BUILD_ROOT`). The image installs the packages from `config/packages.chroot/` (the desktop packages `amadeos-dm`, `amadeos-session`, `amadeos-wm`, `amadeos-panel-cde` and `amadeos-style` among them) and starts the display manager at boot. Once an ISO has been built, inspect and test it with:
+`build.sh` checks the configuration, sets up the live-build tree, and executes `live-build` in a temporary workspace (by default `/tmp/amadeos-live-build`, configurable via `AMADEOS_BUILD_ROOT`). The image installs the packages from `config/packages.chroot/` (the desktop packages `amadeos-dm`, `amadeos-session`, `amadeos-wm`, `amadeos-panel-cde` and `amadeos-settings` among them) and starts the display manager at boot. Once an ISO has been built, inspect and test it with:
 
 ```bash
 cd amadeos

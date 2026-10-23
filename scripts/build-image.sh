@@ -36,9 +36,9 @@ cd "$ROOT_DIR"
 command -v lb >/dev/null 2>&1 || { echo "live-build (lb) is required" >&2; exit 1; }
 
 mkdir -p "$ARTIFACT_DIR"
-# The desktop is the packages amadeos-dm, amadeos-session, amadeos-wm, amadeos-panel-cde and amadeos-style from the
+# The desktop is the packages amadeos-dm, amadeos-session, amadeos-wm, amadeos-panel-cde and amadeos-settings from the
 # amadeos-system repository; like every other package in config/packages.chroot they are installed into the image.
-for package in amadeos-dm amadeos-session amadeos-wm amadeos-panel-cde amadeos-style; do
+for package in amadeos-dm amadeos-session amadeos-wm amadeos-panel-cde amadeos-settings; do
     if ! compgen -G "$CONFIG_DIR/packages.chroot/${package}_*.deb" >/dev/null; then
         echo "[build-image] No ${package}_*.deb in config/packages.chroot. Build the desktop packages with" >&2
         echo "    (cd ../amadeos-system && ./gradlew installToAmadeOs)" >&2
@@ -46,6 +46,13 @@ for package in amadeos-dm amadeos-session amadeos-wm amadeos-panel-cde amadeos-s
         exit 1
     fi
 done
+# amadeos-settings replaces amadeos-style (the Style Manager's package until 2026-10); an old .deb left in
+# config/packages.chroot would conflict with it.
+if compgen -G "$CONFIG_DIR/packages.chroot/amadeos-style_*.deb" >/dev/null; then
+    echo "[build-image] config/packages.chroot still has amadeos-style_*.deb, which amadeos-settings replaces." >&2
+    echo "    Remove it: rm config/packages.chroot/amadeos-style_*.deb" >&2
+    exit 1
+fi
 # The applications: every ../amade-*/ or ../amadeos-*/ repository with an installToAmadeOs task should
 # have its package here; a missing one is only a warning (buildDistribution.sh builds them all).
 for app_dir in "$ROOT_DIR"/../amade-*/ "$ROOT_DIR"/../amadeos-*/; do

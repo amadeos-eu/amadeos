@@ -53,11 +53,11 @@ done
 grep -q lpadmin "$live_config" && grep -q systemd-journal "$live_config" \
     || fail "the live user needs lpadmin (printing) and systemd-journal (log viewer) in $live_config"
 
-# The desktop is the packages amadeos-dm, amadeos-session, amadeos-wm, amadeos-panel-cde and amadeos-style
+# The desktop is the packages amadeos-dm, amadeos-session, amadeos-wm, amadeos-panel-cde and amadeos-settings
 # (amadeos-system repository): their jars, scripts, unit, PAM and polkit files come with the packages. The
 # image may not carry a second copy of any of them and nothing may still expect the old paths.
 grep -rn --exclude=check-config.sh "/opt/amadeos/amadeos.jar\|/opt/amade-desktop/" config scripts \
-    && fail "the desktop is the packages amadeos-dm, amadeos-session, amadeos-wm, amadeos-panel-cde and amadeos-style, each with its jar under /opt/<package>/"
+    && fail "the desktop is the packages amadeos-dm, amadeos-session, amadeos-wm, amadeos-panel-cde and amadeos-settings, each with its jar under /opt/<package>/"
 grep -rn --exclude=check-config.sh "/usr/local/bin/amadeos-\(session\|dm\|lock\)" config scripts \
     && fail "amadeos-session, amadeos-dm and amadeos-lock are /usr/bin/... from the packages amadeos-session and amadeos-dm"
 for owned in usr/local/bin/amadeos-session usr/local/bin/amadeos-dm usr/local/bin/amadeos-lock \

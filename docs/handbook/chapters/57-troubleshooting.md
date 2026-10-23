@@ -31,6 +31,8 @@ Lines with *SEVERE*, *ERROR*, *Exception* or *failed* are usually the ones that 
 
 **Hardware & System Info** in the Tools drawer shows on one page what your computer is: the system and its version, the processor, the memory, the disks and how full they are, the graphics, the network connections and the battery.
 
+![Hardware & System Info on the live system in a virtual machine, with the desktop in German](images/57/system-information.jpg)
+
 **Copy** puts all of it on the clipboard as text, **Save…** saves it to a file. That is what to add when you ask for help or report a bug: it answers the first questions anyone would ask.
 
 ## Common problems

@@ -51,7 +51,7 @@ Every chapter of the book, part by part. The book keeps growing with amadeOS: ne
 44. [Mailer](44-mailer.md)
 45. [Calendar](45-calendar.md)
 46. [Audio Station and Video Player](46-audio-video.md)
-47. [Image Scan and Fractals](47-image-scan-fractals.md)
+47. [Image Viewer, Image Scan and Fractals](47-image-scan-fractals.md)
 48. [Calculator, Web Browser and Handbooks](48-web-and-handbooks.md)
 49. [Games](49-games.md)
 

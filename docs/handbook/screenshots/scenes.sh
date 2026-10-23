@@ -248,6 +248,26 @@ calculator_shot() {
     close_programs
 }
 
+# imageviewer_shots: the Image Viewer with its sidebar, and the same picture on the whole screen with
+# the control bar that a mouse move brings up.
+imageviewer_shots() {
+    mkdir -p "$HOME/.config/amadeos/imageviewer"
+    printf 'sidebar=true\nfilm-strip=true\n' > "$HOME/.config/amadeos/imageviewer/imageviewer.properties"
+    start amade-imageviewer "$HOME/Pictures/mountain-lake.png"
+    wait_window "Image Viewer" 40 || { close_programs; return 0; }
+    sleep 3
+    place "Image Viewer" 140 60 1000 640
+    sleep 2
+    shot_window 47 image-viewer "Image Viewer"
+    xdotool search --onlyvisible --name "Image Viewer" windowactivate --sync 2>/dev/null || true
+    key F11
+    sleep 2
+    xdotool mousemove 400 300 mousemove 420 320
+    shot 47 image-viewer-full-screen
+    key Escape
+    close_programs
+}
+
 # The applications of Part V, each in a window of 1000 x 640 where the program lets itself be sized.
 scene_apps() {
     [ -n "$session_pid" ] || start_session
@@ -273,6 +293,7 @@ scene_apps() {
         shot_window 46 video-player "^Video Player$"
     fi
     close_programs
+    imageviewer_shots
     app_shot 47 image-scan "Image Scan" 140 60 1000 640 amade-imagescan "$HOME/Pictures/mountain-lake.png"
     app_shot 47 fractals "Fractals" 140 60 1000 640 amade-fractals
     calculator_shot calculator "mode=basic\npaper-tape=true" "1234.5*3=" "19.99+4.5+7.25=" "200+10%=" "1/3*3=" "1234567.89*12"

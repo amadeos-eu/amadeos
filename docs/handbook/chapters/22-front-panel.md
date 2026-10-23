@@ -16,7 +16,7 @@ Every slot does two things: **clicking its icon** starts its main program, and *
 | **Text & Office** | Starts the Text Editor | The text editors and WritePad, then the other office programs: the Calendar, spreadsheets, presentations |
 | **Mail & Internet** | Starts the Mailer | The mail programs, then the web browser and other internet programs |
 | **Sound & Video** | Starts the first program of the drawer | Audio Station, Video Player and other media programs |
-| **Graphics** | Starts the first program of the drawer | Image Scan, Fractals and other graphics programs |
+| **Graphics** | Starts the first program of the drawer | Image Viewer, Image Scan, Fractals and other graphics programs |
 | **Games** | Starts the first game of the drawer | All installed games, from Blast to Town (chapter 49) |
 
 ![The Text & Office drawer](images/22/drawer-office.jpg)

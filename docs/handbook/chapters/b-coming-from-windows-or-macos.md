@@ -26,6 +26,7 @@ Where to find on amadeOS what you know from Windows or macOS.
 | Outlook, Mail | Mail | Mailer | 44 |
 | Outlook calendar | Calendar | Calendar | 45 |
 | Media Player | Music, QuickTime | Audio Station, Video Player | 46 |
+| Photos | Preview, Photos | Image Viewer | 47 |
 | Windows Fax and Scan | Image Capture | Image Scan | 47 |
 | Calculator | Calculator | Calculator, in the Text & Office drawer | 48 |
 | Edge | Safari | Firefox | 48 |

@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [main]
+    branches: [develop, release, main]
   pull_request:
 
 permissions:
@@ -17,3 +17,19 @@ jobs:
       # tested in their own repositories (amadeos-system, amade-*).
       - name: Check the image configuration
         run: scripts/check-config.sh
+      # The version, release and promotion scripts that every repository's CI uses.
+      - name: Test the CI scripts
+        run: scripts/ci/test-ci.sh
+
+  commits:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      # The action of this checkout, so a pull request that changes it is checked with its own version.
+      # The title is checked too while amadeos squash-merges.
+      - uses: ./.github/actions/check-commits
+        with:
+          check-title: 'true'

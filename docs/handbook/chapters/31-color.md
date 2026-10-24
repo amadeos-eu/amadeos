@@ -6,7 +6,7 @@
 
 ## The palettes
 
-amadeOS comes with six palettes:
+amadeOS comes with seven palettes:
 
 | Palette | What it looks like |
 |---|---|
@@ -16,6 +16,7 @@ amadeOS comes with six palettes:
 | **Classic Gray** | The plain grey of early Motif desktops. |
 | **Dark Slate** | A dark palette, for dim rooms and tired eyes. |
 | **Halloween** | Dark grey with pumpkin-orange title bars and selections. It goes with the backdrop *halloween.png* (chapter 32). |
+| **Christmas** | Pine green with red title bars and selections. It goes with the backdrops *christmas.png* and *christmas-santa.png* (chapter 32). |
 
 Click a palette in the list. The colour chips to the right show its colours; hold the mouse over a chip to see its name and value, such as *Active title #4E7D96*:
 

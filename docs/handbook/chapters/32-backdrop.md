@@ -17,7 +17,7 @@ The list on the left offers, from top to bottom:
 - **No Backdrop (color only)**: a plain colour, the colour below.
 - **amadeOS Default**: the amadeOS picture of a new account.
 - **The CDE backdrops**: the 26 patterns of the original CDE, from *Ankh*, *BrickWall* and *Corduroy* to *Pebbles*, *RicePaper*, *SkyDark*, *WaterDrops* and *Wooly*.
-- **The amadeOS pictures**: *mountain-lake.png*, a mountain lake, and *halloween.png*, a graveyard under the full moon with witches, werewolves, skeletons and zombies, made for the *Halloween* palette (chapter 31).
+- **The amadeOS pictures**: *mountain-lake.png*, a mountain lake, *halloween.png*, a graveyard under the full moon with witches, werewolves, skeletons and zombies, made for the *Halloween* palette, and two pictures for the *Christmas* palette (chapter 31): *christmas.png*, a snowy village with the nativity under the star, little angels, a Christmas tree, a snowman, gingerbread men and an elf, and *christmas-santa.png*, Santa's sleigh with Rudolph over houses trimmed with lights.
 - **Your pictures**: the pictures in the folders below.
 
 Click an entry and the **Preview** on the right shows the desktop with it. **Apply** puts it on the screen.
@@ -55,6 +55,9 @@ A picture rarely has exactly the size of the screen. **Scaling** decides what ha
 
 !!! tip "Halloween"
     For the full Halloween look, choose the palette *Halloween* under *Color* and then *halloween.png* here, with *Fill Screen (Crop)*.
+
+!!! tip "Christmas"
+    The same works for Christmas: the palette *Christmas*, then *christmas.png* or *christmas-santa.png*. With one picture on some workspaces and the other on the rest, both are on the desktop.
 
 !!! tip "A backdrop for each workspace"
     Different backdrops make it easy to see at a glance where you are, for example a calm colour for the workspace with your mail and a photo for the one with your games. The workspace buttons in the Front Panel keep their own colours (chapter 31).

@@ -4,7 +4,7 @@
 
 The **Image Viewer** shows your photos and pictures, one after the other, as large as the window allows. It turns them, plays them as a slideshow on the whole screen, and shows what the camera wrote into them: when and with which camera a photo was taken, its title and caption, and where it was taken, on a map.
 
-Start it from the Graphics drawer, or with `amade-imageviewer`. You can also open pictures from the File Manager with the Image Viewer, or drop them on its window.
+Start it from the Graphics drawer, or with `amade-imageviewer`. A double-click on a picture in the File Manager opens it in the Image Viewer, and pictures can also be dropped on its window.
 
 ![The Image Viewer with the sidebar](images/47/image-viewer.jpg)
 
@@ -99,7 +99,7 @@ Start it from the Graphics drawer, or with `amade-imagescan`.
 
 Crop to the frame, turn left, right or by 180°, mirror; undo and redo. The picture keeps every pixel: nothing is made worse by turning it.
 
-*File → Save* stores the scan as **PNG** (the default), **JPEG** or **TIFF**, with a dated name in your Pictures folder. The resolution is written into the file, so a scanned A4 page prints as A4 again. Image Scan also opens existing pictures to crop or turn them, prints them at their true size, and copies them to the clipboard.
+*File → Save* stores the scan as **PNG** (the default), **JPEG** or **TIFF**, with a dated name in your Pictures folder. The resolution is written into the file, so a scanned A4 page prints as A4 again. Image Scan also opens existing pictures to crop or turn them (in the File Manager: *Open with → Image Scan*), prints them at their true size, and copies them to the clipboard.
 
 !!! tip "No scanner found?"
     Image Scan uses SANE, the scanner system of Linux. Most USB scanners, network scanners and the scanners of all-in-one printers work without a driver from the maker. If none is found, check that the scanner is switched on and connected, and type `scanimage -L` in a terminal: it lists the scanners SANE sees.

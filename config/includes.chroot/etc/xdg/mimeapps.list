@@ -1,12 +1,21 @@
 # Default applications of amadeOS (XDG MIME applications specification); users override them
 # in ~/.config/mimeapps.list. Web pages and links open in Firefox ESR; amade-web shows the
-# local documentation and stays available under "Open with". PDF files open in amade-pdfviewer,
+# local documentation and stays available under "Open with". Pictures open in amade-imageviewer
+# (amade-imagescan also accepts them and stays under "Open with"), PDF files in amade-pdfviewer,
 # e-books (EPUB) and comics (CBZ) in amade-books.
 [Default Applications]
 x-scheme-handler/http=firefox-esr.desktop
 x-scheme-handler/https=firefox-esr.desktop
 text/html=firefox-esr.desktop
 application/xhtml+xml=firefox-esr.desktop
+image/jpeg=amade-imageviewer.desktop
+image/png=amade-imageviewer.desktop
+image/gif=amade-imageviewer.desktop
+image/bmp=amade-imageviewer.desktop
+image/x-bmp=amade-imageviewer.desktop
+image/vnd.wap.wbmp=amade-imageviewer.desktop
+image/tiff=amade-imageviewer.desktop
+image/webp=amade-imageviewer.desktop
 application/pdf=amade-pdfviewer.desktop
 application/epub+zip=amade-books.desktop
 application/vnd.comicbook+zip=amade-books.desktop

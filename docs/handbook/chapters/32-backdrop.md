@@ -17,6 +17,7 @@ The list on the left offers, from top to bottom:
 - **No Backdrop (color only)**: a plain colour, the colour below.
 - **amadeOS Default**: the amadeOS picture of a new account.
 - **The CDE backdrops**: the 26 patterns of the original CDE, from *Ankh*, *BrickWall* and *Corduroy* to *Pebbles*, *RicePaper*, *SkyDark*, *WaterDrops* and *Wooly*.
+- **The amadeOS pictures**: *mountain-lake.png*, a mountain lake, and *halloween.png*, a graveyard under the full moon with witches, werewolves, skeletons and zombies, made for the *Halloween* palette (chapter 31).
 - **Your pictures**: the pictures in the folders below.
 
 Click an entry and the **Preview** on the right shows the desktop with it. **Apply** puts it on the screen.
@@ -51,6 +52,9 @@ A picture rarely has exactly the size of the screen. **Scaling** decides what ha
 ## The colour
 
 **Color…** chooses the backdrop colour: the colour of *No Backdrop*, and of the bars around a picture. The CDE patterns are drawn in shades of this colour, so the same pattern looks quite different in blue, sand or green, just as in CDE.
+
+!!! tip "Halloween"
+    For the full Halloween look, choose the palette *Halloween* under *Color* and then *halloween.png* here, with *Fill Screen (Crop)*.
 
 !!! tip "A backdrop for each workspace"
     Different backdrops make it easy to see at a glance where you are, for example a calm colour for the workspace with your mail and a photo for the one with your games. The workspace buttons in the Front Panel keep their own colours (chapter 31).

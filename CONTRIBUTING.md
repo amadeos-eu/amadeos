@@ -279,13 +279,42 @@ scripts/check-config.sh        # the checks CI runs on the image configuration
 
 ## Git workflow
 
-Work directly in the repository:
+Work on a topic branch from `develop`, the default branch, and open the pull request against `develop`:
 
 ```bash
 cd amadeos
-git status
+git switch develop && git pull
 git switch -c <topic-name>
 ```
+
+### Commits and versions
+
+Every commit subject is a [Conventional Commit](https://www.conventionalcommits.org/): `type(scope): text`.
+
+| Type | For | Version |
+|---|---|---|
+| `feat` | a new feature | minor (1.1.0 → 1.2.0) |
+| `fix`, `perf` | a bug fix, a speed-up | patch (1.1.0 → 1.1.1) |
+| `docs`, `refactor`, `test`, `build`, `ci`, `chore`, `style`, `revert` | everything else | patch |
+| `feat!:`, `fix(wm)!:`, or a `BREAKING CHANGE:` line in the body | a breaking change | major (1.1.0 → 2.0.0) |
+
+Examples: `feat(panel): battery cell in the status slot`, `fix(wm): closing a dialog activates its owner`,
+`docs(handbook): chapter 51 versions and releases`. The scope is optional, lower case, the area of the change.
+
+Nobody writes a version by hand. CI computes it from the commits since the last tag `vX.Y.Z`
+(`scripts/ci/next-version.sh`); a repository without a tag starts at 1.0.0.
+
+| Branch | Built as | Debian version | Published |
+|---|---|---|---|
+| `develop` | `1.2.0-dev.57` | `1.2.0~dev.57` | workflow artifact (apt suite `dev`, M16) |
+| `release` | `1.2.0-pre.61` | `1.2.0~pre.61` | workflow artifact (apt suite `testing`) |
+| `main` | `1.2.0` | `1.2.0` | tag `v1.2.0`, GitHub Release with the packages (apt suite `stable`) |
+
+`release` and `main` only move forward through the **Promote** workflow of this repository
+(Actions → Promote → Run workflow: to `release` or `main`, all repositories or a list), which runs
+`scripts/ci/promote.sh`. Libraries go first; an app is promoted to main only when its amade-commons or
+amade-game-engine pin is a released version. The Application Developer's Handbook explains the whole
+workflow in chapter 51, "Versions and Releases".
 
 Use focused commits and do not commit generated ISO images, VM disks, build caches, credentials, or local environment files. Check `.gitignore` before adding build output. Keep documentation in English unless a project decision establishes another language.
 

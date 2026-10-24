@@ -31,7 +31,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 
 - Click the icon or open the drawer of its slot in the **Front Panel** (chapter 22).
 - Choose it in the **Application Manager**: click the icon of the **Tools** slot.
-- Double-click a file in the **File Manager**: it opens in the program made for it, a `.txt` in the Text Editor, an `.odt` in WritePad, a `.pdf` in the PDF Viewer, an `.epub` in Books, an `.ics` in the Calendar.
+- Double-click a file in the **File Manager**: it opens in the program made for it, a `.txt` in the Text Editor, an `.odt` in WritePad, a photo in the Image Viewer, a `.pdf` in the PDF Viewer, an `.epub` in Books, an `.ics` in the Calendar.
 - Type its command in a terminal, such as `amade-pad letter.txt`. Each section below names the command.
 
 While a program starts, the pointer shows the busy cursor until its window appears.

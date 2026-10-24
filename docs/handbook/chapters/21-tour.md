@@ -38,16 +38,17 @@ amadeOS uses all three buttons of the mouse, as CDE did. On a laptop touchpad, t
 | Right | The program's context menu, if it has one | The **Workspace Menu** (chapter 24) |
 
 !!! switching "Coming from Windows or macOS"
-    The Front Panel combines the taskbar and the Start menu of Windows, or the Dock of macOS: the drawers are the Start menu, sorted by kind. There is no list of open windows; minimised windows appear as small icons at the top left of the desktop instead (chapter 23), and the workspaces keep many windows apart. Copy and paste with ++ctrl+c++ and ++ctrl+v++ work as you know them in the amadeOS programs.
+    The Front Panel combines the taskbar and the Start menu of Windows, or the Dock of macOS: the drawers are the Start menu, sorted by kind. There is no list of open windows; ++alt+tab++ switches between them as on Windows, minimised windows appear as small icons at the top left of the desktop (chapter 23), and the workspaces keep many windows apart. Copy and paste with ++ctrl+c++ and ++ctrl+v++ work as you know them in the amadeOS programs.
 
 ## The keys to know
 
 | Keys | What they do |
 |---|---|
 | ++super+l++ | Locks the screen (chapter 26). ++super++ is the key with the Windows logo. |
+| ++alt+tab++ | Switches between the open windows (chapter 23). |
 | ++ctrl+q++ | Quits the program (*File → Exit*), in most amadeOS programs. |
 
 Appendix A lists all keys and mouse actions.
 
 !!! planned "Planned"
-    More keyboard shortcuts for the windows, such as switching between them with ++alt+tab++, are not there yet.
+    More keyboard shortcuts for the windows, such as moving one to another workspace, are not there yet.

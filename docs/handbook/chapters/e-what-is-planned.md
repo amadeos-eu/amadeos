@@ -18,7 +18,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 
 | What | Chapter |
 |---|---|
-| Keys for the windows, such as ++alt+tab++ | 21, A |
+| More keys for the windows: moving a window to another workspace, switching workspaces | 21, A |
 | Moving a window to another workspace, or showing it on all of them | 24 |
 | Cells for the sound volume, the battery and Bluetooth in the Front Panel | 22, 27 |
 | Opening the windows of the last session again at login | 35, 55 |

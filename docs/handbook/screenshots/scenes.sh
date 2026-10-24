@@ -105,6 +105,11 @@ scene_windows() {
         shot 23 window-menu "360x220+$((FX > 20 ? FX - 20 : 0))+$((FY > 20 ? FY - 20 : 0))"
         key Escape
     fi
+    # Alt+Tab, held: the switcher with the pictures of the three windows
+    xdotool keydown alt key Tab
+    sleep 1
+    shot 23 alt-tab
+    xdotool key Escape keyup alt
 }
 
 # place WINDOW X Y [WIDTH HEIGHT]: moves (and sizes) the window whose title matches WINDOW.

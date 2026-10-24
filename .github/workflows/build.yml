@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [main]
+    branches: [develop, release, main]
   pull_request:
 
 permissions:
@@ -17,3 +17,15 @@ jobs:
       # tested in their own repositories (amadeos-system, amade-*).
       - name: Check the image configuration
         run: scripts/check-config.sh
+
+  commits:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      # The title is checked too while amadeos squash-merges.
+      - uses: datazuul/amadeos-ci/check-commits@main
+        with:
+          check-title: 'true'

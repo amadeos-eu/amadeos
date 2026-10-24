@@ -78,6 +78,29 @@ Examples: the text editor, mail client and file manager are applications. Packag
 - Updates go through apt only (no Flatpak or Snap in scope). The user stays in control: checking and
   notifying are automatic, installing is the user's action (or an opt-in setting for security updates).
 
+## Versions, commits and branches
+
+- **Semantic Versioning** from 1.0.0, one version per repository (amadeos-system: one for all its
+  packages). Nobody writes a version into `build.gradle`: CI computes it with `next-version.sh` of
+  [amadeos-ci](https://github.com/datazuul/amadeos-ci)
+  from the commits since the last tag `vX.Y.Z` and passes `-PappVersion`. Debian packages use the same
+  version with `~` instead of `-`, so that `1.1.0~dev.57 < 1.1.0~pre.61 < 1.1.0`.
+- **Conventional Commits** for every commit: `type(scope): text`, for example
+  `feat(panel): battery cell in the status slot`. `feat` raises the minor version, a `!` after the
+  type or scope (or a `BREAKING CHANGE:` footer) the major version, every other type the patch version.
+  The scope is the area that commit subjects used to start with (panel, wm, settings, handbook, …).
+  A check in every pull request rejects other subjects.
+- **Branches:** pull requests go to `develop` (the default branch; builds `X.Y.Z-dev.N`). `release`
+  (builds `X.Y.Z-pre.N`, for the QEMU and hardware tests) and `main` (releases: tag and GitHub Release)
+  are never committed to: the Promote workflow of amadeos-ci moves them forward by fast-forward, so all
+  three branches hold the same commits. A hotfix that cannot wait for develop goes into `release` by a
+  pull request; promoting it to main merges it back into develop.
+- Apps and games may pin amade-commons or amade-game-engine commits on develop; before they are promoted
+  to main the pin must be a release of the library (`com.github.datazuul:amade-commons:vX.Y.Z`, or a
+  commit a release contains). Libraries are promoted first.
+- Merge pull requests with a merge commit, so that their commits (and the commits the handbooks pin)
+  reach develop unchanged.
+
 ## Working rules
 
 - Do not mark a milestone done from a build alone; record command, environment and observed result

@@ -60,6 +60,7 @@ Merged and installed by `buildDistribution.sh`, but so far only checked under Xv
 
 ### M12 — Compatibility, security and release hardening
 
+- Versions and releases (plan of 2026-10-24, tooling in [amadeos-ci](https://github.com/datazuul/amadeos-ci)): Semantic Versioning from 1.0.0, computed from Conventional Commits; branches `develop` (builds `-dev.N`), `release` (`-pre.N`) and `main` (releases, tag `vX.Y.Z`, GitHub Release), moved forward by the Promote workflow. Open: the one-time branch setup (`setup-release-branches.sh` of amadeos-ci), the secret `PROMOTE_TOKEN`, then every repository's build workflow; amade-calculator is the pilot.
 - A documented release process: release manifest (image version, package inputs, checksum, test results), reproducible-build checks, image signing, artifact provenance, rollback and recovery.
 - Pin and document the supported Java baseline.
 - Test fonts, HiDPI scaling, keyboard layouts, focus and modality, and representative Swing/AWT applications.
@@ -101,7 +102,7 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 
 ### M16 — amadeOS package repository
 
-**Goal:** amadeOS and the amade applications arrive as updates, not only inside the ISO. Every package is still version 0.1.0, all are `Architecture: all`, and no repository has a release workflow yet.
+**Goal:** amadeOS and the amade applications arrive as updates, not only inside the ISO. All packages are `Architecture: all`; versions and GitHub Releases come from the release branches (see M12). The suites follow the branches: `stable` from main, `testing` from release, `dev` from develop.
 
 - Proposal of 2026-10-23, waiting for a decision: a stateless publish script (`apt-ftparchive`, `appstreamcli compose` for DEP-11 so Software shows the amade applications, gpg signing subkey), a release workflow per repository that attaches the `.deb` to a GitHub release on a version tag, and a package `amadeos-archive-keyring` with the key and `/etc/apt/sources.list.d/amadeos.sources`.
 - Hosting is open: GitHub Pages, or `apt.amadeos.eu` on the server behind www.amadeos.eu (its folder is reserved in the amadeos.eu repository).
@@ -115,6 +116,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-10-24
 
+- **Versions and releases:** Semantic Versioning with Conventional Commits, release branches develop/release/main and the Promote workflow (new repository amadeos-ci); amade-calculator is the pilot.
 - **Website [www.amadeos.eu](https://www.amadeos.eu/) online:** static pages from [`amadeos.eu`](https://github.com/datazuul/amadeos.eu), deployed to an own server by an Ansible playbook (nginx, Let's Encrypt).
 - **Front Panel sound cell** (system #46, #78): volume, mute, output and input device through `pactl`, mouse wheel and middle click.
 - **Front Panel battery cell** (system #44, #76): only with a battery; fill colour, bolt on mains, percentage and remaining time.

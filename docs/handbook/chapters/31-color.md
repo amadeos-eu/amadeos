@@ -6,7 +6,7 @@
 
 ## The palettes
 
-amadeOS comes with five palettes:
+amadeOS comes with six palettes:
 
 | Palette | What it looks like |
 |---|---|
@@ -15,6 +15,7 @@ amadeOS comes with five palettes:
 | **CDE Desert** | Sand and amber, another of the original CDE palettes. |
 | **Classic Gray** | The plain grey of early Motif desktops. |
 | **Dark Slate** | A dark palette, for dim rooms and tired eyes. |
+| **Halloween** | Dark grey with pumpkin-orange title bars and selections. It goes with the backdrop *halloween.png* (chapter 32). |
 
 Click a palette in the list. The colour chips to the right show its colours; hold the mouse over a chip to see its name and value, such as *Active title #4E7D96*:
 
@@ -44,6 +45,8 @@ workspace3=#4E7A8E
 workspace4=#8E4E5C
 iconTheme=NsCDE
 ```
+
+The Halloween palette is such a file too, `/etc/amadeos/themes/halloween/theme.properties`, a good one to copy.
 
 Only `base` is required; amadeOS works out the edges, shadows and other colours from it. Copying the file of a palette that is already there and changing a few values is the easiest way to start.
 

@@ -111,7 +111,7 @@ The technical words of this book, in alphabetical order, with the chapter that e
 :   The program that sets the look and behaviour of the desktop: colours, text size, backdrop, keyboard, mouse, windows and more; CDE called it the Style Manager (Part IV).
 
 **Status slot**
-:   The small cells at the right of the Front Panel, for the network, the sound and the updates (chapter 22).
+:   The small cells at the right of the Front Panel, for the network, the sound, the battery and the updates (chapter 22).
 
 **sudo**
 :   The command that runs another command with administrator rights (chapter 50).

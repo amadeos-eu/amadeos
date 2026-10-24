@@ -38,7 +38,7 @@ The middle of the panel holds the controls of the session:
 | **Tools** | Opens the Application Manager, the list of all programs | See below |
 | **Help** | Opens this handbook in the web browser | The handbooks on the computer |
 | **Trash Can** | Opens the trash in the File Manager | — |
-| **Status** | Up to four small cells: the network, and the software updates when updates are waiting | — |
+| **Status** | Up to four small cells: the network, the sound, the battery on a laptop, and the software updates when updates are waiting | — |
 
 ### The Tools drawer
 
@@ -81,13 +81,17 @@ The **network cell** shows the connection: a cable for a wired network, bars for
 
 The **sound cell** beside it shows a loudspeaker with one to three waves for the volume, and an X when muted. Clicking it opens a volume slider and the choice of the output and the microphone; the mouse wheel over it makes it louder or softer, the middle button mutes (chapter 27).
 
+The **battery cell** below them appears only on a computer with a battery, such as a laptop. The battery is filled to its charge: **green** above 50 %, **yellow** from 50 % down to 21 % and **red** at 20 % and below, time to plug in the charger. A lightning bolt shows that the computer is plugged in. Point at the cell to see the percentage and, while the battery charges or runs the computer, about how long until it is full or empty, for example *Battery 38 %, about 1 h 11 min left*. Settings > Front Panel can hide it (chapter 37).
+
+![The battery cell below the network cell: on battery at 86, 38 and 12 %, charging, plugged in and full, and a desktop computer without a battery](images/22/battery-cell.png)
+
 The **updates cell** appears only while software updates wait: an arrow into a tray with their number, on red when security updates are among them. Its menu offers *Install all updates*, *Install security updates only* and *Check now* (chapter 52).
 
 !!! planned "Planned"
-    Cells for the battery and Bluetooth will join the status slot.
+    A cell for Bluetooth will join the status slot.
 
 !!! cde "CDE heritage"
     The Front Panel follows CDE's: the clock and calendar on the left, the workspace switch with lock and EXIT in the middle, the Print Manager, Tools, Help and Trash Can on the right, and drawers ("subpanels" in CDE) above the slots. CDE's drawers were configured by hand; those of amadeOS fill themselves. The Games drawer and the status slot are new, and so is the language button, in the corner CDE left empty. CDE's busy light only blinked while an action started; the disk, network and install signals are new.
 
 ??? hood "Under the hood"
-    The Front Panel is the program `amadeos-panel-cde`, started by the session as `/usr/bin/amadeos-panel`. The drawers list the `.desktop` files in `/usr/share/applications` and `~/.local/share/applications` by their *Categories*: `FileManager`, `TextEditor` and `Office`, `Email` and `Network`, `AudioVideo`, `Graphics`, `Game`, `Printing`, `Settings` and `System`, `Documentation`. A program started from the panel writes its messages to `~/.cache/amadeos/logs/<program>.log`. The busy light reads `/proc/diskstats` (whole disks only) and `/proc/net/dev` (all interfaces but `lo`) four times a second, and looks for a running `dpkg` every two seconds.
+    The Front Panel is the program `amadeos-panel-cde`, started by the session as `/usr/bin/amadeos-panel`. The drawers list the `.desktop` files in `/usr/share/applications` and `~/.local/share/applications` by their *Categories*: `FileManager`, `TextEditor` and `Office`, `Email` and `Network`, `AudioVideo`, `Graphics`, `Game`, `Printing`, `Settings` and `System`, `Documentation`. A program started from the panel writes its messages to `~/.cache/amadeos/logs/<program>.log`. The busy light reads `/proc/diskstats` (whole disks only) and `/proc/net/dev` (all interfaces but `lo`) four times a second, and looks for a running `dpkg` every two seconds. The battery cell reads `/sys/class/power_supply` every 20 seconds; the batteries of a wireless mouse or keyboard do not count, and two batteries in one laptop show as one.

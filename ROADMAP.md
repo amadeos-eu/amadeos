@@ -1,12 +1,12 @@
 # amadeOS roadmap
 
-This roadmap records the verified project status and the next implementation steps. It deliberately separates completed work, work in progress, and work that still requires evidence. No milestone is considered complete merely because the corresponding files or scripts exist.
+What is open and planned comes first, then a timeline of what has been achieved, newest first. A feature counts as verified only with evidence from the QEMU live image or real hardware; merged work without that evidence is listed under *Waiting for a test*. The detailed notes of each milestone up to 2026-10-24 are in the git history (ROADMAP.md at commit `b58c372`).
 
 Status date: 2026-10-24
 
 ## Project direction
 
-amadeOS is a free, European, Java-centred desktop system based on a minimal Debian x86-64 live image. The system architecture progresses toward a complete Java Desktop Environment:
+amadeOS is a free, European, Java-centred desktop system based on a minimal Debian x86-64 live image, with its own Java window manager, CDE-style Front Panel, display manager and applications. The architectural decisions and rejected alternatives are in [`CONCEPT.md`](CONCEPT.md).
 
 ```mermaid
 flowchart TD
@@ -32,501 +32,155 @@ flowchart TD
     Panel -->|Manages via EWMH| WM
     WM -->|Frames & Decorates| Apps
 ```
-
-```mermaid
-flowchart LR
-    M1["M1: Boot & UEFI (Done)"] --> M2["M2: Session (Done)"]
-    M2 --> M3["M3: Native X11 (Done)"]
-    M3 --> M4["M4: Floating WM (Done)"]
-    M4 --> M5["M5: Integrated Session (Done)"]
-    M5 --> M6["M6: Power & Lifecycle (Done)"]
-    M6 --> M7["M7: Reparenting & Decorations (Done)"]
-    M7 --> M8["M8: Desktop Shell & Themes (Done)"]
-    M8 --> M9["M9: Java Display Manager (Done)"]
-    M9 --> M10["M10: XDG App Discovery & .deb Apps (Done)"]
-    M10 --> M11["M11: Virtual Workspaces & Root Menu (Done)"]
-    M11 --> M12["M12: Release Hardening (In Progress)"]
-    M10 --> M13["M13: Application Suite (In Progress)"]
-    M13 --> M14["M14: Installation to Disk (In Progress)"]
-    M14 --> M15["M15: Updates & Software (In progress)"]
-    M15 --> M16["M16: amadeOS Package Repository (Planned)"]
-```
-
-The architectural decisions and rejected alternatives are documented in [`CONCEPT.md`](CONCEPT.md).
-
-## Current status
-
-### Verified and available
-
-- The repository contains the Java window-manager core, native X11 adapter, and Swing desktop suite.
-- Clean Debian 13 (Trixie) live ISO generation verified with SHA-256 integrity (`artifacts/amadeos-amd64.iso`).
-- Dual-firmware boot (UEFI via OVMF and legacy BIOS via Isolinux) empirically verified in QEMU.
-- Native X11 integration via JNA (`LibX11`, `NativeX11Adapter`, `X11WindowManagerService`) claiming root window with `SubstructureRedirectMask`.
-- Click-to-focus and click-to-raise with dynamic button grab/ungrab on active windows (zero click latency or grab interference).
-- ICCCM `WM_TAKE_FOCUS` protocol support eliminating Java AWT/Swing focus delays; graceful close via `WM_DELETE_WINDOW`.
-- EWMH compliance: `_NET_SUPPORTING_WM_CHECK`, `_NET_WM_NAME`, `_NET_SUPPORTED`, `_NET_CLIENT_LIST`, `_NET_ACTIVE_WINDOW`, `_NET_WM_WINDOW_TYPE_DOCK`, and `_NET_WM_STRUT`.
-- Reparenting Window Manager (M7) with authentic Motif 3D beveled borders, titlebars, maximize/restore/minimize buttons, corner grab handles, and 8-directional border resizing.
-- Desktop Icon Tiles (M8): Minimized windows park neatly in top-left corner stacked vertically with zero spacing, featuring dynamic reflow and double-click restore.
-- **Authentic CDE Front Panel (M8):** Centered 85px dock (`AmadeDesktopPanel`) with pixel-exact 10-slot layout measured from authentic UNIX workstation CDE specification:
-  - Left slots: Slot 1 Clock (analog dial with tick marks & hands), Slot 2 Calendar (tear-off paper sheet showing current month & day), Slot 3 File Manager (drawer with `▲`), Slot 4 Text Editor (drawer with `▲`), Slot 5 Mail / Mailer (in-tray drawer with `▲`).
-  - Center: Iconic 4-way Workspace Switcher pad ("One", "Two", "Three", "Four"), lock button, activity LED bar, and EXIT button.
-  - Right slots: Slot 6 Printer Manager (drawer with `▲`), Slot 7 Style Manager (flat notch tab opening the `StyleManager`), Slot 8 Application Manager (flat notch tab with categorized app catalog), Slot 9 Help Viewer (books drawer with `▲`), Slot 10 Trash Can (wastebasket pedal bin).
-  - Selective `hasDrawer` architecture rendering 3D carved triangle arrows (`▲`/`▼`) on drawer slots while flat notch tabs remain un-arrowed and non-popup.
-  - Memory gauge cleanly removed from panel to preserve original CDE layout.
-- Central Desktop Theme Engine (M8): `DesktopTheme` and `ThemeManager` with unified warm Motif `#CEC2BB` palette, 5 built-in themes, dynamic icon theme switching, and real-time cross-process synchronization via the X11 root window property `_AMADEOS_THEME`.
-- **Decoupled NsCDE Icon Packaging & Freedesktop Compliance (M8):**
-  - Standalone packaging script `scripts/package-nscde-icons.sh` downloading and packaging NsCDE icon themes as Debian `.deb`, tarball, or local user icon directory, decoupling GPL-3.0 icons from core codebase.
-  - Candidate-first icon resolution hierarchy in `IconManager` prioritizing `apps` over generic actions at authentic 42px scale, with case-insensitive fallback and vector/pixel fallbacks for all 10 slots.
-- **Motif Look-and-Feel & Scrollbar Hardening (`AmadeUI`):**
-  - Rectangular 3D beveled `BasicScrollBarUI` matching authentic Motif desktop styling.
-  - Solid theme-colored flat gradients eliminating Ocean blue tint while preventing Metal gradient `IndexOutOfBoundsException: Index: 0` crashes on scrollable components.
-- Style Manager & Wallpaper Management (M8, restructured after M11): `style.StyleManager` (formerly `AmadeSettingsApplication`) and `WallpaperManager` supporting scaling modes (Fill, Fit, Stretch, Tile, Center), solid color matte, and direct X11 root window pixmap rendering.
-- Java Display Manager & PAM Greeter (M9): `AmadeDisplayManager`, `AmadeLoginGreeter`, and `PamAuthenticator` providing full Linux PAM authentication (`libpam.so.0`), root privilege dropping via `runuser`/POSIX, systemd unit `amadeos-dm.service`, and default live credentials (`amadeos` / `amadeos`).
-- Session configuration manifest (`/etc/amadeos/session.conf`), drop-in autostart (`/etc/amadeos/autostart.d/`), and background WM watchdog supervision.
-- Incremental packaging mode `AMADEOS_QUICK=1` updating chroot and squashfs in under 30 seconds.
-- Session lifecycle & power management (M6): Session & Power Dialog offering Log Out, Exit to Shell (breaking out of the `startx` loop), Shut Down, and Reboot.
-- XDG Application Discovery & Debian App Ecosystem (M10): Freedesktop `.desktop` parser (`XdgDesktopEntryParser`), category mapping (`XdgCategory`), and app indexer (`XdgApplicationManager`). CDE Front Panel drawers dynamically populated by category with primary launcher actions. Drop-in `.deb` package support in `config/packages.chroot/`. First independent app [`amade-pad`](https://github.com/datazuul/amade-pad) built and packaged as Debian `.deb`.
-- **EWMH Virtual Workspaces & 4-Way Multi-Desktop Support (M11):**
-  - Full EWMH desktop property support (`_NET_NUMBER_OF_DESKTOPS = 4`, `_NET_CURRENT_DESKTOP`, `_NET_DESKTOP_NAMES = "One\0Two\0Three\0Four\0"`, `_NET_WM_DESKTOP`).
-  - Bidirectional synchronization between Front Panel switcher pad ("One", "Two", "Three", "Four"), root window properties, and Window Manager.
-  - Window isolation and selective mapping/unmapping of client frames and minimized icon tiles per workspace with sticky window support (`0xFFFFFFFF`).
-- **Motif 3D Desktop Root Window Menu (`DesktopRootMenu`, M11):**
-  - Interception of Button 3 (right-click) and Button 1 (dismiss) on the X11 root window background.
-  - Authentic Motif 3D popup menu featuring Programs (categorized XDG application submenus), New Window launchers, Workspaces switcher, Window Management (Shuffle Up, Shuffle Down, Minimize All, Restore All), Desktop Settings, Refresh Desktop, Screen Lock, and Session Exit dialog (`SessionDialogHelper`).
-- **Root Cursor & Window Stacking Order (M11):**
-  - Native X11 `XC_left_ptr` arrow cursor defined on the root window at startup.
-  - Window stacking ordering (`bringToFront`, `sendToBack`, `raise`, `lower`) in `WindowRegistry` and `WindowManagerCore` powering "Shuffle Up" and "Shuffle Down".
-- **Security and session hardening (M12, PRs #1–#12, merged 2026-10-12):**
-  - Login bypasses closed: no password shortcut for the live user outside PAM, mock PAM only with `AMADEOS_MOCK_PAM=1` and never as root (#1).
-  - X server protected by an MIT cookie (`/run/amadeos/Xauthority`, `Xorg -auth`) instead of `xhost +local:`; world-writable `/dev/input` rule removed; `Xwrapper.config` restricted to the console user; `trixie-security` and `trixie-updates` added to the image (#1).
-  - Each login runs in its own root session worker that owns the PAM session; the session starts with `setpriv` and the PAM environment, so logind, `XDG_RUNTIME_DIR` and user D-Bus work (#5).
-  - Screen lock as its own process (`amadeos.jar lock`, `/usr/bin/amadeos-lock`) with keyboard and pointer grabs, the `_AMADEOS_LOCK` X selection as session-wide state, all monitors covered, and relocking if the lock process dies (#6).
-  - All Xlib calls from the window manager's event-loop thread (#4); applications started detached instead of on unread pipes (#3); desktop settings under `$XDG_CONFIG_HOME` (#9); guarded image build scripts (#8); Gradle tests in CI (#2); licensed under EUPL-1.2 (#7).
-  - Login failure "Failed to open PAM session" fixed (`pam_loginuid` needs the thread-group leader: the worker starts through `/bin/sh`), verified in the QEMU live ISO; root menu anchor no longer framed and the menu closes on every outside click, verified on Xvfb (#12).
-- **Live image of 2026-10-13 boot-tested:** the ISO with amade-commons, Style Manager and screen saver (#14), NsCDE as default icon theme (#15), the CDE backdrops package, amade-pad and amade-mail boots and works.
-- **Shared application library [`amade-commons`](https://github.com/datazuul/amade-commons) (#13, merged 2026-10-13):** desktop themes, Motif look-and-feel (`AmadeUI`), theme and icon-theme files, XDG directories, keyring access and application start-up shared by the desktop and all amadeOS applications, so applications follow the theme chosen in the Style Manager immediately, including *Dark Slate*.
-- **README rework (#16, merged 2026-10-14):** "Digital Sovereignty starts on your desktop".
-- **Three handbooks, complete as of 2026-10-23:** the amadeOS User's Handbook (MkDocs under `docs/handbook`, offline package `amadeos-handbook`, opened from the Help slot in Firefox, online at <https://datazuul.github.io/amadeos/>), the Application Developer's Handbook (amade-commons, package `amade-app-handbook`) and the Game Developer's Handbook (amade-game-engine, package `amade-game-handbook`).
-- **Project website [www.amadeos.eu](https://www.amadeos.eu/) (online since 2026-10-24):** static pages from [`amadeos.eu`](https://github.com/datazuul/amadeos.eu) (folder `www.amadeos.eu/`, header and footer through HTMX includes), deployed to an own server by an Ansible playbook in datazuul-devops (nginx, Let's Encrypt). The folder `apt.amadeos.eu/` is reserved for the package repository of M16.
-
-### Merged, waiting for a QEMU or hardware check
-
-All of the following are merged on `main` of their repositories and installed by `buildDistribution.sh`, but have only been checked under Xvfb or in containers, not yet in the QEMU live image or on hardware.
-
-- **Settings (2026-10-23, formerly the Style Manager):** package `amadeos-settings` (amadeos-system [#37](https://github.com/datazuul/amadeos-system/pull/37), [#38](https://github.com/datazuul/amadeos-system/pull/38), amade-commons [#21](https://github.com/datazuul/amade-commons/pull/21)): one window with a sidebar and a search, CDE's control row as *View > Compact*; pages Color, Font (sizes 1 to 7 for every amade application), Backdrop, Keyboard, Mouse, Beep, Display, Screen, Window, Clipboard, Workspaces, Front Panel, Passwords, Updates, Language and Startup. `/usr/bin/amadeos-style` remains as a wrapper.
-- **Display page (2026-10-23):** resolution, refresh rate, rotation, primary monitor, mirroring and a draggable arrangement through `xrandr`, with a 15-second "keep these settings?" countdown; one layout per set of connected monitors in `~/.config/amadeos/display.conf`, reapplied at login (amadeos-system [#39](https://github.com/datazuul/amadeos-system/pull/39)). Several monitors form one large desktop; maximizing per monitor and the panel on the primary monitor are still open.
-- **Workspace names and backdrops (2026-10-23):** the four workspaces can be renamed in the Front Panel (`~/.config/amadeos/workspaces.conf`, published as `_NET_DESKTOP_NAMES`), and each workspace can have its own backdrop (amadeos-system [#36](https://github.com/datazuul/amadeos-system/pull/36)).
-- **Seasonal themes (2026-10-24):** a Halloween palette with a drawn graveyard backdrop and a Christmas palette with two backdrops (amadeos-system [#42](https://github.com/datazuul/amadeos-system/pull/42), [#43](https://github.com/datazuul/amadeos-system/pull/43)).
-- **Clipboard manager (2026-10-22):** `amadeos-session clipboard` keeps a history in memory only (never on disk), skips password-manager entries, takes over the clipboard when its owner exits, Ctrl+Alt+V and the Tools drawer open the history (amadeos-system [#34](https://github.com/datazuul/amadeos-system/pull/34)).
-- **Alt+Tab switcher (2026-10-24):** in the window manager, windows of the current workspace in most-recently-used order with small previews read from the screen (no compositor) and `_NET_WM_ICON` icons; minimized windows are included, a quick tap switches without the popup, Esc cancels (amadeos-system [#45](https://github.com/datazuul/amadeos-system/pull/45)).
-- **Front Panel status slot (slot 13):** cells in the order network, sound, battery, updates, each switchable in Settings > Front Panel.
-  - *Network:* NetworkManager with WLAN firmware for Intel, Realtek, Atheros, Broadcom and MediaTek; the menu lists networks in range, joins (password asked once), disconnects, forgets and switches WLAN off; "Network settings…" still opens `nmtui` in xterm. The WLAN password is passed to `nmcli` as an argument and is briefly visible in the process list; a D-Bus client would avoid that.
-  - *Sound (2026-10-24):* volume in waves or an X when muted; a slider with mute, outputs and inputs as radio items (moving the running streams), *Mute microphone*, mouse wheel and middle click; talks to PipeWire through `pactl` and follows `pactl subscribe` (amadeos-system [#46](https://github.com/datazuul/amadeos-system/pull/46)). Checked with a stand-in `pactl` only.
-  - *Battery (2026-10-24):* shown only when `/sys/class/power_supply` has a battery, green, yellow or red fill and a bolt on mains, percentage and remaining time in the tooltip (amadeos-system [#44](https://github.com/datazuul/amadeos-system/pull/44)). Not yet tried on a laptop.
-  - *Updates:* see M15.
-- **Busy light above EXIT (2026-10-23):** the activity light blinks yellow while a program starts, runs an amber chaser while packages are installed, and otherwise shows disk (green) and network (cyan) activity; a click opens System Information (amadeos-system [#41](https://github.com/datazuul/amadeos-system/pull/41)).
-- **Bell through the sound card:** the window manager receives every bell as `XkbBellNotify` and plays it through ALSA's `default` device with the volume, tone and duration of the Beep settings. Xvfb ignores `xset b`, so this needs real Xorg.
-- **Passwords:** gnome-keyring as the Secret Service, unlocked at login by `pam_gnome_keyring` (amadeos-system [#28](https://github.com/datazuul/amadeos-system/pull/28)).
-
-### Next
-
-- A QEMU round over everything above, the Software end-to-end test of M15 and the UEFI path of the installer (M14), then the Zephyrus laptop.
-- M16: the signed amadeOS apt repository; a proposal is waiting for a decision (see M16).
-- An own terminal emulator or a decision to keep xterm (Tools drawer).
-
-### Not yet verified
-
-- Real hardware, graphics acceleration, firmware, WLAN, audio, battery, suspend/resume, multiple displays, and USB boot have not been tested.
-- Security updates, image signing, rollback, persistence, and release procedures are not defined. Installation to disk exists (M14) but its UEFI and dual-boot paths are not yet tested in QEMU or on hardware.
-
 ## Milestones
 
-### M0 — Restore a reproducible build (Completed)
+| Milestone | Status |
+|---|---|
+| M0 Reproducible build | Done 2026-10-09 |
+| M1 Boot (BIOS and UEFI) · M2 Session launcher · M3 Native X11 · M4 Floating WM · M5 Integrated session · M6 Power and lifecycle · M7 Reparenting and decorations · M8 Front Panel and themes · M9 Java display manager · M10 XDG discovery and .deb apps | Done 2026-10-10 |
+| M11 Virtual workspaces and root menu | Done 2026-10-11 |
+| M12 Compatibility, security and release hardening | In progress |
+| M13 Application suite | In progress, nearly complete |
+| M14 Installation to disk | In progress |
+| M15 Updates and software management | Built, waiting for the QEMU test |
+| M16 amadeOS package repository | Planned, proposal waiting for a decision |
 
-**Goal:** Produce the first inspectable ISO from a clean checkout. (Achieved 2026-10-09)
+## Open and planned
 
-1. Inspect the generated live-build configuration immediately after the archive/chroot archive stages:
-   - `chroot/etc/apt/sources.list*`
-   - `chroot/var/lib/apt/lists/`
-   - live-build configuration files and logs
-2. From the generated chroot, check APT visibility with `apt-cache policy` for representative packages such as `xserver-xorg`, `openjdk-25-jre`, and `live-boot`.
-3. Verify that the configured Debian mirror, distribution (`trixie`), archive areas, DNS, and proxy handling are available inside the chroot.
-4. Make the smallest configuration fix required. Prefer explicit mirror and archive configuration over undocumented host-specific behavior.
-5. Run `./build.sh` and retain the relevant log output.
-6. Verify the resulting artifact:
+### Waiting for a test
 
-   ```bash
-   file artifacts/amadeos-amd64.iso
-   sha256sum -c artifacts/amadeos-amd64.iso.sha256
-   ```
+Merged and installed by `buildDistribution.sh`, but so far only checked under Xvfb or in containers:
 
-**Exit criteria:** A clean build creates a non-empty ISO and its checksum verifies. The build result and any required environment assumptions are documented.
+- Settings with all its pages (Display, Font, Window, Workspaces, Front Panel, Passwords, Updates, Language, Startup), per-workspace names and backdrops, the seasonal themes.
+- Front Panel status slot: network, sound (`pactl`, not yet against PipeWire), battery (not yet on a laptop), updates; the busy light above EXIT.
+- Alt+Tab switcher, clipboard manager, bell through the sound card (Xvfb ignores `xset b`), gnome-keyring unlocked at login.
+- Software (M15): the end-to-end test in QEMU — first start loads the package lists, the polkit password window appears, a package gets installed, an update goes through the panel cell.
+- Installer (M14): the UEFI path (`run-qemu.sh --uefi`) and installing next to Windows, then the Zephyrus laptop (UEFI, NVMe, Secure Boot with the signed shim).
+- Not tested at all yet: real hardware, graphics acceleration, firmware, WLAN, audio, suspend/resume, several monitors, USB boot.
 
-### M1 — Boot and inspect the live image (Completed)
+### M12 — Compatibility, security and release hardening
 
-**Goal:** Demonstrate that the image boots through both firmware paths and contains the intended runtime.
+- A documented release process: release manifest (image version, package inputs, checksum, test results), reproducible-build checks, image signing, artifact provenance, rollback and recovery.
+- Pin and document the supported Java baseline.
+- Test fonts, HiDPI scaling, keyboard layouts, focus and modality, and representative Swing/AWT applications.
+- An own Secret Service daemon in Java (D-Bus `org.freedesktop.secrets`, unlocked by the login password, Motif prompt) to replace gnome-keyring and its GTK prompter.
+- The WLAN password is passed to `nmcli` as an argument and briefly visible in the process list; a D-Bus client would avoid that.
+- Decide whether JNA/libX11 stays or FFM or JNI/XCB is justified; reassess Wayland only after that.
+- Display: maximizing per monitor and the panel on the primary monitor (several monitors are one large desktop today).
 
-1. **BIOS boot in QEMU (Verified):**
-   ```bash
-   qemu-system-x86_64 -enable-kvm -m 2048 -usb -device usb-tablet -cdrom artifacts/amadeos-amd64.iso
-   ```
-   - Boots via Isolinux menu to live Linux 6.12 kernel.
-   - Automatically logs in as `amadeos` on tty1.
-   - Automatically starts Xorg and launches `amadeos-session`.
-   - Displays `SwingDemoApplication` with fully functional mouse pointer tracking and interactive button clicks.
-2. **UEFI boot in QEMU (Verified):**
-   ```bash
-   qemu-system-x86_64 -enable-kvm -m 2048 -bios /usr/share/ovmf/OVMF.fd -usb -device usb-tablet -cdrom artifacts/amadeos-amd64.iso
-   ```
-   - Generated standalone 64-bit EFI bootloader (`BOOTX64.EFI`) using `grub-mkstandalone` with embedded memdisk and search/linux modules.
-   - Embedded FAT16 EFI boot image (`/boot/grub/efi.img`) and configured El Torito EFI boot catalog with `xorriso -isohybrid-gpt-basdat`.
-   - OVMF loads GRUB 2 EFI directly, boots Linux 6.12 kernel, logs in as `amadeos`, and renders desktop session.
-3. Live root filesystem usable, Java runtime and Xorg package set confirmed functional under both BIOS and UEFI.
+**Exit criteria:** a documented release process exists, supported hardware and software boundaries are explicit, and another contributor can rebuild and evaluate the image.
 
-**Exit criteria:** Dual-firmware (BIOS + UEFI/OVMF) boot evidenced, live root filesystem usable, Java runtime and Xorg package set confirmed functional. (Achieved 2026-10-10)
+### M13 — Application suite
 
-### M2 — Make the session launcher reliable (Completed)
-
-**Goal:** Provide a predictable Xorg session entrypoint before native WM integration.
-
-1. Validated the relationship between `live-config`, `agetty` autologin on tty1, `/etc/skel/.xinitrc`, `amadeos-session`, and `startx`.
-2. `amadeos-session` validates Java runtime and application JAR availability, writes structured diagnostics to `~/.amadeos-session.log`, and launches a fallback `xterm` with diagnostic output if components are missing.
-3. Included `xterm` in image package lists as a debugging and client test terminal.
-
-**Exit criteria:** The documented session launcher starts the desktop cleanly and reports actionable diagnostics on failure. (Achieved 2026-10-10)
-
-### M3 — Implement the native X11 boundary (Completed)
-
-**Goal:** Connect the Java WM prototype to a real X11 server without mixing native concerns into the pure model.
-
-1. Pinned JNA with `net.java.dev.jna:jna:5.14.0` as the native X11 binding layer and configured fat JAR packaging.
-2. Implemented `LibX11` JNA interface, `NativeX11Adapter`, and `X11WindowManagerService` handling `SubstructureRedirectMask`, `MapRequest`, `ConfigureRequest`, `UnmapNotify`, and `DestroyNotify`.
-3. Separated the WM daemon process (`amadeos-session` launches `AmadeWindowManagerMain` as a background daemon) from Swing applications (`SwingDemoApplication`).
-4. Automated integration testing against `Xvfb` verified that `X11WindowManagerService` claims the root window and manages real client windows (`xmessage`).
-
-**Exit criteria:** The Java process can claim the root-window WM role, observe client lifecycle events, and manage a controlled test client without crashing. (Achieved 2026-10-10)
-
-### M4 — Implement the minimum usable floating WM (Completed)
-
-**Goal:** Manage ordinary Swing windows predictably.
-
-1. Applied deterministic floating cascade layout to native X11 client windows.
-2. Implemented click-to-focus and click-to-raise via `XGrabButton` (Button 1, sync mode) and `XAllowEvents(ReplayPointer)`.
-3. Implemented graceful window closing via ICCCM `WM_DELETE_WINDOW` client messages (`XSendEvent` with `WM_PROTOCOLS`), falling back to `XKillClient`.
-4. Handled transient dialog windows (`XGetTransientForHint`) with automatic parent-relative centering.
-5. Added EWMH compliance: supporting check window with `_NET_SUPPORTING_WM_CHECK`, `_NET_WM_NAME`, `_NET_SUPPORTED`, `_NET_CLIENT_LIST`, and `_NET_ACTIVE_WINDOW` properties (essential for Swing/AWT non-reparenting WM support).
-6. Expanded `SwingDemoApplication` with multi-window document creation (`JFrame`), transient dialogs (`JDialog`/`JOptionPane`), and external X11 client launching (`xterm`).
-7. Verified full suite with unit tests and headless X11 integration tests (`Xvfb`).
-
-**Exit criteria:** Representative Swing applications can open, move, resize, focus, show dialogs, and close under the Java WM in a controlled Xorg/Xvfb environment. (Achieved 2026-10-10)
-
-### M5 — Integrate the WM and applications into the image (Completed)
-
-**Goal:** Turn the prototype into the first end-to-end amadeOS desktop session.
-
-1. Separated WM daemon and application processes with independent logging (`~/.amadeos-wm.log` and `~/.amadeos-session.log`).
-2. Implemented background WM daemon watchdog/supervision in `amadeos-session` with automatic restart recovery and clean signal-trapped session teardown.
-3. Created configurable session manifest (`/etc/amadeos/session.conf` and `~/.config/amadeos/session.conf`) and drop-in autostart directories (`/etc/amadeos/autostart.d/`).
-4. Added GUI diagnostics: `SwingDemoApplication` features an interactive "View Session Logs" dialog with live reload and structured session exit/logout confirmation.
-5. Added `AMADEOS_QUICK=1` incremental live-build support to rebuild squashfs in under 30 seconds.
-
-**Exit criteria:** A booted image starts a usable Java-based session without manual process orchestration. (Achieved 2026-10-10)
-
-### M6 — Session lifecycle & power management (Completed)
-
-**Goal:** Provide controlled session exit, preventing unconditional kiosk restart loops and offering clean power options.
-
-1. **Session & Power Dialog:**
-   - Interactive Swing dialog triggered from session controls:
-     - **Log Out:** Exits X session and cleanly breaks out of the `startx` restart loop.
-     - **Exit to Shell:** Drops cleanly to the `amadeos@amadeos:~$` interactive bash prompt on `tty1`.
-     - **Power Off:** Invokes `systemctl poweroff` (or `loginctl poweroff`) via systemd/polkit.
-     - **Reboot:** Invokes `systemctl reboot` (or `loginctl reboot`) via systemd/polkit.
-     - **Cancel:** Dismisses the dialog without terminating the session.
-2. **Break Out of Debian Live Kiosk Loop:**
-   - Pre-seeded `/etc/profile.d/zz-live-config_xinit.sh` with lifecycle action processing (`.amadeos-session-action`), allowing clean exit to interactive console without kiosk respawn loops.
-3. **Graceful Multi-App Teardown:**
-   - On session exit, cleans up WM daemon PID file, terminates supervisor, and shuts down X server cleanly.
-
-**Exit criteria:** User can cleanly log out to a working `tty1` console or trigger shutdown/reboot directly from the Java desktop. (Achieved 2026-10-10)
-
-### M7 — Reparenting window manager & server-side decorations (Completed)
-
-**Goal:** Transform the Java Window Manager into a reparenting WM with native titlebars, minimize/maximize/close buttons, and interactive drag-to-move and border-resize capabilities.
-
-1. **Modernized Motif 3D Beveled Theme (Java2D Renderer):**
-   - High-performance `Graphics2D` rendering into off-screen `BufferedImage` blitted via `XPutImage`.
-   - Distinctive workstation gray `#C0C0C0` palette with 3D chiseled beveled borders and corner grab brackets.
-   - Active slate blue (`#4A6B82`) and inactive muted gray titlebar highlighting with crisp text rendering.
-   - Modernized window buttons: `[=]` menu, `[-]` minimize, `[□]` maximize/restore, and `[✕]` close with subtle red hover feedback.
-2. **Reparenting Architecture (`XReparentWindow`):**
-   - Intercepts `MapRequest`: creates outer frame window `F` sized $(W_{client} + 2\cdot bw, H_{client} + tbh + bw)$ wrapping client window `C`.
-   - Registers client with `XAddToSaveSet` to guarantee preservation upon WM restart/exit.
-   - Reparents client window into frame at $(bw, tbh)$.
-   - Manages StructureNotify, Exposure, PointerMotion, and Button events.
-3. **Interactive Mouse Dragging & Resizing:**
-   - **Titlebar Dragging:** left-click drag on titlebar grabs pointer with `XGrabPointer` (`XC_fleur`), computes $(\Delta x, \Delta y)$ from `MotionNotify`, and moves frame via `XMoveWindow`.
-   - **8-Directional Border Resizing:** mouse hovering over $6\text{px}$ borders and corners dynamically switches pointer cursor (`XC_top_side`, `XC_left_side`, `XC_top_left_corner`, etc.); dragging resizes frame and reparented client via `XMoveResizeWindow`.
-   - **Window Controls:**
-     - `[✕]` Close: sends `WM_DELETE_WINDOW` client message with fallback to `XKillClient`.
-     - `[□]` Maximize / Restore: toggles full screen geometry $(0, 0, screenWidth, screenHeight)$ and restores previous unmaximized bounds.
-     - `[-]` Minimize: cleanly unmaps frame window while preserving client state.
-     - `[=]` Menu: triggers window actions.
-
-**Exit criteria:** Windows have visible server-side titlebars with minimize/maximize/close buttons and can be smoothly moved and resized by dragging with the mouse. (Achieved 2026-10-10)
-
-### M8 — amadeOS desktop shell, panel & themes (Completed)
-
-**Goal:** Create a persistent desktop dock, minimized window desktop icon tiles, central theme engine, Freedesktop icon support, desktop settings app, and native X11 wallpaper management. (Achieved 2026-10-10)
-
-1. **Centered CDE Front Panel Dock (`AmadeDesktopPanel`):**
-   - Standalone Swing process `AmadeDesktopPanel` with pixel-exact 85px CDE geometry (`CdePanelChrome`) measured from original UNIX workstation specifications.
-   - Sets `_NET_WM_WINDOW_TYPE = _NET_WM_WINDOW_TYPE_DOCK` and reserves bottom dock height via `_NET_WM_STRUT` / `_NET_WM_STRUT_PARTIAL`.
-   - Pre-map dock property registration and single-instance lock file (`~/.amadeos-panel.lock`) to eliminate reparenting race conditions.
-2. **Authentic 10-Slot Modular `DockWidget` Architecture:**
-   - Full 10-slot CDE specification (5 left + Switcher pad + 5 right):
-     - **Slot 1 (Clock):** `ClockDockWidget` with authentic round/octagonal dial bezel, minute ticks, live hour/minute hands, and digital time display fallback.
-     - **Slot 2 (Calendar):** `CalendarDockWidget` rendering authentic tear-off paper calendar sheet with month abbreviation and day number (`Oct 11`).
-     - **Slot 3 (File Manager):** Filing drawer with slide-up `▲` tab and home/root directory drawer tools.
-     - **Slot 4 (Text Editor):** Paper & pencil launcher with slide-up `▲` tab and scratchpad/document tools.
-     - **Slot 5 (Mail):** In-tray mailer with slide-up `▲` tab, mail client launchers, and terminal/root console tools.
-     - **Center Switcher Pad:** `WorkspaceSwitcherDockWidget` featuring 4 workspace buttons ("One", "Two", "Three", "Four"), lock button, activity LED bar, and EXIT session button.
-     - **Slot 6 (Printer Manager):** Desktop printer module with slide-up `▲` tab, print queue inspector, CUPS web admin, and printer settings (replaces legacy memory gauge).
-     - **Slot 7 (Style Manager):** Flat notch tab (no arrow) launching `AmadeSettingsApplication` (Themes, Icons, Wallpaper, WM).
-     - **Slot 8 (Application Manager):** Flat notch tab (no arrow) opening categorized desktop applications browser dialog.
-     - **Slot 9 (Help Viewer):** Books with `?` icon, slide-up `▲` tab, help guide, diagnostics, and system info.
-     - **Slot 10 (Trash Can):** Silver pedal bin with flat notch tab (no arrow) for wastebasket and temporary storage inspection.
-   - `DrawerDockWidget` supports `hasDrawer` parameter: slots with subpanel drawers render the 3D carved triangle arrow (`▲`/`▼`) and open popups; flat notch slots render a clean bevel tab with click popups disabled.
-3. **Minimized Window Desktop Icon Tiles (`DesktopIconTile`):**
-   - Minimized windows unmap frame and spawn authentic Motif 3D beveled icon boxes (64x64) parked neatly in the top-left corner stacked vertically with zero spacing.
-   - Recessed sunken title plate, 32px theme pixmap, dynamic reflow on restore/minimize, and single/double-click restore.
-4. **Central Desktop Theme Engine (`DesktopTheme`, `ThemeManager`):**
-   - Unified Warm Motif `#CEC2BB` color palette across window frames, dock, icon tiles, and control panel.
-   - 5 built-in themes: *Warm Motif*, *CDE Brocade* (Teal), *CDE Desert* (Sand), *Classic Gray*, *Dark Slate*.
-   - Dynamic icon theme switching persisted in `~/.config/amadeos/icon_theme.conf` and real-time cross-process synchronization via the X11 root window property `_AMADEOS_THEME`.
-5. **Decoupled NsCDE Icon Theme Integration & Freedesktop Compliance (`IconManager`):**
-   - Automated packaging script `scripts/package-nscde-icons.sh` downloading and packaging NsCDE icon themes as Debian `.deb`, tarball, or local user icon directory, decoupling GPL-3.0 icons from core codebase.
-   - Candidate-first icon resolution hierarchy in `IconManager` prioritizing `apps` over generic actions at authentic 42px scale, with case-insensitive fallback and vector/pixel fallbacks for all 10 slots.
-6. **Motif Look-and-Feel & Scrollbar Hardening (`AmadeUI`):**
-   - Rectangular 3D beveled `BasicScrollBarUI` matching authentic Motif desktop styling.
-   - Solid theme-colored flat gradients eliminating Ocean blue tint while preventing Metal gradient `IndexOutOfBoundsException: Index: 0` crashes on scrollable components.
-7. **Dedicated Desktop Settings Application (`AmadeSettingsApplication`):**
-   - 4-tab control center: Color Themes (with hex swatch preview), Freedesktop Icon Themes, Wallpaper & Backdrop, and Window Manager behavior.
-8. **Desktop Wallpaper Management (`WallpaperManager`):**
-   - Scaling modes: *Fill Screen (Crop)*, *Fit to Screen (Letterbox)*, *Stretch to Screen*, *Tile Pattern*, *Center*, plus solid color matte.
-   - Persistence in `~/.config/amadeos/wallpaper.conf`.
-9. **Architectural Decision: Native X11 Root Window Background vs. Fullscreen Swing Window:**
-   - **Decision:** Retain native X11 root window background rendering via `XSetWindowBackgroundPixmap` and EWMH root pixmap export (`_XROOTPMAP_ID`, `ESETROOT_PMAP_ID`), rather than mapping a fullscreen Swing desktop window.
-   - **Rationale:**
-     - *Zero Idle Overhead:* The X server retains the background pixmap in video/server memory without background Java paint loops or JVM heap memory consumption.
-     - *Impenetrable Z-Order Stacking:* The physical root window can never accidentally cover client windows, steal focus, or cause z-order flicker.
-     - *Native Root Menus:* Clicks on empty desktop space deliver native `ButtonPress` events to the Window Manager daemon for the classic Motif desktop root menu.
-     - *Compatibility:* Native X11 applications with pseudo-transparency (`xterm -tr`, `urxvt`, `conky`) work out of the box.
-     - *Future Expansion:* An interactive Swing desktop surface window (`_NET_WM_WINDOW_TYPE_DESKTOP`) is deferred until freeform drag-and-drop desktop icons or desklets/widgets are required.
-
-**Exit criteria:** A permanent CDE front panel rests docked at the screen bottom, minimized windows park as Motif tiles in the top-left corner, global themes synchronize in real time, and wallpapers render directly to the X11 root window. (Achieved 2026-10-10)
-
-### M9 — Java display manager & login greeter (Completed)
-
-**Goal:** Replace console autologin with a dedicated graphical Display Manager implemented in Java with PAM authentication. (Achieved 2026-10-10)
-
-1. **System Service (`amadeos-dm.service`):**
-   - Systemd service running as `root` targeting `graphical.target`.
-   - Dedicated display manager launcher supporting automatic Xorg server startup on `:0 vt7` (`Xorg :0 vt7 -novtswitch -nolisten tcp`).
-2. **Greeter GUI (`AmadeLoginGreeter`):**
-   - Authentic full-screen Motif workstation greeter interface (`#CEC2BB` with 3D chiseled card).
-   - Features workstation title, hostname banner, real-time clock, pre-filled username `amadeos`, masked password entry, session selector, and power buttons (Shut Down, Reboot).
-3. **PAM Authentication via JNA (`PamAuthenticator`, `LibPam`):**
-   - JNA binding to Linux PAM (`libpam.so.0`):
-     - `pam_start`, `pam_authenticate`, `pam_acct_mgmt`, `pam_setcred`, `pam_open_session`, `pam_close_session`, `pam_end`.
-     - Secure C-allocated conversation reply buffers (`LibC.calloc`, `LibC.strdup`) eliminating memory corruption.
-     - Dual mode: real PAM in live OS + developer fallback (`AMADEOS_MOCK_PAM=1`) for local Xephyr testing.
-4. **Session Spawning & Privilege Dropping (`SessionLauncher`):**
-   - Resolves user UID, GID, home directory, and default shell via POSIX `getpwnam`.
-   - Drops root privileges via `runuser -u <user>` or POSIX user switching.
-   - Initializes complete session environment (`USER`, `HOME`, `SHELL`, `DISPLAY`, `XDG_SESSION_TYPE=x11`, `XDG_CURRENT_DESKTOP=amadeOS`) and spawns `/usr/bin/amadeos-session`.
-   - On user logout or session termination, Display Manager catches exit, cleans up PAM credentials, handles action requests (`poweroff`/`reboot`), and cleanly re-arms the login greeter.
-5. **System Configuration:**
-   - Dedicated PAM service manifest `/etc/pam.d/amadeos-dm`.
-   - Live boot credentials configured in `scripts/build-image.sh` and `/etc/live/config.conf` (`username=amadeos user-password=amadeos`).
-   - Console autologin on tty1 gracefully yields to `amadeos-dm.service`.
-
-**Exit criteria:** Machine boots to a graphical Java login greeter, authenticates system users via PAM, and hands off execution to the user desktop session. (Achieved 2026-10-10)
-
-### M10 — XDG application discovery & Debian app ecosystem (Completed)
-
-**Goal:** Decouple user-space applications from the core desktop shell. User applications (e.g. file manager, text editor, terminal, calculators) are developed in independent repositories, packaged as standard Debian `.deb` packages, and installed via Debian package management (`dpkg`, `apt`, or `config/packages.chroot/`). amadeOS provides dynamic XDG discovery and execution. (Achieved 2026-10-10)
-
-1. **Freedesktop.org `.desktop` Parser & Indexer:**
-   - Implement an XDG Desktop Entry Specification parser reading `/usr/share/applications/`, `/usr/local/share/applications/`, and `~/.local/share/applications/`.
-   - Parse `Name`, `Exec`, `Icon`, `Categories`, `Terminal`, `Keywords`, `NoDisplay`, and `MimeType`.
-   - Resolve icon assets via standard XDG icon lookup paths (`/usr/share/pixmaps/`, icon themes) or Motif vector fallbacks.
-2. **Dynamic CDE Front Panel Drawer Population:**
-   - Map Front Panel drawers to standard XDG categories:
-     - 📁 **File Management:** `Categories=FileManager;System;`
-     - 📝 **Text Editors:** `Categories=TextEditor;Utility;`
-     - 📟 **Terminal Consoles:** `Categories=TerminalEmulator;System;`
-     - 📋 **Diagnostics & Monitoring:** `Categories=Monitor;System;`
-     - ⚙️ **Settings & Tools:** `Categories=Settings;DesktopSettings;`
-   - Populated drawers display primary launcher actions plus subpanels listing all installed matching Debian applications.
-   - Clean command execution supporting `Terminal=true` wrapping and environment preservation.
-3. **Debian Package Integration:**
-   - Enable drop-in `.deb` package support via `config/packages.chroot/` so custom user apps are installed automatically into the live ISO during `./build.sh`.
-   - Establish standard Debian packaging guidelines for independent amadeOS apps (JReleaser, Gradle `ospackage`, or Debian `dpkg-deb`).
-4. **First Independent Application (`amade-pad`):**
-   - Bootstrapped independent repository [`datazuul/amade-pad`](https://github.com/datazuul/amade-pad) with Java 21, Swing Motif look-and-feel, tabbed documents, line numbers, and find/replace.
-   - Created `./gradlew deb` and `./gradlew installToAmadeOs` tasks building `amade-pad_0.1.0_all.deb` via `dpkg-deb` and dropping it into `amadeos/config/packages.chroot/`.
-
-**Exit criteria:** Installing any Debian `.deb` application containing a valid `.desktop` file automatically populates the corresponding CDE Front Panel drawer and launches cleanly. (Achieved 2026-10-10)
-
-### M11 — Virtual workspaces & desktop root window menu (Completed)
-
-**Goal:** Provide authentic CDE 4-way virtual workspace management and the classic Motif 3D desktop root window menu. (Achieved 2026-10-11)
-
-1. **EWMH Multi-Desktop / Virtual Workspaces:**
-   - Implement EWMH root window desktop properties:
-     - `_NET_NUMBER_OF_DESKTOPS` (fixed at 4: `One`, `Two`, `Three`, `Four`)
-     - `_NET_CURRENT_DESKTOP` (0..3)
-     - `_NET_DESKTOP_NAMES` (`One\0Two\0Three\0Four\0`)
-     - `_NET_WM_DESKTOP` assigned to each managed client window (or `0xFFFFFFFF` for sticky windows)
-   - Synchronize CDE Front Panel 4-way switcher buttons ("One", "Two", "Three", "Four") and amber/green status indicators with active desktop state.
-   - Window Manager selectively unmaps/maps or hides/shows frame windows and minimized desktop icon tiles based on their associated workspace.
-   - Window focus and stacking order automatically follow the active desktop when switching workspaces.
-2. **Motif 3D Desktop Root Window Menu (`DesktopRootMenu`):**
-   - Intercept root window clicks (Button 3 right-click / Button 1 left-click) via X11 pointer grabs in `X11WindowManagerService`.
-   - Render authentic Motif 3D beveled root popup menu:
-     - **Workspace Menu Banner:** Motif styled header plate.
-     - **Programs:** Submenus generated dynamically from XDG categories (`Accessories`, `System`, `Development`, `Graphics`, `Internet`, etc.) and launchable directly.
-     - **New Window:** Terminal (`xterm`), Text Editor, File Manager.
-     - **Workspaces:** Active indicator (`✔`) and one-click workspace switching.
-     - **Window Management:** Shuffle Up (cycle bottom window to top), Shuffle Down (cycle top window to bottom), Minimize All Windows, Restore All Windows.
-     - **Desktop Settings...:** Launches `AmadeSettingsApplication`.
-     - **Refresh Desktop:** Redraws background wallpaper, clears canvas, and refreshes frames.
-     - **Lock Screen / Log Out...:** Integrated with `SessionDialogHelper`.
-3. **Root Window Visual Polish & Cursor Polish:**
-   - Initialize standard arrow pointer (`XC_left_ptr`) on the root canvas via `XDefineCursor` at startup.
-   - Window stacking order tracked via `bringToFront` and `sendToBack` in `WindowRegistry` and `WindowManagerCore`.
-
-**Exit criteria:** Windows are isolated across 4 workspaces toggled via the Front Panel, and right-clicking empty desktop space brings up the Motif root menu. (Achieved 2026-10-11)
-
-### M12 — Compatibility, security, and release hardening (In Progress)
-
-**Goal:** Establish whether the complete desktop environment can be maintained and tested as a reproducible distribution.
-
-Done (2026-10-12/13):
-
-- Security review fixes: PAM-only login, X cookie authentication, no world-writable input devices, console-only Xorg, Debian security and update archives in the image (#1).
-- Session worker with a correct logind session (#5), screen lock process with grabs (#6), PAM loginuid fix verified in QEMU (#12).
-- Single-threaded Xlib access (#4), detached application start (#3), guarded build scripts (#8), Gradle tests in CI (#2).
-
-Open:
-
-- Pin and document the supported Java baseline and correct documentation inconsistencies.
-- Passwords (2026-10-21): the image has gnome-keyring as the Secret Service, unlocked at login by `pam_gnome_keyring` in `/etc/pam.d/amadeos-dm` (amadeos-system [#28](https://github.com/datazuul/amadeos-system/pull/28)); still to be verified in QEMU. Later: an own Secret Service daemon in Java in amadeos-system (D-Bus `org.freedesktop.secrets`, encrypted keyring file, unlocked by the login password, a Motif prompt like the polkit agent), which would replace gnome-keyring and its GTK prompter.
-- Settings (2026-10-23): the Style Manager became **Settings** (package `amadeos-settings`, replacing `amadeos-style`; amadeos-system [#37](https://github.com/datazuul/amadeos-system/pull/37), [#38](https://github.com/datazuul/amadeos-system/pull/38), [#39](https://github.com/datazuul/amadeos-system/pull/39), amade-commons [#21](https://github.com/datazuul/amade-commons/pull/21)): sidebar, search and compact view, with all planned pages including Font, Window, Display, Workspaces, Front Panel, Passwords, Updates, Language and Startup (see *Current status*). Still to be checked in QEMU.
-- Test fonts, HiDPI scaling, keyboard layouts, focus/modality, clipboard behavior, and representative Swing/AWT applications.
-- Evaluate multi-monitor behavior, graphics drivers, WLAN firmware, audio, suspend/resume, and USB boot on representative hardware.
-- Debian security-update handling and the update workflow are planned in M15; define dependency update policy, image signing, artifact provenance, and rollback/recovery.
-- Add reproducible-build checks and a release manifest containing image version, package inputs, checksum, and test results.
-- Decide whether JNA/libX11 remains appropriate or whether FFM or JNI/XCB is justified.
-- Reassess Wayland only after the X11 desktop model and compatibility requirements are understood.
-
-**Exit criteria:** A documented release process exists, supported hardware and software boundaries are explicit, and the image can be rebuilt and evaluated by another contributor.
-
-### M13 — amadeOS application suite (In Progress)
-
-**Goal:** Give every Front Panel slot a real application in the CDE style, built in its own repository on amade-commons and installed as a Debian package (see M10).
-
-Available:
-
-- [`amade-commons`](https://github.com/datazuul/amade-commons): shared themes, Motif look-and-feel, XDG directories, keyring (`secret-tool`) and application start-up; taken from JitPack or a local checkout through a Gradle composite build.
-- [`amade-pad`](https://github.com/datazuul/amade-pad) (Text Editor slot): tabbed documents, line numbers, find/replace, file encodings and line endings preserved, atomic saving; Guice-based layers, CI, EUPL-1.2, uses amade-commons.
-- [`amade-mail`](https://github.com/datazuul/amade-mail) (Mail slot, 0.1.0): IMAP/SMTP mailer after the CDE Mailer (dtmail) with folder column, several accounts and *All inboxes*, sanitised HTML mail (jsoup + Flying Saucer) with remote images blocked, attachments, compose/reply/forward, Sent copy, passwords in the keyring, `mailto:` handler. Gmail with OAuth2 (browser sign-in, XOAUTH2) or an app password; OAuth2 still untested against Google.
-- [`amadeos-system`](https://github.com/datazuul/amadeos-system) (private): the system components as one Gradle multi-project, one package per module. First modules: `amadeos-print` (Printer slot, after dtprintinfo) shows the CUPS printers and their jobs, cancels, holds and releases jobs, pauses and resumes printers, sets the default printer and prints a test page; it talks IPP over the CUPS socket with PeerCred, so the live user (in `lpadmin`) needs no password. `amadeos-sysinfo` (Tools drawer) shows the operating system, processor, memory, storage, graphics, network and battery. The image installs CUPS with driverless printing (cups-browsed, avahi, ipp-usb). The window manager, front panel, greeter, session and Style Manager are to move there next.
-- Applications (2026-10-17 to 2026-10-23), each in its own repository on amade-commons, with AppStream metainfo and screenshots, listed in `repositories.list` and installed by default: [`amade-files`](https://github.com/datazuul/amade-files) (File Manager slot and Trash Can: tree view by default, two-panel view with the F-key bar, trash after the freedesktop specification), [`amade-calendar`](https://github.com/datazuul/amade-calendar) (Calendar slot, birthdays from Contacts), [`amade-contacts`](https://github.com/datazuul/amade-contacts) (vCard, address completion in the Mailer), `amade-web`, `amade-writepad`, `amade-audio`, `amade-video`, `amade-imagescan`, `amade-fractals`, [`amade-screenshot`](https://github.com/datazuul/amade-screenshot), [`amade-calculator`](https://github.com/datazuul/amade-calculator) (Basic, Scientific, Programmer), [`amade-imageviewer`](https://github.com/datazuul/amade-imageviewer) (default program for pictures), [`amade-pdfviewer`](https://github.com/datazuul/amade-pdfviewer) (default program for PDF) and [`amade-books`](https://github.com/datazuul/amade-books) (EPUB and CBZ reader with its own typesetter; 15 public-domain books from [`amadeos-sample-books`](https://github.com/datazuul/amadeos-sample-books) come with the image). LibreOffice Writer, Calc, Impress, Draw and Math are in the image too (amadeos [#69](https://github.com/datazuul/amadeos/pull/69)).
-- System programs in amadeos-system besides the desktop itself: Settings, Software (M15), Print Manager, System Information, Session Diagnostics & Logs, the clipboard manager and the polkit agent.
-- Help slot: the amadeOS User's Handbook in Firefox, then the other handbooks' entries; amade-web stays the viewer of `/usr/share/doc`.
-- Games (Games slot, added 2026-10-21): the 15 games on [`amade-game-engine`](https://github.com/datazuul/amade-game-engine) (Mines, Solitaire, Paddle, Bricks, Snake, Rocks, Swarm, Maze, Blast, Jump, Hover Cab, Towers, Sands, Colony, Town; Hover Cab added 2026-10-23) in their own Front Panel drawer (amadeos-system [#20](https://github.com/datazuul/amadeos-system/pull/20), `XdgCategory.GAMES`, icon `amadeos-games` in the NsCDE package). They are in `repositories.list`, so `buildDistribution.sh` clones and installs all of them by default.
-
-Next:
-
-- amade-mail: test Gmail OAuth2; decide whether to ship a datazuul OAuth client by default (Google allows 100 users without verification of the restricted Gmail scope); IMAP IDLE with new-mail state in the Front Panel in-tray; autoconfig (Thunderbird ISPDB, DNS SRV).
-- amade-contacts: meeting attendees in the Calendar and CardDAV synchronisation.
-- amade-imageviewer: map tiles for photos with a location are untested against the live tile server.
-- Terminal: decide between xterm and an own terminal emulator (the Tools drawer still starts xterm).
+- Terminal: an own terminal emulator, or a decision to keep xterm.
 - Network settings: an own dialog instead of `nmtui` in xterm.
+- amade-mail: test Gmail OAuth2 and decide whether to ship a datazuul OAuth client; IMAP IDLE with new-mail state in the in-tray; autoconfig (Thunderbird ISPDB, DNS SRV).
+- amade-contacts: meeting attendees in the Calendar, CardDAV.
+- amade-imageviewer: map tiles not yet tried against the live tile server.
 
-**Exit criteria:** Each Front Panel slot opens an amadeOS application instead of an `xterm` command, and all applications follow the Style Manager theme.
+**Exit criteria:** each Front Panel slot opens an amadeOS application instead of an `xterm` command, and all applications follow the Settings theme. Only the terminal and the network settings are left.
 
-### M14 — Installation to disk (In Progress)
+### M14 — Installation to disk
 
-**Goal:** Install the running live system onto a hard disk from the live session, with a step-by-step assistant, so that amadeOS can be used as the computer's own system.
+- Shrinking a Windows partition from the installer, the hardware clock in local time next to Windows, disk encryption (LUKS), a separate home partition.
+- The login greeter proposes the last user (or the first regular user) instead of `amadeos` on an installed system.
+- Language, keyboard and time zone code shared by the installer and the greeter moves to amade-commons.
+- Boot menu entry "Install" (`config/bootloaders/isolinux/install.cfg` is still a placeholder).
 
-Done (2026-10-18; a whole-disk BIOS installation in QEMU boots into the desktop and the created user logs in):
+**Exit criteria:** an installation from the live image boots on a BIOS and a UEFI machine (QEMU and hardware) into the desktop with the chosen language, keyboard, time zone and user, without the live-only parts.
 
-- New repository [`amadeos-installer`](https://github.com/datazuul/amadeos-installer) (package `amadeos-installer`), separate from amadeos-system because the installed system must not keep it. Two parts:
-  - The assistant (`amadeos-installer`, Swing on amade-commons, five languages): Welcome and language → Keyboard (XKB layouts, tried live) → Time Zone (zone1970.tab) → Target Disk (erase a whole disk with an optional swap partition, or an existing partition; the live medium, mounted disks and small disks are not offered) → User (full name, login, password, computer name) → Summary with an explicit confirmation → Installation with progress and log → Finished (restart).
-  - The script `amadeos-install` (`/usr/sbin`, run by the assistant through `pkexec`, polkit rule for members of `sudo`; usable unattended with options or `--config`): checks, GPT partitioning (BIOS boot, EFI System, swap, root) or formatting the chosen partition, `unsquashfs` of the live squashfs, purge of `live-boot`/`live-config`/`amadeos-installer` and the live-only files, fstab by UUID, host name, locale, keyboard, time zone, machine id, first user with the live user's groups, root locked, `update-initramfs`, `grub-install` for UEFI (signed shim when present, plus a removable copy) or BIOS and the matching meta package from `/var/lib/amadeos-installer`, `update-grub`. Nothing downloaded.
-- amadeos: `squashfs-tools`, `dosfstools`, `e2fsprogs`, `grub2-common`, `grub-pc-bin`, `grub-efi-amd64-signed`, `shim-signed`, `efibootmgr`, `pkexec` in the package list; the packages hook downloads `grub-pc` and `grub-efi-amd64` for the installer; `run-qemu.sh --install-disk`, `--boot-disk` and `--uefi` (OVMF with persistent variables); `buildDistribution.sh` builds `../amadeos-*` repositories too.
+### M15 — Updates and software management
 
-Open:
+Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexec`, polkit action `eu.amadeos.packages.manage`), the library module `packages`, the updates cell in the Front Panel, the program **Software** (Updates, Applications, Command line, Libraries; AppStream data) and an own Motif polkit agent. Open:
 
-- QEMU test of the UEFI path (`--uefi`) and of the existing-partition mode next to Windows (`scripts/make-dualboot-test-disk.sh` in amadeos-installer makes the test disk), then real hardware: the Zephyrus laptop (UEFI, NVMe, Windows kept, amadeOS into the former Linux partition, Secure Boot with the signed shim).
-- Dual boot: `os-prober` is in the image and switched on in the installed GRUB; shrinking a Windows partition from the installer, and the hardware clock in local time next to Windows, come later. Encryption (LUKS), a separate home partition.
-- The login greeter should propose the last user who logged in (or the first regular user), not `amadeos`, on an installed system.
-- The language, keyboard and time zone code shared with the login greeter (amadeos-system `dm`) belongs in amade-commons.
-- Boot menu entry "Install" in `config/bootloaders/isolinux/install.cfg` (still a placeholder) that starts the live system with the assistant open.
+- The QEMU end-to-end test (see *Waiting for a test*).
+- An `amadeos-desktop` meta package (today `buildDistribution.sh` installs every package of `repositories.list`).
+- Offering `dpkg --configure -a` after an interrupted run; no snapshots or rollback yet. Flatpak and Snap are out of scope.
 
-**Exit criteria:** An installation from the live image boots on a BIOS and on a UEFI machine (QEMU and hardware) into the amadeOS desktop with the chosen language, keyboard, time zone and user, and the installed system no longer contains the live-only parts.
+**Exit criteria:** on an installed system a pending Debian security update shows in the Front Panel and can be installed with a progress display, and a GUI and a command-line program can be found, installed and removed in Software; verified in QEMU.
 
-### M15 — Updates and software management (In progress, plan reviewed 2026-10-18)
+### M16 — amadeOS package repository
 
-**Goal:** An installed amadeOS is kept current from the desktop: Debian security and stable updates now, amadeOS and amade application updates once M16 provides the repository, and software can be found and installed without a terminal.
+**Goal:** amadeOS and the amade applications arrive as updates, not only inside the ISO. Every package is still version 0.1.0, all are `Architecture: all`, and no repository has a release workflow yet.
 
-**Decisions**
+- Proposal of 2026-10-23, waiting for a decision: a stateless publish script (`apt-ftparchive`, `appstreamcli compose` for DEP-11 so Software shows the amade applications, gpg signing subkey), a release workflow per repository that attaches the `.deb` to a GitHub release on a version tag, and a package `amadeos-archive-keyring` with the key and `/etc/apt/sources.list.d/amadeos.sources`.
+- Hosting is open: GitHub Pages, or `apt.amadeos.eu` on the server behind www.amadeos.eu (its folder is reserved in the amadeos.eu repository).
+- Then: `postinst` scripts for what image hooks set up today, and `build-image.sh` takes packages from the repository instead of `config/packages.chroot/`.
 
-- *Where the code lives* (decided 2026-10-18, see [`AGENTS.md`](AGENTS.md)): everything here is Debian-specific, so it is all in `amadeos-system`, none of it in `amade-commons` or a standalone application repository. New modules: `packages` (apt library, fat jar bundled into the modules that use it like `base`; package `amadeos-packages` with the helper and the polkit action), `package-updates` (`amadeos-package-updates`, the update window) and `appstore` (`amadeos-appstore`). The status cell goes into `panel-cde`.
-- *Backend:* `apt` through one privileged helper, `/usr/libexec/amadeos-packages` (a small shell script in `amadeos-packages`, so root runs no Java; `check`, `upgrade [--security-only] [pkg…]`, `install`, `remove`, `refresh`), started through `pkexec` with a polkit action, the pattern already used by `amadeos-install` (no D-Bus Java library, no PackageKit daemon in the image). Progress comes from `APT::Status-Fd`, a log goes to the caller. The helper takes the dpkg lock, so it cannot collide with `unattended-upgrades`; a busy lock is reported as "another update is running". Authentication is asked each time (`auth_admin_keep`); only `refresh` (apt-get update) and read-only queries need no password. Open check: the session must run a polkit authentication agent for `pkexec` outside the installer.
-- *Shared library, module `packages`* (`eu.amadeos.system.packages`): `PackageService` (installed/available/upgradable lists, search, install/remove/upgrade with progress events) with an apt implementation that parses `apt-get -s`, `apt-cache dumpavail` and `dpkg-query`; used by the panel cell, the update window and the app store, so no other module parses apt.
-- *Checking:* Debian's `apt-daily.timer` already refreshes the package lists; the panel cell only reads the result (every 30 minutes and when `/var/lib/dpkg/status` or `/var/lib/apt/lists` change), so it needs no privileges and generates no extra traffic. `unattended-upgrades` for security updates is offered as a setting, off by default for amade packages.
+**Exit criteria:** publishing a tag of an amade application makes the update appear on an installed system within the check interval.
 
-**Parts**
+## Timeline
 
-1. *Helper and library* — `amadeos-packages`, polkit action, module `packages` with tests against a fake apt (fixtures of real `apt` output). Exit: `upgrade` and `install` work in the live/installed image from a terminal and from a test.
-   - *Status 2026-10-21:* implemented in amadeos-system [#18](https://github.com/datazuul/amadeos-system/pull/18) (merged): module `packages` with `PackageService`/`AptPackageService`, package `amadeos-packages` (helper, polkit action `eu.amadeos.packages.manage` with `auth_admin_keep`, rule for a password-free `refresh`). Evidence: 22 Gradle tests (recorded apt output, the real helper against a fake apt-get); in an Ubuntu 24.04 container as root against real apt, `upgrade --security-only`, `install`, `remove`, an unknown package (exit 2) and a held dpkg lock (exit 3) behaved as specified, and `available()` read 87,815 packages in about 7 s. Not yet run in the amadeOS image or through `pkexec`; the exit criterion stays open until it is.
-2. *Updates slot in the status cell* (amadeos-system `panel-cde`, a `StatusCell` next to the network cell; the slot takes up to four): an icon that appears only when updates exist, with a count; red for security updates; tooltip "12 updates, 3 security". Click opens a menu: the first entries of the list, **Show updates…**, **Install all updates**, **Install security updates only**, **Check now**, **Settings…**. Unavailable (hidden) while nothing is pending.
-   - *Status 2026-10-21:* merged as amadeos-system [#19](https://github.com/datazuul/amadeos-system/pull/19): `UpdatesCell` in the status slot of `panel-cde`, fed by `PackageService.watch`; its *Show updates…* and *Settings…* open Software (`--updates`, `--settings`).
-3. *Update window* (module `package-updates`, package `amadeos-package-updates`, Tools drawer and Settings): table of upgradable packages (name, installed → new version, size, security flag, origin Debian/amadeOS), check boxes, buttons *Select all* / *Security only* / *Install selected*, a progress bar with the apt log, a "restart needed" hint (kernel, libc, `/run/reboot-required`) with *Restart now* going through the session power menu, and a settings page: check interval, automatic security updates (writes `/etc/apt/apt.conf.d/50amadeos-unattended` through the helper), allow amade packages. Release notes come from the package changelog on request.
-4. *App store* (module `appstore`, package `amadeos-appstore`, in amadeos-system because it only makes sense on a Debian system; XDG category *System*; answer to "is it possible": yes): lists packages of all configured repositories (`/etc/apt/sources.list.d`, with an origin filter) in three groups, searchable (name, summary, description, instant filter), detail view with description, size, version, dependencies, homepage and *Install* / *Remove* / *Update* buttons that go through the helper with a progress bar.
-   - *GUI applications:* AppStream metadata (`appstreamcli`, Debian's DEP-11 data) for name, summary, icon, screenshots and category; fallback: packages that ship a `.desktop` file.
-   - *Command-line applications:* debtags `role::program` + `interface::commandline`, fallback: packages in sections other than `libs`/`devel` that install into `/usr/bin` without a `.desktop` file.
-   - *Libraries:* sections `libs`, `libdevel`, `oldlibs`, debtags `role::shared-lib`/`role::devel-lib`; collapsed by default because they arrive as dependencies.
-   - The grouping is heuristic (Debian has no single "kind" field); packages that fit no rule are shown under *Other*. The package index (about 60,000 entries) is built in the background and cached in `~/.cache/amadeos/appstore`. Installed packages are marked; a package the user did not install explicitly is shown as "Dependency of …" and not offered for removal.
-   - *Status 2026-10-21 (parts 3 and 4):* decided by Ralf to be one program, **Software** (module `software`, package `amadeos-software`, `/usr/bin/amadeos-software`, XDG categories System and Settings), instead of `amadeos-package-updates` and `amadeos-appstore`. Merged as amadeos-system [#21](https://github.com/datazuul/amadeos-system/pull/21) (Updates tab, shown while updates wait, security first; progress with the apt log; restart bar; settings for automatic security updates), [#22](https://github.com/datazuul/amadeos-system/pull/22) (catalog tabs Applications, Command line, Other and, behind *Show libraries*, Libraries; one search and an *All / Installed* filter; install/remove with a confirmation of what else changes) and [#23](https://github.com/datazuul/amadeos-system/pull/23) (AppStream names, translated summaries and descriptions, icons, screenshots downloaded on demand into `~/.cache/amadeos-software`, details rendered as XHTML with Flying Saucer, and a group list such as Games, Graphics, Audio in the Applications tab).
-   - *Status 2026-10-24:* parts 1 to 4 and the integration code are merged; the Front Panel's busy light runs an amber chaser while packages install. All amade packages are still version 0.1.0, so updates of amade applications need M16 first.
-5. *Integration* — `amadeos-desktop` meta package keeps the amadeOS packages together; both windows are in the image and in the Tools drawer; documentation in README and CONTRIBUTING; tests with Xvfb (cell and windows) and an end-to-end test in QEMU (installed system with an outdated package, update through the cell).
-   - *Status 2026-10-21:* in amadeos-system [#24](https://github.com/datazuul/amadeos-system/pull/24) (merged) Software fetches the package lists at first start, because the image is built without them (password-free `refresh`). The session had no polkit authentication agent, so `pkexec` actions needing a password failed outside the installer; [#26](https://github.com/datazuul/amadeos-system/pull/26) (merged) adds an own agent in the Motif style (`amadeos-session polkit-agent`, started from `/etc/amadeos/autostart.d/30-amadeos-polkit-agent`; dbus-java, polkit's helper through its socket or the setuid program), tested against a real polkitd 124 with PAM in a container (wrong and right password, cancel = pkexec exit 126, re-registration after a polkitd restart). No `amadeos-desktop` meta package yet: `buildDistribution.sh` installs every package of `repositories.list`. Open: the end-to-end test in QEMU (first start loads the lists, the dialog appears on install, the package gets installed, an update through the cell).
+Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
 
-**Risks and limits**
+### 2026-10-24
 
-- Partial upgrades that remove packages: the helper uses `full-upgrade` and shows packages to be removed before it starts; the window asks for confirmation.
-- An interrupted dpkg run: the window offers `dpkg --configure -a` through the helper.
-- No snapshots or rollback yet (M12 open item); a failed amade update can only be fixed by downgrading with `apt install pkg=version` from the old repository version.
-- Flatpak/Snap are not in the scope; the app store shows apt repositories only.
+- **Website [www.amadeos.eu](https://www.amadeos.eu/) online:** static pages from [`amadeos.eu`](https://github.com/datazuul/amadeos.eu), deployed to an own server by an Ansible playbook (nginx, Let's Encrypt).
+- **Front Panel sound cell** (system #46, #78): volume, mute, output and input device through `pactl`, mouse wheel and middle click.
+- **Front Panel battery cell** (system #44, #76): only with a battery; fill colour, bolt on mains, percentage and remaining time.
+- **Alt+Tab switcher** (system #45, #77): current workspace, most recently used first, small window previews without a compositor.
+- **Halloween and Christmas themes** (system #42, #43, #73, #74): palettes with drawn backdrops.
+- Pictures open in the Image Viewer by default (#75).
+- Games no longer turn black in fullscreen (game engine #30, all games re-pinned); Blast ignores phantom gamepads (engine #28).
 
-**Exit criteria:** On an installed system a pending Debian security update shows in the front panel, can be installed from the window with a progress display, and a software package (one GUI, one command-line application) can be found by search and installed and removed from the app store; verified in QEMU.
+### 2026-10-23
 
-### M16 — amadeOS package repository (Planned, proposal waiting for a decision)
+- **Settings replaces the Style Manager** (system #37, #38, commons #21, #54): sidebar, search, compact CDE row; new pages Font, Window, Workspaces, Front Panel, Passwords, Updates, Language, Startup.
+- **Display page** (system #39, #62): resolution, refresh rate, rotation, monitor arrangement through `xrandr`, with a 15-second "keep?" countdown; reapplied at login.
+- **Workspace names and per-workspace backdrops** (system #36, #53).
+- **Busy light above EXIT** (system #41, #70): program start, package installation, disk and network activity.
+- **New applications:** [`amade-calculator`](https://github.com/datazuul/amade-calculator) (Basic, Scientific, Programmer; #57), [`amade-imageviewer`](https://github.com/datazuul/amade-imageviewer) (#59), [`amade-pdfviewer`](https://github.com/datazuul/amade-pdfviewer), default for PDF (#61), [`amade-contacts`](https://github.com/datazuul/amade-contacts) with address completion in the Mailer and birthdays in the Calendar (#63, #65), [`amade-books`](https://github.com/datazuul/amade-books), an EPUB and CBZ reader (#64) with 15 public-domain books from [`amadeos-sample-books`](https://github.com/datazuul/amadeos-sample-books) (#71, #72).
+- File Manager tree view as the default (amade-files #7, #60).
+- Hover Cab, the 15th game (#58).
+- LibreOffice Calc, Impress, Draw and Math next to Writer (#69).
+- **The User's Handbook is complete** (Parts VI and VII, appendices A to F; #49 to #52, #68).
 
-**Goal:** amadeOS and the amade applications are delivered as updates, not only inside the ISO.
+### 2026-10-22
 
-*Status 2026-10-24:* a proposal (2026-10-23) recommends a stateless publish script with `apt-ftparchive`, `appstreamcli compose` (DEP-11, so Software shows the amade applications without a change) and a gpg signing subkey, a release workflow per repository that attaches the `.deb` to a GitHub release on a version tag, and a package `amadeos-archive-keyring` with the key and the source file. The hosting is open: the proposal named GitHub Pages; since 2026-10-24 the own server behind www.amadeos.eu is ready, with `apt.amadeos.eu` reserved for the repository. Facts found: every package is still version 0.1.0, all are `Architecture: all`, and no repository has a release workflow yet.
+- **Clipboard manager** (system #34): history in memory only, Ctrl+Alt+V, Tools drawer.
+- [`amade-screenshot`](https://github.com/datazuul/amade-screenshot) (#48).
+- Application Developer's Handbook in amade-commons: chapters on every application, the commons library and the desktop modules; AppStream metainfo and screenshots for every amade application and game.
 
-- Signed apt repository (`reprepro` or `aptly`, static files on GitHub Pages or an own server), key and source file in the image (`/etc/apt/keyrings/amadeos.gpg`, `/etc/apt/sources.list.d/amadeos.sources`).
-- Versioned `.deb` files published from each repository's CI on tags; `amadeos-desktop` meta package; `postinst` scripts for configuration that image hooks set up today; `build-image.sh` takes the packages from the repository instead of `config/packages.chroot/`.
-- The update cell and the app store then show amade updates and applications automatically (M15 needs no change).
+### 2026-10-21
 
-**Exit criteria:** Publishing a tag of an amade application makes the update appear on an installed system within the check interval.
+- **M15 built:** helper and library (system #18), updates cell (system #19), Software with Updates and catalog tabs and AppStream (system #21 to #23), package lists at first start (system #24), own Motif polkit agent (system #26).
+- **Games drawer** with all games installed by default (system #20, #41).
+- **User's Handbook** Parts I to V (#42, #45, #46), offline package `amadeos-handbook`, opened from the Help slot.
+- gnome-keyring as the Secret Service, unlocked at login (system #28); LibreOffice Writer in the image (#43).
+
+### 2026-10-18 to 2026-10-20
+
+- **Installation to disk (M14):** [`amadeos-installer`](https://github.com/datazuul/amadeos-installer) with a five-language assistant and the `amadeos-install` script; a whole-disk BIOS installation in QEMU boots into the desktop and the new user logs in (#36).
+- Java package root `eu.amadeos`, system packages renamed `amadeos-*`, AGENTS.md, plan for M15 and M16 (#37 to #39).
+- Game Developer's Handbook and games on [`amade-game-engine`](https://github.com/datazuul/amade-game-engine), from Paddle to Town, with Part IV "The Engine Manual".
+
+### 2026-10-16 to 2026-10-17
+
+- The desktop moves to [`amadeos-system`](https://github.com/datazuul/amadeos-system) as one Gradle multi-project with one Debian package per module (#31 to #34), with Print Manager, System Information and Session Diagnostics & Logs; amade-calendar joins the family (#35).
+- Network: NetworkManager, WLAN firmware and the network cell in the Front Panel's new status slot; the bell plays through the sound card.
+
+### 2026-10-13 to 2026-10-14
+
+- **Shared library [`amade-commons`](https://github.com/datazuul/amade-commons)** (#13): themes, Motif look-and-feel, XDG directories, keyring and start-up for the desktop and all applications.
+- **Style Manager and screen saver** (#14): Color, Backdrop (the 26 original CDE backdrops as package `amadeos-backdrops-cde`), Screen, Keyboard, Mouse, Beep; screen saver daemon with lock.
+- NsCDE as the default icon theme (#15); amade-pad and amade-mail in the image; the live image boots and works (boot-tested 2026-10-13).
+- README "Digital Sovereignty starts on your desktop" (#16).
+
+### 2026-10-12
+
+- **Security and session hardening (M12, #1 to #12):** PAM-only login, X server with an MIT cookie, no world-writable input devices, console-only Xorg, Debian security archives; a root session worker owning the PAM session; screen lock as its own process with grabs; all Xlib calls on one thread; Gradle tests in CI; licensed under EUPL-1.2. Verified in the QEMU live ISO.
+
+### 2026-10-11
+
+- **M11:** four EWMH virtual workspaces switched from the Front Panel, the Motif root menu on the desktop, window stacking (Shuffle Up/Down).
+
+### 2026-10-10
+
+- **M1 to M10 in one day:** BIOS and UEFI boot verified in QEMU; session launcher with diagnostics; native X11 through JNA claiming the root window; floating WM with click-to-focus, ICCCM and EWMH; integrated session with watchdog; Session & Power dialog; reparenting WM with Motif decorations, move and 8-way resize; CDE Front Panel, desktop icon tiles, theme engine, NsCDE icon packaging, wallpaper on the X root window; Java display manager with PAM greeter (`amadeos-dm.service`); XDG application discovery filling the drawers, `.deb` drop-ins and amade-pad as the first independent application.
+
+### 2026-10-09
+
+- **M0:** a clean checkout builds a Debian 13 (Trixie) live ISO whose SHA-256 checksum verifies.
 
 ## Deferred by design
 
@@ -556,4 +210,3 @@ The following are intentionally outside the scope of current milestones:
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — development environment, build commands, and validation procedure
 - [amadeOS User's Handbook](https://datazuul.github.io/amadeos/) — the system from the user's side
 - [www.amadeos.eu](https://www.amadeos.eu/) — project website
-

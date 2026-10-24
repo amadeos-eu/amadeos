@@ -79,10 +79,12 @@ Point at the light to see the rates, for example *Disk 12 MB/s · Network 340 KB
 
 The **network cell** shows the connection: a cable for a wired network, bars for the WLAN signal, a cross when there is none. Clicking it opens the list of WLAN networks (chapter 27).
 
+The **sound cell** beside it shows a loudspeaker with one to three waves for the volume, and an X when muted. Clicking it opens a volume slider and the choice of the output and the microphone; the mouse wheel over it makes it louder or softer, the middle button mutes (chapter 27).
+
 The **updates cell** appears only while software updates wait: an arrow into a tray with their number, on red when security updates are among them. Its menu offers *Install all updates*, *Install security updates only* and *Check now* (chapter 52).
 
 !!! planned "Planned"
-    Cells for the sound volume, the battery and Bluetooth will join the status slot.
+    Cells for the battery and Bluetooth will join the status slot.
 
 !!! cde "CDE heritage"
     The Front Panel follows CDE's: the clock and calendar on the left, the workspace switch with lock and EXIT in the middle, the Print Manager, Tools, Help and Trash Can on the right, and drawers ("subpanels" in CDE) above the slots. CDE's drawers were configured by hand; those of amadeOS fill themselves. The Games drawer and the status slot are new, and so is the language button, in the corner CDE left empty. CDE's busy light only blinked while an action started; the disk, network and install signals are new.

@@ -25,10 +25,26 @@ If the cell shows a cross, there is no connection; *Not connected* in its toolti
 
 Sound works without setting anything up: amadeOS uses PipeWire, the sound system of current Linux distributions, for speakers, headphones and USB sound cards. Programs that play sound, the Audio Station, the Video Player, the games and Firefox, use the device that is active.
 
-Set the volume in the program that plays; most of them have a volume control.
+The **sound cell** next to the network cell sets the volume for the whole computer. Its loudspeaker shows one to three waves for how loud it is, and an X when the sound is muted.
 
-!!! planned "Planned"
-    A sound cell in the Front Panel, with the volume and the choice of the output device, will join the network and update cells. Until then, `pactl set-sink-volume @DEFAULT_SINK@ 50%` in a terminal sets the volume, and `pactl list short sinks` lists the devices.
+![The menu of the sound cell](images/27/sound-cell.jpg)
+
+Click the cell for its menu:
+
+| In the sound menu | What it does |
+|---|---|
+| The **slider** | Sets the volume from 0 to 100 %. Moving it also ends muting. |
+| The **loudspeaker** left of the slider | Mutes the sound, and a second click turns it on again. |
+| **Output** | The speakers, headphones, HDMI screens and USB headsets. Click one to play through it; what is playing moves over at once. |
+| **Input** | The microphones. Click one to record from it, for example for a video call. |
+| **Mute microphone** | Keeps the microphone in use silent. |
+
+Two shortcuts work without opening the menu: turn the **mouse wheel** over the cell to make it louder or softer in steps of 5 %, and click it with the **middle button** to mute. The tooltip names the volume and the output, for example *Volume 45 % · Built-in Audio Analog Stereo*. When the loudspeaker is grey and crossed out, the sound system is not running (chapter 57).
+
+A headset plugged in appears in the menu at once. Most programs also have a volume control of their own; it sets their share of the volume of the cell.
+
+!!! switching "Coming from Windows or macOS"
+    The sound cell is the speaker icon of the Windows taskbar or the sound control of the macOS menu bar, with the choice of the output and the input in one menu.
 
 The **beep**, the short sound the desktop makes for a mistake, is set on the *Beep* page of Settings (chapter 33).
 
@@ -49,4 +65,6 @@ If a printer does not appear by itself, open the Print Manager's drawer and choo
     The Print Manager follows CDE's `dtprintinfo`, which had its slot at the same place on the right of the Front Panel.
 
 ??? hood "Under the hood"
+    The sound cell talks to PipeWire through `pactl` (package `pulseaudio-utils`) and follows `pactl subscribe`, so a change made by another program shows at once. Volume and mute act on the default output, `@DEFAULT_SINK@`; choosing a device sets the default and moves the running streams with `pactl move-sink-input`.
+
     The network cell asks NetworkManager through `nmcli`; members of the group `netdev` may change connections without a password (polkit rule `/usr/share/polkit-1/rules.d/50-amadeos-network.rules`). *Network settings…* runs `nmtui`. The Print Manager `amadeos-print` speaks the printing protocol IPP to CUPS directly, over its socket `/run/cups/cups.sock`; members of the group `lpadmin` may pause printers and choose the default without a password. The first user of an installed system and the live user are in both groups.

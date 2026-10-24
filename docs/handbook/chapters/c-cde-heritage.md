@@ -27,7 +27,7 @@ amadeOS follows the **Common Desktop Environment** (CDE), the desktop of the lar
 
 ## What is new
 
-Some parts of amadeOS have no model in CDE, because their tasks did not exist on a 1990s workstation or were solved elsewhere: the network and updates cells, **Software** for installing programs, the **clipboard history**, the **installer**, **WritePad** for documents on pages, the **Audio Station** and the **Video Player**, **Image Scan**, the **games**, and the five languages chosen at login.
+Some parts of amadeOS have no model in CDE, because their tasks did not exist on a 1990s workstation or were solved elsewhere: the network, sound and updates cells, **Software** for installing programs, the **clipboard history**, the **installer**, **WritePad** for documents on pages, the **Audio Station** and the **Video Player**, **Image Scan**, the **games**, and the five languages chosen at login.
 
 !!! cde "CDE heritage"
     CDE itself is still alive as free software at <https://sourceforge.net/projects/cdesktopenv/>. amadeOS does not use its code: it is a new desktop written in Java, in CDE's spirit.

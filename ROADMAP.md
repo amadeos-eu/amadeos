@@ -60,7 +60,7 @@ Merged and installed by `buildDistribution.sh`, but so far only checked under Xv
 
 ### M12 — Compatibility, security and release hardening
 
-- Versions and releases (plan of 2026-10-24, tooling in `scripts/ci`): Semantic Versioning from 1.0.0, computed from Conventional Commits; branches `develop` (builds `-dev.N`), `release` (`-pre.N`) and `main` (releases, tag `vX.Y.Z`, GitHub Release), moved forward by the Promote workflow. Open: the one-time branch setup (`scripts/ci/setup-release-branches.sh`), the secret `PROMOTE_TOKEN`, then every repository's build workflow; amade-calculator is the pilot.
+- Versions and releases (plan of 2026-10-24, tooling in [amadeos-ci](https://github.com/datazuul/amadeos-ci)): Semantic Versioning from 1.0.0, computed from Conventional Commits; branches `develop` (builds `-dev.N`), `release` (`-pre.N`) and `main` (releases, tag `vX.Y.Z`, GitHub Release), moved forward by the Promote workflow. Open: the one-time branch setup (`setup-release-branches.sh` of amadeos-ci), the secret `PROMOTE_TOKEN`, then every repository's build workflow; amade-calculator is the pilot.
 - A documented release process: release manifest (image version, package inputs, checksum, test results), reproducible-build checks, image signing, artifact provenance, rollback and recovery.
 - Pin and document the supported Java baseline.
 - Test fonts, HiDPI scaling, keyboard layouts, focus and modality, and representative Swing/AWT applications.
@@ -116,7 +116,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-10-24
 
-- **Versions and releases:** Semantic Versioning with Conventional Commits, release branches develop/release/main and the Promote workflow (`scripts/ci`); amade-calculator is the pilot.
+- **Versions and releases:** Semantic Versioning with Conventional Commits, release branches develop/release/main and the Promote workflow (new repository amadeos-ci); amade-calculator is the pilot.
 - **Website [www.amadeos.eu](https://www.amadeos.eu/) online:** static pages from [`amadeos.eu`](https://github.com/datazuul/amadeos.eu), deployed to an own server by an Ansible playbook (nginx, Let's Encrypt).
 - **Front Panel sound cell** (system #46, #78): volume, mute, output and input device through `pactl`, mouse wheel and middle click.
 - **Front Panel battery cell** (system #44, #76): only with a battery; fill colour, bolt on mains, percentage and remaining time.

@@ -81,7 +81,8 @@ Examples: the text editor, mail client and file manager are applications. Packag
 ## Versions, commits and branches
 
 - **Semantic Versioning** from 1.0.0, one version per repository (amadeos-system: one for all its
-  packages). Nobody writes a version into `build.gradle`: CI computes it with `scripts/ci/next-version.sh`
+  packages). Nobody writes a version into `build.gradle`: CI computes it with `next-version.sh` of
+  [amadeos-ci](https://github.com/datazuul/amadeos-ci)
   from the commits since the last tag `vX.Y.Z` and passes `-PappVersion`. Debian packages use the same
   version with `~` instead of `-`, so that `1.1.0~dev.57 < 1.1.0~pre.61 < 1.1.0`.
 - **Conventional Commits** for every commit: `type(scope): text`, for example
@@ -91,7 +92,7 @@ Examples: the text editor, mail client and file manager are applications. Packag
   A check in every pull request rejects other subjects.
 - **Branches:** pull requests go to `develop` (the default branch; builds `X.Y.Z-dev.N`). `release`
   (builds `X.Y.Z-pre.N`, for the QEMU and hardware tests) and `main` (releases: tag and GitHub Release)
-  are never committed to: the Promote workflow of amadeos moves them forward by fast-forward, so all
+  are never committed to: the Promote workflow of amadeos-ci moves them forward by fast-forward, so all
   three branches hold the same commits. A hotfix that cannot wait for develop goes into `release` by a
   pull request; promoting it to main merges it back into develop.
 - Apps and games may pin amade-commons or amade-game-engine commits on develop; before they are promoted

@@ -67,6 +67,15 @@ main() {
     [ -f "$commons_dir/settings.gradle" ] || {
         echo "amade-commons not found at $commons_dir; clone it next to amadeos" >&2; return 1; }
 
+    # The version script of every build (next-version.sh) comes from amadeos-ci, next to amadeos.
+    local ci_dir="$parent_dir/amadeos-ci"
+    if [ ! -d "$ci_dir" ]; then
+        step "Cloning amadeos-ci"
+        git clone "https://github.com/datazuul/amadeos-ci.git" "$ci_dir"
+    elif [ "$pull" = 1 ]; then
+        git -C "$ci_dir" pull --ff-only --quiet origin main
+    fi
+
     local apps=() app
     if [ -n "$apps_arg" ]; then
         for app in $apps_arg; do
@@ -109,7 +118,7 @@ main() {
         [ "$dirty" = 0 ] || return 1
         local repo_branch
         for repo in amadeos "${libraries[@]}" "${apps[@]}"; do
-            # Repositories without the release branches yet (scripts/ci/setup-release-branches.sh) only have main.
+            # Repositories without the release branches yet (setup-release-branches.sh of amadeos-ci) only have main.
             repo_branch="$branch"
             git -C "$parent_dir/$repo" ls-remote --exit-code --heads origin "$branch" >/dev/null || repo_branch=main
             step "Pulling $repo ($repo_branch)"
@@ -153,9 +162,9 @@ main() {
         # settings.gradle of every app includes ../amade-commons, so the app is built against the
         # checkout pulled above, not against the JitPack version in its build.gradle.
         # A local build is version X.Y.Z-dev.0 (Debian X.Y.Z~dev.0): lower than every CI build of that
-        # version, so a package from the amadeOS repository replaces it (scripts/ci/next-version.sh).
+        # version, so a package from the amadeOS repository replaces it (next-version.sh of amadeos-ci).
         local version
-        version=$(cd "$parent_dir/$app" && GITHUB_RUN_NUMBER=0 "$root_dir/scripts/ci/next-version.sh" dev)
+        version=$(cd "$parent_dir/$app" && GITHUB_RUN_NUMBER=0 "$parent_dir/amadeos-ci/scripts/next-version.sh" dev)
         (cd "$parent_dir/$app" && ./gradlew "${gradle_args[@]}" -PappVersion="$version" installToAmadeOs)
     done
 

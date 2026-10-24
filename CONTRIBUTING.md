@@ -302,7 +302,7 @@ Examples: `feat(panel): battery cell in the status slot`, `fix(wm): closing a di
 `docs(handbook): chapter 51 versions and releases`. The scope is optional, lower case, the area of the change.
 
 Nobody writes a version by hand. CI computes it from the commits since the last tag `vX.Y.Z`
-(`scripts/ci/next-version.sh`); a repository without a tag starts at 1.0.0.
+(`scripts/next-version.sh` of [amadeos-ci](https://github.com/datazuul/amadeos-ci)); a repository without a tag starts at 1.0.0.
 
 | Branch | Built as | Debian version | Published |
 |---|---|---|---|
@@ -310,9 +310,9 @@ Nobody writes a version by hand. CI computes it from the commits since the last 
 | `release` | `1.2.0-pre.61` | `1.2.0~pre.61` | workflow artifact (apt suite `testing`) |
 | `main` | `1.2.0` | `1.2.0` | tag `v1.2.0`, GitHub Release with the packages (apt suite `stable`) |
 
-`release` and `main` only move forward through the **Promote** workflow of this repository
+`release` and `main` only move forward through the **Promote** workflow of amadeos-ci
 (Actions → Promote → Run workflow: to `release` or `main`, all repositories or a list), which runs
-`scripts/ci/promote.sh`. Libraries go first; an app is promoted to main only when its amade-commons or
+`scripts/promote.sh` there. Libraries go first; an app is promoted to main only when its amade-commons or
 amade-game-engine pin is a released version. The Application Developer's Handbook explains the whole
 workflow in chapter 51, "Versions and Releases".
 

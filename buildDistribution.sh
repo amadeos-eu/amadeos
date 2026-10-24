@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Builds the complete amadeOS distribution from the main branches of all repositories:
+# Builds the complete amadeOS distribution from one branch (develop by default) of all repositories:
 #
 #   0. clones the repositories of repositories.list that are not checked out next to amadeos yet
-#   1. pulls main of amadeos, the libraries (amade-commons, amade-game-engine) and every amade app
+#   1. pulls that branch of amadeos, the libraries (amade-commons, amade-game-engine) and every amade app
 #   2. builds amade-commons, then every app against that checkout (composite build)
 #   3. drops every app's .deb into config/packages.chroot/ (gradlew installToAmadeOs), and the handbooks
 #   4. builds artifacts/amadeos-amd64.iso (./build.sh, uses sudo for live-build)
@@ -11,8 +11,11 @@
 #
 #   <parent>/amadeos  <parent>/amade-commons  <parent>/amade-pad  <parent>/amade-mail  ...
 #
-# Usage: ./buildDistribution.sh [--no-clone] [--no-pull] [--skip-tests] [--quick] [--apps "amade-pad amade-mail"]
+# Usage: ./buildDistribution.sh [--branch develop|release|main] [--no-clone] [--no-pull] [--skip-tests] [--quick]
+#                              [--apps "amade-pad amade-mail"]
 #
+#   --branch B    build branch B: develop (default, the newest work), release (what is being tested) or
+#                 main (the releases); a repository without that branch is built from main
 #   --no-clone    do not clone missing repositories; build only what is checked out
 #   --no-pull     build the checkouts as they are (no git fetch, no branch switch)
 #   --skip-tests  skip the unit tests of amade-commons and the apps
@@ -25,19 +28,20 @@ set -euo pipefail
 # Everything runs inside main(): bash reads the whole function before executing it, so pulling a
 # newer version of this script into the amadeos checkout cannot change the build halfway through.
 main() {
-    local root_dir parent_dir branch="main"
+    local root_dir parent_dir branch="develop"
     root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     parent_dir="$(dirname "$root_dir")"
 
     local clone=1 pull=1 tests=1 quick=0 apps_arg=""
     while [ $# -gt 0 ]; do
         case "$1" in
+            --branch) shift; branch="${1:?--branch needs develop, release or main}" ;;
             --no-clone) clone=0 ;;
             --no-pull) pull=0 ;;
             --skip-tests) tests=0 ;;
             --quick) quick=1 ;;
             --apps) shift; apps_arg="${1:?--apps needs a list of app directories}" ;;
-            -h|--help) sed -n '2,22p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; return 0 ;;
+            -h|--help) sed -n '2,25p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; return 0 ;;
             *) echo "Unknown option: $1 (see --help)" >&2; return 1 ;;
         esac
         shift
@@ -103,14 +107,18 @@ main() {
             fi
         done
         [ "$dirty" = 0 ] || return 1
+        local repo_branch
         for repo in amadeos "${libraries[@]}" "${apps[@]}"; do
-            step "Pulling $repo ($branch)"
-            git -C "$parent_dir/$repo" fetch origin "$branch"
-            if [ "$(git -C "$parent_dir/$repo" branch --show-current)" != "$branch" ]; then
-                echo "  switching $repo from $(git -C "$parent_dir/$repo" branch --show-current || true) to $branch"
-                git -C "$parent_dir/$repo" switch "$branch"
+            # Repositories without the release branches yet (scripts/ci/setup-release-branches.sh) only have main.
+            repo_branch="$branch"
+            git -C "$parent_dir/$repo" ls-remote --exit-code --heads origin "$branch" >/dev/null || repo_branch=main
+            step "Pulling $repo ($repo_branch)"
+            git -C "$parent_dir/$repo" fetch --tags origin "$repo_branch"
+            if [ "$(git -C "$parent_dir/$repo" branch --show-current)" != "$repo_branch" ]; then
+                echo "  switching $repo from $(git -C "$parent_dir/$repo" branch --show-current || true) to $repo_branch"
+                git -C "$parent_dir/$repo" switch "$repo_branch"
             fi
-            git -C "$parent_dir/$repo" merge --ff-only "origin/$branch"
+            git -C "$parent_dir/$repo" merge --ff-only "origin/$repo_branch"
         done
     fi
 
@@ -130,7 +138,7 @@ main() {
         # The package an app's installToAmadeOs copies may be named differently (amade-game-engine
         # makes amade-game-handbook).
         local deb
-        for deb in $(sed -n 's|.*distributions/\([a-z0-9-]*\)_\${project.version}.*|\1|p' "$parent_dir/$app/build.gradle" 2>/dev/null); do
+        for deb in $(sed -n 's|.*distributions/\([a-z0-9-]*\)_\${[A-Za-z.()]*}.*|\1|p' "$parent_dir/$app/build.gradle" 2>/dev/null); do
             rm -f "$packages_dir/${deb}"_*.deb
         done
         # A multi-project build (amadeos-system) makes one amadeos-<module> package per included module.
@@ -144,7 +152,11 @@ main() {
         step "Building $app and adding it to amadeOS"
         # settings.gradle of every app includes ../amade-commons, so the app is built against the
         # checkout pulled above, not against the JitPack version in its build.gradle.
-        (cd "$parent_dir/$app" && ./gradlew "${gradle_args[@]}" installToAmadeOs)
+        # A local build is version X.Y.Z-dev.0 (Debian X.Y.Z~dev.0): lower than every CI build of that
+        # version, so a package from the amadeOS repository replaces it (scripts/ci/next-version.sh).
+        local version
+        version=$(cd "$parent_dir/$app" && GITHUB_RUN_NUMBER=0 "$root_dir/scripts/ci/next-version.sh" dev)
+        (cd "$parent_dir/$app" && ./gradlew "${gradle_args[@]}" -PappVersion="$version" installToAmadeOs)
     done
 
     # amade-commons carries the Application Developer's Handbook (docs/handbook), which shows code from

@@ -12,6 +12,7 @@ Where to find on amadeOS what you know from Windows or macOS.
 | Virtual desktops | Spaces | Four workspaces, each with its own colour | 24 |
 | Desktop context menu | — | The Workspace Menu, right mouse button on the backdrop | 24 |
 | ++win+l++ | ++ctrl+cmd+q++ | ++super+l++, or the padlock in the Front Panel | 26 |
+| ++alt+tab++ | ++cmd+tab++ | ++alt+tab++, with pictures of the windows of the workspace | 23 |
 | ++win+v++ | — | ++ctrl+alt+v++, the clipboard history | 36 |
 | Settings, Personalisation | System Settings | Settings | Part IV |
 | Shut down in the Start menu | Apple menu | EXIT in the Front Panel | 26 |

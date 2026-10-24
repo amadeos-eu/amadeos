@@ -7,6 +7,7 @@ The keys and mouse actions of the desktop, in one place. The keys of each progra
 | Keys | What they do | Chapter |
 |---|---|---|
 | ++super+l++ | Locks the screen. ++super++ is the key with the Windows logo. | 26 |
+| ++alt+tab++ | Switches between the windows of the workspace; ++alt+shift+tab++ goes the other way. | 23 |
 | ++ctrl+alt+v++ | Shows the clipboard history. | 36 |
 | ++ctrl+c++ / ++ctrl+x++ / ++ctrl+v++ | Copy / cut / paste, in the amadeOS programs and most others. | 21 |
 | ++ctrl+q++ | Quits the program, in most amadeOS programs. | 21 |
@@ -17,7 +18,7 @@ The keys and mouse actions of the desktop, in one place. The keys of each progra
 | ++ctrl+alt+f7++ | Switches back to the graphical screen. | 57 |
 
 !!! planned "Planned"
-    Keys for the windows: switching between them with ++alt+tab++, moving a window to another workspace, switching workspaces from the keyboard (chapters 21 and 24).
+    More keys for the windows: moving a window to another workspace, switching workspaces from the keyboard (chapters 21 and 24).
 
 ## The mouse
 

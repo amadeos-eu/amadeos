@@ -25,6 +25,7 @@ This is the same name you get with a click on the current workspace button in th
 | **Digital** | The clock shows the time and the date in figures. | off |
 | **Network** | The network cell in the status slot at the right end of the Front Panel (chapter 27). | on |
 | **Sound** | The sound cell next to the network cell: volume, output and input (chapter 27). | on |
+| **Battery** | The battery cell, which appears only on computers with a battery (chapter 22). | on |
 | **Software updates** | The updates cell, which appears only while updates are waiting (chapter 52). | on |
 | **Show disk and network activity** | The busy light above EXIT also shows the disks in green and the network in cyan (chapter 22). When it is off, the light only blinks while a program starts and runs amber while software is installed. | on |
 

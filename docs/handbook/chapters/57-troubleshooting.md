@@ -42,7 +42,7 @@ Lines with *SEVERE*, *ERROR*, *Exception* or *failed* are usually the ones that 
 | **A program does not start**, or closes at once | Open its log in Session Diagnostics & Logs. Start it in a terminal to see its messages directly, for example `amade-mail`. |
 | **No network**, the network cell says *Network service is not running* | `sudo systemctl restart NetworkManager` in a terminal. |
 | **No WLAN networks** in the list | The WLAN may be switched off by a key or switch on the laptop. `nmcli radio wifi on` switches it on; *System information* shows whether a WLAN device was found at all. |
-| **No sound** | Check the volume in the program. `systemctl --user restart pipewire wireplumber` starts the sound system again. |
+| **No sound** | Point at the sound cell of the Front Panel: is the volume up, and is the right output chosen in its menu (chapter 27)? Check the volume in the program too. If the loudspeaker is grey and crossed out, `systemctl --user restart pipewire pipewire-pulse wireplumber` starts the sound system again. |
 | **A printer prints nothing** | Look at its state in the Print Manager and choose *Resume* if it is paused (chapter 54). |
 | **Software says *Another program is installing software*** | The daily update check, or automatic security updates, are running. Wait a few minutes. |
 | **The window frames are gone** | The window manager has crashed; the session starts it again within a few seconds, and the windows get their frames back. If not, choose *Log Out…* in the Workspace Menu (right mouse button on the backdrop, chapter 24) and log in again. |

@@ -125,7 +125,7 @@ git clone https://github.com/datazuul/amade-commons.git
 cd amadeos-system && ./gradlew :desktop:installToAmadeOs && cd ../amadeos   # the desktop package
 
 scripts/check-config.sh   # the checks CI runs on the configuration
-./build.sh                # build artifacts/amadeos-amd64.iso (uses sudo for live-build)
+./build.sh                # build artifacts/amadeos-<version>-amd64.iso (uses sudo for live-build)
 ./run-qemu.sh             # boot the ISO in QEMU
 ./run-qemu.sh --install-disk          # ... with an empty 20 GB disk to install amadeOS onto
 ./run-qemu.sh --boot-disk [--uefi]    # boot the installed system (--uefi: OVMF instead of BIOS)
@@ -165,7 +165,8 @@ It pulls `main` of amadeos, amade-commons and every `../amade-*` and `../amadeos
 has an `installToAmadeOs` Gradle task (amadeos-system with the desktop and amadeos-installer among them), builds amade-commons and
 the packages against that checkout
 (with tests), copies their `.deb` packages into `config/packages.chroot/` and builds
-`artifacts/amadeos-amd64.iso`. It stops before pulling if a repository has uncommitted changes.
+`artifacts/amadeos-<version>-amd64.iso`, for example `amadeos-1.0.0-amd64.iso` on a released `main`
+(`artifacts/amadeos-amd64.iso` links to the newest image). It stops before pulling if a repository has uncommitted changes.
 Options: `--no-clone` (only what is checked out), `--no-pull` (build the checkouts as they are), `--skip-tests`, `--quick` (repack the
 previous image, see `AMADEOS_QUICK`) and `--apps "amade-pad amade-mail"` (only these
 applications).
@@ -178,17 +179,17 @@ without copying it onto a file system on the stick. **This erases everything on 
 On Linux:
 
 ```bash
-sha256sum -c artifacts/amadeos-amd64.iso.sha256   # check the image
+(cd artifacts && sha256sum -c amadeos-*-amd64.iso.sha256)   # check the image
 lsblk -d -o NAME,SIZE,MODEL,TRAN                   # find the stick (TRAN usb), e.g. sdb
 sudo umount /dev/sdX?*                             # unmount its partitions if auto-mounted
-sudo dd if=artifacts/amadeos-amd64.iso of=/dev/sdX bs=4M status=progress conv=fsync oflag=direct
+sudo dd if=artifacts/amadeos-1.0.0-amd64.iso of=/dev/sdX bs=4M status=progress conv=fsync oflag=direct
 ```
 
 Replace `sdX` with the stick's whole device (`/dev/sdb`, not the partition `/dev/sdb1`), and
 check the name twice: `dd` overwrites the device it is given without asking. When `dd` has
 returned, the stick can be removed. GNOME Disks (*Restore Disk Image*) does the same with a
 graphical interface. On Windows, use [Rufus](https://rufus.ie/) in *DD image* mode, on macOS
-`sudo dd if=amadeos-amd64.iso of=/dev/rdiskN bs=4m` after `diskutil unmountDisk /dev/diskN`.
+`sudo dd if=amadeos-1.0.0-amd64.iso of=/dev/rdiskN bs=4m` after `diskutil unmountDisk /dev/diskN`.
 
 To boot from the stick, choose it in the computer's boot menu (often F12, F11, F9 or Esc right
 after switching on). With Secure Boot enabled, UEFI firmware refuses the unsigned boot loader of the

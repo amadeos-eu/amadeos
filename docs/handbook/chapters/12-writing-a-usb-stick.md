@@ -14,7 +14,7 @@ In a terminal, `dd` does the same:
 ```bash
 lsblk -d -o NAME,SIZE,MODEL,TRAN      # find the stick: TRAN is usb, e.g. sdb
 sudo umount /dev/sdX?*                # unmount its partitions, if they were mounted
-sudo dd if=amadeos-amd64.iso of=/dev/sdX bs=4M status=progress conv=fsync oflag=direct
+sudo dd if=amadeos-1.0.0-amd64.iso of=/dev/sdX bs=4M status=progress conv=fsync oflag=direct
 ```
 
 Replace `sdX` with the name of the stick, the whole device (`/dev/sdb`) and not a partition (`/dev/sdb1`). Check the name twice: `dd` overwrites whatever device it is given, without asking. When `dd` returns, the stick is ready and can be removed.
@@ -24,7 +24,7 @@ Replace `sdX` with the name of the stick, the whole device (`/dev/sdb`) and not 
 Use [Rufus](https://rufus.ie/), a small free program:
 
 1. Insert the stick and start Rufus. Choose the stick under *Device*.
-2. Click *SELECT* and choose `amadeos-amd64.iso`.
+2. Click *SELECT* and choose `amadeos-1.0.0-amd64.iso`.
 3. Click *START*. Rufus asks how to write the image: choose **Write in DD Image mode**.
 4. Confirm that the stick will be erased, and wait until Rufus shows *READY*.
 
@@ -37,7 +37,7 @@ In the Terminal:
 ```bash
 diskutil list                         # find the stick, e.g. /dev/disk4
 diskutil unmountDisk /dev/diskN
-sudo dd if=amadeos-amd64.iso of=/dev/rdiskN bs=4m
+sudo dd if=amadeos-1.0.0-amd64.iso of=/dev/rdiskN bs=4m
 ```
 
 Replace `N` with the number of the stick. The `r` in `/dev/rdiskN` makes writing much faster. When `dd` is done, macOS may say that it cannot read the disk; choose *Eject*.

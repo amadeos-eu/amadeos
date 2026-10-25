@@ -4,7 +4,27 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONFIG_DIR="$ROOT_DIR/config"
 ARTIFACT_DIR="$ROOT_DIR/artifacts"
-ISO_PATH="$ARTIFACT_DIR/amadeos-amd64.iso"
+# The image carries the amadeOS version in its name (amadeos-1.0.0-amd64.iso). It comes from next-version.sh
+# of amadeos-ci next to this repository (buildDistribution.sh clones it), with the channel of the branch as
+# for the local package builds in buildDistribution.sh: a tagged commit on main is X.Y.Z, release X.Y.Z-pre.0,
+# anything else X.Y.Z-dev.0. AMADEOS_VERSION overrides it.
+image_version() {
+    if [ -n "${AMADEOS_VERSION:-}" ]; then echo "$AMADEOS_VERSION"; return; fi
+    local next="$ROOT_DIR/../amadeos-ci/scripts/next-version.sh" channel=dev
+    [ -x "$next" ] || { echo "0.0.0-dev.0"; return; }
+    # build.sh may run under sudo, and git refuses a repository owned by another user.
+    export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=safe.directory GIT_CONFIG_VALUE_0="$ROOT_DIR"
+    case "$(git -C "$ROOT_DIR" branch --show-current 2>/dev/null || true)" in
+        release) channel=pre ;;
+        main) git -C "$ROOT_DIR" tag --points-at HEAD | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$' && channel=release ;;
+    esac
+    (cd "$ROOT_DIR" && GITHUB_RUN_NUMBER=0 "$next" "$channel") || echo "0.0.0-dev.0"
+}
+VERSION="$(image_version)"
+ISO_NAME="amadeos-$VERSION-amd64.iso"
+ISO_PATH="$ARTIFACT_DIR/$ISO_NAME"
+# Points to the newest image, for run-qemu.sh and the commands in the README.
+ISO_LINK="$ARTIFACT_DIR/amadeos-amd64.iso"
 BUILD_ROOT="${AMADEOS_BUILD_ROOT:-${TMPDIR:-/tmp}/amadeos-live-build}"
 
 # BUILD_ROOT is deleted with sudo before every full build: refuse anything that is not a
@@ -381,13 +401,18 @@ if [ -z "$OUTPUT_ISO" ]; then
     exit 1
 fi
 
+# Earlier images are removed (each is several GB), and so is the unversioned image of older builds.
+rm -f "$ARTIFACT_DIR"/amadeos-*-amd64.iso "$ARTIFACT_DIR"/amadeos-*-amd64.iso.sha256 \
+    "$ISO_LINK" "$ISO_LINK.sha256"
 cp "$OUTPUT_ISO" "$ISO_PATH"
-sha256sum "$ISO_PATH" > "$ISO_PATH.sha256"
+# The checksum file names the image without a directory, so it checks the downloaded file next to it.
+(cd "$ARTIFACT_DIR" && sha256sum "$ISO_NAME" > "$ISO_NAME.sha256")
+ln -s "$ISO_NAME" "$ISO_LINK"
 
 if [ "$(id -u)" -eq 0 ]; then
     owner_uid="$(stat -c '%u' "$ROOT_DIR")"
     owner_gid="$(stat -c '%g' "$ROOT_DIR")"
-    chown "$owner_uid:$owner_gid" "$ISO_PATH" "$ISO_PATH.sha256"
+    chown -h "$owner_uid:$owner_gid" "$ISO_PATH" "$ISO_PATH.sha256" "$ISO_LINK"
 fi
 
 printf 'Created %s\n' "$ISO_PATH"

@@ -27,7 +27,7 @@ cd amadeos
 ./buildDistribution.sh
 ```
 
-`buildDistribution.sh` clones every repository of the distribution next to `amadeos` (the list is in `repositories.list`), builds the desktop, every application and every game with their tests, puts their packages into `config/packages.chroot/` and builds the image. At the end it is in `artifacts/amadeos-amd64.iso`, with its checksum next to it.
+`buildDistribution.sh` clones every repository of the distribution next to `amadeos` (the list is in `repositories.list`), builds the desktop, every application and every game with their tests, puts their packages into `config/packages.chroot/` and builds the image. At the end it is in `artifacts/amadeos-<version>-amd64.iso`, with its checksum next to it. The version is that of the amadeos checkout: exactly `1.0.0` on the tagged `main`, `X.Y.Z-pre.0` on `release` and `X.Y.Z-dev.0` on `develop`; `AMADEOS_VERSION=...` sets it by hand. `artifacts/amadeos-amd64.iso` links to the newest image, and an older image is deleted when a new one is built.
 
 | Option | What it does |
 |---|---|

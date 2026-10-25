@@ -1,5 +1,8 @@
 name: Build
 
+# develop builds X.Y.Z-dev.N, release X.Y.Z-pre.N and main the release X.Y.Z, which the release job
+# tags (see CONTRIBUTING.md, "Commits and versions"). The ISO itself is built locally with
+# buildDistribution.sh, so the release has no files.
 on:
   push:
     branches: [develop, release, main]
@@ -11,12 +14,35 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      channel: ${{ steps.version.outputs.channel }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          # The version is computed from the history since the last release tag.
+          fetch-depth: 0
+      - id: version
+        uses: datazuul/amadeos-ci/version@main
       # The live-build configuration and the scripts; the desktop and the applications are built and
       # tested in their own repositories (amadeos-system, amade-*).
       - name: Check the image configuration
         run: scripts/check-config.sh
+
+  # Only on main, after the release branch was promoted: tag vX.Y.Z and publish the GitHub Release.
+  release:
+    needs: check
+    if: needs.check.outputs.channel == 'release'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: datazuul/amadeos-ci/release@main
+        with:
+          version: ${{ needs.check.outputs.version }}
 
   commits:
     if: github.event_name == 'pull_request'

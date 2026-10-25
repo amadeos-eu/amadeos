@@ -79,7 +79,7 @@ The two mouse buttons share the work: one looks at things, the other walks, take
 !!! tip "Your own keys"
     Most action games let you change their keys in a small settings file, such as `~/.config/amadeos/snake/snake.properties`. The Game Developer's Handbook in the Help drawer has the details.
 
-The games are in the spirit of the classics of the 1980s and 1990s, drawn anew, and built so that each one can be read and learned from: the **Game Developer's Handbook** in the Help drawer explains them chapter by chapter.
+The fifteen amadeOS games are in the spirit of the classics of the 1980s and 1990s, drawn anew, and built so that each one can be read and learned from: the **Game Developer's Handbook** in the Help drawer explains them chapter by chapter.
 
 ??? hood "Under the hood"
     Every game is a package of its own, such as `amade-mines-game` or `amade-hover-cab-game`, and all are installed by default. They are built on *amade-game-engine*, a 2D game engine in Java. The best scores are in `~/.local/share/amadeos/games/<game>/`, the settings in `~/.config/amadeos/<game>/`.

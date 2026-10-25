@@ -90,6 +90,18 @@ hyphen-es
 # jpegtran for amade-imageviewer, which saves turned JPEGs without loss; recommended by the package
 # but the image installs no recommends
 libjpeg-turbo-progs
+# Point-and-click adventures: four freeware classics from Debian main that run on ScummVM (GPL-3.0).
+# Their game data may be shared and changed (BSD-like licences in /usr/share/doc/<package>/copyright).
+# Each brings a .desktop file of the category AdventureGame, so they appear in the Games drawer.
+# Beneath a Steel Sky and Lure of the Temptress start in the desktop language (de, en, es, fr, it);
+# Drascula is the English version, the others (drascula-german, ...) are in Software. drascula-music
+# is only recommended, and the image installs no recommends. About 400 MB installed in all.
+scummvm
+beneath-a-steel-sky
+flight-of-the-amazon-queen
+lure-of-the-temptress
+drascula
+drascula-music
 # Printing: CUPS with driverless printing (IPP Everywhere, AirPrint). avahi finds network printers,
 # cups-browsed sets them up as queues, ipp-usb serves USB printers over IPP. amadeos-print manages them;
 # the live user is in lpadmin (/etc/live/config.conf), so no password is needed for that.

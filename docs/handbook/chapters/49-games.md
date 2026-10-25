@@ -1,6 +1,6 @@
 # 49. Games
 
-amadeOS comes with **fifteen games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
+amadeOS comes with **fifteen games** of its own and **four classic adventures**, all in the Games drawer of the Front Panel. The fifteen are written for amadeOS with its own game engine; none of the games has advertising, accounts or purchases, and none needs a network.
 
 ## What all games share
 
@@ -63,6 +63,19 @@ Klondike, the classic patience. Build the four piles at the top right from ace t
 
 In the strategy games, ++f5++ saves and ++f9++ loads, and a mission opens when the one before it is won.
 
+## Adventures
+
+Four point-and-click adventures from the 1990s, which their makers gave away as freeware. You walk a hero through painted scenes, talk to everyone, collect things and use them in the right place.
+
+| Game | What it is |
+|---|---|
+| **Beneath a Steel Sky** | Science fiction: Robert Foster and his robot friend Joey in a city under a grey sky, drawn in the style of a comic. Dry humour. |
+| **Flight of the Amazon Queen** | A 1940s pilot crashes in the jungle and has to rescue a film star. Slapstick. |
+| **Lure of the Temptress** | Medieval fantasy: escape from a dungeon and free a town from a sorceress. The people in town go about their own business. |
+| **Drascula: The Vampire Strikes Back** | A vampire spoof, silly from the first scene to the last. In English; the German, French, Italian and Spanish versions are in Software. |
+
+The two mouse buttons share the work: one looks at things, the other walks, takes and uses them; the games differ in which is which, so try both. ++ctrl+f5++ opens the menu with *Save*, *Load* and *Options* in all four, and ++alt+enter++ switches to full screen and back. *Beneath a Steel Sky* and *Lure of the Temptress* speak the language of your desktop.
+
 !!! tip "Your own keys"
     Most action games let you change their keys in a small settings file, such as `~/.config/amadeos/snake/snake.properties`. The Game Developer's Handbook in the Help drawer has the details.
 
@@ -70,3 +83,5 @@ The games are in the spirit of the classics of the 1980s and 1990s, drawn anew, 
 
 ??? hood "Under the hood"
     Every game is a package of its own, such as `amade-mines-game` or `amade-hover-cab-game`, and all are installed by default. They are built on *amade-game-engine*, a 2D game engine in Java. The best scores are in `~/.local/share/amadeos/games/<game>/`, the settings in `~/.config/amadeos/<game>/`.
+
+    The four adventures are Debian packages (`beneath-a-steel-sky`, `flight-of-the-amazon-queen`, `lure-of-the-temptress`, `drascula`) and run on **ScummVM**, an interpreter for many classic adventures. ScummVM itself is in the drawer too: it adds more games that you own, from their folders. Saved games and its settings are in `~/.local/share/scummvm/` and `~/.config/scummvm/`.

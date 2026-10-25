@@ -16,6 +16,8 @@ The desktop, the system tools, the installer, the amade applications and games, 
 | Xorg | MIT and related licences |
 | Firefox ESR | MPL-2.0 |
 | LibreOffice | MPL-2.0 |
+| ScummVM | GPL-3.0 |
+| The adventures *Beneath a Steel Sky*, *Flight of the Amazon Queen*, *Lure of the Temptress* and *Drascula* | Freeware licences of their makers that allow sharing and changing the game, but not selling it on its own |
 | NsCDE icon theme (`nscde-icon-theme`) | GPL-3.0 |
 | The original CDE backdrops (`amadeos-backdrops-cde`) | LGPL-2.0 or later |
 

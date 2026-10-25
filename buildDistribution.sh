@@ -7,6 +7,8 @@
 #   3. drops every app's .deb into config/packages.chroot/ (gradlew installToAmadeOs), and the handbooks
 #   4. builds artifacts/amadeos-amd64.iso (./build.sh, uses sudo for live-build)
 #
+# At the end (also when a step fails) it prints how long the whole build and its longer steps took.
+#
 # Expected layout (an app is every ../amade-*/ or ../amadeos-*/ whose build.gradle has an installToAmadeOs task):
 #
 #   <parent>/amadeos  <parent>/amade-commons  <parent>/amade-pad  <parent>/amade-mail  ...
@@ -46,6 +48,8 @@ main() {
         esac
         shift
     done
+
+    trap report_durations EXIT
 
     # live-build needs root; ask for the password now instead of after the Java builds.
     if [ "$(id -u)" -ne 0 ]; then
@@ -197,6 +201,7 @@ main() {
 
     local iso="$root_dir/artifacts/amadeos-amd64.iso"
     step "Done"
+    BUILD_DONE=1
     echo "Image:    $iso ($(du -h "$iso" | cut -f1))"
     echo "Packages: $(cd "$packages_dir" && ls -- *.deb | tr '\n' ' ')"
     cat <<EOF
@@ -208,8 +213,52 @@ USB stick:    lsblk -d -o NAME,SIZE,MODEL,TRAN      # find the stick, e.g. /dev/
 EOF
 }
 
+# Step timings: step() closes the running step and starts the next one; report_durations (the EXIT
+# trap) prints them, so a failed build also says how far it got and how long that took.
+BUILD_STARTED=$SECONDS BUILD_DONE=0 CURRENT_STEP="" STEP_STARTED=$SECONDS
+STEP_NAMES=() STEP_TIMES=()
+
 step() {
+    finish_step
+    CURRENT_STEP="$*" STEP_STARTED=$SECONDS
     printf '\n\033[1m[buildDistribution] %s\033[0m\n' "$*"
+}
+
+finish_step() {
+    [ -n "$CURRENT_STEP" ] || return 0
+    STEP_NAMES+=("$CURRENT_STEP") STEP_TIMES+=("$((SECONDS - STEP_STARTED))")
+    CURRENT_STEP=""
+}
+
+# 75 -> "1m 15s", 3725 -> "1h 02m 05s"
+duration() {
+    local s=$1
+    if [ "$s" -ge 3600 ]; then printf '%dh %02dm %02ds' $((s / 3600)) $((s % 3600 / 60)) $((s % 60))
+    elif [ "$s" -ge 60 ]; then printf '%dm %02ds' $((s / 60)) $((s % 60))
+    else printf '%ds' "$s"; fi
+}
+
+report_durations() {
+    local status=$? failed_step="$CURRENT_STEP" i short=0 total=$((SECONDS - BUILD_STARTED))
+    finish_step
+    [ ${#STEP_NAMES[@]} -gt 0 ] || return "$status"
+    # Pulls, clones and the like take a few seconds each; only the longer steps get a line of their own.
+    printf '\n\033[1m[buildDistribution] Durations\033[0m\n'
+    for i in "${!STEP_NAMES[@]}"; do
+        [ "${STEP_NAMES[$i]}" = "Done" ] && continue
+        if [ "${STEP_TIMES[$i]}" -ge 10 ]; then
+            printf '  %12s  %s\n' "$(duration "${STEP_TIMES[$i]}")" "${STEP_NAMES[$i]}"
+        else
+            short=$((short + STEP_TIMES[$i]))
+        fi
+    done
+    [ "$short" -eq 0 ] || printf '  %12s  %s\n' "$(duration "$short")" "shorter steps (under 10s each)"
+    if [ "$BUILD_DONE" = 1 ]; then
+        printf '\033[1mBuild time: %s\033[0m\n' "$(duration "$total")"
+    else
+        printf '\033[1mBuild failed after %s in step: %s\033[0m\n' "$(duration "$total")" "${failed_step:-setup}"
+    fi
+    return "$status"
 }
 
 main "$@"

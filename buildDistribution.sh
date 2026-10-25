@@ -5,7 +5,7 @@
 #   1. pulls that branch of amadeos, the libraries (amade-commons, amade-game-engine) and every amade app
 #   2. builds amade-commons, then every app against that checkout (composite build)
 #   3. drops every app's .deb into config/packages.chroot/ (gradlew installToAmadeOs), and the handbooks
-#   4. builds artifacts/amadeos-amd64.iso (./build.sh, uses sudo for live-build)
+#   4. builds artifacts/amadeos-<version>-amd64.iso (./build.sh, uses sudo for live-build)
 #
 # At the end (also when a step fails) it prints how long the whole build and its longer steps took.
 #
@@ -199,7 +199,9 @@ main() {
         "$root_dir/build.sh"
     fi
 
-    local iso="$root_dir/artifacts/amadeos-amd64.iso"
+    # amadeos-amd64.iso links to the versioned image that build.sh wrote.
+    local iso
+    iso="$root_dir/artifacts/$(readlink "$root_dir/artifacts/amadeos-amd64.iso")"
     step "Done"
     BUILD_DONE=1
     echo "Image:    $iso ($(du -h "$iso" | cut -f1))"

@@ -337,8 +337,8 @@ scripts/check-config.sh
 cd amadeos
 
 # Inspect the generated artifact.
-file artifacts/amadeos-amd64.iso
-sha256sum -c artifacts/amadeos-amd64.iso.sha256
+file -L artifacts/amadeos-amd64.iso   # the link to the newest amadeos-<version>-amd64.iso
+(cd artifacts && sha256sum -c amadeos-*-amd64.iso.sha256)
 
 # BIOS smoke test with QEMU (with USB tablet for seamless mouse integration):
 qemu-system-x86_64 -enable-kvm -m 2048 -usb -device usb-tablet -cdrom artifacts/amadeos-amd64.iso

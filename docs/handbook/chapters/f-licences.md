@@ -25,7 +25,7 @@ The Java programs of amadeOS carry a few libraries from other free-software proj
 
 | Library | Used by | Licence |
 |---|---|---|
-| JNA (Java Native Access) | Window manager and desktop, Audio Station, Video Player, Image Scan | LGPL-2.1 or later, or Apache-2.0 |
+| JNA (Java Native Access) | Window manager and desktop, Audio Station, Video Player, TV, Image Scan | LGPL-2.1 or later, or Apache-2.0 |
 | dbus-java | The password window of the session | MIT |
 | Guice, SLF4J | amade-commons | Apache-2.0, MIT |
 | Logback | The amade applications and games, the desktop | EPL-1.0 or LGPL-2.1 |

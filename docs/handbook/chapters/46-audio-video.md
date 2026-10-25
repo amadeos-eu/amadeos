@@ -1,4 +1,4 @@
-# 46. Audio Station and Video Player
+# 46. Audio Station, Video Player and TV
 
 ## Audio Station
 
@@ -54,5 +54,54 @@ Start it from the Sound & Video drawer, by double-clicking a video file, or with
 !!! planned "Planned"
     The Video Player is at an early stage. Next come a face in the style of the Audio Station, lists of DVD titles and chapters, recent files, a playlist, audio and subtitle tracks, full screen, the volume, and remembering where you stopped in a file.
 
+## TV
+
+**TV** shows the live programs of the German-language public broadcasters: Das Erste, ZDF, ARTE, 3sat, phoenix, tagesschau24, ZDFneo, ZDFinfo, KiKA, ARD-alpha and ONE, and on request the regional channels of the ARD and the channels of the Bundestag. Next to it is a program guide for all of them.
+
+Start it from the Sound & Video drawer. It needs a connection to the internet.
+
+### Live
+
+The page **Live** lists the channels with their logos and what runs on each right now, with a bar for how much of it is over. Click a channel, or select it and press ++enter++, and it plays. Below the picture is today's program of the channel.
+
+| Button | What it does |
+|---|---|
+| **⏪** | 10 minutes back, as far as the broadcaster keeps the stream |
+| **▶ / ⏸** | Pause and go on; the picture then runs behind the live program |
+| **⏭** | Back to live. The red **● LIVE** sign shows that you see the live program; otherwise it shows how many minutes behind you are |
+| **⏹** | Stop |
+| **Mute**, the slider | The sound |
+| **Subtitles** | Subtitles, where the broadcaster sends them |
+| **Audio** | The next audio track, such as the original language or audio description |
+| **Full Screen** | The picture alone on the screen; ++escape++ or ++f11++ brings the window back |
+
+TV starts with the channel you watched last.
+
+### Guide
+
+The page **Guide** shows one day of all channels on a time line. The red line is now.
+
+![The Guide of TV](images/46/tv-guide.jpg)
+
+The arrows go to the previous and the next day; **Now** and **Prime Time 20:15** scroll the day there. **Find** looks for a word in the titles and descriptions of the day shown; ++enter++ goes to the next hit. Click a program to read about it below the grid. **Watch Live** switches to it if it is running. For a program that is still to come, **Remind Me** sets a reminder: when it starts, TV asks whether you want to watch it. Reminders work while TV is open.
+
+| Key | What it does |
+|---|---|
+| ++ctrl+1++ / ++ctrl+2++ | Live / Guide |
+| ++ctrl+f++ | Find in the guide |
+| ++ctrl+p++ | Play and pause |
+| ++alt+arrow-left++ / ++alt+arrow-right++ | 10 minutes back / back to live |
+| ++ctrl+page-up++ / ++ctrl+page-down++ | Previous / next channel |
+| ++ctrl+m++, ++alt+arrow-up++ / ++alt+arrow-down++ | Mute, louder / quieter |
+| ++ctrl+u++, ++ctrl+shift+a++ | Subtitles, next audio track |
+| ++f11++ | Full screen |
+| ++f5++ | Load the channels and the guide again |
+
+!!! warning "Only in some countries"
+    Some programs, often films and sport, may only be shown in Germany, sometimes also in Austria and Switzerland. Outside these countries the broadcaster shows a notice instead, or the stream does not play, and TV says so. TV does not try to get round this. Private channels are not included, because their streams are encrypted or cost money.
+
+!!! planned "Planned"
+    Next, TV gets the media libraries of the broadcasters: programs to watch later, a search across all of them, downloads to keep a program, and a watch-later list.
+
 ??? hood "Under the hood"
-    The Audio Station plays music in Java itself and reads CDs with libcdio; its settings are in `~/.config/amadeos/audio/`, the CD titles and covers in `~/.cache/amadeos/audio/discs/`. The Video Player leaves the playing to *libmpv*, the engine of the mpv player, with FFmpeg and libdvdnav.
+    The Audio Station plays music in Java itself and reads CDs with libcdio; its settings are in `~/.config/amadeos/audio/`, the CD titles and covers in `~/.cache/amadeos/audio/discs/`. The Video Player leaves the playing to *libmpv*, the engine of the mpv player, with FFmpeg and libdvdnav. TV plays with libmpv too. It takes the stream addresses and what runs now from the Zapp service of the MediathekView project, and the guide from the ARD and the ZDF; the guide and the channel logos are kept in `~/.cache/amadeos/tv/`, the settings and reminders in `~/.config/amadeos/tv/`.

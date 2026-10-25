@@ -17,6 +17,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | **Contacts** | Addresses, phone numbers and birthdays | Text & Office, Mail & Internet | 45 |
 | **Audio Station** | Audio CDs, music files and internet radio | Sound & Video | 46 |
 | **Video Player** | Video files, streams and DVDs | Sound & Video | 46 |
+| **TV** | Live TV of the public broadcasters and a program guide | Sound & Video | 46 |
 | **Image Viewer** | Photos and pictures, slideshows, camera data and maps | Graphics | 47 |
 | **Image Scan** | Scanning photos and letters | Graphics | 47 |
 | **Fractals** | Exploring the Mandelbrot set | Graphics | 47 |

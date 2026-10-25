@@ -53,7 +53,7 @@ On a touchpad, the right button is a click at the bottom right or with two finge
 | Text Editor | Chapter 42 |
 | WritePad | Chapter 43 |
 | Calendar | Chapter 45 |
-| Audio Station and Video Player | Chapter 46 |
+| Audio Station, Video Player and TV | Chapter 46 |
 | Fractals | Chapter 47 |
 | Books | Chapter 48 |
 | Documentation Viewer | Chapter 48 |

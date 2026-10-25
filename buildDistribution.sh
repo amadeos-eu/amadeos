@@ -161,10 +161,16 @@ main() {
         step "Building $app and adding it to amadeOS"
         # settings.gradle of every app includes ../amade-commons, so the app is built against the
         # checkout pulled above, not against the JitPack version in its build.gradle.
-        # A local build is version X.Y.Z-dev.0 (Debian X.Y.Z~dev.0): lower than every CI build of that
-        # version, so a package from the amadeOS repository replaces it (next-version.sh of amadeos-ci).
-        local version
-        version=$(cd "$parent_dir/$app" && GITHUB_RUN_NUMBER=0 "$parent_dir/amadeos-ci/scripts/next-version.sh" dev)
+        # A local build of develop is version X.Y.Z-dev.0 and of release X.Y.Z-pre.0 (Debian ~dev.0 and
+        # ~pre.0): lower than every CI build of that version, so a package from the amadeOS repository
+        # replaces it. A released commit on main (tagged vX.Y.Z) gets exactly X.Y.Z; main without a
+        # tag (no release branches yet, or CI has not tagged it yet) builds as dev.
+        local version channel=dev
+        case "$(git -C "$parent_dir/$app" branch --show-current)" in
+            release) channel=pre ;;
+            main) git -C "$parent_dir/$app" tag --points-at HEAD | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$' && channel=release ;;
+        esac
+        version=$(cd "$parent_dir/$app" && GITHUB_RUN_NUMBER=0 "$parent_dir/amadeos-ci/scripts/next-version.sh" "$channel")
         (cd "$parent_dir/$app" && ./gradlew "${gradle_args[@]}" -PappVersion="$version" installToAmadeOs)
     done
 

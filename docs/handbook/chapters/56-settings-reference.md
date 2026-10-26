@@ -28,6 +28,7 @@ Your settings are in your home folder, in folders whose names start with a dot a
 | `panel.conf` | Settings: Front Panel, and the clock's right-click menu | 37 |
 | `startup.conf` | Settings: Startup (the desktop services switched off) | 35 |
 | `settings.conf` | Settings: the sidebar or the compact view | 30 |
+| `proxy.conf` | Settings: Network (the password is in the keyring) | 38 |
 | `locale.conf` | The greeter and the language button | 25 |
 | `session.conf` | You, by hand | 55 |
 | `autostart.d/` | You, by hand | 55 |
@@ -61,6 +62,7 @@ The settings for all users belong to the administrator and are in `/etc`.
 | `/etc/cups/` | Printers (chapter 54). |
 | `/etc/apt/sources.list.d/` | Where software and updates come from (chapters 51 and 52). |
 | `/etc/apt/apt.conf.d/50amadeos-unattended` | Automatic security updates, written by Software (chapter 52). |
+| `/etc/apt/apt.conf.d/80amadeos-proxy` | apt's proxy, written by Settings: Network when *Also for installing software and updates* is ticked (chapter 38). |
 | `/etc/pam.d/amadeos-dm`, `/etc/pam.d/amadeos-lock` | How the greeter and the screen lock check passwords. |
 | `/etc/polkit-1/rules.d/` | Your own permission rules (chapter 50). |
 

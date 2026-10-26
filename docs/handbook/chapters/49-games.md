@@ -1,6 +1,6 @@
 # 49. Games
 
-amadeOS comes with **fifteen games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
+amadeOS comes with **sixteen games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
 
 ## What all games share
 
@@ -63,10 +63,23 @@ Klondike, the classic patience. Build the four piles at the top right from ace t
 
 In the strategy games, ++f5++ saves and ++f9++ loads, and a mission opens when the one before it is won.
 
+## A story
+
+### The Seal of the Templars
+
+![The Seal of the Templars](images/49/templar.jpg){ width="400" }
+
+A point-and-click adventure in three acts. On the night of 12 October 1307 the squire Aimery has to save the last page of the Temple's accounts before the King's men arrive; today the book restorer Maria Vogt finds that page in the binding of an old psalter, and follows it from Paris to La Rochelle and to the Convent of Christ in Tomar. The history is true, and legends are called legends; an epilogue says which is which.
+
+- **Left click** walks, uses, talks or goes through a door; **right click** looks at something.
+- Point at the top of the screen for the inventory. Click an item to take it in hand, then click where to use it, or on another item to put the two together.
+- ++n++ opens the notebook with the next goal; ++n++ again gives a hint. ++esc++ or ++period++ skips a line.
+- ++f5++ saves, ++f9++ continues; the game also saves itself in every new room. ++f11++, ++f12++ and the *Graphics* and *Sound* menus work as in the other games.
+
 !!! tip "Your own keys"
     Most action games let you change their keys in a small settings file, such as `~/.config/amadeos/snake/snake.properties`. The Game Developer's Handbook in the Help drawer has the details.
 
 The games are in the spirit of the classics of the 1980s and 1990s, drawn anew, and built so that each one can be read and learned from: the **Game Developer's Handbook** in the Help drawer explains them chapter by chapter.
 
 ??? hood "Under the hood"
-    Every game is a package of its own, such as `amade-mines-game` or `amade-hover-cab-game`, and all are installed by default. They are built on *amade-game-engine*, a 2D game engine in Java. The best scores are in `~/.local/share/amadeos/games/<game>/`, the settings in `~/.config/amadeos/<game>/`.
+    Every game is a package of its own, such as `amade-mines-game` or `amade-templar-game`, and all are installed by default. They are built on *amade-game-engine*, a 2D game engine in Java. The best scores are in `~/.local/share/amadeos/games/<game>/`, the settings in `~/.config/amadeos/<game>/`.

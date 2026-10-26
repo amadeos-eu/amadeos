@@ -14,7 +14,7 @@ amadeOS is in active development and has **not had its first release yet**. This
 | Languages | English, Deutsch, Français, Español, Italiano. |
 | Network | Ethernet by itself; wireless networks through a text dialog. |
 | Printing | Network and USB printers without drivers (IPP Everywhere, AirPrint); Print Manager for printers and jobs. |
-| Applications | Text Editor, Mailer, Calendar, File Manager, Image Scan, Fractals, documentation viewer and 15 games work; WritePad, Audio Station and Video Player are at an early stage. |
+| Applications | Text Editor, Mailer, Calendar, File Manager, Image Scan, Fractals, documentation viewer and 16 games work; WritePad, Audio Station and Video Player are at an early stage. |
 | Web | Firefox ESR, preconfigured for privacy. |
 
 ## What is not tested yet

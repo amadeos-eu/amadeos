@@ -50,6 +50,7 @@ On a touchpad, the right button is a click at the bottom right or with two finge
 | Program | Its keys |
 |---|---|
 | File Manager | Chapter 41 |
+| Backup & Sync | Chapter 41 |
 | Text Editor | Chapter 42 |
 | WritePad | Chapter 43 |
 | Calendar | Chapter 45 |

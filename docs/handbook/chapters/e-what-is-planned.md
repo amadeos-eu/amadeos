@@ -35,6 +35,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 
 | Program | What comes next | Chapter |
 |---|---|---|
+| Backup & Sync | Scheduled backups by a helper that starts with the session, and when the disk is connected, with a Front Panel cell; backups to a network share or SFTP; an engine of its own | 41 |
 | File Manager | Folders that refresh by themselves, quick search, tabs and bookmarks, an icon view with a folder tree, drag and drop, *Open With…*, archives as folders, folders on other computers | 41 |
 | WritePad | Opening and saving OpenDocument, Word and RTF; pictures, header and footer, print preview, *Find*, tables, spell checking, PDF | 4, 43 |
 | Mailer | New mail shown at once, folder management, drafts and templates, search, threads, printing, reading without a network | 44 |

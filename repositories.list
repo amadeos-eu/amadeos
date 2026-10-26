@@ -12,6 +12,7 @@ amadeos-system
 
 # Applications
 amade-audio
+amade-backup
 amade-books
 amade-calculator
 amade-calendar

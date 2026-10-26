@@ -1,4 +1,6 @@
-# 41. File Manager
+# 41. File Manager and Backup & Sync
+
+## File Manager
 
 The **File Manager** shows your folders and files in one of two views:
 
@@ -11,14 +13,14 @@ Start it with the File Manager slot of the Front Panel, which opens your home fo
 
 ![The File Manager in its tree view](images/41/file-manager.jpg)
 
-## The tree view
+### The tree view
 
 - **The folder tree** on the left starts with your **Home** folder, the **Trash**, the **File System** (everything, from `/`) and every USB stick or disc that is plugged in; a stick appears a few seconds after you plug it in. Click the small handle in front of a folder to open it. Click a folder to see what is in it.
 - **The list** on the right shows the files of that folder with name, size, date and permissions. Click a column heading to sort by it. Click a file to select it, ++ctrl++-click to add more, ++shift++-click to select a range. Double-click opens a folder or opens a file with its program.
 - **The path bar** at the top shows where you are, one button per folder (see *Typing a path* below).
 - **The status line** at the bottom shows the selected files with their size and the free space on the disk, and on the right what the File Manager has just done.
 
-### The menu on the right mouse button
+#### The menu on the right mouse button
 
 Click a file with the right mouse button for what you can do with it: *Open*, *View*, *Edit in Text Editor*, *Cut*, *Copy*, *Paste*, *Rename…*, *Move to Trash*, *Delete Permanently…* and *Copy Path*. If several files are selected, the commands work on all of them.
 
@@ -28,11 +30,11 @@ The right mouse button on a folder in the tree offers *New Folder…*, *Paste in
 
 The keys work as in the menus. While the folder tree has the keyboard focus (click a folder, or ++tab++ to switch between tree and list), ++f2++, ++delete++ and ++ctrl+x++ work on the folder chosen in the tree.
 
-### Cut, copy and paste
+#### Cut, copy and paste
 
 ++ctrl+x++ (cut) or ++ctrl+c++ (copy) puts the selected files on the clipboard; ++ctrl+v++ in another folder moves or copies them there. Pasting copied files into their own folder makes a copy beside them, called `report (2).odt`. The clipboard also works with other file managers, so you can copy files between amadeOS and, say, Thunar or Nautilus.
 
-### Drag and drop
+#### Drag and drop
 
 Drag files with the mouse onto a folder, in the tree or in the list. A note next to the mouse says what will happen when you let go:
 
@@ -48,7 +50,7 @@ Files can also be dragged between the File Manager and other programs.
 !!! switching "Coming from Windows or macOS"
     This is how Windows Explorer behaves: drag within a drive moves, drag to another drive copies. The Finder of macOS does the same. Only the keys differ: on a Mac, ++option++ copies.
 
-## The two-panel view
+### The two-panel view
 
 ![The two-panel view](images/41/file-manager-two-panels.jpg)
 
@@ -59,7 +61,7 @@ Files can also be dragged between the File Manager and other programs.
 
 *View → Show Second Panel* (++ctrl+f1++) switches to one panel and back. The menu on the right mouse button, cut, copy and paste and drag and drop work here as well, also from one panel to the other. *Open in Two Panels* in the menu of a folder in the tree opens that folder here.
 
-## Typing a path
+### Typing a path
 
 Click the free space of the path bar, or press ++ctrl+l++, and the path becomes text you can type in. Type a folder, such as `~/Pictures` (`~` is your home folder), and press ++enter++; a file's path opens its folder with the file selected. ++tab++ completes the name of a folder, as in a terminal. ++escape++ goes back. The path is selected, so ++ctrl+c++ copies it.
 
@@ -67,7 +69,7 @@ Click the free space of the path bar, or press ++ctrl+l++, and the path becomes 
 
 The right mouse button on the path bar offers *Copy Path*, which copies the path of the folder you clicked, and *Edit Path*.
 
-## Moving around
+### Moving around
 
 | Key | What it does |
 |---|---|
@@ -81,11 +83,11 @@ The right mouse button on the path bar offers *Copy Path*, which copies the path
 | ++ctrl+equal++ | Shows the same folder in the other panel |
 | ++ctrl+r++ | Reads the folder again |
 
-## Selecting files in the two-panel view
+### Selecting files in the two-panel view
 
 Selecting, called **marking**, is separate from the cursor bar. ++insert++ or ++space++ marks the file under the cursor and moves down; marked files are bold and red. With the mouse, ++ctrl++-click and ++shift++-click mark. ++ctrl+a++ marks all, ++ctrl+shift+a++ none, ++ctrl+i++ turns the marks around. Without marks, the commands work on the file under the cursor.
 
-## Copying, moving, renaming
+### Copying, moving, renaming
 
 | Key | What it does |
 |---|---|
@@ -101,7 +103,7 @@ Copying and moving run in the background with a progress window and a *Cancel* b
 
 A copy is written under a hidden name first and gets its real name only when it is complete. A cancelled copy, a full USB stick or a pulled plug never leave a half file behind that looks like the real one.
 
-## The trash
+### The trash
 
 ++f8++ or ++delete++ moves files to the **trash**, and so does dropping them on the Trash in the folder tree. The Trash Can at the right end of the Front Panel, the Trash in the tree, or *Go → Trash*, shows what is in it, with the folder each file came from and when you threw it away.
 
@@ -119,3 +121,75 @@ A copy is written under a hidden name first and gets its real name only when it 
 
 ??? hood "Under the hood"
     The settings, such as the view, hidden files and the folders of both panels when you closed the File Manager, are in `~/.config/amadeos/files/files.conf`. `amade-files /tmp /media` opens the File Manager with these folders in the left and right panel, and `amade-files trash:` opens the trash.
+
+## Backup & Sync
+
+**Backup & Sync** keeps copies of your files on an external disk, so a broken computer, a stolen laptop or a file you deleted by mistake costs you nothing. It does two jobs:
+
+- A **backup** keeps your files as they were on many days: today's, yesterday's, last week's, last year's. Every backup is encrypted and compressed, and after the first one only what changed is saved again.
+- A **sync** makes one folder like another, for example your music on the stick in the car. A sync keeps no old versions: it is a copy, not a backup.
+
+Start it from the Tools drawer of the Front Panel, or with `amade-backup`.
+
+![Backup & Sync](images/41/backup.jpg)
+
+The window lists your jobs on the left. The coloured dot shows how each one is doing: green when the last run worked, yellow when the last backup is overdue, the disk was missing or some files could not be read, red when it failed. On the right are the settings of the chosen job and its **history**: every run with the number of files, what was new, changed or removed, the size added and the result. *Show Log* shows everything a run reported.
+
+### Backing up your home folder
+
+The first time you start Backup & Sync, it offers to back up your home folder. Later, *Backup → Back Up Home Folder…* (++ctrl+n++) does the same. An assistant asks five questions:
+
+1. **Where.** Choose an external disk from the list, or another folder. A backup on the same disk as your home folder does not help when that disk breaks. A disk with a Windows file system (FAT, exFAT, NTFS) works too, but backups are slower and the file permissions are not kept.
+2. **What.** Your home folder is already sorted into areas with their sizes: Documents, Pictures, Music, the data of the Mailer, Calendar and Contacts, program settings and the other folders are chosen. Videos and Downloads are not, because they are large and often copies of something you have elsewhere; tick them if you want them. Caches and the trash are always left out. Under *Leave out* you can add patterns such as `*.iso`.
+3. **When.** Every day, every week, or only when you start it, and also when the disk is connected. Below that is the rule for old backups: *all of the last 2 days, then 7 daily, 8 weekly, 12 monthly, 100 yearly*. Older backups are thinned out by this rule, so you can go back in time without filling the disk.
+4. **Password.** The backup is encrypted with a password of your choice, or *Make One Up* invents one. It is kept in your keyring, so you never type it again on this computer. **Print the recovery sheet** (*Print Recovery Sheet…*): without the password nobody can read the backup, not even you on a new computer.
+5. **Start.** Check the settings, see how large the first backup will be and how long it takes, and click *Finish*. With *Start the first backup now* ticked, it begins at once; the next ones take a few minutes.
+
+![The assistant for the home folder](images/41/backup-assistant.jpg)
+
+*Back Up Now* (++ctrl+b++) starts a backup at any time. If the disk is not connected, the window says so: *Connect BACKUP to back up or restore.* The disk is recognised by its identity, not by its name or the place where it appears, so it may be plugged into any port.
+
+*Backup → New Backup…* makes a backup of other folders, with its own disk, schedule and rule. *Edit → Settings…* (++ctrl+e++) changes everything about a job later, and *Edit → Delete* removes the job from the list; the backups on the disk stay.
+
+!!! warning "Scheduled backups"
+    In this version, a backup runs only when you start it. The schedule is saved with the job, and the dot turns yellow when a daily backup is two days old or a weekly one nine days. A small helper that starts with the session and runs the scheduled backups, and the backups when the disk is connected, comes next (see *Planned* below). Until then, click *Back Up Now* when the dot is yellow.
+
+### Getting files back
+
+*Restore…* (++ctrl+r++) opens the backups of the chosen job.
+
+![Restoring files](images/41/backup-restore.jpg)
+
+- On the left is the **timeline**: today, yesterday, this week, then by month. Click a time to see the files as they were then.
+- In the middle are the **folders** of that backup, on the right their **files**. The column *Now* compares each file with your computer: *same*, *changed* or *deleted*. *Show* lists only the changed or only the deleted files.
+- Click a file to see its **versions** below: every different state of the file, and in which backups it is.
+- **Find** searches all backups for a file name, for the file you cannot remember the folder of.
+
+**Restore** puts the selected files back where they were. If a file of that name is there already, Backup & Sync asks: *Replace* (the current file goes to the trash first), *Keep Both*, or *Skip*. **Restore To…** puts them into another folder instead, and **Restore Everything…** the whole backup. **Open** opens a version in its program without restoring it, to have a look first.
+
+!!! tip "On a new computer"
+    Install amadeOS, connect the backup disk, start Backup & Sync and choose *Backup → Open Existing Backup…* (++ctrl+o++). Choose the folder `amadeos-backup/home-folder` on the disk and type the password from the recovery sheet. The recovery sheet says the same.
+
+*Check Backup* reads the backup and tells you whether it is intact. Do it now and then, especially with an old disk.
+
+### Syncing folders
+
+*Backup → New Sync…* makes a sync job: one or more pairs of folders, and one of two ways:
+
+- **Update:** new and changed files are copied to the target, nothing is removed there.
+- **Mirror:** the target becomes a copy of the source. Files that are no longer in the source are removed from the target, but into the **trash** of that disk, never for good.
+
+*Sync Now* never starts straight away: it first shows a **preview** of everything it would do, with the reason for each file, the sizes and the free space on the target. Nothing happens until you click *Sync Now* in the preview.
+
+![The preview of a sync](images/41/backup-sync.jpg)
+
+USB sticks with FAT or exFAT store file times only to two seconds; Backup & Sync knows that, so it does not copy everything again each time.
+
+!!! sovereignty "Your data"
+    Your backups belong to you, on your own disk, and are encrypted with your password. Nothing goes to a cloud, and nobody else holds the key.
+
+!!! planned "Planned"
+    The helper that runs scheduled backups by itself and when the disk is connected, with a cell in the Front Panel; backups to a network share or an SFTP server; a backup engine of amadeOS's own.
+
+??? hood "Under the hood"
+    The backups are standard [restic](https://restic.net) repositories, one per job, in the folder `amadeos-backup/` on the disk, next to a `README-amadeOS-backup.txt` that explains them. So they can be read with restic on any computer, without amadeOS, for example `restic -r /media/$USER/BACKUP/amadeos-backup/home-folder mount /mnt` (restic runs on Linux, macOS and Windows). The jobs are in `~/.config/amadeos/backup/jobs.json`, the history and logs in `~/.local/state/amadeos/backup/`, the passwords in the keyring. The package is `amade-backup`; Backup & Sync is for Linux only.

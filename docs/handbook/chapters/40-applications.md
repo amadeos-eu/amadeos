@@ -5,6 +5,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | Program | What it is for | Front Panel | Chapter |
 |---|---|---|---|
 | **File Manager** | Folders and files, in two panels | File Manager | 41 |
+| **Backup & Sync** | Encrypted backups to an external disk, restoring files, syncing folders | Tools | 41 |
 | **Text Editor** | Plain text: notes, lists, configuration files | Text & Office | 42 |
 | **WritePad** | Letters and documents on real pages, ODT and Word | Text & Office | 43 |
 | **LibreOffice Writer** | The full office word processor | Text & Office | 43 |

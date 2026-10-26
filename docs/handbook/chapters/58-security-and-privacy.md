@@ -57,13 +57,7 @@ Your home folder is readable only by you and the administrators. On the disk, ho
 !!! planned "Planned"
     Disk encryption in the installer (ROADMAP milestone M14), so that a lost or stolen laptop gives nothing away.
 
-Until then, keep sensitive files on an encrypted USB stick, and **make backups**: copy your home folder to an external disk regularly, with the File Manager (chapter 41) or in a terminal:
-
-```sh
-rsync -a --delete ~/ /media/$USER/BACKUP/home/
-```
-
-(Replace `BACKUP` with the name of your disk; `--delete` also removes files on the backup that you deleted at home.)
+Until then, keep sensitive files on an encrypted USB stick, and **make backups** of your home folder to an external disk with **Backup & Sync** (chapter 41). Its backups are encrypted with your password, so a lost backup disk gives nothing away either.
 
 !!! sovereignty "Your data"
     Everything in this chapter comes down to one rule of amadeOS: your data stays on your computer unless you send it somewhere. Chapter 1 explains why.

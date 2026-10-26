@@ -51,6 +51,7 @@ The middle of the panel holds the controls of the session:
 | Terminal (xterm) | A terminal window for commands. |
 | Root Console (sudo) | A terminal with administrator rights; asks for your password (chapter 50). |
 | Clipboard History | Your last copies, to paste them again (chapter 36). |
+| Backup & Sync | Backups of your home folder to an external disk, and folder syncs (chapter 41). |
 | Session Diagnostics & Logs | The logs of the desktop and the programs (chapter 57). |
 | Hardware & System Info | Processor, memory, disks, graphics, network and battery on one page (chapter 57). |
 

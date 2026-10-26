@@ -114,6 +114,10 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
 
+### 2026-10-26
+
+- Artillery, the 17th game ([`amade-artillery-game`](https://github.com/datazuul/amade-artillery-game) #1, game engine #38): tanks take turns on breakable ground, with wind and computer players at three levels.
+
 ### 2026-10-24
 
 - **Versions and releases:** Semantic Versioning with Conventional Commits, release branches develop/release/main and the Promote workflow (new repository amadeos-ci); amade-calculator is the pilot.

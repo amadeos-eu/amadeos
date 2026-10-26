@@ -1,13 +1,13 @@
 # 49. Games
 
-amadeOS comes with **sixteen games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
+amadeOS comes with **seventeen games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
 
 ## What all games share
 
 - **Best scores and times**, ten for each game (*Game → High Scores…* in Mines and Solitaire).
 - Every game speaks the five languages of amadeOS.
 
-The thirteen action and strategy games also share:
+The fourteen action and strategy games also share:
 
 | Key | What it does |
 |---|---|
@@ -51,6 +51,7 @@ Klondike, the classic patience. Build the four piles at the top right from ace t
 | ![](images/49/blast.jpg){ width="200" } | **Blast** | Up to four players lay bombs among crates, on the keyboard and on gamepads; the computer fills the empty seats. The last one standing wins. |
 | ![](images/49/jump.jpg){ width="200" } | **Jump** | Run and jump through a meadow, caves and the clouds, take the coins, land on beetles and birds, reach the red flag. Gamepads work too. |
 | ![](images/49/hovercab.jpg){ width="200" } | **Hover Cab** | Fly a cab on jets between rooftops: ++arrow-up++ lifts, the side arrows steer, ++space++ moves the gear. Land gently on the passenger's pad, fly them where they ask, and earn the fare and a tip. The passengers call out loud. Twelve shifts, from the city to an orbit station and a storm at sea. |
+| ![](images/49/artillery.jpg){ width="200" } | **Artillery** | Two to four tanks take turns on hills of breakable ground, people or the computer at three levels. ++arrow-left++ and ++arrow-right++ turn the barrel, ++arrow-up++ and ++arrow-down++ set the power, ++tab++ picks the weapon, ++space++ fires; or hold the mouse button, point and let go. Mind the wind. The last tank standing wins the round. |
 
 ## Strategy and building
 

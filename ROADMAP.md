@@ -154,7 +154,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 - **Installation to disk (M14):** [`amadeos-installer`](https://github.com/datazuul/amadeos-installer) with a five-language assistant and the `amadeos-install` script; a whole-disk BIOS installation in QEMU boots into the desktop and the new user logs in (#36).
 - Java package root `eu.amadeos`, system packages renamed `amadeos-*`, AGENTS.md, plan for M15 and M16 (#37 to #39).
-- Game Developer's Handbook and games on [`amade-game-engine`](https://github.com/datazuul/amade-game-engine), from Paddle to Town, with Part IV "The Engine Manual".
+- Game Developer's Handbook and games on [`amade-game-engine`](https://github.com/datazuul/amade-game-engine), from Paddle to Town and the adventure The Seal of the Templars, with Part IV "The Engine Manual".
 
 ### 2026-10-16 to 2026-10-17
 

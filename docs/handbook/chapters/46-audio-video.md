@@ -56,7 +56,7 @@ Start it from the Sound & Video drawer, by double-clicking a video file, or with
 
 ## TV
 
-**TV** shows the live programs of the German-language public broadcasters: Das Erste, ZDF, ARTE, 3sat, phoenix, tagesschau24, ZDFneo, ZDFinfo, KiKA, ARD-alpha and ONE, and on request the regional channels of the ARD and the channels of the Bundestag. Next to it is a program guide for all of them.
+**TV** shows the live programs of the German-language public broadcasters: Das Erste, ZDF, ARTE, 3sat, phoenix, tagesschau24, ZDFneo, ZDFinfo, KiKA, ARD-alpha and ONE. Next to it is a program guide for them. More channels come in groups that you switch on in the **Channels** menu.
 
 Start it from the Sound & Video drawer. It needs a connection to the internet.
 
@@ -76,6 +76,19 @@ The page **Live** lists the channels with their logos and what runs on each righ
 | **Full Screen** | The picture alone on the screen; ++escape++ or ++f11++ brings the window back |
 
 TV starts with the channel you watched last.
+
+### More channels
+
+The **Channels** menu has four groups. Each one adds its channels to the list when you tick it, and TV remembers the choice:
+
+| Menu item | Channels |
+|---|---|
+| **Show Regional Channels** | The regional channels of the ARD (BR, HR, MDR, NDR, RBB, Radio Bremen, SR, SWR, WDR) and the channels of the Bundestag |
+| **Show Austria and Switzerland** | ORF, ServusTV and other channels from Austria and Switzerland |
+| **Show International Channels** | News and public channels from other countries, for example in English and French |
+| **Show More German Channels** | Further free German channels: news, music, documentaries, church channels |
+
+Only the main and the regional channels have a program guide. The others are live streams only: the list shows *Live stream, no program guide*, and they are not on the Guide page. A few international channels stream through YouTube. They are only in the list when the program `yt-dlp` is installed; amadeOS comes with it.
 
 ### Guide
 
@@ -98,10 +111,10 @@ The arrows go to the previous and the next day; **Now** and **Prime Time 20:15**
 | ++f5++ | Load the channels and the guide again |
 
 !!! warning "Only in some countries"
-    Some programs, often films and sport, may only be shown in Germany, sometimes also in Austria and Switzerland. Outside these countries the broadcaster shows a notice instead, or the stream does not play, and TV says so. TV does not try to get round this. Private channels are not included, because their streams are encrypted or cost money.
+    Some programs, often films and sport, may only be shown in Germany, sometimes also in Austria and Switzerland. Outside these countries the broadcaster shows a notice instead, or the stream does not play, and TV says so. TV does not try to get round this. Private channels whose streams are encrypted or cost money are not included.
 
 !!! planned "Planned"
     Next, TV gets the media libraries of the broadcasters: programs to watch later, a search across all of them, downloads to keep a program, and a watch-later list.
 
 ??? hood "Under the hood"
-    The Audio Station plays music in Java itself and reads CDs with libcdio; its settings are in `~/.config/amadeos/audio/`, the CD titles and covers in `~/.cache/amadeos/audio/discs/`. The Video Player leaves the playing to *libmpv*, the engine of the mpv player, with FFmpeg and libdvdnav. TV plays with libmpv too. It takes the stream addresses and what runs now from the Zapp service of the MediathekView project, and the guide from the ARD and the ZDF; the guide and the channel logos are kept in `~/.cache/amadeos/tv/`, the settings and reminders in `~/.config/amadeos/tv/`.
+    The Audio Station plays music in Java itself and reads CDs with libcdio; its settings are in `~/.config/amadeos/audio/`, the CD titles and covers in `~/.cache/amadeos/audio/discs/`. The Video Player leaves the playing to *libmpv*, the engine of the mpv player, with FFmpeg and libdvdnav. TV plays with libmpv too. It takes the stream addresses and what runs now from the Zapp service of the MediathekView project, the addresses of the other channels from the IPTV list of the Kodinerds community, and the guide from the ARD and the ZDF; the guide and the channel logos are kept in `~/.cache/amadeos/tv/`, the settings and reminders in `~/.config/amadeos/tv/`.

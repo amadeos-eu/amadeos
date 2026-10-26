@@ -90,6 +90,9 @@ hyphen-es
 # jpegtran for amade-imageviewer, which saves turned JPEGs without loss; recommended by the package
 # but the image installs no recommends
 libjpeg-turbo-progs
+# yt-dlp for amade-video and amade-tv: mpv plays internet videos and the YouTube streams of a few
+# TV channels through it; recommended by both packages, but the image installs no recommends
+yt-dlp
 # Printing: CUPS with driverless printing (IPP Everywhere, AirPrint). avahi finds network printers,
 # cups-browsed sets them up as queues, ipp-usb serves USB printers over IPP. amadeos-print manages them;
 # the live user is in lpadmin (/etc/live/config.conf), so no password is needed for that.

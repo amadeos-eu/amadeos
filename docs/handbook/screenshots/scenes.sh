@@ -144,7 +144,7 @@ scene_style() {
     # The Settings opened at each control: amadeos-settings <control> selects its page in the sidebar
     local control name chapter
     for control in color:30 color:31 font:35 backdrop:32 keyboard:33 mouse:33 beep:33 screen:34 window:35 startup:35 clipboard:36 \
-            workspaces:37 panel:37 passwords:38 updates:38 language:38; do
+            workspaces:37 panel:37 network:38 passwords:38 updates:38 language:38; do
         IFS=: read -r name chapter <<<"$control"
         # The Screen page with the settings of a new user; the demo home keeps the saver off
         [ "$name" != screen ] || { cp "$HOME/.config/amadeos/screen.conf" "$work/screen.conf"

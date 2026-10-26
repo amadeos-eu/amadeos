@@ -25,7 +25,7 @@ Press **●** while a station plays, and again to stop. The recording goes to `~
 
 ### Settings
 
-The menu button (**☰**) opens *Settings…*: the size of the racks (by default it fits your screen), the colour of the displays, the language, and a proxy if your network needs one.
+The menu button (**☰**) opens *Settings…*: the size of the racks (by default it fits your screen), the colour of the displays and the language. Its *Network* page shows the proxy in use; the proxy itself is set for all programs in Settings: Network (chapter 38).
 
 ## Video Player
 

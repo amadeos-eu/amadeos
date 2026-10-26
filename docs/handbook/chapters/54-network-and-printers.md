@@ -39,6 +39,10 @@ The VPN then appears in *Activate a connection*.
 !!! planned "Planned"
     A network settings window in the style of the desktop, with fixed addresses, hidden networks and VPNs, so that the terminal is no longer needed.
 
+### A proxy
+
+If the internet is only reachable through a proxy, set it in Settings: Network (chapter 38). It holds for all programs, and with *Also for installing software and updates* for apt too. An administrator who wants a proxy for every user of the computer can also put `http_proxy=…` and `https_proxy=…` into `/etc/environment`; Settings: Network then shows them under *Use the proxy variables of the session*.
+
 ## Printers
 
 ### The Print Manager

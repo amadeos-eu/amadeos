@@ -71,6 +71,7 @@ The slit above **EXIT** shows what the computer is busy with. It is dark when no
 |---|---|
 | All dashes **blink yellow** | A program is starting. The light goes out when its window appears. |
 | An **amber** run of dashes moves from left to right | Software is being installed or removed, by Software, the updates cell or a terminal (chapter 52). |
+| A **violet** run of dashes moves from right to left | A backup runs: Backup & Sync is saving, thinning out, checking or restoring a backup (chapter 41). |
 | The left half lights **green** | The disks are reading or writing. The more dashes, the more data. |
 | The right half lights **cyan** | Data goes through the network. |
 

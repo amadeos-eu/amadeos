@@ -35,7 +35,7 @@ A click on a window's title bar always brings it to the front, whatever *Raise w
 
 **Programs Started at Login** lists the programs that start each time you log in, after the desktop is ready. **Add…** offers the installed programs; choose one, for example the Mailer, and click **Apply**. **Remove** takes the selected program off the list. A program that has been uninstalled since is skipped at login.
 
-**Desktop Services** are the parts of the desktop that the session starts at login (chapter 55). Clear a check box to leave a service out, for example *Clipboard history* if you do not want one. The grey services are needed by the desktop and always run. Changes take effect at the next login.
+**Desktop Services** are the parts of the desktop that the session starts at login (chapter 55). Clear a check box to leave a service out, for example *Clipboard history* if you do not want one. The grey services are needed by the desktop and always run. Programs can bring their own: Backup & Sync adds *Scheduled backups (Backup & Sync)* (chapter 41). Changes take effect at the next login.
 
 !!! planned "Planned: resuming the last session"
     Opening the windows of your last session again at login, as CDE could. Until then the desktop starts empty, with the programs of the list above.

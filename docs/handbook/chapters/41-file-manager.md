@@ -151,8 +151,22 @@ The first time you start Backup & Sync, it offers to back up your home folder. L
 
 *Backup → New Backup…* makes a backup of other folders, with its own disk, schedule and rule. *Edit → Settings…* (++ctrl+e++) changes everything about a job later, and *Edit → Delete* removes the job from the list; the backups on the disk stay.
 
-!!! warning "Scheduled backups"
-    In this version, a backup runs only when you start it. The schedule is saved with the job, and the dot turns yellow when a daily backup is two days old or a weekly one nine days. A small helper that starts with the session and runs the scheduled backups, and the backups when the disk is connected, comes next (see *Planned* below). Until then, click *Back Up Now* when the dot is yellow.
+### Backups that run by themselves
+
+A backup with a schedule runs by itself: every day or once a week at its time, and also whenever its disk is connected if you ticked that. A small helper takes care of it; it starts with the session and shows no window. If the computer was off or the disk was not connected at the time, the backup runs as soon as the disk is there again, so plugging the disk in once in a while is enough. On a laptop that runs on a nearly empty battery, it waits for the charger.
+
+While a backup runs, a **violet** run of dashes moves from right to left in the busy light above EXIT (chapter 22). When it is done, nothing pops up; the list in Backup & Sync shows how it went. Once a week, after a backup, the helper also reads the backup back to check it.
+
+A small window comes only when you need to do something. When a backup is overdue (two days for a daily one, nine for a weekly one) and its disk is not connected, it reminds you, at most once a day:
+
+![The reminder](images/41/backup-reminder.jpg)
+
+*Open Backup & Sync* opens the program, *Later* closes the reminder. A backup that fails, for example because the disk is full, gets the same kind of window with the reason.
+
+A sync with a schedule runs by itself too, for example *Music for the car* whenever the stick is plugged in. If it only copies, it simply runs. If it would remove or replace files on the target, its preview comes first, and nothing happens until you click *Sync Now*.
+
+!!! tip "Switching it off"
+    The helper is listed as *Scheduled backups (Backup & Sync)* in Settings > Startup (chapter 35). Without it, backups run only when you click *Back Up Now*; the job then says so under *When*.
 
 ### Getting files back
 
@@ -189,7 +203,7 @@ USB sticks with FAT or exFAT store file times only to two seconds; Backup & Sync
     Your backups belong to you, on your own disk, and are encrypted with your password. Nothing goes to a cloud, and nobody else holds the key.
 
 !!! planned "Planned"
-    The helper that runs scheduled backups by itself and when the disk is connected, with a cell in the Front Panel; backups to a network share or an SFTP server; a backup engine of amadeOS's own.
+    A cell in the Front Panel with the state of the backups; backups to a network share or an SFTP server; a backup engine of amadeOS's own.
 
 ??? hood "Under the hood"
-    The backups are standard [restic](https://restic.net) repositories, one per job, in the folder `amadeos-backup/` on the disk, next to a `README-amadeOS-backup.txt` that explains them. So they can be read with restic on any computer, without amadeOS, for example `restic -r /media/$USER/BACKUP/amadeos-backup/home-folder mount /mnt` (restic runs on Linux, macOS and Windows). The jobs are in `~/.config/amadeos/backup/jobs.json`, the history and logs in `~/.local/state/amadeos/backup/`, the passwords in the keyring. The package is `amade-backup`; Backup & Sync is for Linux only.
+    The backups are standard [restic](https://restic.net) repositories, one per job, in the folder `amadeos-backup/` on the disk, next to a `README-amadeOS-backup.txt` that explains them. So they can be read with restic on any computer, without amadeOS, for example `restic -r /media/$USER/BACKUP/amadeos-backup/home-folder mount /mnt` (restic runs on Linux, macOS and Windows). The jobs are in `~/.config/amadeos/backup/jobs.json`, the history and logs in `~/.local/state/amadeos/backup/`, the passwords in the keyring. The helper is `amade-backup --agent`, started at low priority by `/etc/amadeos/autostart.d/60-amade-backup`; it ends by itself when no job has a schedule, and Backup & Sync starts it again when you give one a schedule. It looks at the jobs and the connected disks every 30 seconds and writes its log to `~/.cache/amadeos/logs/backup-agent.log`. The busy light recognises restic by its process. The package is `amade-backup`; Backup & Sync is for Linux only.

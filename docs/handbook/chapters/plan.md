@@ -48,7 +48,7 @@ Every chapter of the book, part by part. The book keeps growing with amadeOS: ne
 41. [File Manager and Backup & Sync](41-file-manager.md)
 42. [Text Editor](42-text-editor.md)
 43. [WritePad](43-writepad.md)
-44. [Mailer](44-mailer.md)
+44. [Mailer and News](44-mailer.md)
 45. [Calendar and Contacts](45-calendar.md)
 46. [Audio Station, Video Player and TV](46-audio-video.md)
 47. [Image Viewer, Image Scan and Fractals](47-image-scan-fractals.md)

@@ -14,6 +14,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | **LibreOffice Draw** | Drawings, diagrams and editing PDF files | Text & Office, Graphics | 43 |
 | **LibreOffice Math** | Mathematical formulas | Text & Office | 43 |
 | **Mailer** | E-mail from one or more accounts | Mail & Internet | 44 |
+| **News** | Websites, blogs and podcasts by their feeds, and Europe's public broadcasters by country | Mail & Internet | 44 |
 | **Calendar** | Appointments, reminders and To Do items | Calendar | 45 |
 | **Contacts** | Addresses, phone numbers and birthdays | Text & Office, Mail & Internet | 45 |
 | **Audio Station** | Audio CDs, music files and internet radio | Sound & Video | 46 |

@@ -6,7 +6,7 @@ The *System* group of Settings has the settings that reach below the desktop: th
 
 ![The Network page](images/38/settings-network.jpg)
 
-In an office, a school or a library the way to the internet often leads through a **proxy**. The Network page sets it once for all of amadeOS: the amade applications (Audio Station, TV, the Mailer, the Image Viewer's maps, Software), the programs they start (the video player, `yt-dlp`, the backup), and everything you start from the Front Panel, Firefox and the terminals included.
+In an office, a school or a library the way to the internet often leads through a **proxy**. The Network page sets it once for all of amadeOS: the amade applications (Audio Station, TV, the Mailer, News, the Image Viewer's maps, Software), the programs they start (the video player, `yt-dlp`, the backup), and everything you start from the Front Panel, Firefox and the terminals included.
 
 | Choice | What it means |
 |---|---|

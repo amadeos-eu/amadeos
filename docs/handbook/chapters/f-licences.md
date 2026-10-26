@@ -33,6 +33,7 @@ The Java programs of amadeOS carry a few libraries from other free-software proj
 | Flying Saucer | Mailer, Documentation Viewer, Software | LGPL-2.1 or later |
 | jsoup | Mailer, Documentation Viewer | MIT |
 | Jakarta Mail, Eclipse Angus Mail | Mailer | EPL-2.0, GPL-2.0 with the Classpath Exception, or EDL-1.0 |
+| flag-icons, the flags of Europe's News | News | MIT |
 | SnakeYAML | Software | Apache-2.0 |
 | JLayer, MP3SPI, JOrbis, VorbisSPI, Tritonus | Audio Station | LGPL-2.1 |
 | jFLAC | Audio Station | LGPL-2.1 |

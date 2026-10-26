@@ -40,6 +40,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 | File Manager | Folders that refresh by themselves, quick search, tabs and bookmarks, an icon view with a folder tree, drag and drop, *Open With…*, archives as folders, folders on other computers | 41 |
 | WritePad | Opening and saving OpenDocument, Word and RTF; pictures, header and footer, print preview, *Find*, tables, spell checking, PDF | 4, 43 |
 | Mailer | New mail shown at once, folder management, drafts and templates, search, threads, printing, reading without a network | 44 |
+| News | The whole article shown inside News, podcasts handed to the Audio Station, Europe's News updated between releases | 44 |
 | Calendar | One place for all accounts, other calendars next to your own, keeping in step with a CalDAV server | 45 |
 | Contacts | Attendees from your contacts in the Calendar, keeping in step with a CardDAV server, merging two contacts by hand | 45 |
 | TV | The on-demand programs of the broadcasters (their media libraries) with search, downloads and a watch-later list | 46 |

@@ -16,6 +16,7 @@ The desktop, the system tools, the installer, the amade applications and games, 
 | Xorg | MIT and related licences |
 | Firefox ESR | MPL-2.0 |
 | LibreOffice | MPL-2.0 |
+| restic, the engine of Backup & Sync | BSD-2-Clause |
 | NsCDE icon theme (`nscde-icon-theme`) | GPL-3.0 |
 | The original CDE backdrops (`amadeos-backdrops-cde`) | LGPL-2.0 or later |
 

@@ -45,7 +45,7 @@ Every chapter of the book, part by part. The book keeps growing with amadeOS: ne
 ## Part V: The Applications
 
 40. [Applications at a Glance](40-applications.md)
-41. [File Manager](41-file-manager.md)
+41. [File Manager and Backup & Sync](41-file-manager.md)
 42. [Text Editor](42-text-editor.md)
 43. [WritePad](43-writepad.md)
 44. [Mailer](44-mailer.md)

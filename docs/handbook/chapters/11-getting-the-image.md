@@ -2,12 +2,13 @@
 
 amadeOS comes as one file, the *image*, named after the version: `amadeos-1.0.0-amd64.iso` for amadeOS 1.0.0. It contains the live system and the installer, and it is written onto a USB stick as it is (chapter 12).
 
-!!! planned "Planned"
-    amadeOS has not had its first release yet, so there is no download page. With the first release (milestone M12 of the [ROADMAP](https://github.com/datazuul/amadeos/blob/main/ROADMAP.md)) the image will be offered for download together with its checksum and a release manifest that lists every package in it. Until then, the image is built from the source code, as described below.
+## Downloading the image
+
+Every amadeOS release offers its image for download on the [download page](https://www.amadeos.eu/download.html) and on the [releases page](https://github.com/datazuul/amadeos/releases/latest) of the amadeos repository, for example `amadeos-1.0.0-amd64.iso` for version 1.0.0, together with its checksum file and the release notes. The image is about 1.5 GB.
 
 ## Building the image yourself
 
-On a computer with Debian or Ubuntu Linux, the script `buildDistribution.sh` of the [amadeos](https://github.com/datazuul/amadeos) repository builds every package of amadeOS from the current source code and then the image:
+Instead of downloading it, you can build the image yourself. On a computer with Debian or Ubuntu Linux, the script `buildDistribution.sh` of the [amadeos](https://github.com/datazuul/amadeos) repository builds every package of amadeOS from the current source code and then the image:
 
 ```bash
 git clone https://github.com/datazuul/amadeos.git

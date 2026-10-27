@@ -1,6 +1,6 @@
 # 6. Status and Limits
 
-amadeOS is in active development and has **not had its first release yet**. This chapter says honestly what works, what has been tested and what has not, so you can decide whether amadeOS fits your needs today.
+amadeOS 1.0.0 is the **first release**, and development goes on. This chapter says honestly what works, what has been tested and what has not, so you can decide whether amadeOS fits your needs today.
 
 ## What works
 
@@ -28,7 +28,7 @@ amadeOS is in active development and has **not had its first release yet**. This
     - **An amadeOS package repository**, so that amadeOS and its applications are updated like Debian, not only through a new image (M16).
     - **Disk encryption** and a separate home partition in the installer (M14).
     - **The Startup control of Settings.**
-    - **A first release** with a documented release process, signed images and release notes (M12).
+    - **Signed images** and a release manifest that lists every package, with a documented release process (M12).
 
 ## Limits by design
 
@@ -43,6 +43,6 @@ Some things amadeOS leaves out on purpose:
 
 amadeOS is ready to **try**: start the live system, look around, use the applications, report what you find. It is a good system for a spare computer, for learning, and for anyone who wants to help shape it.
 
-It is **not yet** the system for a computer whose data you cannot afford to lose, or for work that must not be interrupted. Keep a backup, and wait for the first release before you rely on it.
+It is **not yet** the system for a computer whose data you cannot afford to lose, or for work that must not be interrupted. Keep a backup, and wait until amadeOS has been tested on more hardware before you rely on it.
 
 The current state is always in the [ROADMAP](https://github.com/datazuul/amadeos/blob/main/ROADMAP.md), and bugs and ideas go to the [issue tracker](https://github.com/datazuul/amadeos/issues).

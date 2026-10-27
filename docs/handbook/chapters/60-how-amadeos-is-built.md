@@ -77,7 +77,7 @@ and makes of them a compressed file system (*squashfs*) with a boot loader for B
     Every step from the source code to the ISO is public and can be repeated by anyone with a Debian computer (chapter 62). You do not have to trust a download: you can build the same system yourself.
 
 !!! planned "Planned"
-    An amadeOS package repository (ROADMAP milestone M16), so that the amadeOS packages are updated like Debian's instead of only with a new image, and signed images with release notes for the first release (M12).
+    An amadeOS package repository (ROADMAP milestone M16), so that the amadeOS packages are updated like Debian's instead of only with a new image, and signed images with a release manifest (M12).
 
 ??? hood "Under the hood"
     The licence of amadeOS is the EUPL-1.2 (chapter 4). The image is an aggregation of packages, and each keeps its own licence: `/usr/share/doc/<package>/copyright` names it. The NsCDE icon theme (GPL-3.0) and the CDE backdrops (LGPL) are packages of their own for that reason. The design decisions behind amadeOS, and the alternatives that were rejected, are in `CONCEPT.md` of the `amadeos` repository; the plan is in `ROADMAP.md`.

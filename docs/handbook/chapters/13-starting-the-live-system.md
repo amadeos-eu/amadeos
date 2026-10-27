@@ -20,7 +20,7 @@ In that case, open the firmware settings (often ++f2++, ++del++ or ++f10++ right
     If Windows on this computer uses BitLocker disk encryption, changing Secure Boot can make Windows ask for its 48-digit recovery key at the next start. Read the BitLocker section of chapter 15 *before* you change the setting.
 
 !!! planned "Planned"
-    A live stick that starts with Secure Boot on, through Debian's signed boot loader, is planned for the first release (milestone M12).
+    A live stick that starts with Secure Boot on, through Debian's signed boot loader, is planned for a later release (milestone M12).
 
 ## The boot menu of amadeOS
 

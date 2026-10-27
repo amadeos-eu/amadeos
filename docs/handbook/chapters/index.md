@@ -58,7 +58,7 @@ The book uses five kinds of boxes again and again:
 
 ## Which amadeOS this book describes
 
-amadeOS has not had its first release yet. The book follows the `main` branch of the amadeOS repositories and is updated together with them. Chapter 6, [Status and limits](06-status-and-limits.md), says what works today and what does not.
+amadeOS 1.0.0 is the first release. The book follows the `main` branch of the amadeOS repositories and is updated together with them. Chapter 6, [Status and limits](06-status-and-limits.md), says what works today and what does not.
 
 The book is published at <https://datazuul.github.io/amadeos/>. On amadeOS itself it is installed as the package `amadeos-handbook`, and *Help → amadeOS User's Handbook* in the Front Panel opens it without a network.
 

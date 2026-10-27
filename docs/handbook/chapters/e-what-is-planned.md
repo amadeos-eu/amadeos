@@ -6,7 +6,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 
 | What | Milestone | Chapter |
 |---|---|---|
-| The first release, with a download page, signed images and release notes | M12 | 6, 11 |
+| Signed images and a release manifest that lists every package | M12 | 6, 11 |
 | A live stick that starts with Secure Boot on | M12 | 13 |
 | A keyring service of amadeOS's own, in Java | M12 | 58 |
 | Disk encryption, a separate home partition, shrinking a partition in the installer | M14 | 14, 58 |

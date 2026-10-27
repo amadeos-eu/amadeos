@@ -37,7 +37,7 @@ Every chapter of the book, part by part. The book keeps growing with amadeOS: ne
 30. [Settings](30-settings.md)
 31. [Color](31-color.md)
 32. [Backdrop](32-backdrop.md)
-33. [Keyboard, Mouse and Beep](33-keyboard-mouse-beep.md)
+33. [Keyboard, Mouse, Sound and Beep](33-keyboard-mouse-beep.md)
 34. [Screen](34-screen.md)
 35. [Font, Window and Startup](35-font-window-startup.md)
 36. [Clipboard](36-clipboard.md)

@@ -2,7 +2,7 @@
 
 What is open and planned comes first, then a timeline of what has been achieved, newest first. A feature counts as verified only with evidence from the QEMU live image or real hardware; merged work without that evidence is listed under *Waiting for a test*. The detailed notes of each milestone up to 2026-10-24 are in the git history (ROADMAP.md at commit `b58c372`).
 
-Status date: 2026-10-24
+Status date: 2026-10-27
 
 ## Project direction
 
@@ -52,7 +52,8 @@ flowchart TD
 Merged and installed by `buildDistribution.sh`, but so far only checked under Xvfb or in containers:
 
 - Settings with all its pages (Display, Font, Window, Workspaces, Front Panel, Passwords, Updates, Language, Startup), per-workspace names and backdrops, the seasonal themes.
-- Front Panel status slot: network, sound (`pactl`, not yet against PipeWire), battery (not yet on a laptop), updates; the busy light above EXIT.
+- Front Panel status slot: network, sound (`pactl`, not yet against PipeWire), battery (not yet on a laptop), Bluetooth (not yet against BlueZ and a real adapter), updates, the second slot; the busy light above EXIT.
+- Settings pages Network connections, Sound, Bluetooth and Printers: so far only with fake services under Xvfb; pairing, the sound card profiles and adding a printer need real devices.
 - Alt+Tab switcher, clipboard manager, bell through the sound card (Xvfb ignores `xset b`), gnome-keyring unlocked at login.
 - Software (M15): the end-to-end test in QEMU — first start loads the package lists, the polkit password window appears, a package gets installed, an update goes through the panel cell.
 - Installer (M14): the UEFI path (`run-qemu.sh --uefi`) and installing next to Windows, then the Zephyrus laptop (UEFI, NVMe, Secure Boot with the signed shim).
@@ -74,12 +75,12 @@ Merged and installed by `buildDistribution.sh`, but so far only checked under Xv
 ### M13 — Application suite
 
 - Terminal: an own terminal emulator, or a decision to keep xterm.
-- Network settings: an own dialog instead of `nmtui` in xterm.
+- Network settings: fixed addresses, VPN and a hotspot on the Settings Network page; connections, hidden WLANs and the proxy are there already, the rest is still `nmtui`.
 - amade-mail: test Gmail OAuth2 and decide whether to ship a datazuul OAuth client; IMAP IDLE with new-mail state in the in-tray; autoconfig (Thunderbird ISPDB, DNS SRV).
 - amade-contacts: meeting attendees in the Calendar, CardDAV.
 - amade-imageviewer: map tiles not yet tried against the live tile server.
 
-**Exit criteria:** each Front Panel slot opens an amadeOS application instead of an `xterm` command, and all applications follow the Settings theme. Only the terminal and the network settings are left.
+**Exit criteria:** each Front Panel slot opens an amadeOS application instead of an `xterm` command, and all applications follow the Settings theme. Only the terminal and parts of the network settings are left.
 
 ### M14 — Installation to disk
 
@@ -113,6 +114,10 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 ## Timeline
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
+
+### 2026-10-27
+
+- Settings: the Network page gets a *Connections* tab (wired, WLAN, hidden networks, details) next to the proxy, and new pages Sound (output, input, test tone, level meter, card profiles), Bluetooth (pairing with an own BlueZ agent) and Printers (driverless printers, default, paper size, two-sided) in a new group *Network and Devices*; a Bluetooth cell in the Front Panel, whose status slot opens a second slot for more than four cells; `bluez` and `libspa-0.2-bluetooth` in the image.
 
 ### 2026-10-26
 

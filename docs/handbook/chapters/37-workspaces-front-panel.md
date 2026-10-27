@@ -26,6 +26,7 @@ This is the same name you get with a click on the current workspace button in th
 | **Network** | The network cell in the status slot at the right end of the Front Panel (chapter 27). | on |
 | **Sound** | The sound cell next to the network cell: volume, output and input (chapter 27). | on |
 | **Battery** | The battery cell, which appears only on computers with a battery (chapter 22). | on |
+| **Bluetooth** | The Bluetooth cell, which appears only on computers with Bluetooth (chapter 22). | on |
 | **Software updates** | The updates cell, which appears only while updates are waiting (chapter 52). | on |
 | **Show disk and network activity** | The busy light above EXIT also shows the disks in green and the network in cyan (chapter 22). When it is off, the light only blinks while a program starts, runs amber while software is installed and violet while a backup runs. | on |
 
@@ -37,4 +38,4 @@ The drawers of the Front Panel need no setting: they fill themselves with the pr
     The Front Panel sits at the bottom of the screen, as in CDE. Putting it at the top or a side is planned.
 
 ??? hood "Under the hood"
-    The names are in `~/.config/amadeos/workspaces.conf` (`workspace.2.name=Letters`), the Front Panel settings in `~/.config/amadeos/panel.conf` (`clock=analog` or `digital`, `cell.network`, `cell.updates`, `activity.meter`). The Front Panel watches both files; it publishes the workspace names to the window manager in the root window's `_NET_DESKTOP_NAMES` property.
+    The names are in `~/.config/amadeos/workspaces.conf` (`workspace.2.name=Letters`), the Front Panel settings in `~/.config/amadeos/panel.conf` (`clock=analog` or `digital`, `cell.network`, `cell.sound`, `cell.battery`, `cell.bluetooth`, `cell.updates`, `activity.meter`). The Front Panel watches both files; it publishes the workspace names to the window manager in the root window's `_NET_DESKTOP_NAMES` property.

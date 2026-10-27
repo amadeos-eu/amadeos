@@ -1,12 +1,12 @@
 # 30. Settings
 
-**Settings** is where you make the desktop your own: its colours, the size of its text, the picture behind the windows, the names of the workspaces and the Front Panel, how the keyboard, the mouse and the windows behave, the sound of the beep, the resolution of the monitors, the screen saver, the clipboard and what starts at login, and, for the system, the keyring, the updates, the language and the time zone. It grew out of CDE's Style Manager, and it can still look like it (see *The compact view* below).
+**Settings** is where you make the desktop your own: its colours, the size of its text, the picture behind the windows, the names of the workspaces and the Front Panel, how the keyboard, the mouse and the windows behave, the speakers and microphones, the sound of the beep, the resolution of the monitors, the screen saver, the clipboard and what starts at login, the network, Bluetooth and the printers, and, for the system, the keyring, the updates, the language and the time zone. It grew out of CDE's Style Manager, and it can still look like it (see *The compact view* below).
 
 ## Opening it
 
 - Open the **Tools** drawer of the Front Panel and choose **Settings** (chapter 22),
 - or choose **Settings…** in the Workspace Menu (right mouse button on the backdrop, chapter 24),
-- or type `amadeos-settings` in a terminal. `amadeos-settings mouse` opens it at the *Mouse* page, and so on for every control. The old name `amadeos-style` still works.
+- or type `amadeos-settings` in a terminal. `amadeos-settings mouse` opens it at the *Mouse* page, and so on for every control; `amadeos-settings proxy` opens the *Proxy* tab of the Network page. The old name `amadeos-style` still works.
 
 ![Settings](images/30/settings.jpg)
 
@@ -23,17 +23,21 @@ On the left, the controls are grouped by what they set. Click one, or move throu
 | | **Front Panel** | The clock and the status cells | 37 |
 | Input and Sound | **Keyboard** | Key repeat and key click | 33 |
 | | **Mouse** | Left or right hand, double-click speed, acceleration | 33 |
+| | **Sound** | Output and input, their volume, a test tone, the profiles of the sound cards | 33 |
 | | **Beep** | Volume, tone and length of the beep | 33 |
 | Desktop | **Display** | Resolution, refresh rate, rotation and arrangement of the monitors | 39 |
 | | **Screen** | Screen saver and screen lock | 34 |
 | | **Window** | How windows get the focus, come to the front and move | 35 |
 | | **Clipboard** | The clipboard history, and copies that outlive their program | 36 |
 | | **Startup** | Programs and desktop services started at login | 35 |
+| Network and Devices | **Network** | Wired network, WLAN and the proxy | 38 |
+| | **Bluetooth** | Switching it on, pairing and connecting devices | 38 |
+| | **Printers** | Adding printers, the default printer, paper size and two-sided printing | 38 |
 | System | **Passwords** | The login keyring: lock, unlock, change its password | 38 |
 | | **Updates** | Automatic security updates, the updates waiting | 38 |
 | | **Language** | The language of the desktop and the time zone | 38 |
 
-The pages of the *System* group change things for the whole computer or your keyring; some of them ask for the administrator's password on **Apply**.
+The pages of the *System* group change things for the whole computer or your keyring; some of them ask for the administrator's password on **Apply**. The pages *Sound*, *Bluetooth* and *Printers* have no *Apply*: what you do there happens at once, as on the network's *Connections* tab.
 
 ## Apply and Reset
 

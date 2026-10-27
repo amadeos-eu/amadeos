@@ -87,13 +87,22 @@ The **battery cell** below them appears only on a computer with a battery, such 
 
 ![The battery cell below the network cell: on battery at 86, 38 and 12 %, charging, plugged in and full, and a desktop computer without a battery](images/22/battery-cell.png)
 
+The **Bluetooth cell** appears only on a computer with Bluetooth. Its rune is **blue** while Bluetooth is on, with a dot for each connected device, and **grey** and crossed out while it is off. Point at it to see what is connected, for example *Bluetooth: WH-1000XM4 connected*. Click it for its menu:
+
+| In the Bluetooth menu | What it does |
+|---|---|
+| **Bluetooth** | Switches Bluetooth on and off. |
+| A paired device | Ticked while it is connected; a click connects or disconnects it, with its battery in brackets if it tells it, such as *MX Master 3 (55 %)*. |
+| **Bluetooth settings…** | Opens the Bluetooth page of Settings, for pairing new devices (chapter 38). |
+
 The **updates cell** appears only while software updates wait: an arrow into a tray with their number, on red when security updates are among them. Its menu offers *Install all updates*, *Install security updates only* and *Check now* (chapter 52).
 
-!!! planned "Planned"
-    A cell for Bluetooth will join the status slot.
+The status slot holds four cells. When more of them have something to show, a laptop with Bluetooth while updates wait for example, a second slot opens beside the first and closes again when it is no longer needed.
+
+![Five cells in two slots: network, sound, battery and Bluetooth with one device connected, and the updates cell in the second slot](images/22/status-slot-two.png)
 
 !!! cde "CDE heritage"
     The Front Panel follows CDE's: the clock and calendar on the left, the workspace switch with lock and EXIT in the middle, the Print Manager, Tools, Help and Trash Can on the right, and drawers ("subpanels" in CDE) above the slots. CDE's drawers were configured by hand; those of amadeOS fill themselves. The Games drawer and the status slot are new, and so is the language button, in the corner CDE left empty. CDE's busy light only blinked while an action started; the disk, network and install signals are new.
 
 ??? hood "Under the hood"
-    The Front Panel is the program `amadeos-panel-cde`, started by the session as `/usr/bin/amadeos-panel`. The drawers list the `.desktop` files in `/usr/share/applications` and `~/.local/share/applications` by their *Categories*: `FileManager`, `TextEditor` and `Office`, `Email` and `Network`, `AudioVideo`, `Graphics`, `Game`, `Printing`, `Settings` and `System`, `Documentation`. A program started from the panel writes its messages to `~/.cache/amadeos/logs/<program>.log`. The busy light reads `/proc/diskstats` (whole disks only) and `/proc/net/dev` (all interfaces but `lo`) four times a second, and looks for a running `dpkg` every two seconds. The battery cell reads `/sys/class/power_supply` every 20 seconds; the batteries of a wireless mouse or keyboard do not count, and two batteries in one laptop show as one.
+    The Front Panel is the program `amadeos-panel-cde`, started by the session as `/usr/bin/amadeos-panel`. The drawers list the `.desktop` files in `/usr/share/applications` and `~/.local/share/applications` by their *Categories*: `FileManager`, `TextEditor` and `Office`, `Email` and `Network`, `AudioVideo`, `Graphics`, `Game`, `Printing`, `Settings` and `System`, `Documentation`. A program started from the panel writes its messages to `~/.cache/amadeos/logs/<program>.log`. The busy light reads `/proc/diskstats` (whole disks only) and `/proc/net/dev` (all interfaces but `lo`) four times a second, and looks for a running `dpkg` every two seconds. The battery cell reads `/sys/class/power_supply` every 20 seconds; the batteries of a wireless mouse or keyboard do not count, and two batteries in one laptop show as one. The Bluetooth cell follows the signals of the Bluetooth service `bluetoothd` (BlueZ) on the system bus, and asks it again every 30 seconds, so an adapter plugged in later appears too.

@@ -66,6 +66,23 @@ for package in amadeos-dm amadeos-session amadeos-wm amadeos-panel-cde amadeos-s
         exit 1
     fi
 done
+# amadeos-archive-keyring puts the key and the source of the amadeOS package repository (apt.amadeos.eu) into the
+# image, so that installed systems receive the amade packages as updates. The repository's workflow builds it, so it
+# is downloaded fresh each build (a newer one carries an extended key); a copy from an earlier build is the fallback.
+KEYRING_URL="https://apt.amadeos.eu/amadeos-archive-keyring.deb"
+keyring_tmp="$(mktemp)"
+if curl -fsSL --retry 3 -o "$keyring_tmp" "$KEYRING_URL" && keyring_version="$(dpkg-deb -f "$keyring_tmp" Version)"; then
+    rm -f "$CONFIG_DIR/packages.chroot/"amadeos-archive-keyring_*.deb
+    install -m 644 "$keyring_tmp" "$CONFIG_DIR/packages.chroot/amadeos-archive-keyring_${keyring_version}_all.deb"
+elif compgen -G "$CONFIG_DIR/packages.chroot/amadeos-archive-keyring_*.deb" >/dev/null; then
+    echo "[build-image] Warning: $KEYRING_URL could not be downloaded; using the amadeos-archive-keyring of an earlier build." >&2
+else
+    rm -f "$keyring_tmp"
+    echo "[build-image] $KEYRING_URL could not be downloaded, and config/packages.chroot has no" >&2
+    echo "    amadeos-archive-keyring_*.deb. Without it installed systems get no amadeOS updates." >&2
+    exit 1
+fi
+rm -f "$keyring_tmp"
 # amadeos-settings replaces amadeos-style (the Style Manager's package until 2026-10); an old .deb left in
 # config/packages.chroot would conflict with it.
 if compgen -G "$CONFIG_DIR/packages.chroot/amadeos-style_*.deb" >/dev/null; then

@@ -11,7 +11,6 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 | A keyring service of amadeOS's own, in Java | M12 | 58 |
 | Disk encryption, a separate home partition, shrinking a partition in the installer | M14 | 14, 58 |
 | The clock settled between Windows and amadeOS | M14 | 15 |
-| An amadeOS package repository, so that amadeOS is updated like Debian | M16 | 6, 51, 60 |
 | Moving to the next Debian release | M16 | 52 |
 
 ## The desktop

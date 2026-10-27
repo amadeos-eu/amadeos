@@ -37,11 +37,11 @@ If another program is installing software at the same time, Software says *Anoth
     Software is the App Store of amadeOS, but without an account, without payments and without tracking. You do not download installers from web sites: everything comes from the Debian archive, signed by Debian, and is updated with the rest of the system (chapter 52).
 
 !!! sovereignty "Your data"
-    Software reads the list of packages from the Debian mirror, as `apt` does. Screenshots of applications are loaded from Debian's screenshot server only when you look at a program, and kept in `~/.cache/amadeos-software`. Nothing is sent about you or what you install.
+    Software reads the list of packages from the Debian mirror and the amadeOS package repository, as `apt` does. Screenshots of applications are loaded from Debian's screenshot server only when you look at a program, and kept in `~/.cache/amadeos-software`. Nothing is sent about you or what you install.
 
 ## Software from elsewhere
 
-Software does not install packages from outside the Debian archive. A `.deb` file you downloaded can be installed in a terminal:
+Software installs packages from the Debian archive and from the amadeOS package repository, nothing else. A `.deb` file you downloaded can be installed in a terminal:
 
 ```sh
 sudo apt install ./program.deb
@@ -49,8 +49,11 @@ sudo apt install ./program.deb
 
 Install such files only from a source you trust: a package runs its installation scripts with administrator rights.
 
-!!! planned "Planned"
-    An amadeOS package repository (ROADMAP milestone M16), so that the amade applications and games are updated like the rest of Debian. Until then, they come with the image; Software shows them as installed with *No repository offers it any more*.
+## The amadeOS package repository
+
+The amade applications and games, and the desktop itself, come from the **amadeOS package repository** at `apt.amadeos.eu`, next to Debian. Software lists them with their descriptions, icons and screenshots like any Debian program, and you can install a game you left out or remove one you do not play. Their source says *amadeOS*.
+
+The repository is signed with the amadeOS key; the package `amadeos-archive-keyring` holds that key and the entry for apt, in `/etc/apt/sources.list.d/amadeos.sources`. A system installed from amadeOS 1.0.0 does not have it yet: chapter 52 says how to add it.
 
 ## In the terminal
 

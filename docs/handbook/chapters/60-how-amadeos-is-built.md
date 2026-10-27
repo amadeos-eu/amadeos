@@ -76,8 +76,14 @@ and makes of them a compressed file system (*squashfs*) with a boot loader for B
 !!! sovereignty "Your data"
     Every step from the source code to the ISO is public and can be repeated by anyone with a Debian computer (chapter 62). You do not have to trust a download: you can build the same system yourself.
 
+## From a release to your computer
+
+After the image, the amadeOS packages are updated through the **amadeOS package repository** at `apt.amadeos.eu`. When a repository publishes a release on GitHub, a workflow of the `amadeos.eu` repository collects its `.deb` files within half an hour, builds the package lists and the program descriptions for Software, signs them and uploads them. Your computer finds them with its next update check, like Debian's (chapter 52).
+
+The key that signs the repository has two parts: the main key stays offline with the maintainer, and only a signing subkey, which expires after two years and is renewed in time, is used by the workflow. The package `amadeos-archive-keyring` brings the public key to your computer.
+
 !!! planned "Planned"
-    An amadeOS package repository (ROADMAP milestone M16), so that the amadeOS packages are updated like Debian's instead of only with a new image, and signed images with a release manifest (M12).
+    Signed images with a release manifest (M12), and the suites `testing` and `dev` of the package repository for those who want to try new versions early.
 
 ??? hood "Under the hood"
     The licence of amadeOS is the EUPL-1.2 (chapter 4). The image is an aggregation of packages, and each keeps its own licence: `/usr/share/doc/<package>/copyright` names it. The NsCDE icon theme (GPL-3.0) and the CDE backdrops (LGPL) are packages of their own for that reason. The design decisions behind amadeOS, and the alternatives that were rejected, are in `CONCEPT.md` of the `amadeos` repository; the plan is in `ROADMAP.md`.

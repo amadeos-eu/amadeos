@@ -16,6 +16,7 @@ amadeOS 1.0.0 is the **first release**, and development goes on. This chapter sa
 | Printing | Network and USB printers without drivers (IPP Everywhere, AirPrint); Print Manager for printers and jobs. |
 | Applications | Text Editor, Mailer, Calendar, File Manager, Image Scan, Fractals, documentation viewer and 17 games work; WritePad, Audio Station and Video Player are at an early stage. |
 | Web | Firefox ESR, preconfigured for privacy. |
+| Updates | Debian's updates and, from the amadeOS package repository, new versions of the desktop, the applications and the games (chapter 52). |
 
 ## What is not tested yet
 
@@ -25,7 +26,6 @@ amadeOS 1.0.0 is the **first release**, and development goes on. This chapter sa
 ## What amadeOS does not do yet
 
 !!! planned "Planned"
-    - **An amadeOS package repository**, so that amadeOS and its applications are updated like Debian, not only through a new image (M16).
     - **Disk encryption** and a separate home partition in the installer (M14).
     - **The Startup control of Settings.**
     - **Signed images** and a release manifest that lists every package, with a documented release process (M12).

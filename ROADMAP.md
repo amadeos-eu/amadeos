@@ -43,7 +43,7 @@ flowchart TD
 | M13 Application suite | In progress, nearly complete |
 | M14 Installation to disk | In progress |
 | M15 Updates and software management | Built, waiting for the QEMU test |
-| M16 amadeOS package repository | Planned, proposal waiting for a decision |
+| M16 amadeOS package repository | stable suite online at apt.amadeos.eu, waiting for the QEMU test |
 
 ## Open and planned
 
@@ -105,9 +105,9 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 
 **Goal:** amadeOS and the amade applications arrive as updates, not only inside the ISO. All packages are `Architecture: all`; versions and GitHub Releases come from the release branches (see M12). The suites follow the branches: `stable` from main, `testing` from release, `dev` from develop.
 
-- Proposal of 2026-10-23, waiting for a decision: a stateless publish script (`apt-ftparchive`, `appstreamcli compose` for DEP-11 so Software shows the amade applications, gpg signing subkey), a release workflow per repository that attaches the `.deb` to a GitHub release on a version tag, and a package `amadeos-archive-keyring` with the key and `/etc/apt/sources.list.d/amadeos.sources`.
-- Hosting is open: GitHub Pages, or `apt.amadeos.eu` on the server behind www.amadeos.eu (its folder is reserved in the amadeos.eu repository).
-- Then: `postinst` scripts for what image hooks set up today, and `build-image.sh` takes packages from the repository instead of `config/packages.chroot/`.
+- **Online since 2026-10-27:** [apt.amadeos.eu](https://apt.amadeos.eu/), suite `stable` with the last three releases of every repository in `repositories.list`. A workflow in [`amadeos.eu`](https://github.com/datazuul/amadeos.eu) collects the `.deb` files of the GitHub releases every 30 minutes, builds the indexes with `apt-ftparchive` and the AppStream data (DEP-11) with `appstreamcli compose`, signs with an ed25519 subkey (the primary key stays offline) and uploads by rsync to the server.
+- The package `amadeos-archive-keyring` (key in `/usr/share/keyrings`, source in `/etc/apt/sources.list.d/amadeos.sources`) is in the image; `build-image.sh` downloads it from the repository. Systems installed from 1.0.0 install it once by hand (User's Handbook, chapter 52).
+- Open: the suites `testing` (from release) and `dev` (from develop); `postinst` scripts for what image hooks set up today; `build-image.sh` taking the packages of a main build from the repository instead of `config/packages.chroot/`.
 
 **Exit criteria:** publishing a tag of an amade application makes the update appear on an installed system within the check interval.
 
@@ -117,6 +117,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-10-27
 
+- **amadeOS package repository [apt.amadeos.eu](https://apt.amadeos.eu/)** (M16, amadeos.eu #4 and #5): signed suite `stable` with all 43 packages of 1.0.0 and AppStream data for Software, published every 30 minutes from the GitHub releases; the image brings `amadeos-archive-keyring`, so installed systems get the amade packages as updates.
 - Settings: the Network page gets a *Connections* tab (wired, WLAN, hidden networks, details) next to the proxy, and new pages Sound (output, input, test tone, level meter, card profiles), Bluetooth (pairing with an own BlueZ agent) and Printers (driverless printers, default, paper size, two-sided) in a new group *Network and Devices*; a Bluetooth cell in the Front Panel, whose status slot opens a second slot for more than four cells; `bluez` and `libspa-0.2-bluetooth` in the image.
 
 ### 2026-10-26

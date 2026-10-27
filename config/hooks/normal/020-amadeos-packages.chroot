@@ -6,9 +6,14 @@ set -eu
 
 export DEBIAN_FRONTEND=noninteractive
 
-# Pull fixes from trixie-security/trixie-updates (config/archives) into the base system too.
+# Pull fixes from trixie-security/trixie-updates (config/archives) into the base system too. The amadeOS
+# repository (amadeos-archive-keyring) stays out of this: it would replace the amade packages built for this
+# image (a develop build is X.Y.Z~dev.0) with the released ones. Installed systems use it.
+amadeos_sources=/etc/apt/sources.list.d/amadeos.sources
+[ ! -f "$amadeos_sources" ] || mv "$amadeos_sources" "$amadeos_sources.build"
 apt-get update
 apt-get dist-upgrade --yes --no-install-recommends
+[ ! -f "$amadeos_sources.build" ] || mv "$amadeos_sources.build" "$amadeos_sources"
 
 # The locales of the five desktop languages, selectable at login and in the front panel.
 if [ -f /etc/locale.gen ]; then

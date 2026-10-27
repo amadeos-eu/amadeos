@@ -17,7 +17,7 @@ Click it for its menu:
 | **Check now** | Asks the Debian mirror and the amadeOS repository for new updates now; needs no password. |
 | **Settings…** | The setting for automatic security updates (below). |
 
-Installing asks for your password (chapter 50). While the updates install, the cell shows the progress in per cent; when it is done, it says *The updates are installed*, and the cell disappears until the next updates arrive.
+Installing asks for your password (chapter 50). Then a small window shows what is being installed, with a progress bar; **Details** shows the messages of apt, the program that does the work. **Hide** puts the window away while the installation goes on; *Show progress…* in the cell's menu brings it back. When it is done, the window says *The updates are installed*, and the cell disappears until the next updates arrive.
 
 amadeOS looks for updates once a day by itself, when the computer is on and has a network. The cell needs no network to show them: it reads what that check found, every half hour and whenever something changes.
 

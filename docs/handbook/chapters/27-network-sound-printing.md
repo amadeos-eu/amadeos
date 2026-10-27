@@ -11,7 +11,7 @@ For a **WLAN**, click the network cell. A menu lists the networks in reach with 
 | A network | Joins it. |
 | The current network | A submenu with **Disconnect** and **Forget network** (forget the password). |
 | **Search again** | Looks for networks anew. |
-| **Network settings…** | Opens the detailed settings in a terminal window, for fixed addresses, VPNs and hidden networks (chapter 54). |
+| **Network settings…** | Opens the Network page of Settings, with the wired network, hidden networks and the details of a connection (chapter 38). |
 
 If the cell shows a cross, there is no connection; *Not connected* in its tooltip, or *Network service is not running* if the network service itself has stopped (chapter 57).
 
@@ -41,7 +41,7 @@ Click the cell for its menu:
 
 Two shortcuts work without opening the menu: turn the **mouse wheel** over the cell to make it louder or softer in steps of 5 %, and click it with the **middle button** to mute. The tooltip names the volume and the output, for example *Volume 45 % · Built-in Audio Analog Stereo*. When the loudspeaker is grey and crossed out, the sound system is not running (chapter 57).
 
-A headset plugged in appears in the menu at once. Most programs also have a volume control of their own; it sets their share of the volume of the cell.
+A headset plugged in appears in the menu at once, and so do Bluetooth headphones once they are paired (chapter 38). Most programs also have a volume control of their own; it sets their share of the volume of the cell. The *Sound* page of Settings (chapter 33) has the same choices and more: a test tone for the left and right speaker, a level meter for the microphone and the profiles of the sound cards, for example for sound over HDMI.
 
 !!! switching "Coming from Windows or macOS"
     The sound cell is the speaker icon of the Windows taskbar or the sound control of the macOS menu bar, with the choice of the output and the input in one menu.
@@ -59,7 +59,7 @@ Click the **Print Manager** in the Front Panel to see them. It lists the printer
 - choose the **default printer**, the one programs offer first,
 - print a **test page**.
 
-If a printer does not appear by itself, open the Print Manager's drawer and choose **Add or Configure Printers**. That opens the administration page of the print system (CUPS) in the web browser, at <http://localhost:631>: *Administration → Add Printer*. Chapter 54 explains it in more detail.
+If a printer does not appear by itself, add it in Settings: **Printers** (chapter 38). **Add…** finds the printers in the network and on USB that print without a driver, or takes the address of one. The same page chooses the default printer, the paper size and two-sided printing. An older printer that needs a driver is added in the administration pages of the print system, CUPS (chapter 54).
 
 !!! cde "CDE heritage"
     The Print Manager follows CDE's `dtprintinfo`, which had its slot at the same place on the right of the Front Panel.
@@ -67,4 +67,4 @@ If a printer does not appear by itself, open the Print Manager's drawer and choo
 ??? hood "Under the hood"
     The sound cell talks to PipeWire through `pactl` (package `pulseaudio-utils`) and follows `pactl subscribe`, so a change made by another program shows at once. Volume and mute act on the default output, `@DEFAULT_SINK@`; choosing a device sets the default and moves the running streams with `pactl move-sink-input`.
 
-    The network cell asks NetworkManager through `nmcli`; members of the group `netdev` may change connections without a password (polkit rule `/usr/share/polkit-1/rules.d/50-amadeos-network.rules`). *Network settings…* runs `nmtui`. The Print Manager `amadeos-print` speaks the printing protocol IPP to CUPS directly, over its socket `/run/cups/cups.sock`; members of the group `lpadmin` may pause printers and choose the default without a password. The first user of an installed system and the live user are in both groups.
+    The network cell asks NetworkManager through `nmcli`; members of the group `netdev` may change connections without a password (polkit rule `/usr/share/polkit-1/rules.d/50-amadeos-network.rules`). *Network settings…* runs `amadeos-settings network`. The Print Manager `amadeos-print` speaks the printing protocol IPP to CUPS directly, over its socket `/run/cups/cups.sock`; members of the group `lpadmin` may pause printers and choose the default without a password. The first user of an installed system and the live user are in both groups.

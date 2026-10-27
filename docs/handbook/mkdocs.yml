@@ -87,12 +87,12 @@ nav:
       - 30. Settings: 30-settings.md
       - 31. Color: 31-color.md
       - 32. Backdrop: 32-backdrop.md
-      - 33. Keyboard, Mouse and Beep: 33-keyboard-mouse-beep.md
+      - 33. Keyboard, Mouse, Sound and Beep: 33-keyboard-mouse-beep.md
       - 34. Screen: 34-screen.md
       - 35. Font, Window and Startup: 35-font-window-startup.md
       - 36. Clipboard: 36-clipboard.md
       - 37. Workspaces and Front Panel: 37-workspaces-front-panel.md
-      - 38. Network, Passwords, Updates and Language: 38-passwords-updates-language.md
+      - 38. Network, Devices and System: 38-passwords-updates-language.md
       - 39. Display: 39-display.md
   - "Part V: The Applications":
       - 40. Applications at a Glance: 40-applications.md

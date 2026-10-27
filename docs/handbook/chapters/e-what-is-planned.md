@@ -20,7 +20,6 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 |---|---|
 | More keys for the windows: moving a window to another workspace, switching workspaces | 21, A |
 | Moving a window to another workspace, or showing it on all of them | 24 |
-| A Bluetooth cell in the Front Panel | 22, 27 |
 | Opening the windows of the last session again at login | 35, 55 |
 | Maximizing on one monitor, and the Front Panel on the primary monitor, with several monitors | 39 |
 | More or fewer than four workspaces | 37 |
@@ -28,7 +27,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 | Formats of dates and numbers apart from the language | 38 |
 | Automatic proxy configuration (PAC, WPAD) | 38 |
 | A *Users* program for accounts | 53 |
-| A network settings window for fixed addresses, hidden networks and VPNs | 54 |
+| Fixed addresses, VPNs and a hotspot on the Network page of Settings | 38, 54 |
 | More panels than the CDE Front Panel | 55 |
 | More languages | 25 |
 

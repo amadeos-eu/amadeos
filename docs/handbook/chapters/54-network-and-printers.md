@@ -4,7 +4,7 @@ Chapter 27 covers the everyday: joining a WLAN, printing a page. This chapter is
 
 ## Network settings
 
-**Network settings…** in the menu of the network cell opens the detailed network settings in a terminal window. It is a text program, `nmtui`, worked with the keyboard: the arrow keys and ++tab++ move, ++enter++ chooses, ++esc++ goes back.
+The Network page of Settings (chapter 38) joins networks, hidden ones too, and shows the addresses of a connection. A fixed address and a VPN are still set up in `nmtui`, a text program of NetworkManager: type `nmtui` in a terminal. It is worked with the keyboard: the arrow keys and ++tab++ move, ++enter++ chooses, ++esc++ goes back.
 
 | In `nmtui` | What it is for |
 |---|---|
@@ -23,7 +23,7 @@ Some home networks, or a computer that serves others, need a fixed IP address:
 
 ### A hidden WLAN
 
-A network that does not announce its name does not appear in the menu of the network cell. Add it in *Edit a connection → Add → Wi-Fi* with its name (*SSID*) and password.
+A network that does not announce its name does not appear in the menu of the network cell. Join it in Settings: Network with **Hidden Network…** (chapter 38), giving its name (*SSID*) and password; the computer then joins it by itself like any other.
 
 ### VPN
 
@@ -37,7 +37,7 @@ nmcli connection import type wireguard file wg0.conf
 The VPN then appears in *Activate a connection*.
 
 !!! planned "Planned"
-    A network settings window in the style of the desktop, with fixed addresses, hidden networks and VPNs, so that the terminal is no longer needed.
+    Fixed addresses, VPNs and a hotspot on the Network page of Settings, so that the terminal is no longer needed.
 
 ### A proxy
 
@@ -61,7 +61,7 @@ You may cancel, hold and release your own jobs; pausing a printer and choosing t
 
 ### Adding a printer by hand
 
-Most printers appear by themselves (chapter 27). An older printer, or one in another network, is added in the administration pages of the print system, CUPS: *Printer → Add or Configure Printers…* opens <http://localhost:631> in the web browser.
+Most printers appear by themselves (chapter 27), and Settings: Printers adds any printer that prints without a driver, also one in another network by its address (chapter 38). An older printer that needs a driver is added in the administration pages of the print system, CUPS: *Printer → Add or Configure Printers…* in the Print Manager opens <http://localhost:631> in the web browser.
 
 1. *Administration → Add Printer*. The browser asks for a user name and password: yours.
 2. Choose the printer from the list (*Discovered Network Printers* or a USB printer), or give its address, for example `ipp://192.168.1.30/ipp/print`.

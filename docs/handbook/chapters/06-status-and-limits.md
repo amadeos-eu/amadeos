@@ -14,7 +14,7 @@ amadeOS 1.0.0 is the **first release**, and development goes on. This chapter sa
 | Languages | English, Deutsch, Français, Español, Italiano. |
 | Network | Ethernet by itself; wireless networks through a text dialog. |
 | Printing | Network and USB printers without drivers (IPP Everywhere, AirPrint); Print Manager for printers and jobs. |
-| Applications | Text Editor, Mailer, Calendar, File Manager, Image Scan, Fractals, documentation viewer and 17 games work; WritePad, Audio Station and Video Player are at an early stage. |
+| Applications | Text Editor, Mailer, Calendar, File Manager, Image Scan, Fractals, documentation viewer and 18 games work; WritePad, Audio Station and Video Player are at an early stage. |
 | Web | Firefox ESR, preconfigured for privacy. |
 | Updates | Debian's updates and, from the amadeOS package repository, new versions of the desktop, the applications and the games (chapter 52). |
 

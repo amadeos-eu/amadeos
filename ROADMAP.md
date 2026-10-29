@@ -115,6 +115,10 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
 
+### 2026-10-29
+
+- Rivet, the 18th game ([`amade-rivet-game`](https://github.com/datazuul/amade-rivet-game) #1, game engine #40): a first-person shooter in 3D on the engine's new raycaster, with machines rendered from 3D models; Part VI of the Game Developer's Handbook.
+
 ### 2026-10-27
 
 - **amadeOS package repository [apt.amadeos.eu](https://apt.amadeos.eu/)** (M16, amadeos.eu #4 and #5): signed suite `stable` with all 43 packages of 1.0.0 and AppStream data for Software, published every 30 minutes from the GitHub releases; the image brings `amadeos-archive-keyring`, so installed systems get the amade packages as updates.

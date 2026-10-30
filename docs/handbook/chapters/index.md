@@ -60,6 +60,6 @@ The book uses five kinds of boxes again and again:
 
 amadeOS 1.0.0 is the first release. The book follows the `main` branch of the amadeOS repositories and is updated together with them. Chapter 6, [Status and limits](06-status-and-limits.md), says what works today and what does not.
 
-The book is published at <https://datazuul.github.io/amadeos/>. On amadeOS itself it is installed as the package `amadeos-handbook`, and *Help → amadeOS User's Handbook* in the Front Panel opens it without a network.
+The book is published at <https://docs.amadeos.eu/amadeos/>. On amadeOS itself it is installed as the package `amadeos-handbook`, and *Help → amadeOS User's Handbook* in the Front Panel opens it without a network.
 
 The text of the book is under the [EUPL-1.2](https://github.com/amadeos-eu/amadeos/blob/main/LICENSE), like amadeOS. Corrections and suggestions are welcome as [issues](https://github.com/amadeos-eu/amadeos/issues) or pull requests; every page has an edit button at the top.

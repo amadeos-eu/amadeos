@@ -36,7 +36,7 @@ settings tools are Swing applications on Xorg, styled after the Common Desktop E
 
 ## Documentation
 
-The [**amadeOS User's Handbook**](https://datazuul.github.io/amadeos/) explains why amadeOS exists, how to
+The [**amadeOS User's Handbook**](https://docs.amadeos.eu/amadeos/) explains why amadeOS exists, how to
 install it and how to use and administer it ([source](docs/handbook)). On amadeOS it is installed as the
 package `amadeos-handbook` and opened from the Help drawer of the Front Panel.
 

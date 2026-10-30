@@ -45,4 +45,4 @@ amadeOS is ready to **try**: start the live system, look around, use the applica
 
 It is **not yet** the system for a computer whose data you cannot afford to lose, or for work that must not be interrupted. Keep a backup, and wait until amadeOS has been tested on more hardware before you rely on it.
 
-The current state is always in the [ROADMAP](https://github.com/datazuul/amadeos/blob/main/ROADMAP.md), and bugs and ideas go to the [issue tracker](https://github.com/datazuul/amadeos/issues).
+The current state is always in the [ROADMAP](https://github.com/amadeos-eu/amadeos/blob/main/ROADMAP.md), and bugs and ideas go to the [issue tracker](https://github.com/amadeos-eu/amadeos/issues).

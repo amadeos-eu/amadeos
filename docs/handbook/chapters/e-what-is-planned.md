@@ -1,6 +1,6 @@
 # E. What Is Planned
 
-The *Planned* boxes of this book, collected in one place, sorted by where they belong. The milestones (M12 and so on) are those of the [ROADMAP](https://github.com/datazuul/amadeos/blob/main/ROADMAP.md), where the plan is kept up to date. Contributions to any of them are welcome.
+The *Planned* boxes of this book, collected in one place, sorted by where they belong. The milestones (M12 and so on) are those of the [ROADMAP](https://github.com/amadeos-eu/amadeos/blob/main/ROADMAP.md), where the plan is kept up to date. Contributions to any of them are welcome.
 
 ## The system
 

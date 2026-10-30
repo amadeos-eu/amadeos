@@ -80,7 +80,7 @@ Some graphics cards do not get along with the driver Linux chooses at first. In 
 
 ## Asking for help
 
-Every program and game of amadeOS has its own repository on GitHub, listed in chapter 40 for the applications and chapter 49 for the games. Report a problem with one program on the *Issues* page of its repository, a problem with the desktop itself (Front Panel, windows, Settings, login) at <https://github.com/datazuul/amadeos-system/issues>, and everything else, such as installing, starting or updating, at <https://github.com/datazuul/amadeos/issues>. A good report says:
+Every program and game of amadeOS has its own repository on GitHub, listed in chapter 40 for the applications and chapter 49 for the games. Report a problem with one program on the *Issues* page of its repository, a problem with the desktop itself (Front Panel, windows, Settings, login) at <https://github.com/amadeos-eu/amadeos-system/issues>, and everything else, such as installing, starting or updating, at <https://github.com/amadeos-eu/amadeos/issues>. A good report says:
 
 1. what you did,
 2. what you expected,

@@ -63,7 +63,7 @@ main() {
         while read -r name; do
             [ -d "$parent_dir/$name" ] && continue
             step "Cloning $name"
-            git clone "https://github.com/datazuul/$name.git" "$parent_dir/$name"
+            git clone "https://github.com/amadeos-eu/$name.git" "$parent_dir/$name"
         done < <(sed -e 's/#.*//' -e '/^[[:space:]]*$/d' "$root_dir/repositories.list")
     fi
 
@@ -75,7 +75,7 @@ main() {
     local ci_dir="$parent_dir/amadeos-ci"
     if [ ! -d "$ci_dir" ]; then
         step "Cloning amadeos-ci"
-        git clone "https://github.com/datazuul/amadeos-ci.git" "$ci_dir"
+        git clone "https://github.com/amadeos-eu/amadeos-ci.git" "$ci_dir"
     elif [ "$pull" = 1 ]; then
         git -C "$ci_dir" pull --ff-only --quiet origin main
     fi

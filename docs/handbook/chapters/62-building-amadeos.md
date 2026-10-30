@@ -22,7 +22,7 @@ The Java compiler builds the amadeOS packages, `python3-venv` this book, QEMU le
 
 ```sh
 mkdir amadeos-src && cd amadeos-src
-git clone https://github.com/datazuul/amadeos.git
+git clone https://github.com/amadeos-eu/amadeos.git
 cd amadeos
 ./buildDistribution.sh
 ```
@@ -92,7 +92,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 screenshots/shoot.sh            # take the pictures again, in a virtual screen
 ```
 
-Corrections and new chapters are welcome, like any other contribution: see `CONTRIBUTING.md` and <https://github.com/datazuul/amadeos/issues>.
+Corrections and new chapters are welcome, like any other contribution: see `CONTRIBUTING.md` and <https://github.com/amadeos-eu/amadeos/issues>.
 
 ??? hood "Under the hood"
     `build.sh` runs `scripts/build-image.sh`, which prepares a live-build tree in `/tmp/amadeos-live-build` (or `AMADEOS_BUILD_ROOT`), adds the kernel command line and the UEFI boot loader and runs `lb build`. Packages the image needs but that live-build does not build itself are made by scripts of their own: `scripts/package-nscde-icons.sh` (the icon theme), `scripts/package-cde-backdrops.sh` (the CDE backdrops) and `scripts/package-handbook.sh` (this book as `amadeos-handbook`). The Java packages are built with Gradle; with `amade-commons` checked out next to an application, the application uses that checkout instead of the published version.

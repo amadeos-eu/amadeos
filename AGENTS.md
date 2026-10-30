@@ -31,7 +31,7 @@ whose script has its package's name (`amadeos-session`, `amadeos-dm`) keeps the 
 live in `eu.amadeos.games.<name>.*` and the game library in `eu.amadeos.gameengine.*`; the shared library
 is `eu.amadeos.commons.*`, system modules use `eu.amadeos.system.<module>.*`
 (`eu.amadeos.system.wm.*`, `eu.amadeos.system.base.*`, …) and the installer uses `eu.amadeos.installer.*`. The sub-package structure below that stays as it is. The Gradle group of the applications and games is `eu.amadeos`; amade-commons and
-amade-game-engine keep `com.github.datazuul` because JitPack derives it from the repository. Renamed 2026-10-18 from
+amade-game-engine use `com.github.amadeos-eu` because JitPack derives it from the repository owner. Renamed 2026-10-18 from
 `org.datazuul.amadeos`.
 
 The test for a new piece of code: *would it still make sense on another operating system?* If yes, it
@@ -83,7 +83,7 @@ Examples: the text editor, mail client and file manager are applications. Packag
 
 - **Semantic Versioning** from 1.0.0, one version per repository (amadeos-system: one for all its
   packages). Nobody writes a version into `build.gradle`: CI computes it with `next-version.sh` of
-  [amadeos-ci](https://github.com/datazuul/amadeos-ci)
+  [amadeos-ci](https://github.com/amadeos-eu/amadeos-ci)
   from the commits since the last tag `vX.Y.Z` and passes `-PappVersion`. Debian packages use the same
   version with `~` instead of `-`, so that `1.1.0~dev.57 < 1.1.0~pre.61 < 1.1.0`.
 - **Conventional Commits** for every commit: `type(scope): text`, for example
@@ -97,7 +97,7 @@ Examples: the text editor, mail client and file manager are applications. Packag
   three branches hold the same commits. A hotfix that cannot wait for develop goes into `release` by a
   pull request; promoting it to main merges it back into develop.
 - Apps and games may pin amade-commons or amade-game-engine commits on develop; before they are promoted
-  to main the pin must be a release of the library (`com.github.datazuul:amade-commons:vX.Y.Z`, or a
+  to main the pin must be a release of the library (`com.github.amadeos-eu:amade-commons:vX.Y.Z`, or a
   commit a release contains). Libraries are promoted first.
 - Merge pull requests with a merge commit, so that their commits (and the commits the handbooks pin)
   reach develop unchanged.

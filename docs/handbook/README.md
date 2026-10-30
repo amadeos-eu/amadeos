@@ -3,7 +3,7 @@
 Why amadeOS, how to install it, how to use and administer it. Published at
 <https://datazuul.github.io/amadeos/>; on amadeOS the package `amadeos-handbook` installs it to
 `/usr/share/doc/amadeos-handbook/html`, and *Help → amadeOS User's Handbook* in the Front Panel opens it
-in the web browser. Set up like the [amadeOS Game Developer's Handbook](https://github.com/datazuul/amade-game-engine/tree/main/docs/handbook).
+in the web browser. Set up like the [amadeOS Game Developer's Handbook](https://github.com/amadeos-eu/amade-game-engine/tree/main/docs/handbook).
 
 ## Writing
 

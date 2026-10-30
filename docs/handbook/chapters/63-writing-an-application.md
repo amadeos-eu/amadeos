@@ -76,7 +76,7 @@ A program that should be part of amadeOS is welcome. The way in is:
 2. a Debian package built by its Gradle build, with `installToAmadeOs` to put it into the image,
 3. an entry in `repositories.list` of the `amadeos` repository, so that `buildDistribution.sh` builds it (chapter 62).
 
-Ideas and questions go to <https://github.com/datazuul/amadeos/issues>; `CONTRIBUTING.md` in the `amadeos` repository describes the details.
+Ideas and questions go to <https://github.com/amadeos-eu/amadeos/issues>; `CONTRIBUTING.md` in the `amadeos` repository describes the details.
 
 !!! sovereignty "Your data"
     An application for amadeOS should do what the desktop does: keep the user's data on the computer, in open formats, and send nothing anywhere unless the user asks for it. The handbooks show how.

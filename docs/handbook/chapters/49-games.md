@@ -100,24 +100,24 @@ Every game has its source code in a repository of its own on GitHub. If a game m
 
 | Game | Source code | Problems and ideas |
 |---|---|---|
-| Mines | [amade-mines-game](https://github.com/datazuul/amade-mines-game) | [Report a problem](https://github.com/datazuul/amade-mines-game/issues) |
-| Solitaire | [amade-solitaire-game](https://github.com/datazuul/amade-solitaire-game) | [Report a problem](https://github.com/datazuul/amade-solitaire-game/issues) |
-| Paddle | [amade-paddle-game](https://github.com/datazuul/amade-paddle-game) | [Report a problem](https://github.com/datazuul/amade-paddle-game/issues) |
-| Bricks | [amade-bricks-game](https://github.com/datazuul/amade-bricks-game) | [Report a problem](https://github.com/datazuul/amade-bricks-game/issues) |
-| Snake | [amade-snake-game](https://github.com/datazuul/amade-snake-game) | [Report a problem](https://github.com/datazuul/amade-snake-game/issues) |
-| Rocks | [amade-rocks-game](https://github.com/datazuul/amade-rocks-game) | [Report a problem](https://github.com/datazuul/amade-rocks-game/issues) |
-| Swarm | [amade-swarm-game](https://github.com/datazuul/amade-swarm-game) | [Report a problem](https://github.com/datazuul/amade-swarm-game/issues) |
-| Maze | [amade-maze-game](https://github.com/datazuul/amade-maze-game) | [Report a problem](https://github.com/datazuul/amade-maze-game/issues) |
-| Blast | [amade-blast-game](https://github.com/datazuul/amade-blast-game) | [Report a problem](https://github.com/datazuul/amade-blast-game/issues) |
-| Jump | [amade-jump-game](https://github.com/datazuul/amade-jump-game) | [Report a problem](https://github.com/datazuul/amade-jump-game/issues) |
-| Hover Cab | [amade-hover-cab-game](https://github.com/datazuul/amade-hover-cab-game) | [Report a problem](https://github.com/datazuul/amade-hover-cab-game/issues) |
-| Artillery | [amade-artillery-game](https://github.com/datazuul/amade-artillery-game) | [Report a problem](https://github.com/datazuul/amade-artillery-game/issues) |
-| Rivet | [amade-rivet-game](https://github.com/datazuul/amade-rivet-game) | [Report a problem](https://github.com/datazuul/amade-rivet-game/issues) |
-| Towers | [amade-towers-game](https://github.com/datazuul/amade-towers-game) | [Report a problem](https://github.com/datazuul/amade-towers-game/issues) |
-| Sands | [amade-sands-game](https://github.com/datazuul/amade-sands-game) | [Report a problem](https://github.com/datazuul/amade-sands-game/issues) |
-| Colony | [amade-colony-game](https://github.com/datazuul/amade-colony-game) | [Report a problem](https://github.com/datazuul/amade-colony-game/issues) |
-| Town | [amade-town-game](https://github.com/datazuul/amade-town-game) | [Report a problem](https://github.com/datazuul/amade-town-game/issues) |
-| The Seal of the Templars | [amade-templar-game](https://github.com/datazuul/amade-templar-game) | [Report a problem](https://github.com/datazuul/amade-templar-game/issues) |
+| Mines | [amade-mines-game](https://github.com/amadeos-eu/amade-mines-game) | [Report a problem](https://github.com/amadeos-eu/amade-mines-game/issues) |
+| Solitaire | [amade-solitaire-game](https://github.com/amadeos-eu/amade-solitaire-game) | [Report a problem](https://github.com/amadeos-eu/amade-solitaire-game/issues) |
+| Paddle | [amade-paddle-game](https://github.com/amadeos-eu/amade-paddle-game) | [Report a problem](https://github.com/amadeos-eu/amade-paddle-game/issues) |
+| Bricks | [amade-bricks-game](https://github.com/amadeos-eu/amade-bricks-game) | [Report a problem](https://github.com/amadeos-eu/amade-bricks-game/issues) |
+| Snake | [amade-snake-game](https://github.com/amadeos-eu/amade-snake-game) | [Report a problem](https://github.com/amadeos-eu/amade-snake-game/issues) |
+| Rocks | [amade-rocks-game](https://github.com/amadeos-eu/amade-rocks-game) | [Report a problem](https://github.com/amadeos-eu/amade-rocks-game/issues) |
+| Swarm | [amade-swarm-game](https://github.com/amadeos-eu/amade-swarm-game) | [Report a problem](https://github.com/amadeos-eu/amade-swarm-game/issues) |
+| Maze | [amade-maze-game](https://github.com/amadeos-eu/amade-maze-game) | [Report a problem](https://github.com/amadeos-eu/amade-maze-game/issues) |
+| Blast | [amade-blast-game](https://github.com/amadeos-eu/amade-blast-game) | [Report a problem](https://github.com/amadeos-eu/amade-blast-game/issues) |
+| Jump | [amade-jump-game](https://github.com/amadeos-eu/amade-jump-game) | [Report a problem](https://github.com/amadeos-eu/amade-jump-game/issues) |
+| Hover Cab | [amade-hover-cab-game](https://github.com/amadeos-eu/amade-hover-cab-game) | [Report a problem](https://github.com/amadeos-eu/amade-hover-cab-game/issues) |
+| Artillery | [amade-artillery-game](https://github.com/amadeos-eu/amade-artillery-game) | [Report a problem](https://github.com/amadeos-eu/amade-artillery-game/issues) |
+| Rivet | [amade-rivet-game](https://github.com/amadeos-eu/amade-rivet-game) | [Report a problem](https://github.com/amadeos-eu/amade-rivet-game/issues) |
+| Towers | [amade-towers-game](https://github.com/amadeos-eu/amade-towers-game) | [Report a problem](https://github.com/amadeos-eu/amade-towers-game/issues) |
+| Sands | [amade-sands-game](https://github.com/amadeos-eu/amade-sands-game) | [Report a problem](https://github.com/amadeos-eu/amade-sands-game/issues) |
+| Colony | [amade-colony-game](https://github.com/amadeos-eu/amade-colony-game) | [Report a problem](https://github.com/amadeos-eu/amade-colony-game/issues) |
+| Town | [amade-town-game](https://github.com/amadeos-eu/amade-town-game) | [Report a problem](https://github.com/amadeos-eu/amade-town-game/issues) |
+| The Seal of the Templars | [amade-templar-game](https://github.com/amadeos-eu/amade-templar-game) | [Report a problem](https://github.com/amadeos-eu/amade-templar-game/issues) |
 
 The games are in the spirit of the classics of the 1980s and 1990s, drawn anew, and built so that each one can be read and learned from: the **Game Developer's Handbook** in the Help drawer explains them chapter by chapter.
 

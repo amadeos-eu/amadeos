@@ -4,7 +4,7 @@ amadeOS is free software. This appendix lists the licences of its parts; chapter
 
 ## amadeOS
 
-The desktop, the system tools, the installer, the amade applications and games, the shared libraries `amade-commons` and `amade-game-engine`, and this handbook are published under the **European Union Public Licence, version 1.2** (EUPL-1.2), in every repository at <https://github.com/datazuul>. The text of the licence, in all 23 official languages of the EU, is at [interoperable-europe.ec.europa.eu](https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
+The desktop, the system tools, the installer, the amade applications and games, the shared libraries `amade-commons` and `amade-game-engine`, and this handbook are published under the **European Union Public Licence, version 1.2** (EUPL-1.2), in every repository at <https://github.com/amadeos-eu>. The text of the licence, in all 23 official languages of the EU, is at [interoperable-europe.ec.europa.eu](https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
 
 ## Parts from elsewhere in the image
 

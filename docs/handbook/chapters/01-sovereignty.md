@@ -37,7 +37,7 @@ The Front Panel shows when updates are waiting, in red when security updates are
 amadeOS does not cut you off from the world. It has a web browser, a mail client that talks to every IMAP and SMTP server, Gmail included, and it reads and writes the formats other systems use. The difference is that *you* open each of these doors, one at a time, and you can see which ones are open.
 
 !!! sovereignty "Your data"
-    Throughout this book, boxes like this one say where an application keeps your data and what it sends over the network. If a box is missing somewhere, that is a mistake in the book: please [report it](https://github.com/datazuul/amadeos/issues).
+    Throughout this book, boxes like this one say where an application keeps your data and what it sends over the network. If a box is missing somewhere, that is a mistake in the book: please [report it](https://github.com/amadeos-eu/amadeos/issues).
 
 ## Why "on your desktop"?
 

@@ -140,7 +140,7 @@ Priority: optional
 Architecture: all
 Installed-Size: $INSTALLED_SIZE
 Maintainer: amadeOS Project <info@amadeos.org>
-Homepage: https://github.com/datazuul/amadeos
+Homepage: https://github.com/amadeos-eu/amadeos
 Description: original CDE backdrops for the amadeOS desktop
  The pattern backdrops of the Common Desktop Environment (Pebbles, Concave,
  BrickWall, Toronto, WaterDrops, ...) as X pixmaps and bitmaps. The amadeOS

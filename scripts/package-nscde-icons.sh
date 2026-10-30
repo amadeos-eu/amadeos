@@ -136,7 +136,7 @@ if [ -d "$AMADEOS_ICONS_DIR" ]; then
 
 amadeOS additions
 =================
-The amadeos-* icons are part of amadeOS (https://github.com/datazuul/amadeos)
+The amadeos-* icons are part of amadeOS (https://github.com/amadeos-eu/amadeos)
 and licensed under the European Union Public Licence v1.2 (EUPL-1.2).
 EOF
 fi

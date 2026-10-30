@@ -5,14 +5,14 @@
 amadeOS is an open source Linux distribution with a timeless, classic desktop. Its source code is
 freely available under the European Union Public Licence, so anyone can inspect, change and share it.
 
-[![Build](https://github.com/datazuul/amadeos/actions/workflows/build.yml/badge.svg)](https://github.com/datazuul/amadeos/actions/workflows/build.yml)
+[![Build](https://github.com/amadeos-eu/amadeos/actions/workflows/build.yml/badge.svg)](https://github.com/amadeos-eu/amadeos/actions/workflows/build.yml)
 [![License: EUPL-1.2](https://img.shields.io/badge/license-EUPL--1.2-003399)](LICENSE)
 [![Java 25](https://img.shields.io/badge/Java-25-ED8B00?logo=openjdk&logoColor=white)](https://openjdk.org/projects/jdk/25/)
 [![Debian 13 trixie](https://img.shields.io/badge/Debian-13%20trixie-A81D33?logo=debian&logoColor=white)](https://www.debian.org/releases/trixie/)
 [![Display: X11](https://img.shields.io/badge/display-Xorg%2FX11-555555)](https://www.x.org/)
 [![Boot: BIOS + UEFI](https://img.shields.io/badge/boot-BIOS%20%2B%20UEFI-555555)](#getting-started)
 [![Status: pre-release](https://img.shields.io/badge/status-pre--release-yellow)](ROADMAP.md)
-[![Last commit](https://img.shields.io/github/last-commit/datazuul/amadeos)](https://github.com/datazuul/amadeos/commits/main)
+[![Last commit](https://img.shields.io/github/last-commit/amadeos-eu/amadeos)](https://github.com/amadeos-eu/amadeos/commits/main)
 
 ---
 
@@ -70,7 +70,7 @@ flowchart TD
 ```
 
 The desktop is five Debian packages from the
-[amadeos-system](https://github.com/datazuul/amadeos-system) repository: `amadeos-dm` (display manager and
+[amadeos-system](https://github.com/amadeos-eu/amadeos-system) repository: `amadeos-dm` (display manager and
 login greeter), `amadeos-session` (the session script `amadeos-session`, screen lock and screen saver),
 `amadeos-wm` (window manager), `amadeos-panel-cde` (the Front Panel; it provides `amadeos-panel`, the panel
 the session starts, so another panel can take its place) and `amadeos-settings` (Settings and input
@@ -100,13 +100,13 @@ settings). This repository holds the live image: its package list and configurat
 
 | Repository | Purpose |
 |---|---|
-| [amadeos](https://github.com/datazuul/amadeos) | This repository: the live image (live-build configuration, boot loaders, the scripts of the session) |
-| [amadeos-system](https://github.com/datazuul/amadeos-system) | System components, one package per module: `amadeos-dm` (display manager), `amadeos-session` (session, lock, screen saver), `amadeos-wm` (window manager), `amadeos-panel-cde` (front panel), `amadeos-settings` (Settings, formerly the Style Manager), `amadeos-logviewer` (Session Diagnostics & Logs), `amadeos-print`, `amadeos-sysinfo` |
-| [amade-commons](https://github.com/datazuul/amade-commons) | Shared library: desktop themes, colors and Motif styling, application scaffold |
-| [amade-pad](https://github.com/datazuul/amade-pad) | Text editor |
-| [amade-mail](https://github.com/datazuul/amade-mail) | Mail client (IMAP/SMTP) in the style of CDE's dtmail |
-| [amade-calendar](https://github.com/datazuul/amade-calendar) | Calendar with appointments, reminders and To Do items in the style of CDE's dtcm, stored as iCalendar |
-| [amadeos-installer](https://github.com/datazuul/amadeos-installer) | Installation of the live system onto a hard disk: the step-by-step assistant *Install amadeOS* and the script `amadeos-install` |
+| [amadeos](https://github.com/amadeos-eu/amadeos) | This repository: the live image (live-build configuration, boot loaders, the scripts of the session) |
+| [amadeos-system](https://github.com/amadeos-eu/amadeos-system) | System components, one package per module: `amadeos-dm` (display manager), `amadeos-session` (session, lock, screen saver), `amadeos-wm` (window manager), `amadeos-panel-cde` (front panel), `amadeos-settings` (Settings, formerly the Style Manager), `amadeos-logviewer` (Session Diagnostics & Logs), `amadeos-print`, `amadeos-sysinfo` |
+| [amade-commons](https://github.com/amadeos-eu/amade-commons) | Shared library: desktop themes, colors and Motif styling, application scaffold |
+| [amade-pad](https://github.com/amadeos-eu/amade-pad) | Text editor |
+| [amade-mail](https://github.com/amadeos-eu/amade-mail) | Mail client (IMAP/SMTP) in the style of CDE's dtmail |
+| [amade-calendar](https://github.com/amadeos-eu/amade-calendar) | Calendar with appointments, reminders and To Do items in the style of CDE's dtcm, stored as iCalendar |
+| [amadeos-installer](https://github.com/amadeos-eu/amadeos-installer) | Installation of the live system onto a hard disk: the step-by-step assistant *Install amadeOS* and the script `amadeos-install` |
 
 The Settings write the chosen theme to `~/.config/amadeos/theme.conf`; applications follow
 that file and switch together with window frames and front panel. Gradle takes amade-commons from
@@ -119,9 +119,9 @@ build the packages that go into it (amadeos-system and the applications).
 [`CONTRIBUTING.md`](CONTRIBUTING.md) lists the packages per distribution.
 
 ```bash
-git clone https://github.com/datazuul/amadeos.git
-git clone https://github.com/datazuul/amadeos-system.git
-git clone https://github.com/datazuul/amade-commons.git
+git clone https://github.com/amadeos-eu/amadeos.git
+git clone https://github.com/amadeos-eu/amadeos-system.git
+git clone https://github.com/amadeos-eu/amade-commons.git
 cd amadeos-system && ./gradlew :desktop:installToAmadeOs && cd ../amadeos   # the desktop package
 
 scripts/check-config.sh   # the checks CI runs on the configuration
@@ -199,10 +199,10 @@ on again, through Debian's signed shim and GRUB.
 ## Contributing
 
 Contributions are welcome: small, testable changes to the desktop (in
-[amadeos-system](https://github.com/datazuul/amadeos-system)) or the image, compatibility tests on real
+[amadeos-system](https://github.com/amadeos-eu/amadeos-system)) or the image, compatibility tests on real
 hardware, new applications as Debian packages, documentation. [`CONTRIBUTING.md`](CONTRIBUTING.md)
 describes the development setup, how to package applications for amadeOS and the Git workflow.
-Bugs and ideas go to the [issue tracker](https://github.com/datazuul/amadeos/issues).
+Bugs and ideas go to the [issue tracker](https://github.com/amadeos-eu/amadeos/issues).
 
 ## License
 

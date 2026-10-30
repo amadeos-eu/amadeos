@@ -5,7 +5,7 @@ This document describes the development environment that is already configured a
 ## Getting the source
 
 ```bash
-git clone https://github.com/datazuul/amadeos.git
+git clone https://github.com/amadeos-eu/amadeos.git
 cd amadeos
 ```
 
@@ -76,7 +76,7 @@ sudo apt-get install -y \
 
 User-space applications (e.g. text editors, file managers, calculators, system monitors) are developed in **independent repositories** and packaged as standard Debian `.deb` packages, rather than being hardcoded into the base OS.
 
-Example reference implementation: [`datazuul/amade-pad`](https://github.com/datazuul/amade-pad).
+Example reference implementation: [`amadeos-eu/amade-pad`](https://github.com/amadeos-eu/amade-pad).
 
 ### 1. Application standards & Motif 3D styling
 
@@ -207,7 +207,7 @@ tasks.register('installToAmadeOs') {
 ## The desktop
 
 The window manager, front panel, display manager, Style Manager, lock and screen saver are the module
-`desktop` of [amadeos-system](https://github.com/datazuul/amadeos-system); its `desktop/README.md`
+`desktop` of [amadeos-system](https://github.com/amadeos-eu/amadeos-system); its `desktop/README.md`
 describes the components and how to add front panel slots and widgets. This repository builds the
 image around that package.
 
@@ -302,7 +302,7 @@ Examples: `feat(panel): battery cell in the status slot`, `fix(wm): closing a di
 `docs(handbook): chapter 51 versions and releases`. The scope is optional, lower case, the area of the change.
 
 Nobody writes a version by hand. CI computes it from the commits since the last tag `vX.Y.Z`
-(`scripts/next-version.sh` of [amadeos-ci](https://github.com/datazuul/amadeos-ci)); a repository without a tag starts at 1.0.0.
+(`scripts/next-version.sh` of [amadeos-ci](https://github.com/amadeos-eu/amadeos-ci)); a repository without a tag starts at 1.0.0.
 
 | Branch | Built as | Debian version | Published |
 |---|---|---|---|

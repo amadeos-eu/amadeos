@@ -2,7 +2,7 @@ site_name: amadeOS User's Handbook
 site_description: Why amadeOS, how to install it, how to use and administer it.
 site_author: datazuul
 site_url: https://datazuul.github.io/amadeos/
-repo_url: https://github.com/datazuul/amadeos
+repo_url: https://github.com/amadeos-eu/amadeos
 edit_uri: edit/main/docs/handbook/chapters/
 copyright: © 2026 datazuul.com · EUPL-1.2
 docs_dir: chapters

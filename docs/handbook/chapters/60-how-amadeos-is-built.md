@@ -49,7 +49,7 @@ Each Java package puts its program into `/opt/<package>/` and a small start scri
 
 ## The repositories
 
-The source code lives in public Git repositories at <https://github.com/datazuul>:
+The source code lives in public Git repositories at <https://github.com/amadeos-eu>:
 
 | Repository | What is in it |
 |---|---|

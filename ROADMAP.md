@@ -61,7 +61,7 @@ Merged and installed by `buildDistribution.sh`, but so far only checked under Xv
 
 ### M12 — Compatibility, security and release hardening
 
-- Versions and releases (plan of 2026-10-24, tooling in [amadeos-ci](https://github.com/datazuul/amadeos-ci)): Semantic Versioning from 1.0.0, computed from Conventional Commits; branches `develop` (builds `-dev.N`), `release` (`-pre.N`) and `main` (releases, tag `vX.Y.Z`, GitHub Release), moved forward by the Promote workflow. Open: the one-time branch setup (`setup-release-branches.sh` of amadeos-ci), the secret `PROMOTE_TOKEN`, then every repository's build workflow; amade-calculator is the pilot.
+- Versions and releases (plan of 2026-10-24, tooling in [amadeos-ci](https://github.com/amadeos-eu/amadeos-ci)): Semantic Versioning from 1.0.0, computed from Conventional Commits; branches `develop` (builds `-dev.N`), `release` (`-pre.N`) and `main` (releases, tag `vX.Y.Z`, GitHub Release), moved forward by the Promote workflow. Open: the one-time branch setup (`setup-release-branches.sh` of amadeos-ci), the secret `PROMOTE_TOKEN`, then every repository's build workflow; amade-calculator is the pilot.
 - A documented release process: release manifest (image version, package inputs, checksum, test results), reproducible-build checks, image signing, artifact provenance, rollback and recovery.
 - Pin and document the supported Java baseline.
 - Test fonts, HiDPI scaling, keyboard layouts, focus and modality, and representative Swing/AWT applications.
@@ -105,7 +105,7 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 
 **Goal:** amadeOS and the amade applications arrive as updates, not only inside the ISO. All packages are `Architecture: all`; versions and GitHub Releases come from the release branches (see M12). The suites follow the branches: `stable` from main, `testing` from release, `dev` from develop.
 
-- **Online since 2026-10-27:** [apt.amadeos.eu](https://apt.amadeos.eu/), suite `stable` with the last three releases of every repository in `repositories.list`. A workflow in [`amadeos.eu`](https://github.com/datazuul/amadeos.eu) collects the `.deb` files of the GitHub releases every 30 minutes, builds the indexes with `apt-ftparchive` and the AppStream data (DEP-11) with `appstreamcli compose`, signs with an ed25519 subkey (the primary key stays offline) and uploads by rsync to the server.
+- **Online since 2026-10-27:** [apt.amadeos.eu](https://apt.amadeos.eu/), suite `stable` with the last three releases of every repository in `repositories.list`. A workflow in [`amadeos.eu`](https://github.com/amadeos-eu/amadeos.eu) collects the `.deb` files of the GitHub releases every 30 minutes, builds the indexes with `apt-ftparchive` and the AppStream data (DEP-11) with `appstreamcli compose`, signs with an ed25519 subkey (the primary key stays offline) and uploads by rsync to the server.
 - The package `amadeos-archive-keyring` (key in `/usr/share/keyrings`, source in `/etc/apt/sources.list.d/amadeos.sources`) is in the image; `build-image.sh` downloads it from the repository. Systems installed from 1.0.0 install it once by hand (User's Handbook, chapter 52).
 - Open: the suites `testing` (from release) and `dev` (from develop); `postinst` scripts for what image hooks set up today; `build-image.sh` taking the packages of a main build from the repository instead of `config/packages.chroot/`.
 
@@ -117,7 +117,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-10-29
 
-- Rivet, the 18th game ([`amade-rivet-game`](https://github.com/datazuul/amade-rivet-game) #1, game engine #40): a first-person shooter in 3D on the engine's new raycaster, with machines rendered from 3D models; Part VI of the Game Developer's Handbook.
+- Rivet, the 18th game ([`amade-rivet-game`](https://github.com/amadeos-eu/amade-rivet-game) #1, game engine #40): a first-person shooter in 3D on the engine's new raycaster, with machines rendered from 3D models; Part VI of the Game Developer's Handbook.
 
 ### 2026-10-27
 
@@ -126,12 +126,12 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-10-26
 
-- Artillery, the 17th game ([`amade-artillery-game`](https://github.com/datazuul/amade-artillery-game) #1, game engine #38): tanks take turns on breakable ground, with wind and computer players at three levels.
+- Artillery, the 17th game ([`amade-artillery-game`](https://github.com/amadeos-eu/amade-artillery-game) #1, game engine #38): tanks take turns on breakable ground, with wind and computer players at three levels.
 
 ### 2026-10-24
 
 - **Versions and releases:** Semantic Versioning with Conventional Commits, release branches develop/release/main and the Promote workflow (new repository amadeos-ci); amade-calculator is the pilot.
-- **Website [www.amadeos.eu](https://www.amadeos.eu/) online:** static pages from [`amadeos.eu`](https://github.com/datazuul/amadeos.eu), deployed to an own server by an Ansible playbook (nginx, Let's Encrypt).
+- **Website [www.amadeos.eu](https://www.amadeos.eu/) online:** static pages from [`amadeos.eu`](https://github.com/amadeos-eu/amadeos.eu), deployed to an own server by an Ansible playbook (nginx, Let's Encrypt).
 - **Front Panel sound cell** (system #46, #78): volume, mute, output and input device through `pactl`, mouse wheel and middle click.
 - **Front Panel battery cell** (system #44, #76): only with a battery; fill colour, bolt on mains, percentage and remaining time.
 - **Alt+Tab switcher** (system #45, #77): current workspace, most recently used first, small window previews without a compositor.
@@ -145,7 +145,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 - **Display page** (system #39, #62): resolution, refresh rate, rotation, monitor arrangement through `xrandr`, with a 15-second "keep?" countdown; reapplied at login.
 - **Workspace names and per-workspace backdrops** (system #36, #53).
 - **Busy light above EXIT** (system #41, #70): program start, package installation, disk and network activity.
-- **New applications:** [`amade-calculator`](https://github.com/datazuul/amade-calculator) (Basic, Scientific, Programmer; #57), [`amade-imageviewer`](https://github.com/datazuul/amade-imageviewer) (#59), [`amade-pdfviewer`](https://github.com/datazuul/amade-pdfviewer), default for PDF (#61), [`amade-contacts`](https://github.com/datazuul/amade-contacts) with address completion in the Mailer and birthdays in the Calendar (#63, #65), [`amade-books`](https://github.com/datazuul/amade-books), an EPUB and CBZ reader (#64) with 15 public-domain books from [`amadeos-sample-books`](https://github.com/datazuul/amadeos-sample-books) (#71, #72).
+- **New applications:** [`amade-calculator`](https://github.com/amadeos-eu/amade-calculator) (Basic, Scientific, Programmer; #57), [`amade-imageviewer`](https://github.com/amadeos-eu/amade-imageviewer) (#59), [`amade-pdfviewer`](https://github.com/amadeos-eu/amade-pdfviewer), default for PDF (#61), [`amade-contacts`](https://github.com/amadeos-eu/amade-contacts) with address completion in the Mailer and birthdays in the Calendar (#63, #65), [`amade-books`](https://github.com/amadeos-eu/amade-books), an EPUB and CBZ reader (#64) with 15 public-domain books from [`amadeos-sample-books`](https://github.com/amadeos-eu/amadeos-sample-books) (#71, #72).
 - File Manager tree view as the default (amade-files #7, #60).
 - Hover Cab, the 15th game (#58).
 - LibreOffice Calc, Impress, Draw and Math next to Writer (#69).
@@ -154,7 +154,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 ### 2026-10-22
 
 - **Clipboard manager** (system #34): history in memory only, Ctrl+Alt+V, Tools drawer.
-- [`amade-screenshot`](https://github.com/datazuul/amade-screenshot) (#48).
+- [`amade-screenshot`](https://github.com/amadeos-eu/amade-screenshot) (#48).
 - Application Developer's Handbook in amade-commons: chapters on every application, the commons library and the desktop modules; AppStream metainfo and screenshots for every amade application and game.
 
 ### 2026-10-21
@@ -166,18 +166,18 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-10-18 to 2026-10-20
 
-- **Installation to disk (M14):** [`amadeos-installer`](https://github.com/datazuul/amadeos-installer) with a five-language assistant and the `amadeos-install` script; a whole-disk BIOS installation in QEMU boots into the desktop and the new user logs in (#36).
+- **Installation to disk (M14):** [`amadeos-installer`](https://github.com/amadeos-eu/amadeos-installer) with a five-language assistant and the `amadeos-install` script; a whole-disk BIOS installation in QEMU boots into the desktop and the new user logs in (#36).
 - Java package root `eu.amadeos`, system packages renamed `amadeos-*`, AGENTS.md, plan for M15 and M16 (#37 to #39).
-- Game Developer's Handbook and games on [`amade-game-engine`](https://github.com/datazuul/amade-game-engine), from Paddle to Town and the adventure The Seal of the Templars, with Part IV "The Engine Manual".
+- Game Developer's Handbook and games on [`amade-game-engine`](https://github.com/amadeos-eu/amade-game-engine), from Paddle to Town and the adventure The Seal of the Templars, with Part IV "The Engine Manual".
 
 ### 2026-10-16 to 2026-10-17
 
-- The desktop moves to [`amadeos-system`](https://github.com/datazuul/amadeos-system) as one Gradle multi-project with one Debian package per module (#31 to #34), with Print Manager, System Information and Session Diagnostics & Logs; amade-calendar joins the family (#35).
+- The desktop moves to [`amadeos-system`](https://github.com/amadeos-eu/amadeos-system) as one Gradle multi-project with one Debian package per module (#31 to #34), with Print Manager, System Information and Session Diagnostics & Logs; amade-calendar joins the family (#35).
 - Network: NetworkManager, WLAN firmware and the network cell in the Front Panel's new status slot; the bell plays through the sound card.
 
 ### 2026-10-13 to 2026-10-14
 
-- **Shared library [`amade-commons`](https://github.com/datazuul/amade-commons)** (#13): themes, Motif look-and-feel, XDG directories, keyring and start-up for the desktop and all applications.
+- **Shared library [`amade-commons`](https://github.com/amadeos-eu/amade-commons)** (#13): themes, Motif look-and-feel, XDG directories, keyring and start-up for the desktop and all applications.
 - **Style Manager and screen saver** (#14): Color, Backdrop (the 26 original CDE backdrops as package `amadeos-backdrops-cde`), Screen, Keyboard, Mouse, Beep; screen saver daemon with lock.
 - NsCDE as the default icon theme (#15); amade-pad and amade-mail in the image; the live image boots and works (boot-tested 2026-10-13).
 - README "Digital Sovereignty starts on your desktop" (#16).

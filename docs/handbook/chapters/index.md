@@ -42,7 +42,7 @@ All seven parts and the appendices are written; [the plan of this book](plan.md)
 The book uses five kinds of boxes again and again:
 
 !!! planned "Planned"
-    Something amadeOS is meant to do but does not do yet, with the milestone of the [ROADMAP](https://github.com/datazuul/amadeos/blob/main/ROADMAP.md) that brings it. When the feature arrives, the box becomes ordinary text.
+    Something amadeOS is meant to do but does not do yet, with the milestone of the [ROADMAP](https://github.com/amadeos-eu/amadeos/blob/main/ROADMAP.md) that brings it. When the feature arrives, the box becomes ordinary text.
 
 !!! switching "Coming from Windows or macOS"
     Where to find what you know from another system.
@@ -62,4 +62,4 @@ amadeOS 1.0.0 is the first release. The book follows the `main` branch of the am
 
 The book is published at <https://datazuul.github.io/amadeos/>. On amadeOS itself it is installed as the package `amadeos-handbook`, and *Help → amadeOS User's Handbook* in the Front Panel opens it without a network.
 
-The text of the book is under the [EUPL-1.2](https://github.com/datazuul/amadeos/blob/main/LICENSE), like amadeOS. Corrections and suggestions are welcome as [issues](https://github.com/datazuul/amadeos/issues) or pull requests; every page has an edit button at the top.
+The text of the book is under the [EUPL-1.2](https://github.com/amadeos-eu/amadeos/blob/main/LICENSE), like amadeOS. Corrections and suggestions are welcome as [issues](https://github.com/amadeos-eu/amadeos/issues) or pull requests; every page has an edit button at the top.

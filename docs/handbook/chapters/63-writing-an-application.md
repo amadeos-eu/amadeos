@@ -63,8 +63,8 @@ Two more books continue where this one ends. Both are installed on amadeOS, in t
 
 | Book | What it teaches | On the web |
 |---|---|---|
-| **Application Developer's Handbook** | Writing amade applications, from the Text Editor to the Audio Station, one chapter per application; the amade-commons manual; packaging; writing a module of the desktop itself. | <https://datazuul.github.io/amade-commons/> |
-| **Game Developer's Handbook** | Writing games with the amade game engine, from Paddle to Town, one chapter per game; the engine manual. | <https://datazuul.github.io/amade-game-engine/> |
+| **Application Developer's Handbook** | Writing amade applications, from the Text Editor to the Audio Station, one chapter per application; the amade-commons manual; packaging; writing a module of the desktop itself. | <https://docs.amadeos.eu/amade-commons/> |
+| **Game Developer's Handbook** | Writing games with the amade game engine, from Paddle to Town, one chapter per game; the engine manual. | <https://docs.amadeos.eu/amade-game-engine/> |
 
 They assume that you can program a little, ideally in Java. They do not assume that you know Swing, X11 or Debian packages.
 

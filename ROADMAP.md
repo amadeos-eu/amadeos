@@ -224,5 +224,5 @@ The following are intentionally outside the scope of current milestones:
 - [`README.md`](README.md) — project overview, components and how to build and run them
 - [`CONCEPT.md`](CONCEPT.md) — architecture, decisions, alternatives, and risks
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — development environment, build commands, and validation procedure
-- [amadeOS User's Handbook](https://datazuul.github.io/amadeos/) — the system from the user's side
+- [amadeOS User's Handbook](https://docs.amadeos.eu/amadeos/) — the system from the user's side
 - [www.amadeos.eu](https://www.amadeos.eu/) — project website

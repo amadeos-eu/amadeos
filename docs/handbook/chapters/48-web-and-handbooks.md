@@ -250,4 +250,4 @@ The **Help** slot of the Front Panel opens this handbook, the *amadeOS User's Ha
 | **Game Developer's Handbook** | How the games of chapter 49 are made, and how to write your own with the amade game engine. |
 | **Documentation Viewer** | The documentation of the installed packages, see above. |
 
-The handbook is also on the web, at `https://datazuul.github.io/amadeos/`, always in its newest version. In Firefox, ++ctrl+f++ searches the page and the search box at the top searches the whole book.
+The handbook is also on the web, at `https://docs.amadeos.eu/amadeos/`, always in its newest version. In Firefox, ++ctrl+f++ searches the page and the search box at the top searches the whole book.

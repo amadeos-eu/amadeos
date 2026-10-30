@@ -1,13 +1,13 @@
 # 49. Games
 
-amadeOS comes with **seventeen games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
+amadeOS comes with **eighteen games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
 
 ## What all games share
 
 - **Best scores and times**, ten for each game (*Game → High Scores…* in Mines and Solitaire).
 - Every game speaks the five languages of amadeOS.
 
-The fourteen action and strategy games also share:
+The fifteen action and strategy games also share:
 
 | Key | What it does |
 |---|---|
@@ -64,6 +64,20 @@ Klondike, the classic patience. Build the four piles at the top right from ace t
 
 In the strategy games, ++f5++ saves and ++f9++ loads, and a mission opens when the one before it is won.
 
+## Seen from inside
+
+### Rivet
+
+![Rivet](images/49/rivet.jpg){ width="400" }
+
+A first-person shooter in 3D. An engineer goes down into Kessel Deep, a mine under the ice of a frozen moon, where the control system called the Foreman has turned the machines against the crew. Nine levels in three sections, from the landing pad on the surface to the Foreman's core, with the tools of the trade for weapons.
+
+- ++w++ ++a++ ++s++ ++d++ walk and step sideways, the **mouse** or the arrow keys turn, ++shift++ runs. The mouse is caught by the window while you play and let go in the pause; *Game → Mouse Speed* sets how fast it turns.
+- **Click** or ++ctrl++ uses the tool in hand; ++1++ to ++6++, ++q++ or the wheel choose another.
+- ++space++ or the right mouse button opens doors and works the lift. A coloured door needs the access chip of its colour. Some walls give way: those are the secrets.
+- ++tab++ shows the map of what you have seen. ++p++ or ++esc++ pauses.
+- The first start takes a few seconds while the machines are built in 3D; later starts are quick.
+
 ## A story
 
 ### The Seal of the Templars
@@ -98,6 +112,7 @@ Every game has its source code in a repository of its own on GitHub. If a game m
 | Jump | [amade-jump-game](https://github.com/datazuul/amade-jump-game) | [Report a problem](https://github.com/datazuul/amade-jump-game/issues) |
 | Hover Cab | [amade-hover-cab-game](https://github.com/datazuul/amade-hover-cab-game) | [Report a problem](https://github.com/datazuul/amade-hover-cab-game/issues) |
 | Artillery | [amade-artillery-game](https://github.com/datazuul/amade-artillery-game) | [Report a problem](https://github.com/datazuul/amade-artillery-game/issues) |
+| Rivet | [amade-rivet-game](https://github.com/datazuul/amade-rivet-game) | [Report a problem](https://github.com/datazuul/amade-rivet-game/issues) |
 | Towers | [amade-towers-game](https://github.com/datazuul/amade-towers-game) | [Report a problem](https://github.com/datazuul/amade-towers-game/issues) |
 | Sands | [amade-sands-game](https://github.com/datazuul/amade-sands-game) | [Report a problem](https://github.com/datazuul/amade-sands-game/issues) |
 | Colony | [amade-colony-game](https://github.com/datazuul/amade-colony-game) | [Report a problem](https://github.com/datazuul/amade-colony-game/issues) |

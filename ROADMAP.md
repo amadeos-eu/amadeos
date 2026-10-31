@@ -68,7 +68,7 @@ Gap analysis of 2026-10-31: what a typical desktop has and amadeOS does not yet,
 1. ~~USB sticks and external disks in the File Manager: `udisks2`, mount, Safely Remove.~~ Built 2026-10-31 (amade-files, see the timeline).
 2. ~~Archives: open and create zip and tar files.~~ Built 2026-10-31 in the File Manager (Extract Here, Extract To…, Compress…; also reads 7z).
 3. ~~Power: Suspend and Hibernate in the EXIT dialog, an action for the closed lid, a Settings page *Power* (screen off after, suspend after, on battery).~~ Built 2026-10-31 (amadeos-system: EXIT dialog, Settings > Power, lid and power button through logind; test on a real laptop open).
-4. ~~Notifications: a daemon for `org.freedesktop.Notifications`, so Firefox, updates, Mailer and Calendar reminders can show pop-ups.~~ Built 2026-10-31 (pop-ups, history, bell, Do not disturb; see the timeline). The amade programs move to it one by one.
+4. ~~Notifications: a daemon for `org.freedesktop.Notifications`, so Firefox, updates, Mailer and Calendar reminders can show pop-ups.~~ Built 2026-10-31 (pop-ups, history, bell, Do not disturb; see the timeline). Calendar, Mailer, Backup, TV and Webcam send through it (calendar #17, mail #15, backup #6, tv #10, webcam #2).
 5. Default applications: a Settings page for the program that opens web links, mail, PDFs, pictures, music and videos (`xdg-mime`).
 6. Date and time: date and number formats (marked *Planned* on the Language page), network time on or off, setting the time by hand.
 7. Task manager / system monitor: processes, CPU and memory graphs, ending a program that hangs (System Information shows only a report).

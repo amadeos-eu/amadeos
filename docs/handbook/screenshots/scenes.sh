@@ -315,6 +315,27 @@ imageviewer_shots() {
     close_programs
 }
 
+# imageeditor_shots: the Image Editor with the crop frame at 16:9, then the colour sliders with the
+# comparison of original and adjusted picture.
+imageeditor_shots() {
+    start amade-imageeditor "$HOME/Pictures/mountain-lake.png"
+    wait_window "Image Editor" 40 || { close_programs; return 0; }
+    sleep 3
+    place "Image Editor" 140 60 1000 640
+    sleep 1
+    xdotool search --onlyvisible --name "Image Editor" windowactivate --sync 2>/dev/null || true
+    key ctrl+k
+    sleep 2
+    shot_window 47 image-editor "Image Editor"
+    key Escape
+    key ctrl+j
+    sleep 1
+    key space
+    sleep 2
+    shot_window 47 image-editor-adjust "Image Editor"
+    close_programs
+}
+
 # pdfviewer_shots: the PDF Viewer with the page thumbnails and a search, then two pages at a time with
 # the table of contents. The document is Part I of this handbook, made with reportlab
 # (home/Documents/amadeos-handbook-part-1.pdf).
@@ -396,6 +417,7 @@ scene_apps() {
     fi
     close_programs
     imageviewer_shots
+    imageeditor_shots
     app_shot 47 image-scan "Image Scan" 140 60 1000 640 amade-imagescan "$HOME/Pictures/mountain-lake.png"
     app_shot 47 fractals "Fractals" 140 60 1000 640 amade-fractals
     calculator_shot calculator "mode=basic\npaper-tape=true" "1234.5*3=" "19.99+4.5+7.25=" "200+10%=" "1/3*3=" "1234567.89*12"

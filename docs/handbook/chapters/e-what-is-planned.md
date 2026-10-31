@@ -44,7 +44,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 | TV | The on-demand programs of the broadcasters (their media libraries) with search, downloads and a watch-later list | 46 |
 | Video Player | A face like the Audio Station's, DVD titles and chapters, playlists, audio and subtitle tracks, full screen, volume | 46 |
 | Image Viewer | A picture as the backdrop of a workspace, moving GIF and WebP pictures, HEIC photos, editing title and keywords | 47 |
-| Image Editor | Painting, text and shapes, layers, red-eye removal, sharpening and blurring, editing title and keywords | 47 |
+| Image Editor | Selections, blend modes and layer masks, red-eye removal, sharpening and blurring, editing title and keywords | 47 |
 | Image Scan | Several pages into one PDF, brightness and contrast, straightening, the scanner's button | 47 |
 | PDF Viewer | A night mode, filling in forms, highlighting and notes, comic archives inside PDF | 48 |
 | Books | A scrolling view, comics in CBR and PDF form, notes and highlighting, tables and vertical writing | 48 |

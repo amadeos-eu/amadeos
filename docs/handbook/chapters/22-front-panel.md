@@ -38,7 +38,7 @@ The middle of the panel holds the controls of the session:
 | **Tools** | Opens the Application Manager, the list of all programs | See below |
 | **Help** | Opens this handbook in the web browser | The handbooks on the computer |
 | **Trash Can** | Opens the trash in the File Manager | — |
-| **Status** | Up to four small cells: the network, the sound, the battery on a laptop, and the software updates when updates are waiting; a camera light while a camera is on | — |
+| **Status** | Small cells: the network, the sound, the battery on a laptop, the notification bell with the number of new notifications (chapter 28), and the software updates when updates are waiting; a camera light while a camera is on | — |
 
 ### The Tools drawer
 

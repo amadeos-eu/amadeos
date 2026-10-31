@@ -8,7 +8,8 @@ Where to find on amadeOS what you know from Windows or macOS.
 |---|---|---|---|
 | Start menu | Launchpad | The drawers of the Front Panel, sorted by kind; the Application Manager in the Tools slot | 22 |
 | Taskbar | Dock | The Front Panel; minimised windows as icons at the top left of the desktop | 22, 23 |
-| Notification area | Menu bar extras | The status slot of the Front Panel: network, sound and updates | 22, 27 |
+| Notification area | Menu bar extras | The status slot of the Front Panel: network, sound, notifications and updates | 22, 27 |
+| Notifications, Action Center, Focus assist | Notification Centre, Focus | Notifications in a corner, the history behind the bell, Do not disturb | 28 |
 | Virtual desktops | Spaces | Four workspaces, each with its own colour | 24 |
 | Desktop context menu | — | The Workspace Menu, right mouse button on the backdrop | 24 |
 | ++win+l++ | ++ctrl+cmd+q++ | ++super+l++, or the padlock in the Front Panel | 26 |

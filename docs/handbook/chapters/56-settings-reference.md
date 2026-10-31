@@ -23,6 +23,7 @@ Your settings are in your home folder, in folders whose names start with a dot a
 | `display.conf` | Settings: Display (one arrangement per set of monitors) | 39 |
 | `screen.conf` | Settings: Screen | 34 |
 | `window.conf` | Settings: Window | 35 |
+| `notifications.conf` | Settings: Notifications, and Do not disturb from the bell | 28 |
 | `clipboard.conf` | Settings: Clipboard | 36 |
 | `workspaces.conf` | Settings: Workspaces, and renaming in the Front Panel | 24, 37 |
 | `panel.conf` | Settings: Front Panel, and the clock's right-click menu | 37 |

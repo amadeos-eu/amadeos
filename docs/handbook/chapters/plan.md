@@ -31,6 +31,7 @@ Every chapter of the book, part by part. The book keeps growing with amadeOS: ne
 25. [Your Language](25-language.md)
 26. [Locking, Logging Out, Shutting Down](26-lock-logout-shutdown.md)
 27. [Network, Sound and Printing](27-network-sound-printing.md)
+28. [Notifications](28-notifications.md)
 
 ## Part IV: Settings
 

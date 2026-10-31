@@ -67,7 +67,7 @@ Gap analysis of 2026-10-31: what a typical desktop has and amadeOS does not yet,
 1. ~~USB sticks and external disks in the File Manager: `udisks2`, mount, Safely Remove.~~ Built 2026-10-31 (amade-files, see the timeline).
 2. ~~Archives: open and create zip and tar files.~~ Built 2026-10-31 in the File Manager (Extract Here, Extract To…, Compress…; also reads 7z).
 3. Power: Suspend and Hibernate in the EXIT dialog, an action for the closed lid, a Settings page *Power* (screen off after, suspend after, on battery).
-4. Notifications: a daemon for `org.freedesktop.Notifications`, so Firefox, updates, Mailer and Calendar reminders can show pop-ups.
+4. ~~Notifications: a daemon for `org.freedesktop.Notifications`, so Firefox, updates, Mailer and Calendar reminders can show pop-ups.~~ Built 2026-10-31 (pop-ups, history, bell, Do not disturb; see the timeline). The amade programs move to it one by one.
 5. Default applications: a Settings page for the program that opens web links, mail, PDFs, pictures, music and videos (`xdg-mime`).
 6. Date and time: date and number formats (marked *Planned* on the Language page), network time on or off, setting the time by hand.
 7. Task manager / system monitor: processes, CPU and memory graphs, ending a program that hangs (System Information shows only a report).
@@ -137,6 +137,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-10-31
 
+- Notifications (system #58, commons #66): `amadeos-session notifications` owns `org.freedesktop.Notifications`, so Firefox, `notify-send` and the amade programs show pop-ups in a corner above the Front Panel; a history of 7 days, a bell with the count of new ones in the status slot, Do not disturb (for a while, on a schedule, while a window is full screen) and Settings → Notifications with a choice per program; the Front Panel warns about a low battery and announces updates. amade-commons has the `Notifications` API for the programs; `libnotify-bin` (`notify-send`) in the image; User's Handbook chapter 28.
 - New application [`amade-webcam`](https://github.com/amadeos-eu/amade-webcam) (#1): photos with self-timer and bursts, videos with sound (MP4, or WebM), time lapse, five looks, QR codes, the camera's picture controls; a camera light in the Front Panel's status slot while any program uses a camera (system #56); `v4l-utils` in the image; User's Handbook chapters 22 and 46.
 - File Manager: USB sticks, memory cards, external disks and discs in the folder tree, mounted when plugged in or chosen, with Unmount and Safely Remove (Eject for discs) through `udisksctl`; archives open by extracting, with Extract Here, Extract To… and Compress… (zip, tar.gz, tar.xz; also reads 7z, tar.bz2, gz, bz2, xz) (amade-files #13); `udisks2` in the image; User's Handbook chapter 41.
 - New application [`amade-imageeditor`](https://github.com/amadeos-eu/amade-imageeditor) (#1): crop with aspect ratios, straighten, turn, colours, resize, unlimited undo; saves JPEG, PNG, WebP, TIFF and BMP and keeps or drops camera data and location. The Image Viewer opens the shown picture in it (amade-imageviewer #9); `webp` in the image for WebP saving; User's Handbook chapter 47.

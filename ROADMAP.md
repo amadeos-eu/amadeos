@@ -115,6 +115,10 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
 
+### 2026-10-31
+
+- New application [`amade-imageeditor`](https://github.com/amadeos-eu/amade-imageeditor) (#1): crop with aspect ratios, straighten, turn, colours, resize, unlimited undo; saves JPEG, PNG, WebP, TIFF and BMP and keeps or drops camera data and location. The Image Viewer opens the shown picture in it (amade-imageviewer #9); `webp` in the image for WebP saving; User's Handbook chapter 47.
+
 ### 2026-10-29
 
 - Rivet, the 18th game ([`amade-rivet-game`](https://github.com/amadeos-eu/amade-rivet-game) #1, game engine #40): a first-person shooter in 3D on the engine's new raycaster, with machines rendered from 3D models; Part VI of the Game Developer's Handbook.

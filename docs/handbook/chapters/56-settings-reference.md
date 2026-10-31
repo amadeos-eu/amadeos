@@ -22,6 +22,7 @@ Your settings are in your home folder, in folders whose names start with a dot a
 | `input.conf` | Settings: Keyboard, Mouse, Beep | 33 |
 | `display.conf` | Settings: Display (one arrangement per set of monitors) | 39 |
 | `screen.conf` | Settings: Screen | 34 |
+| `power.conf` | Settings: Power | 34 |
 | `window.conf` | Settings: Window | 35 |
 | `clipboard.conf` | Settings: Clipboard | 36 |
 | `workspaces.conf` | Settings: Workspaces, and renaming in the Front Panel | 24, 37 |

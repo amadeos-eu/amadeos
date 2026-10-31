@@ -15,7 +15,7 @@ Start it with the File Manager slot of the Front Panel, which opens your home fo
 
 ### The tree view
 
-- **The folder tree** on the left starts with your **Home** folder, the **Trash**, the **File System** (everything, from `/`) and every USB stick, memory card or disc that is plugged in; a stick appears a few seconds after you plug it in (see *USB sticks and discs* below). Click the small handle in front of a folder to open it. Click a folder to see what is in it.
+- **The folder tree** on the left starts with your **Home** folder, the **Trash**, the **File System** (everything, from `/`) every USB stick, memory card or disc that is plugged in, and the **Network** with the servers and network drives of your home or office; a stick appears a few seconds after you plug it in (see *USB sticks and discs* and *Network drives* below). Click the small handle in front of a folder to open it. Click a folder to see what is in it.
 - **The list** on the right shows the files of that folder with name, size, date and permissions. Click a column heading to sort by it. Click a file to select it, ++ctrl++-click to add more, ++shift++-click to select a range. Double-click opens a folder or opens a file with its program.
 - **The path bar** at the top shows where you are, one button per folder (see *Typing a path* below).
 - **The status line** at the bottom shows the selected files with their size and the free space on the disk, and on the right what the File Manager has just done.
@@ -64,6 +64,51 @@ If a program still has a file on the stick open, the File Manager tells you: *Ho
 
 !!! switching "Coming from Windows or macOS"
     *Safely Remove* is Windows' *Eject* in the Explorer or *Safely Remove Hardware* in the taskbar, and the eject arrow next to a stick in the Finder of macOS.
+
+### Network drives
+
+A **network drive** is a folder on another computer or on a network storage box (a NAS, such as a WD My Cloud, a Synology or a Fritz!Box with a USB disk) that you use as if it were on your own disk. The File Manager shows them under **Network** at the bottom of the folder tree.
+
+Click the handle in front of *Network*. After a moment it lists the servers it finds in your network: Windows computers, NAS boxes and other Linux and Mac computers that offer folders. Click the handle of a server, and its **shares** appear, the folders it offers, such as *Public*, *ralf* or *TimeMachineBackup*. A share that is not connected yet is shown in *italics*.
+
+![Network in the folder tree, with the shares of a NAS](images/41/file-manager-network.jpg)
+
+Click a share to **connect** to it. A share that anyone may open, such as *Public*, opens at once. For a private share the File Manager asks who you are:
+
+![Logging in to a private share](images/41/file-manager-login.jpg)
+
+- *Guest (no password)* for shares open to everyone, or *Registered user* with the **user name** and **password** of an account on that server, not of your amadeOS account.
+- **Workgroup or domain** is needed only for Windows shares (SMB). It is *WORKGROUP* on almost every home network, and the File Manager fills that in for you; in a company network ask for the domain's name.
+- **Remember password in the keyring** keeps it in your login keyring (see chapter 38), so the next time the share opens without asking. Without it, the File Manager asks again after you log out.
+- **Connect again at login** makes the share ready every time you log in, so programs find their files on it without your opening the File Manager first.
+
+If the password was wrong, the window comes back with *The user name or password for ralf on MyCloudEX2Ultra was not accepted. Please try again.* Once connected, the share opens like any folder: you can copy files onto it and off it, open them, drag them between the share and your home folder, and use the two-panel view with a share on one side. The path bar shows *MyCloudEX2Ultra › ralf*, not the long hidden folder where the share really is.
+
+A server the File Manager does not find by itself, such as one in another network, a cloud storage with WebDAV or a computer you reach over SSH, you add with **File → Connect to Server…** (++ctrl+k++), or with *Connect to Server…* at the bottom of *Network*:
+
+![Connect to Server](images/41/file-manager-connect.jpg)
+
+Type the address, such as `smb://mycloudex2ultra/ralf`, or choose the kind of server and type its name. The File Manager understands these addresses:
+
+| Address | For |
+|---|---|
+| `smb://server/share` or `\\server\share` | Windows shares and nearly every NAS |
+| `nfs://server/path` | NFS, common between Linux computers and on NAS boxes |
+| `davs://server/path` | WebDAV over a secure connection: Nextcloud, ownCloud, many cloud storages |
+| `sftp://server/path` | a folder on a computer you can log in to with SSH |
+| `ftp://server/path` | old FTP servers |
+
+**Keep in the folder tree under Network** leaves the server there, even when it is switched off; the last eight addresses are offered again under *Recent servers*. You can also type such an address into the path bar (++ctrl+l++) and press ++enter++.
+
+The right mouse button on *Network* offers *Connect to Server…* and *Refresh* (look for servers again); on a server *Log In As…* (another user) and *Copy Network Address*; on a share that is not connected *Connect and Open*, *Connect*, *Log In As…* and *Copy Network Address*; on a connected share also *Disconnect*. What you keep has *Forget Password* (removes it from the keyring) and *Remove from Network…*. **Disconnect** closes the connection; files still open on the share must be closed first.
+
+!!! tip "A WD My Cloud EX2 Ultra"
+    The My Cloud offers its shares as Windows shares (SMB) from the start, and it announces itself, so it appears under *Network* as *MyCloudEX2Ultra* (or the name you gave it). Its share *Public* opens as a guest. Every user you set up in the My Cloud's dashboard has a private share of the same name: connect to it as *Registered user* with that user's name and password and the workgroup *WORKGROUP*, and tick *Remember password in the keyring* and *Connect again at login*. If the My Cloud does not appear, type `smb://` followed by its IP address, which the dashboard shows under *Settings → Network*. NFS works too, but must first be switched on in the dashboard (*Settings → Network → Network Services*) and for each share.
+
+If a server cannot be reached, the File Manager says so: *MyCloudEX2Ultra cannot be reached (…). Is it switched on and in this network?*
+
+!!! switching "Coming from Windows or macOS"
+    *Network* is Windows' *Network* in the Explorer, and *Connect again at login* is *Map network drive* with *Reconnect at sign-in*, without a drive letter. `\\server\share` works as you know it. On macOS it is *Network* in the Finder's sidebar and *Go → Connect to Server…* (++cmd+k++).
 
 ### Archives: zip, tar and 7z
 
@@ -152,10 +197,10 @@ A copy is written under a hidden name first and gets its real name only when it 
     The trash is the Recycle Bin or Bin you know. It follows the freedesktop.org standard, so other Linux programs see the same trash.
 
 !!! planned "Planned"
-    Folders that refresh by themselves, quick search by typing, tabs and bookmarks, an icon view, dragging files onto the desktop and the Front Panel, file properties and *Open With…*, archives with a password and archives as folders, formatting a USB stick, and folders on other computers (SFTP).
+    Folders that refresh by themselves, quick search by typing, tabs and bookmarks, an icon view, dragging files onto the desktop and the Front Panel, file properties and *Open With…*, archives with a password and archives as folders, formatting a USB stick, and a share's free space in the status line.
 
 ??? hood "Under the hood"
-    The settings, such as the view, hidden files and the folders of both panels when you closed the File Manager, are in `~/.config/amadeos/files/files.conf`. `amade-files /tmp /media` opens the File Manager with these folders in the left and right panel, and `amade-files trash:` opens the trash. USB sticks are found with `lsblk` and mounted with `udisksctl` (package `udisks2`), below `/media/$USER/`; udisks lets the user at the screen do this without a password. Archives are read and written in Java (Apache Commons Compress), so no `unzip` or `7z` is needed.
+    The settings, such as the view, hidden files and the folders of both panels when you closed the File Manager, are in `~/.config/amadeos/files/files.conf`. `amade-files /tmp /media` opens the File Manager with these folders in the left and right panel, and `amade-files trash:` opens the trash. USB sticks are found with `lsblk` and mounted with `udisksctl` (package `udisks2`), below `/media/$USER/`; udisks lets the user at the screen do this without a password. Archives are read and written in Java (Apache Commons Compress), so no `unzip` or `7z` is needed. Network drives are connected with `gio mount` of GVfs (packages `gvfs-backends` and `gvfs-fuse`), which makes each share a folder below `/run/user/$UID/gvfs/`; the password goes to `gio` on its standard input, never on the command line. Servers are found through Avahi (mDNS) and `wsdd` (WS-Discovery, for Windows computers and NAS boxes). The servers and shares you keep are in `~/.config/amadeos/files/network.conf` (no passwords: those are in the login keyring, service `amade-files`), and *Connect again at login* writes `~/.config/autostart/amade-files-network.desktop`, which runs `amade-files --connect-saved` once at login.
 
 ## Backup & Sync
 

@@ -31,6 +31,8 @@ Each account gets a **colour**, which marks its mail when the inboxes are shown 
 - **The message** below, with the buttons *Delete*, *Next*, *Previous*, *Reply to Sender* and *Forward*.
 - **Attachments** in a bar under the message: *Open* or *Save As…*.
 
+When a check of the mail finds new messages in an inbox, a notification in the corner of the screen (chapter 28) names the account and the number of new messages; a click on it opens that inbox.
+
 *View → Plain Text* or *HTML* switches how mail in HTML is shown. The **Move** menu moves the selected message to another folder of its account. *Message → Show Source* shows the message as it arrived.
 
 ### Writing mail

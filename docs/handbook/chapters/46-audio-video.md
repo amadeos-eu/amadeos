@@ -96,7 +96,7 @@ The page **Guide** shows one day of all channels on a time line. The red line is
 
 ![The Guide of TV](images/46/tv-guide.jpg)
 
-The arrows go to the previous and the next day; **Now** and **Prime Time 20:15** scroll the day there. **Find** looks for a word in the titles and descriptions of the day shown; ++enter++ goes to the next hit. Click a program to read about it below the grid. **Watch Live** switches to it if it is running. For a program that is still to come, **Remind Me** sets a reminder: when it starts, TV asks whether you want to watch it. Reminders work while TV is open.
+The arrows go to the previous and the next day; **Now** and **Prime Time 20:15** scroll the day there. **Find** looks for a word in the titles and descriptions of the day shown; ++enter++ goes to the next hit. Click a program to read about it below the grid. **Watch Live** switches to it if it is running. For a program that is still to come, **Remind Me** sets a reminder: when it starts, a notification (chapter 28) says so, and its **Watch** switches to the program. Reminders work while TV is open.
 
 ### Recordings
 
@@ -158,6 +158,8 @@ Click **Video**: the shutter button turns red. A click starts the recording, and
 | **Mic** | The microphone for the sound, or *No sound* |
 
 Videos are saved as **MP4**, which plays on every computer, phone and TV. Settings can switch to **WebM**, the open format of the web.
+
+While Webcam is in front, the line at the bottom says what was saved. If you are in another window when a photo, a burst or a video is saved, for example after the timer or at the end of a time lapse, a notification (chapter 28) says so; its **Open** opens the file.
 
 ### Looks, mirror and QR codes
 

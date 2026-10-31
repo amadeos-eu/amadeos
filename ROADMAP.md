@@ -68,7 +68,7 @@ Gap analysis of 2026-10-31: what a typical desktop has and amadeOS does not yet,
 1. ~~USB sticks and external disks in the File Manager: `udisks2`, mount, Safely Remove.~~ Built 2026-10-31 (amade-files, see the timeline).
 2. ~~Archives: open and create zip and tar files.~~ Built 2026-10-31 in the File Manager (Extract Here, Extract To…, Compress…; also reads 7z).
 3. ~~Power: Suspend and Hibernate in the EXIT dialog, an action for the closed lid, a Settings page *Power* (screen off after, suspend after, on battery).~~ Built 2026-10-31 (amadeos-system: EXIT dialog, Settings > Power, lid and power button through logind; test on a real laptop open).
-4. Notifications: a daemon for `org.freedesktop.Notifications`, so Firefox, updates, Mailer and Calendar reminders can show pop-ups.
+4. ~~Notifications: a daemon for `org.freedesktop.Notifications`, so Firefox, updates, Mailer and Calendar reminders can show pop-ups.~~ Built 2026-10-31 (pop-ups, history, bell, Do not disturb; see the timeline). The amade programs move to it one by one.
 5. Default applications: a Settings page for the program that opens web links, mail, PDFs, pictures, music and videos (`xdg-mime`).
 6. Date and time: date and number formats (marked *Planned* on the Language page), network time on or off, setting the time by hand.
 7. Task manager / system monitor: processes, CPU and memory graphs, ending a program that hangs (System Information shows only a report).
@@ -138,6 +138,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-10-31
 
+- Notifications (system #58, commons #66): `amadeos-session notifications` owns `org.freedesktop.Notifications`, so Firefox, `notify-send` and the amade programs show pop-ups in a corner above the Front Panel; a history of 7 days, a bell with the count of new ones in the status slot, Do not disturb (for a while, on a schedule, while a window is full screen) and Settings → Notifications with a choice per program; the Front Panel announces new updates. amade-commons has the `Notifications` API for the programs; `libnotify-bin` (`notify-send`) in the image; User's Handbook chapter 28.
 - File Manager: network drives under *Network* in the folder tree: servers found through Avahi and WS-Discovery, Windows shares (SMB) with workgroup, user and password, NFS, WebDAV, SFTP and FTP through GVfs; the password can stay in the login keyring and shares can connect again at login; *File → Connect to Server…* (amade-files #14); `gvfs-backends`, `gvfs-fuse` and `wsdd` in the image; User's Handbook chapter 41.
 - Power: Suspend and Hibernate in the EXIT window (Hibernate greyed out where logind cannot), Settings page *Power* (screen off and suspend after, on battery and plugged in; lid, power button, low battery warning and action; lock before sleeping), carried out by the session's screen daemon and the window manager through systemd-logind (system #57); User's Handbook chapters 26 and 34.
 - New application [`amade-webcam`](https://github.com/amadeos-eu/amade-webcam) (#1): photos with self-timer and bursts, videos with sound (MP4, or WebM), time lapse, five looks, QR codes, the camera's picture controls; a camera light in the Front Panel's status slot while any program uses a camera (system #56); `v4l-utils` in the image; User's Handbook chapters 22 and 46.

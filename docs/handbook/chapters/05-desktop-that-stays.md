@@ -36,7 +36,7 @@ It is not a museum piece, though. Under the familiar surface amadeOS is a new pr
 
 **What you learn stays valid.** The way you work with amadeOS today is the way you will work with it in ten years. Time spent learning the system is not lost with the next update.
 
-**Less distraction.** There are no animations, no transparent windows, no blur and no notifications competing for attention. The desktop gets out of the way of your work. amadeOS leaves out such effects on purpose; they are not missing features.
+**Less distraction.** There are no animations, no transparent windows and no blur, and notifications wait quietly in a corner, or in the history while you ask not to be disturbed. The desktop gets out of the way of your work. amadeOS leaves out such effects on purpose; they are not missing features.
 
 **It runs on modest hardware.** A desktop without heavy effects needs no expensive graphics card, so older computers stay useful for longer.
 

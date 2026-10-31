@@ -1,6 +1,6 @@
 # 30. Settings
 
-**Settings** is where you make the desktop your own: its colours, the size of its text, the picture behind the windows, the names of the workspaces and the Front Panel, how the keyboard, the mouse and the windows behave, the speakers and microphones, the sound of the beep, the resolution of the monitors, the screen saver, sleeping and the battery, the clipboard and what starts at login, the network, Bluetooth and the printers, and, for the system, the accounts of the computer, the keyring, the updates, the language and the time zone. It grew out of CDE's Style Manager, and it can still look like it (see *The compact view* below).
+**Settings** is where you make the desktop your own: its colours, the size of its text, the picture behind the windows, the names of the workspaces and the Front Panel, how the keyboard, the mouse and the windows behave, the speakers and microphones, the sound of the beep, the resolution of the monitors, the screen saver, sleeping and the battery, the notifications, the clipboard and what starts at login, the network, Bluetooth and the printers, and, for the system, the accounts of the computer, the keyring, the updates, the language and the time zone. It grew out of CDE's Style Manager, and it can still look like it (see *The compact view* below).
 
 ## Opening it
 
@@ -29,6 +29,7 @@ On the left, the controls are grouped by what they set. Click one, or move throu
 | | **Screen** | Screen saver and screen lock | 34 |
 | | **Power** | Screen off, suspend, lid, power button and low battery | 34 |
 | | **Window** | How windows get the focus, come to the front and move | 35 |
+| | **Notifications** | Where pop-ups appear and for how long, Do not disturb, which programs may show them | 28 |
 | | **Clipboard** | The clipboard history, and copies that outlive their program | 36 |
 | | **Startup** | Programs and desktop services started at login | 35 |
 | Network and Devices | **Network** | Wired network, WLAN and the proxy | 38 |
@@ -80,4 +81,4 @@ In that window, **OK** saves, applies and closes; **Apply** saves and applies an
     CDE's Style Manager, `dtstyle`, was a row of buttons, each opening a small window. That worked for a handful of controls; amadeOS has more to set, so the sidebar groups them and a search finds them. The compact view keeps the CDE row for those who prefer it.
 
 ??? hood "Under the hood"
-    Settings writes small text files to `~/.config/amadeos/`, one per control: `theme.conf` and `icon_theme.conf` (Color), `font.conf` (Font), `wallpaper.conf` (Backdrop), `input.conf` (Keyboard, Mouse and Beep), `display.conf` (Display), `screen.conf` (Screen), `power.conf` (Power), `window.conf` (Window), `clipboard.conf` (Clipboard), `workspaces.conf` (Workspaces), `panel.conf` (Front Panel), `startup.conf` (Startup) and `locale.conf` (Language); the programs started at login are in `~/.config/autostart/`; its own view is kept in `settings.conf`. The desktop and the amadeOS applications watch these files, so a change reaches them at once. Chapter 56 lists all settings files.
+    Settings writes small text files to `~/.config/amadeos/`, one per control: `theme.conf` and `icon_theme.conf` (Color), `font.conf` (Font), `wallpaper.conf` (Backdrop), `input.conf` (Keyboard, Mouse and Beep), `display.conf` (Display), `screen.conf` (Screen), `power.conf` (Power), `window.conf` (Window), `notifications.conf` (Notifications), `clipboard.conf` (Clipboard), `workspaces.conf` (Workspaces), `panel.conf` (Front Panel), `startup.conf` (Startup) and `locale.conf` (Language); the programs started at login are in `~/.config/autostart/`; its own view is kept in `settings.conf`. The desktop and the amadeOS applications watch these files, so a change reaches them at once. Chapter 56 lists all settings files.

@@ -7,7 +7,7 @@ The **session** is everything that runs between your login and your logout: the 
 After the greeter has checked your password (chapter 20), the session starts in this order:
 
 1. The **window manager**, which draws the window frames. If it ever crashes, the session starts it again, and your windows stay open.
-2. The **autostart scripts**, all at once: the keyboard and mouse settings, the password window of chapter 50, the clipboard manager, the screen saver, and your own, except those you switched off in *Settings → Startup*.
+2. The **autostart scripts**, all at once: the keyboard and mouse settings, the password window of chapter 50, the clipboard manager, the notifications, the screen saver, and your own, except those you switched off in *Settings → Startup*.
 3. The **Front Panel**. The session lasts as long as the panel: when you log out with *EXIT* (chapter 26), the panel ends, and the session with it.
 
 ## Starting programs at login
@@ -68,4 +68,4 @@ A single user can choose another one for themselves with `AUTOSTART_APP` in thei
     Today the CDE Front Panel is the only panel of amadeOS. The way to replace it is there so that other desktops can follow without changing the rest of the system.
 
 ??? hood "Under the hood"
-    The session is the shell script `/usr/bin/amadeos-session`; the greeter starts it as you, and it is also registered as `x-session-manager`, so `startx` starts the desktop too. The system's autostart scripts are in `/etc/amadeos/autostart.d`: `10-amadeos-input`, `15-amadeos-display`, `30-amadeos-polkit-agent`, `40-amadeos-clipboard`, `50-amadeos-screen` and, with Backup & Sync installed, `60-amade-backup`; those named in `disabled=` of `~/.config/amadeos/startup.conf` are skipped. Afterwards `amadeos-session autostart` starts the desktop entries of `~/.config/autostart/`. The language chosen at login is written to `~/.config/amadeos/locale.conf`.
+    The session is the shell script `/usr/bin/amadeos-session`; the greeter starts it as you, and it is also registered as `x-session-manager`, so `startx` starts the desktop too. The system's autostart scripts are in `/etc/amadeos/autostart.d`: `10-amadeos-input`, `15-amadeos-display`, `30-amadeos-polkit-agent`, `40-amadeos-clipboard`, `45-amadeos-notifications`, `50-amadeos-screen` and, with Backup & Sync installed, `60-amade-backup`; those named in `disabled=` of `~/.config/amadeos/startup.conf` are skipped. Afterwards `amadeos-session autostart` starts the desktop entries of `~/.config/autostart/`. The language chosen at login is written to `~/.config/amadeos/locale.conf`.

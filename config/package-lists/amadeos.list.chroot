@@ -63,6 +63,8 @@ gvfs
 gvfs-backends
 gvfs-fuse
 wsdd
+# notify-send, for scripts that show a notification (Settings > Notifications)
+libnotify-bin
 # Firmware for the common WLAN and Ethernet chips (live-build's --firmware-chroot would add all of it)
 firmware-iwlwifi
 firmware-realtek

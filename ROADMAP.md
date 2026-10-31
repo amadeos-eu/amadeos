@@ -20,7 +20,7 @@ flowchart TD
         WM["amadeOS Window Manager (Java / JNA)<br>Reparenting, Decorations, Moving, Resizing"]
         Panel["amadeOS Desktop Panel (Java Swing)<br>Taskbar, App Menu, Clock, Tray"]
         Apps["Client Applications<br>Swing Apps, xterm, Editors"]
-        PowerDlg["Session & Power Dialog<br>Logout, Shell, Poweroff, Reboot"]
+        PowerDlg["Session & Power Dialog<br>Suspend, Hibernate, Logout, Shell, Reboot, Poweroff"]
     end
 
     DM -->|Starts| Xorg
@@ -55,6 +55,7 @@ Merged and installed by `buildDistribution.sh`, but so far only checked under Xv
 - Front Panel status slot: network, sound (`pactl`, not yet against PipeWire), battery (not yet on a laptop), Bluetooth (not yet against BlueZ and a real adapter), updates, the second slot; the busy light above EXIT.
 - Settings pages Network connections, Sound, Bluetooth and Printers: so far only with fake services under Xvfb; pairing, the sound card profiles and adding a printer need real devices.
 - File Manager: USB sticks, memory cards and discs (mount, unmount, Safely Remove through `udisks2`) so far only with a fake drive list under Xvfb; needs a real stick in QEMU (`-device usb-storage`) or on hardware, also with the polkit rules of udisks for the active session. Extract and Compress are tested by unit tests.
+- Power (Settings > Power, Suspend/Hibernate in EXIT, lid and power button): only unit tests and pictures under Xvfb; needs logind on a real laptop (lid, battery, suspend and resume, hibernate with swap).
 - Alt+Tab switcher, clipboard manager, bell through the sound card (Xvfb ignores `xset b`), gnome-keyring unlocked at login.
 - Software (M15): the end-to-end test in QEMU — first start loads the package lists, the polkit password window appears, a package gets installed, an update goes through the panel cell.
 - Installer (M14): the UEFI path (`run-qemu.sh --uefi`) and installing next to Windows, then the Zephyrus laptop (UEFI, NVMe, Secure Boot with the signed shim).
@@ -66,7 +67,7 @@ Gap analysis of 2026-10-31: what a typical desktop has and amadeOS does not yet,
 
 1. ~~USB sticks and external disks in the File Manager: `udisks2`, mount, Safely Remove.~~ Built 2026-10-31 (amade-files, see the timeline).
 2. ~~Archives: open and create zip and tar files.~~ Built 2026-10-31 in the File Manager (Extract Here, Extract To…, Compress…; also reads 7z).
-3. Power: Suspend and Hibernate in the EXIT dialog, an action for the closed lid, a Settings page *Power* (screen off after, suspend after, on battery).
+3. ~~Power: Suspend and Hibernate in the EXIT dialog, an action for the closed lid, a Settings page *Power* (screen off after, suspend after, on battery).~~ Built 2026-10-31 (amadeos-system: EXIT dialog, Settings > Power, lid and power button through logind; test on a real laptop open).
 4. Notifications: a daemon for `org.freedesktop.Notifications`, so Firefox, updates, Mailer and Calendar reminders can show pop-ups.
 5. Default applications: a Settings page for the program that opens web links, mail, PDFs, pictures, music and videos (`xdg-mime`).
 6. Date and time: date and number formats (marked *Planned* on the Language page), network time on or off, setting the time by hand.
@@ -138,6 +139,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 ### 2026-10-31
 
 - File Manager: network drives under *Network* in the folder tree: servers found through Avahi and WS-Discovery, Windows shares (SMB) with workgroup, user and password, NFS, WebDAV, SFTP and FTP through GVfs; the password can stay in the login keyring and shares can connect again at login; *File → Connect to Server…* (amade-files #14); `gvfs-backends`, `gvfs-fuse` and `wsdd` in the image; User's Handbook chapter 41.
+- Power: Suspend and Hibernate in the EXIT window (Hibernate greyed out where logind cannot), Settings page *Power* (screen off and suspend after, on battery and plugged in; lid, power button, low battery warning and action; lock before sleeping), carried out by the session's screen daemon and the window manager through systemd-logind (system #57); User's Handbook chapters 26 and 34.
 - New application [`amade-webcam`](https://github.com/amadeos-eu/amade-webcam) (#1): photos with self-timer and bursts, videos with sound (MP4, or WebM), time lapse, five looks, QR codes, the camera's picture controls; a camera light in the Front Panel's status slot while any program uses a camera (system #56); `v4l-utils` in the image; User's Handbook chapters 22 and 46.
 - File Manager: USB sticks, memory cards, external disks and discs in the folder tree, mounted when plugged in or chosen, with Unmount and Safely Remove (Eject for discs) through `udisksctl`; archives open by extracting, with Extract Here, Extract To… and Compress… (zip, tar.gz, tar.xz; also reads 7z, tar.bz2, gz, bz2, xz) (amade-files #13); `udisks2` in the image; User's Handbook chapter 41.
 - New application [`amade-imageeditor`](https://github.com/amadeos-eu/amade-imageeditor) (#1): crop with aspect ratios, straighten, turn, colours, resize, unlimited undo; saves JPEG, PNG, WebP, TIFF and BMP and keeps or drops camera data and location. The Image Viewer opens the shown picture in it (amade-imageviewer #9); `webp` in the image for WebP saving; User's Handbook chapter 47.

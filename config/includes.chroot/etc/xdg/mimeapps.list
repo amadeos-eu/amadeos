@@ -2,7 +2,10 @@
 # in ~/.config/mimeapps.list. Web pages and links open in Firefox ESR; amade-web shows the
 # local documentation and stays available under "Open with". Pictures open in amade-imageviewer
 # (amade-imagescan also accepts them and stays under "Open with"), PDF files in amade-pdfviewer,
-# e-books (EPUB) and comics (CBZ) in amade-books.
+# e-books (EPUB) and comics (CBZ) in amade-books, mail links in amade-mail, folders in amade-files, text in
+# amade-pad, documents in amade-writepad (LibreOffice Writer stays under "Open with"), music in amade-audio,
+# videos in amade-video, calendar files in amade-calendar and vCards in amade-contacts.
+# Settings > Default Applications shows these as "amadeOS default" and writes the user's choices.
 [Default Applications]
 x-scheme-handler/http=firefox-esr.desktop
 x-scheme-handler/https=firefox-esr.desktop
@@ -20,3 +23,31 @@ application/pdf=amade-pdfviewer.desktop
 application/epub+zip=amade-books.desktop
 application/vnd.comicbook+zip=amade-books.desktop
 application/x-cbz=amade-books.desktop
+x-scheme-handler/mailto=amade-mail.desktop
+inode/directory=amade-files.desktop
+text/plain=amade-pad.desktop
+application/vnd.oasis.opendocument.text=amade-writepad.desktop
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=amade-writepad.desktop
+application/msword=amade-writepad.desktop
+application/rtf=amade-writepad.desktop
+text/rtf=amade-writepad.desktop
+audio/mpeg=amade-audio.desktop
+audio/ogg=amade-audio.desktop
+audio/x-vorbis+ogg=amade-audio.desktop
+audio/flac=amade-audio.desktop
+audio/x-flac=amade-audio.desktop
+audio/wav=amade-audio.desktop
+audio/x-wav=amade-audio.desktop
+audio/aac=amade-audio.desktop
+audio/x-mpegurl=amade-audio.desktop
+video/mp4=amade-video.desktop
+video/x-matroska=amade-video.desktop
+video/webm=amade-video.desktop
+video/x-msvideo=amade-video.desktop
+video/quicktime=amade-video.desktop
+video/mpeg=amade-video.desktop
+video/ogg=amade-video.desktop
+video/x-m4v=amade-video.desktop
+text/calendar=amade-calendar.desktop
+text/vcard=amade-contacts.desktop
+text/x-vcard=amade-contacts.desktop

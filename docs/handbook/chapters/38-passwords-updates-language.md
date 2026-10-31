@@ -1,6 +1,6 @@
 # 38. Network, Devices and System
 
-Two groups of Settings reach below the desktop. *Network and Devices* connects the computer: the wired network and the WLAN with the proxy through which programs reach the internet, the Bluetooth devices and the printers. *System* has the keyring with your passwords, the updates of the system, and the language and time zone.
+Two groups of Settings reach below the desktop. *Network and Devices* connects the computer: the wired network and the WLAN with the proxy through which programs reach the internet, the Bluetooth devices and the printers. *System* has the accounts of the computer (chapter 53), the keyring with your passwords, the updates of the system, and the language and time zone.
 
 ## Network
 
@@ -92,6 +92,10 @@ Under **Defaults of** the chosen printer, set the **paper size** and **two-sided
 
 An older printer that needs a driver is added in the administration pages of CUPS (chapter 54).
 
+## Users and Groups
+
+The accounts of everyone who uses the computer, who is an administrator, and the groups that give permissions such as managing printers. The page is described in chapter 53.
+
 ## Passwords
 
 ![The Passwords page](images/38/settings-passwords.jpg)
@@ -104,7 +108,7 @@ Programs such as the Mailer keep their passwords in your **login keyring** (chap
 | **Unlock…** | Asks for the keyring's password and unlocks it. |
 | **Change Password…** | Asks for the current password and a new one, twice. |
 
-The login screen unlocks the keyring with your login password, as long as both passwords are the same. When you change your login password, change the keyring's to the same one here; otherwise the keyring stays locked after the next login, and you unlock it on this page.
+The login screen unlocks the keyring with your login password, as long as both passwords are the same. When you change your login password on the *Users and Groups* page (chapter 53), the keyring changes with it. If you changed it some other way, change the keyring's to the same one here; otherwise the keyring stays locked after the next login, and you unlock it on this page.
 
 If the page says that no keyring is running, the session was started without GNOME Keyring; programs then ask for their passwords each time.
 

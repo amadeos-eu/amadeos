@@ -25,7 +25,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 | The Front Panel at the top or a side of the screen | 37 |
 | Formats of dates and numbers apart from the language | 38 |
 | Automatic proxy configuration (PAC, WPAD) | 38 |
-| A *Users* program for accounts | 53 |
+| Pictures of the users, automatic login, rules for good passwords, giving a folder to a group in Files | 53 |
 | Fixed addresses, VPNs and a hotspot on the Network page of Settings | 38, 54 |
 | More panels than the CDE Front Panel | 55 |
 | More languages | 25 |

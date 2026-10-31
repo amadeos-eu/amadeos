@@ -71,7 +71,7 @@ Gap analysis of 2026-10-31: what a typical desktop has and amadeOS does not yet,
 4. ~~Notifications: a daemon for `org.freedesktop.Notifications`, so Firefox, updates, Mailer and Calendar reminders can show pop-ups.~~ Built 2026-10-31 (pop-ups, history, bell, Do not disturb; see the timeline). Calendar, Mailer, Backup, TV and Webcam send through it (calendar #17, mail #15, backup #6, tv #10, webcam #2).
 5. Default applications: a Settings page for the program that opens web links, mail, PDFs, pictures, music and videos (`xdg-mime`).
 6. Date and time: date and number formats (marked *Planned* on the Language page), network time on or off, setting the time by hand.
-7. Task manager / system monitor: processes, CPU and memory graphs, ending a program that hangs (System Information shows only a report).
+7. ~~Task manager / system monitor: processes, CPU and memory graphs, ending a program that hangs (System Information shows only a report).~~ Built 2026-10-31 (amadeos-system #61: `amadeos-taskmanager`, Ctrl+Shift+Esc and Ctrl+Alt+Del, the window manager marks windows that do not respond).
 8. Terminal: an own terminal or the decision to keep xterm (see M13).
 9. Disk tool: formatting a USB stick, partitions, disk health (SMART).
 10. Settings pages *Keyboard shortcuts* and *Accessibility* (larger mouse pointer, high-contrast theme, sticky keys).
@@ -139,6 +139,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-10-31
 
+- Task Manager (`amadeos-taskmanager`, system #61): the program windows with their load, Switch To and End Program; all processes as a tree with end, force end, pause, continue and priority; the last minute of processor, memory, network and disk as graphs. Ctrl+Shift+Esc and Ctrl+Alt+Del open it. The window manager pings windows (`_NET_WM_PING`); one that does not answer for 5 seconds gets *(Not Responding)* in its title and a dialog to wait or end it; User's Handbook chapter 59.
 - Notifications (system #58, commons #66): `amadeos-session notifications` owns `org.freedesktop.Notifications`, so Firefox, `notify-send` and the amade programs show pop-ups in a corner above the Front Panel; a history of 7 days, a bell with the count of new ones in the status slot, Do not disturb (for a while, on a schedule, while a window is full screen) and Settings → Notifications with a choice per program; the Front Panel announces new updates. amade-commons has the `Notifications` API for the programs; `libnotify-bin` (`notify-send`) in the image; User's Handbook chapter 28.
 - File Manager: network drives under *Network* in the folder tree: servers found through Avahi and WS-Discovery, Windows shares (SMB) with workgroup, user and password, NFS, WebDAV, SFTP and FTP through GVfs; the password can stay in the login keyring and shares can connect again at login; *File → Connect to Server…* (amade-files #14); `gvfs-backends`, `gvfs-fuse` and `wsdd` in the image; User's Handbook chapter 41.
 - Power: Suspend and Hibernate in the EXIT window (Hibernate greyed out where logind cannot), Settings page *Power* (screen off and suspend after, on battery and plugged in; lid, power button, low battery warning and action; lock before sleeping), carried out by the session's screen daemon and the window manager through systemd-logind (system #57); User's Handbook chapters 26 and 34.

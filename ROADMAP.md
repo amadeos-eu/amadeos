@@ -2,7 +2,7 @@
 
 What is open and planned comes first, then a timeline of what has been achieved, newest first. A feature counts as verified only with evidence from the QEMU live image or real hardware; merged work without that evidence is listed under *Waiting for a test*. The detailed notes of each milestone up to 2026-10-24 are in the git history (ROADMAP.md at commit `b58c372`).
 
-Status date: 2026-10-27
+Status date: 2026-10-31
 
 ## Project direction
 
@@ -54,10 +54,30 @@ Merged and installed by `buildDistribution.sh`, but so far only checked under Xv
 - Settings with all its pages (Display, Font, Window, Workspaces, Front Panel, Passwords, Updates, Language, Startup), per-workspace names and backdrops, the seasonal themes.
 - Front Panel status slot: network, sound (`pactl`, not yet against PipeWire), battery (not yet on a laptop), Bluetooth (not yet against BlueZ and a real adapter), updates, the second slot; the busy light above EXIT.
 - Settings pages Network connections, Sound, Bluetooth and Printers: so far only with fake services under Xvfb; pairing, the sound card profiles and adding a printer need real devices.
+- File Manager: USB sticks, memory cards and discs (mount, unmount, Safely Remove through `udisks2`) so far only with a fake drive list under Xvfb; needs a real stick in QEMU (`-device usb-storage`) or on hardware, also with the polkit rules of udisks for the active session. Extract and Compress are tested by unit tests.
 - Alt+Tab switcher, clipboard manager, bell through the sound card (Xvfb ignores `xset b`), gnome-keyring unlocked at login.
 - Software (M15): the end-to-end test in QEMU — first start loads the package lists, the polkit password window appears, a package gets installed, an update goes through the panel cell.
 - Installer (M14): the UEFI path (`run-qemu.sh --uefi`) and installing next to Windows, then the Zephyrus laptop (UEFI, NVMe, Secure Boot with the signed shim).
 - Not tested at all yet: real hardware, graphics acceleration, firmware, WLAN, audio, suspend/resume, several monitors, USB boot.
+
+### Missing for daily use
+
+Gap analysis of 2026-10-31: what a typical desktop has and amadeOS does not yet, in order of priority. Already under way at that date: Users and Groups in Settings, the image editor (merged), Backup & Sync step 2, a webcam application.
+
+1. ~~USB sticks and external disks in the File Manager: `udisks2`, mount, Safely Remove.~~ Built 2026-10-31 (amade-files, see the timeline).
+2. ~~Archives: open and create zip and tar files.~~ Built 2026-10-31 in the File Manager (Extract Here, Extract To…, Compress…; also reads 7z).
+3. Power: Suspend and Hibernate in the EXIT dialog, an action for the closed lid, a Settings page *Power* (screen off after, suspend after, on battery).
+4. Notifications: a daemon for `org.freedesktop.Notifications`, so Firefox, updates, Mailer and Calendar reminders can show pop-ups.
+5. Default applications: a Settings page for the program that opens web links, mail, PDFs, pictures, music and videos (`xdg-mime`).
+6. Date and time: date and number formats (marked *Planned* on the Language page), network time on or off, setting the time by hand.
+7. Task manager / system monitor: processes, CPU and memory graphs, ending a program that hangs (System Information shows only a report).
+8. Terminal: an own terminal or the decision to keep xterm (see M13).
+9. Disk tool: formatting a USB stick, partitions, disk health (SMART).
+10. Settings pages *Keyboard shortcuts* and *Accessibility* (larger mouse pointer, high-contrast theme, sticky keys).
+11. Firewall: a simple on/off switch with nftables.
+12. More network settings: VPN, fixed addresses, hotspot (see M13).
+
+Nice to have: sticky notes, weather, a character map and font viewer, maps.
 
 ### M12 — Compatibility, security and release hardening
 
@@ -117,6 +137,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-10-31
 
+- File Manager: USB sticks, memory cards, external disks and discs in the folder tree, mounted when plugged in or chosen, with Unmount and Safely Remove (Eject for discs) through `udisksctl`; archives open by extracting, with Extract Here, Extract To… and Compress… (zip, tar.gz, tar.xz; also reads 7z, tar.bz2, gz, bz2, xz) (amade-files #13); `udisks2` in the image; User's Handbook chapter 41.
 - New application [`amade-imageeditor`](https://github.com/amadeos-eu/amade-imageeditor) (#1): crop with aspect ratios, straighten, turn, colours, resize, unlimited undo; saves JPEG, PNG, WebP, TIFF and BMP and keeps or drops camera data and location. The Image Viewer opens the shown picture in it (amade-imageviewer #9); `webp` in the image for WebP saving; User's Handbook chapter 47.
 
 ### 2026-10-29

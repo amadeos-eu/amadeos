@@ -1,6 +1,6 @@
 # 30. Settings
 
-**Settings** is where you make the desktop your own: its colours, the size of its text, the picture behind the windows, the names of the workspaces and the Front Panel, how the keyboard, the mouse and the windows behave, the speakers and microphones, the sound of the beep, the resolution of the monitors, the screen saver, the clipboard and what starts at login, the network, Bluetooth and the printers, and, for the system, the keyring, the updates, the language and the time zone. It grew out of CDE's Style Manager, and it can still look like it (see *The compact view* below).
+**Settings** is where you make the desktop your own: its colours, the size of its text, the picture behind the windows, the names of the workspaces and the Front Panel, how the keyboard, the mouse and the windows behave, the speakers and microphones, the sound of the beep, the resolution of the monitors, the screen saver, the clipboard and what starts at login, the network, Bluetooth and the printers, and, for the system, the accounts of the computer, the keyring, the updates, the language and the time zone. It grew out of CDE's Style Manager, and it can still look like it (see *The compact view* below).
 
 ## Opening it
 
@@ -33,11 +33,12 @@ On the left, the controls are grouped by what they set. Click one, or move throu
 | Network and Devices | **Network** | Wired network, WLAN and the proxy | 38 |
 | | **Bluetooth** | Switching it on, pairing and connecting devices | 38 |
 | | **Printers** | Adding printers, the default printer, paper size and two-sided printing | 38 |
-| System | **Passwords** | The login keyring: lock, unlock, change its password | 38 |
+| System | **Users and Groups** | The accounts of the computer, administrators, permission groups | 53 |
+| | **Passwords** | The login keyring: lock, unlock, change its password | 38 |
 | | **Updates** | Automatic security updates, the updates waiting | 38 |
 | | **Language** | The language of the desktop and the time zone | 38 |
 
-The pages of the *System* group change things for the whole computer or your keyring; some of them ask for the administrator's password on **Apply**. The pages *Sound*, *Bluetooth* and *Printers* have no *Apply*: what you do there happens at once, as on the network's *Connections* tab.
+The pages of the *System* group change things for the whole computer or your keyring; some of them ask for the administrator's password on **Apply**. The pages *Sound*, *Bluetooth*, *Printers* and *Users and Groups* have no *Apply*: what you do there happens at once, as on the network's *Connections* tab.
 
 ## Apply and Reset
 

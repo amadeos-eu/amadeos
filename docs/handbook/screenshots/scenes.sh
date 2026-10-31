@@ -316,7 +316,7 @@ imageviewer_shots() {
 }
 
 # imageeditor_shots: the Image Editor with the crop frame at 16:9, then the colour sliders with the
-# comparison of original and adjusted picture.
+# comparison of original and adjusted picture, then painting, an arrow and a text on layers.
 imageeditor_shots() {
     start amade-imageeditor "$HOME/Pictures/mountain-lake.png"
     wait_window "Image Editor" 40 || { close_programs; return 0; }
@@ -333,6 +333,32 @@ imageeditor_shots() {
     key space
     sleep 2
     shot_window 47 image-editor-adjust "Image Editor"
+    key Escape
+    # Painting: a ring with the brush, an arrow with Shapes, then a text being typed. The tool keys work
+    # while the picture has the keyboard, so the canvas is clicked first with the Pick tool (I); D then
+    # sets black and white again.
+    local id
+    id=$(xdotool search --onlyvisible --name "Image Editor" | head -1)
+    key i
+    xdotool mousemove --window "$id" 400 400 click 1; sleep 0.3
+    key d
+    key b
+    xdotool mousemove --window "$id" 300 470 mousedown 1; sleep 0.1
+    for i in $(seq 0 40); do
+        a=$(awk -v i="$i" 'BEGIN { printf "%d %d", 260 + 110 * cos(i * 6.4 / 40), 470 + 50 * sin(i * 6.4 / 40) }')
+        xdotool mousemove --window "$id" $a; sleep 0.02
+    done
+    xdotool mouseup 1; sleep 0.5
+    key u
+    xdotool mousemove --window "$id" 520 200 mousedown 1; sleep 0.1
+    for i in $(seq 1 10); do xdotool mousemove --window "$id" $((520 - i * 18)) $((200 + i * 22)); sleep 0.03; done
+    xdotool mouseup 1; sleep 0.3
+    key Return
+    key t
+    xdotool mousemove --window "$id" 560 160 click 1; sleep 0.5
+    type_text "Our boat!"
+    sleep 1
+    shot_window 47 image-editor-paint "Image Editor"
     close_programs
 }
 

@@ -22,7 +22,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | **TV** | Live TV of the public broadcasters, a program guide and recordings | Sound & Video | 46 | [amade-tv](https://github.com/amadeos-eu/amade-tv) |
 | **Webcam** | Photos and videos with the camera, time lapses and QR codes | Sound & Video | 46 | [amade-webcam](https://github.com/amadeos-eu/amade-webcam) |
 | **Image Viewer** | Photos and pictures, slideshows, camera data and maps | Graphics | 47 | [amade-imageviewer](https://github.com/amadeos-eu/amade-imageviewer) |
-| **Image Editor** | Cropping, straightening, colours and size of photos | Graphics | 47 | [amade-imageeditor](https://github.com/amadeos-eu/amade-imageeditor) |
+| **Image Editor** | Cropping, straightening, colours and size of photos; painting, text and layers | Graphics | 47 | [amade-imageeditor](https://github.com/amadeos-eu/amade-imageeditor) |
 | **Image Scan** | Scanning photos and letters | Graphics | 47 | [amade-imagescan](https://github.com/amadeos-eu/amade-imagescan) |
 | **Fractals** | Exploring the Mandelbrot set | Graphics | 47 | [amade-fractals](https://github.com/amadeos-eu/amade-fractals) |
 | **PDF Viewer** | Reading PDF documents, searching and printing them | Text & Office | 48 | [amade-pdfviewer](https://github.com/amadeos-eu/amade-pdfviewer) |

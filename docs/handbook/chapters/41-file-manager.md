@@ -15,18 +15,18 @@ Start it with the File Manager slot of the Front Panel, which opens your home fo
 
 ### The tree view
 
-- **The folder tree** on the left starts with your **Home** folder, the **Trash**, the **File System** (everything, from `/`) and every USB stick or disc that is plugged in; a stick appears a few seconds after you plug it in. Click the small handle in front of a folder to open it. Click a folder to see what is in it.
+- **The folder tree** on the left starts with your **Home** folder, the **Trash**, the **File System** (everything, from `/`) and every USB stick, memory card or disc that is plugged in; a stick appears a few seconds after you plug it in (see *USB sticks and discs* below). Click the small handle in front of a folder to open it. Click a folder to see what is in it.
 - **The list** on the right shows the files of that folder with name, size, date and permissions. Click a column heading to sort by it. Click a file to select it, ++ctrl++-click to add more, ++shift++-click to select a range. Double-click opens a folder or opens a file with its program.
 - **The path bar** at the top shows where you are, one button per folder (see *Typing a path* below).
 - **The status line** at the bottom shows the selected files with their size and the free space on the disk, and on the right what the File Manager has just done.
 
 #### The menu on the right mouse button
 
-Click a file with the right mouse button for what you can do with it: *Open*, *View*, *Edit in Text Editor*, *Cut*, *Copy*, *Paste*, *Rename…*, *Move to Trash*, *Delete Permanently…* and *Copy Path*. If several files are selected, the commands work on all of them.
+Click a file with the right mouse button for what you can do with it: *Open*, *View*, *Edit in Text Editor*, *Cut*, *Copy*, *Paste*, *Rename…*, *Compress…*, *Move to Trash*, *Delete Permanently…* and *Copy Path*; on an archive also *Extract Here* and *Extract To…*. If several files are selected, the commands work on all of them.
 
 ![The menu of two selected files](images/41/file-manager-context-menu.jpg)
 
-The right mouse button on a folder in the tree offers *New Folder…*, *Paste into Folder*, *Rename…*, *Move to Trash* and *Open in Two Panels*; on the free space below the files *New Folder…*, *Paste* and *Show Hidden Files*. In the trash the menu offers *Restore* and *Empty Trash…*. Your home folder, the trash, the file system and USB sticks cannot be moved, renamed or deleted.
+The right mouse button on a folder in the tree offers *New Folder…*, *Paste into Folder*, *Rename…*, *Compress…*, *Move to Trash* and *Open in Two Panels*, on a USB stick also *Unmount* and *Safely Remove*; on the free space below the files *New Folder…*, *Paste* and *Show Hidden Files*. In the trash the menu offers *Restore* and *Empty Trash…*. Your home folder, the trash, the file system and USB sticks cannot be moved, renamed or deleted.
 
 The keys work as in the menus. While the folder tree has the keyboard focus (click a folder, or ++tab++ to switch between tree and list), ++f2++, ++delete++ and ++ctrl+x++ work on the folder chosen in the tree.
 
@@ -49,6 +49,41 @@ Files can also be dragged between the File Manager and other programs.
 
 !!! switching "Coming from Windows or macOS"
     This is how Windows Explorer behaves: drag within a drive moves, drag to another drive copies. The Finder of macOS does the same. Only the keys differ: on a Mac, ++option++ copies.
+
+### USB sticks and discs
+
+Plug in a USB stick, a memory card or an external disk while the File Manager is open, and after a few seconds it appears at the bottom of the folder tree under its name, such as *Holiday Photos*, or its size, such as *16 GB Drive*. It is ready to use at once: click it to see the files.
+
+A stick that was already plugged in when the File Manager started is shown in *italics*. Click it, and the File Manager makes it ready (it **mounts** it) and shows its files. The right mouse button on it offers *Mount and Open* and *Mount*.
+
+![The menu of a USB stick](images/41/file-manager-drive.jpg)
+
+Before you pull a stick out, click it with the right mouse button and choose **Safely Remove**. The File Manager finishes writing, unmounts the stick and switches it off; the status line says *Holiday Photos can be removed now.* Pulling a stick out without this can lose the files you have just copied onto it. *Unmount* does the same, but leaves the stick plugged in and switched on. For a CD or DVD the command is called **Eject**, and it opens the tray.
+
+If a program still has a file on the stick open, the File Manager tells you: *Holiday Photos is still in use. Close the files and programs that use it, then try again.*
+
+!!! switching "Coming from Windows or macOS"
+    *Safely Remove* is Windows' *Eject* in the Explorer or *Safely Remove Hardware* in the taskbar, and the eject arrow next to a stick in the Finder of macOS.
+
+### Archives: zip, tar and 7z
+
+An **archive** is one file that holds many, packed together and usually made smaller: `photos.zip`, `source-1.2.tar.gz`, `backup.7z`. The File Manager opens them itself; you need no extra program.
+
+- **Double-click** an archive (or select it and press ++enter++), and its contents are unpacked next to it. If the archive holds one folder, that folder appears beside the archive; if it holds several files, they go into a new folder named after the archive, such as `photos`.
+- *Extract Here* in the menu on the right mouse button does the same for all selected archives. *Extract To…* asks for another folder.
+- Nothing is ever overwritten. If a folder of that name exists already, the new one is called `photos (2)`. A cancelled extraction leaves nothing behind.
+
+To pack files, select them, click with the right mouse button and choose **Compress…**. Type a name and choose the format:
+
+![Compressing a folder](images/41/file-manager-compress.jpg)
+
+- **Zip** opens on every computer, also on Windows and macOS. Choose it when you send files to someone.
+- **tar.gz** and **tar.xz** are the usual archives on Linux; they keep file permissions and links, and tar.xz is the smallest.
+
+The archive appears in the same folder, selected. The File Manager reads zip, tar (also `.tar.gz`, `.tgz`, `.tar.bz2`, `.tar.xz`), 7z and single files packed with gzip, bzip2 or xz.
+
+!!! warning "Archives from the internet"
+    An archive can hold files that try to land outside the folder you unpack it into, such as `../../.bashrc`. The File Manager leaves such files out and says how many it left out. Archives with a password cannot be opened yet.
 
 ### The two-panel view
 
@@ -117,10 +152,10 @@ A copy is written under a hidden name first and gets its real name only when it 
     The trash is the Recycle Bin or Bin you know. It follows the freedesktop.org standard, so other Linux programs see the same trash.
 
 !!! planned "Planned"
-    Folders that refresh by themselves, quick search by typing, tabs and bookmarks, an icon view, dragging files onto the desktop and the Front Panel, file properties and *Open With…*, archives as folders, and folders on other computers (SFTP).
+    Folders that refresh by themselves, quick search by typing, tabs and bookmarks, an icon view, dragging files onto the desktop and the Front Panel, file properties and *Open With…*, archives with a password and archives as folders, formatting a USB stick, and folders on other computers (SFTP).
 
 ??? hood "Under the hood"
-    The settings, such as the view, hidden files and the folders of both panels when you closed the File Manager, are in `~/.config/amadeos/files/files.conf`. `amade-files /tmp /media` opens the File Manager with these folders in the left and right panel, and `amade-files trash:` opens the trash.
+    The settings, such as the view, hidden files and the folders of both panels when you closed the File Manager, are in `~/.config/amadeos/files/files.conf`. `amade-files /tmp /media` opens the File Manager with these folders in the left and right panel, and `amade-files trash:` opens the trash. USB sticks are found with `lsblk` and mounted with `udisksctl` (package `udisks2`), below `/media/$USER/`; udisks lets the user at the screen do this without a password. Archives are read and written in Java (Apache Commons Compress), so no `unzip` or `7z` is needed.
 
 ## Backup & Sync
 

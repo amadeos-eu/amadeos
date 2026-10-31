@@ -237,11 +237,11 @@ A backup with a schedule runs by itself: every day or once a week at its time, a
 
 While a backup runs, a **violet** run of dashes moves from right to left in the busy light above EXIT (chapter 22). When it is done, nothing pops up; the list in Backup & Sync shows how it went. Once a week, after a backup, the helper also reads the backup back to check it.
 
-A small window comes only when you need to do something. When a backup is overdue (two days for a daily one, nine for a weekly one) and its disk is not connected, it reminds you, at most once a day:
+A notification (chapter 28) comes only when you need to do something. When a backup is overdue (two days for a daily one, nine for a weekly one) and its disk is not connected, it reminds you, at most once a day; *Open Backup & Sync* opens the program. A backup that fails, for example because the disk is full, gets a notification with the reason that stays on the screen until you close it.
 
-![The reminder](images/41/backup-reminder.jpg)
+Where no notification service runs (another desktop without one), the helper shows a small window instead:
 
-*Open Backup & Sync* opens the program, *Later* closes the reminder. A backup that fails, for example because the disk is full, gets the same kind of window with the reason.
+![The reminder window](images/41/backup-reminder.jpg)
 
 A sync with a schedule runs by itself too, for example *Music for the car* whenever the stick is plugged in. If it only copies, it simply runs. If it would remove or replace files on the target, its preview comes first, and nothing happens until you click *Sync Now*.
 

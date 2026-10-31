@@ -75,7 +75,12 @@ Open Settings and click **Notifications** in the *Desktop* group (chapter 30).
 
 - **Firefox**: finished downloads, and websites you allowed to send notifications.
 - **The Front Panel**: new software updates, with a *Show* button that opens Software (chapter 52).
-- **The amade programs** that support it, and any program that uses the desktop notification standard of Linux, as GNOME and KDE programs do.
+- **Calendar**: *Popup* reminders, with *Snooze 5 min*; a click on the notification opens the day of the appointment (chapter 45).
+- **Mailer**: new mail in an inbox, with the account and the number of new messages; a click opens the inbox (chapter 44).
+- **Backup**: a backup that is overdue, and one that failed, with *Open Backup & Sync* (chapter 41).
+- **TV**: a program you set a reminder for starts, with *Watch* (chapter 46).
+- **Webcam**: a photo or video was saved while its window was in the background, for example after the self-timer, with *Open* (chapter 46).
+- **Any other program** that uses the desktop notification standard of Linux, as GNOME and KDE programs do.
 - **Your own scripts**, with the command `notify-send`:
 
 ```sh

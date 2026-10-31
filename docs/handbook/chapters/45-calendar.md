@@ -29,7 +29,7 @@ The small calendar button next to each date field opens a date chooser.
 
 **More** shows the rest:
 
-- **Reminders**: *Beep*, *Flash* (the Calendar window draws attention), *Popup* (a message) and *Mail* (a message to yourself, ready to send in the Mailer), each a chosen time before the appointment.
+- **Reminders**: *Beep*, *Flash* (the Calendar window draws attention), *Popup* (a notification in the corner of the screen, chapter 28, with *Snooze 5 min*) and *Mail* (a message to yourself, ready to send in the Mailer), each a chosen time before the appointment.
 - **Occurs**: once, daily, weekly, every two weeks, monthly by date or by weekday, yearly, Monday to Friday and more, with **For** the number of times (empty for ever). When you change or delete one appointment of a series, the Calendar asks whether you mean *This One*, *Forward* (this one and all later ones) or *All*.
 - **Privacy**: what others may see when the calendar is printed for them: time and text, the time only, or nothing.
 

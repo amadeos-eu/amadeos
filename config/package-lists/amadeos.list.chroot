@@ -55,6 +55,14 @@ polkitd
 # USB sticks, memory cards and discs in the File Manager (amade-files): udisksctl mounts them below
 # /media/USER for the user at the screen and switches USB disks off for Safely Remove
 udisks2
+# Network drives in the File Manager (amade-files): gvfs connects SMB shares of NAS boxes and PCs, NFS,
+# WebDAV, FTP and SFTP as the user (gio mount), gvfs-fuse shows them as folders below /run/user/UID/gvfs;
+# gvfs runs wsdd to find Windows PCs and NAS boxes by WS-Discovery (its own announcing service is switched
+# off in 020-amadeos-packages.chroot), avahi (below) finds the rest by mDNS
+gvfs
+gvfs-backends
+gvfs-fuse
+wsdd
 # Firmware for the common WLAN and Ethernet chips (live-build's --firmware-chroot would add all of it)
 firmware-iwlwifi
 firmware-realtek

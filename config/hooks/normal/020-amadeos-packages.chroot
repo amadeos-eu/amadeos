@@ -15,6 +15,12 @@ apt-get update
 apt-get dist-upgrade --yes --no-install-recommends
 [ ! -f "$amadeos_sources.build" ] || mv "$amadeos_sources.build" "$amadeos_sources"
 
+# wsdd is there for gvfs, which starts it itself to find Windows PCs and NAS boxes (network:/// in the File
+# Manager). Its own service would announce this computer as a Windows server; amadeOS shares nothing.
+if [ -f /lib/systemd/system/wsdd.service ] || [ -f /usr/lib/systemd/system/wsdd.service ]; then
+    systemctl disable wsdd.service || true
+fi
+
 # The locales of the five desktop languages, selectable at login and in the front panel.
 if [ -f /etc/locale.gen ]; then
     for locale in de_DE en_US fr_FR es_ES it_IT; do

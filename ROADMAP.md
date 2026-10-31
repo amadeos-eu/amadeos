@@ -77,6 +77,7 @@ Gap analysis of 2026-10-31: what a typical desktop has and amadeOS does not yet,
 10. Settings pages *Keyboard shortcuts* and *Accessibility* (larger mouse pointer, high-contrast theme, sticky keys).
 11. Firewall: a simple on/off switch with nftables.
 12. More network settings: VPN, fixed addresses, hotspot (see M13).
+13. A fully customizable Front Panel: add, remove and order its cells and controls in Settings > Front Panel (today the cells can only be switched on and off), with optional extra cells such as a CPU and memory graph that opens the Task Manager.
 
 Nice to have: sticky notes, weather, a character map and font viewer, maps.
 

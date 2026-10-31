@@ -1,6 +1,6 @@
 # 28. Notifications
 
-When a program has news for you while you work in another window, a **notification** comes up in a corner of the screen: a reminder from the Calendar, new mail, a finished download in Firefox, a battery that is running low. It goes away by itself after a few seconds and waits in the **notification history** until you have seen it. The **bell** in the Front Panel counts the ones you have not seen yet.
+When a program has news for you while you work in another window, a **notification** comes up in a corner of the screen: a reminder from the Calendar, new mail, a finished download in Firefox, new software updates. It goes away by itself after a few seconds and waits in the **notification history** until you have seen it. The **bell** in the Front Panel counts the ones you have not seen yet.
 
 ![Three notifications above the Front Panel](images/28/popups.jpg)
 
@@ -18,7 +18,7 @@ Each notification shows the program's icon and name, how long ago it came, a lin
 
 Up to four notifications are on the screen at once, the newest nearest the corner; more wait their turn. Notifications never take the keyboard from you: while you type a letter, your keystrokes stay in the letter.
 
-**Critical** notifications, such as *Battery almost empty*, have a red bar at the left and stay until you close them.
+**Critical** notifications, such as a battery that is almost empty, have a red bar at the left and stay until you close them.
 
 ## The bell in the Front Panel
 
@@ -74,7 +74,7 @@ Open Settings and click **Notifications** in the *Desktop* group (chapter 30).
 ## Which programs send notifications
 
 - **Firefox**: finished downloads, and websites you allowed to send notifications.
-- **The Front Panel**: the battery at 10 % and, critical, at 5 %; new software updates, with a *Show* button that opens Software (chapter 52).
+- **The Front Panel**: new software updates, with a *Show* button that opens Software (chapter 52).
 - **The amade programs** that support it, and any program that uses the desktop notification standard of Linux, as GNOME and KDE programs do.
 - **Your own scripts**, with the command `notify-send`:
 

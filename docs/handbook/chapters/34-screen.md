@@ -71,7 +71,7 @@ While the screen is locked, the power button does nothing; unlock first.
 
 | Setting | What it does | Default |
 |---|---|---|
-| **Warn at … %** | A small window asks you to plug the computer in. | 10 % |
+| **Warn at … %** | A notification (chapter 28) asks you to plug the computer in; it stays until you close it, even with Do not disturb on, and a click on it opens this page. | 10 % |
 | **At … %** | Then the computer hibernates, suspends, shuts down or does nothing. | 5 %, Hibernate |
 
 Hibernate appears in the lists only where it is set up (chapter 26); otherwise the default is *Shut down*, so that a running-down battery never loses the session halfway.

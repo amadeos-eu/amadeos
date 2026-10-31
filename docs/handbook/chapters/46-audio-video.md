@@ -1,4 +1,4 @@
-# 46. Audio Station, Video Player and TV
+# 46. Audio Station, Video Player, TV and Webcam
 
 ## Audio Station
 
@@ -131,5 +131,70 @@ A recording is for your own use: you may keep it, but not pass it on or publish 
 !!! planned "Planned"
     Next, TV gets the media libraries of the broadcasters: programs to watch later, a search across all of them, downloads, and a watch-later list.
 
+## Webcam
+
+**Webcam** shows the picture of the camera built into a laptop or plugged in by USB, takes photos and records videos with sound. It also makes time lapses and reads QR codes. Start it from the Sound & Video drawer.
+
+![Webcam with the camera picture, the shutter button and the last three photos and videos](images/46/webcam.jpg)
+
+The picture is shown like a mirror, so moving your right hand moves the hand on the right; photos and videos are saved the right way round. While Webcam (or any other program) uses the camera, the **camera light** in the Front Panel's status slot is on (chapter 22).
+
+### Photos
+
+Click **Photo**, then the round **shutter button**, or press ++space++ or ++enter++. The picture flashes white, a shutter clicks, and the photo goes to the folder `Pictures/Camera` in your home folder with a name like *Photo 2026-10-31 14-05-12.jpg*.
+
+| Below Photo | What it does |
+|---|---|
+| **Timer** | *Off*, *3 s* or *10 s*: a large countdown runs in the picture before the photo is taken. ++escape++ stops it. |
+| **Shots** | *1 photo*, or *3* or *5 photos* a quarter of a second apart, so one of them is good. |
+
+### Videos
+
+Click **Video**: the shutter button turns red. A click starts the recording, and the red square in the button stops it. A red **REC** sign with the time runs in the picture, and the level meter beside **Mic** shows that the microphone hears you. The video goes to `Videos/Camera`.
+
+| Below Video | What it does |
+|---|---|
+| **Speed** | *Normal*, or a **time lapse** that keeps one picture every 1, 5, 10 or 30 seconds and plays them at normal speed: an hour of clouds becomes a few seconds. A time lapse has no sound. |
+| **Mic** | The microphone for the sound, or *No sound* |
+
+Videos are saved as **MP4**, which plays on every computer, phone and TV. Settings can switch to **WebM**, the open format of the web.
+
+### Looks, mirror and QR codes
+
+The list beside **Mirror** gives the picture a **look**: *Normal*, *Black and White*, *Sepia*, *Warm* or *Cool*. The look is in the photo or video too. **Mirror** turns the mirror view off, for example to hold a page up to the camera and read it.
+
+Click **QR** and hold a QR code up to the camera. A bar above the picture shows what it contains, with a button that fits: **Open** for a web address, **Write** for an e-mail address, **Copy Password** for the code of a WLAN (from a poster in a café, for example), **Copy** for other text.
+
+### The last photos and videos
+
+The three small pictures beside the shutter are the newest photos and videos; a video has a ▶ sign. Click one to open it in the Image Viewer or Video Player. The right mouse button offers **Edit** (in the Image Editor), **Show in Folder** and **Delete**.
+
+### Settings
+
+**Settings…**, or ++ctrl+comma++, opens the camera settings beside the picture, so you see each change at once.
+
+![The camera settings: camera, size, frame rate, microphone, formats and folders on the left, the camera's picture controls on the right](images/46/webcam-settings.jpg)
+
+On the left are the **camera** (if there are several), its **resolution** and **frame rate**, the **microphone**, whether photos are saved as JPEG or PNG and videos as MP4 or WebM, and the folders. *Shutter sound* and *Flash the picture for a photo* can be switched off; *Save photos and videos mirrored* saves what you see on the screen.
+
+On the right are the **picture controls** the camera offers: brightness, contrast, saturation, sharpness, white balance, exposure, and *Power line* (50 Hz in Europe), which stops the picture flickering under lamps. Each camera offers different controls, and only those are shown. Webcam keeps them for each camera; **Camera Defaults** puts them back.
+
+### Keys
+
+| Key | What it does |
+|---|---|
+| ++space++, ++enter++ | Take the photo, or start and stop the recording |
+| ++escape++ | Stop the countdown, leave full screen |
+| ++ctrl+1++, ++ctrl+2++ | Photo, Video |
+| ++ctrl+m++, ++ctrl+g++, ++ctrl+k++ | Mirror, a grid of thirds for framing, QR codes |
+| ++f11++ | Full screen |
+| ++ctrl+o++ | Open the photo folder |
+
+!!! tip "No picture?"
+    If Webcam says *No camera found*, check that the camera is plugged in; many laptops also have a key or a little slider that switches the camera off. *The camera is in use by another program* means that a video call or another program still has it: close that program, and the picture comes back by itself. A camera plugged in while Webcam is open appears within two seconds in the **Camera** menu.
+
+!!! planned "Planned"
+    A blurred or replaced background, and recording the screen together with the camera.
+
 ??? hood "Under the hood"
-    The Audio Station plays music in Java itself and reads CDs with libcdio; its settings are in `~/.config/amadeos/audio/`, the CD titles and covers in `~/.cache/amadeos/audio/discs/`. The Video Player leaves the playing to *libmpv*, the engine of the mpv player, with FFmpeg and libdvdnav. TV plays with libmpv too and records with *ffmpeg*, which copies the stream into the file without converting it. It takes the stream addresses and what runs now from the Zapp service of the MediathekView project, the addresses of the other channels from the IPTV list of the Kodinerds community, and the guide from the ARD and the ZDF; the guide and the channel logos are kept in `~/.cache/amadeos/tv/`, the settings, reminders and recordings list in `~/.config/amadeos/tv/`.
+    The Audio Station plays music in Java itself and reads CDs with libcdio; its settings are in `~/.config/amadeos/audio/`, the CD titles and covers in `~/.cache/amadeos/audio/discs/`. The Video Player leaves the playing to *libmpv*, the engine of the mpv player, with FFmpeg and libdvdnav. TV plays with libmpv too and records with *ffmpeg*, which copies the stream into the file without converting it. It takes the stream addresses and what runs now from the Zapp service of the MediathekView project, the addresses of the other channels from the IPTV list of the Kodinerds community, and the guide from the ARD and the ZDF; the guide and the channel logos are kept in `~/.cache/amadeos/tv/`, the settings, reminders and recordings list in `~/.config/amadeos/tv/`. Webcam reads the camera through *ffmpeg* (Video4Linux) and its picture controls with `v4l2-ctl`, records with a second ffmpeg (H.264 and AAC for MP4, VP9 and Opus for WebM), and reads QR codes with the ZXing library; its settings, including the picture controls of each camera, are in `~/.config/amadeos/webcam/`.

@@ -117,6 +117,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-10-31
 
+- New application [`amade-webcam`](https://github.com/amadeos-eu/amade-webcam) (#1): photos with self-timer and bursts, videos with sound (MP4, or WebM), time lapse, five looks, QR codes, the camera's picture controls; a camera light in the Front Panel's status slot while any program uses a camera (system #56); `v4l-utils` in the image; User's Handbook chapters 22 and 46.
 - New application [`amade-imageeditor`](https://github.com/amadeos-eu/amade-imageeditor) (#1): crop with aspect ratios, straighten, turn, colours, resize, unlimited undo; saves JPEG, PNG, WebP, TIFF and BMP and keeps or drops camera data and location. The Image Viewer opens the shown picture in it (amade-imageviewer #9); `webp` in the image for WebP saving; User's Handbook chapter 47.
 
 ### 2026-10-29

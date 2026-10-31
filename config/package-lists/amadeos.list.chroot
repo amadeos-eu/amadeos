@@ -96,6 +96,9 @@ webp
 # yt-dlp for amade-video and amade-tv: mpv plays internet videos and the YouTube streams of a few
 # TV channels through it; recommended by both packages, but the image installs no recommends
 yt-dlp
+# v4l2-ctl for amade-webcam, which lists the sizes of a camera and sets its picture controls with it;
+# a dependency of the package, listed here because the image is built with it in mind
+v4l-utils
 # Bluetooth: BlueZ (bluetoothd), which Settings > Bluetooth and the Bluetooth cell of the front panel
 # drive over D-Bus; libspa-0.2-bluetooth lets PipeWire play on Bluetooth headphones and speakers.
 # The live user is in the bluetooth group (/etc/live/config.conf), so pairing needs no password.

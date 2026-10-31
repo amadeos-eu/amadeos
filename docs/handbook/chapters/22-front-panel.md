@@ -38,7 +38,7 @@ The middle of the panel holds the controls of the session:
 | **Tools** | Opens the Application Manager, the list of all programs | See below |
 | **Help** | Opens this handbook in the web browser | The handbooks on the computer |
 | **Trash Can** | Opens the trash in the File Manager | — |
-| **Status** | Up to four small cells: the network, the sound, the battery on a laptop, and the software updates when updates are waiting | — |
+| **Status** | Up to four small cells: the network, the sound, the battery on a laptop, and the software updates when updates are waiting; a camera light while a camera is on | — |
 
 ### The Tools drawer
 
@@ -97,6 +97,10 @@ The **Bluetooth cell** appears only on a computer with Bluetooth. Its rune is **
 
 The **updates cell** appears only while software updates wait: an arrow into a tray with their number, on red when security updates are among them. Its menu offers *Install all updates*, *Install security updates only* and *Check now* (chapter 52).
 
+The **camera light** appears only while a program uses a camera: a camera with a red dot. Point at it to see which programs, for example *Camera in use by amade-webcam, firefox*. It goes away within two seconds after the last program lets the camera go. Unlike the other cells it cannot be hidden, because it is there so that you always see when a camera is on.
+
+![The camera light beside the battery cell while the Webcam program shows the camera picture](images/22/camera-cell.png)
+
 The status slot holds four cells. When more of them have something to show, a laptop with Bluetooth while updates wait for example, a second slot opens beside the first and closes again when it is no longer needed.
 
 ![Five cells in two slots: network, sound, battery and Bluetooth with one device connected, and the updates cell in the second slot](images/22/status-slot-two.png)
@@ -105,4 +109,4 @@ The status slot holds four cells. When more of them have something to show, a la
     The Front Panel follows CDE's: the clock and calendar on the left, the workspace switch with lock and EXIT in the middle, the Print Manager, Tools, Help and Trash Can on the right, and drawers ("subpanels" in CDE) above the slots. CDE's drawers were configured by hand; those of amadeOS fill themselves. The Games drawer and the status slot are new, and so is the language button, in the corner CDE left empty. CDE's busy light only blinked while an action started; the disk, network and install signals are new.
 
 ??? hood "Under the hood"
-    The Front Panel is the program `amadeos-panel-cde`, started by the session as `/usr/bin/amadeos-panel`. The drawers list the `.desktop` files in `/usr/share/applications` and `~/.local/share/applications` by their *Categories*: `FileManager`, `TextEditor` and `Office`, `Email` and `Network`, `AudioVideo`, `Graphics`, `Game`, `Printing`, `Settings` and `System`, `Documentation`. A program started from the panel writes its messages to `~/.cache/amadeos/logs/<program>.log`. The busy light reads `/proc/diskstats` (whole disks only) and `/proc/net/dev` (all interfaces but `lo`) four times a second, and looks for a running `dpkg` every two seconds. The battery cell reads `/sys/class/power_supply` every 20 seconds; the batteries of a wireless mouse or keyboard do not count, and two batteries in one laptop show as one. The Bluetooth cell follows the signals of the Bluetooth service `bluetoothd` (BlueZ) on the system bus, and asks it again every 30 seconds, so an adapter plugged in later appears too.
+    The Front Panel is the program `amadeos-panel-cde`, started by the session as `/usr/bin/amadeos-panel`. The drawers list the `.desktop` files in `/usr/share/applications` and `~/.local/share/applications` by their *Categories*: `FileManager`, `TextEditor` and `Office`, `Email` and `Network`, `AudioVideo`, `Graphics`, `Game`, `Printing`, `Settings` and `System`, `Documentation`. A program started from the panel writes its messages to `~/.cache/amadeos/logs/<program>.log`. The busy light reads `/proc/diskstats` (whole disks only) and `/proc/net/dev` (all interfaces but `lo`) four times a second, and looks for a running `dpkg` every two seconds. The battery cell reads `/sys/class/power_supply` every 20 seconds; the batteries of a wireless mouse or keyboard do not count, and two batteries in one laptop show as one. The camera light looks every two seconds which processes have a `/dev/video*` device open (in `/proc/<pid>/fd`); a camera that a program opens through `ffmpeg` is shown under the program's name. The Bluetooth cell follows the signals of the Bluetooth service `bluetoothd` (BlueZ) on the system bus, and asks it again every 30 seconds, so an adapter plugged in later appears too.

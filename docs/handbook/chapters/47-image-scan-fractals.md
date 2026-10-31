@@ -80,13 +80,13 @@ Below the map, **Open in Browser** shows the place on openstreetmap.org, and **C
 
 ## Image Editor
 
-The **Image Editor** makes a photo better before you send, print or keep it: it cuts away what does not belong, levels a crooked horizon, turns, brightens and shrinks it. Every step can be taken back.
+The **Image Editor** makes a photo better before you send, print or keep it: it cuts away what does not belong, levels a crooked horizon, turns, brightens and shrinks it. It also paints on it: a circle round what matters, an arrow, a few words. Every step can be taken back.
 
 Start it from the Graphics drawer, with `amade-imageeditor`, or from the Image Viewer with *Image → Open in Image Editor* (++ctrl+e++). In the File Manager it is under *Open with* for pictures; a double-click still opens the Image Viewer. Pictures can also be dropped on its window.
 
 ![The Image Editor cropping a photo to 16:9](images/47/image-editor.jpg)
 
-The Image Editor opens JPEG, PNG, WebP, TIFF, BMP and GIF pictures, and also less common formats such as PSD, TGA and PNM. A photo appears upright, as the camera noted how it was held.
+The Image Editor opens JPEG, PNG, WebP, TIFF, BMP and GIF pictures, OpenRaster files with layers (`.ora`), and also less common formats such as PSD, TGA and PNM. A photo appears upright, as the camera noted how it was held.
 
 The tool bar and the **Image** menu hold the tools. Crop, Straighten and Adjust Colours open a panel at the right; while one is open, ++enter++ or **Apply** takes the change, ++esc++ or **Cancel** leaves the picture as it was. Resize asks in a dialog; turning and flipping happen at once.
 
@@ -129,6 +129,48 @@ The tool bar and the **Image** menu hold the tools. Crop, Straighten and Adjust 
 
 *Image → Resize* (++ctrl+e++) makes the picture smaller (or larger) for e-mail or the web. Give the new width or height in **pixels** or in **percent**; with **Keep aspect ratio** the other follows. The buttons below offer common sizes: 3840, 1920, 1280, 1024 or 800 pixels on the long side, or half the size. **Quality** chooses between *Best* (sharp, a little slower), *Fast*, and *Pixel art*, which keeps hard pixel edges when you enlarge pixel art or screenshots.
 
+### Painting
+
+The second group of the tool bar, and the **Tools** menu, hold the painting tools. Each shows its settings in the panel at the right; a tool stays open until you choose another one or click its button again. The letters work while the picture has the keyboard.
+
+| Tool | Key | What it does |
+|---|---|---|
+| **Move** | ++v++ | Drags the active layer; the arrow keys move it by one pixel, with ++shift++ by ten. |
+| **Brush** | ++b++ | Paints with the mouse. **Size**, **Hardness** (soft or sharp edge) and **Opacity**. |
+| **Eraser** | ++e++ | Rubs out: on a layer it makes the picture transparent, on the photo itself it paints the second colour. |
+| **Shapes** | ++u++ | Line, arrow, rectangle, ellipse, rounded box and freehand line; solid, dashed or dotted; empty, filled with the second colour, or filled with the same colour. |
+| **Text** | ++t++ | Writes text into the picture (next section). |
+| **Fill** | ++g++ | Fills an area of one colour with the first colour. **Tolerance** says how different a colour may be and still be filled. |
+| **Pick Colour** | ++i++ | Takes a colour from the picture; ++alt++ + click does the same in every tool. |
+
+There are always **two colours**, shown as two squares at the end of the tool bar: the left mouse button paints with the first, the right button with the second. A click on a square opens the colour chooser; the little arrow, or ++x++, swaps them, and ++d++ sets black and white again. The panels also offer fifteen colours to click.
+
+- ++bracket-left++ and ++bracket-right++ make the brush or eraser smaller and larger.
+- ++shift++ + click with the brush draws a straight line from where the last stroke ended.
+- With ++shift++, shapes keep lines at steps of 15° and make squares and circles.
+- A shape keeps its **handles** until the next one begins: drag them to change it, or drag the shape to move it. ++enter++ paints it at once, ++esc++ drops it.
+- The middle mouse button moves a zoomed picture in every tool.
+
+![An arrow, a ring and a text, each on its own layer](images/47/image-editor-paint.jpg)
+
+### Text
+
+With the Text tool, click where the text should go and type; the text shows in the picture as you type, in a frame. In the panel choose the **font**, the **size**, bold and italic, **Left**, **Centre** or **Right** for several lines, the **colour**, and an **effect** that keeps the text readable on any photo: an **Outline** round the letters, a **Shadow**, or a **Box behind** the text. The typing goes into the text box of the panel, so the words can have several lines. Drag the frame to move the text. **Done** or a click outside the frame finishes the text; **Cancel** or ++esc++ drops it.
+
+Every text becomes a layer of its own and **stays text**: click it again with the Text tool to change the words, the font or the colour. Cropping, turning, straightening and resizing the picture move and turn the text with it, and it stays sharp.
+
+### Layers
+
+A picture can have **layers**: transparent sheets over the photo, each with its own painting or text. They are shown in the **Layers** panel below the tool panel (*View → Layers Panel*, ++f7++), the top layer first, each with a small picture of it.
+
+- The **active layer** is the one marked in the list: painting, filling, moving and *Adjust Colours* work on it.
+- The box in front of a layer **hides** or shows it; the **Opacity** slider makes it see-through. A double-click renames it.
+- **New**, **Copy**, **Up**, **Down** and **Delete** below the list, and the **Layer** menu with more: *New Layer* (++ctrl+shift+n++), *Duplicate Layer* (++ctrl+shift+d++), *Picture from File as Layer*, *Paste as New Layer* (++ctrl+v++, a picture copied in another program), *Rename Layer* (++f2++), *Layer Up* and *Down* (++ctrl+page-up++, ++ctrl+page-down++), *Merge Down* (++ctrl+m++), *Flatten Picture* and *Delete Layer*.
+
+When you paint on a photo that has no layers yet, the Image Editor first puts a new layer named *Painting* over it and paints there. The photo itself stays as it was, and the painting can still be moved, hidden or deleted. If you would rather paint straight onto the photo, switch off *Options → Paint on a New Layer above the Photo*.
+
+Crop, Straighten, turning and Resize work on all layers together.
+
 ### Undo, saving and the camera's data
 
 *Edit → Undo* (++ctrl+z++) takes back the last step, as many steps as you like, and *Redo* (++ctrl+y++) brings them back. The menu says which step it is, such as *Undo Crop*. The status line at the bottom shows the size of the picture, its format and the zoom; ++ctrl+0++ fits it into the window, ++ctrl+1++ shows it at its actual size.
@@ -142,6 +184,9 @@ The tool bar and the **Image** menu hold the tools. Crop, Straighten and Adjust 
 | **WebP** | Photos for the web: smaller than JPEG at the same quality, or **lossless**. Needs the program `cwebp`, which comes with amadeOS. |
 | **TIFF** | Pictures for printing and archiving. Loses nothing. |
 | **BMP** | Old programs that know nothing else. |
+| **OpenRaster** | Pictures with layers. Keeps every layer and every text, so you can go on working on them later. Other painting programs such as GIMP, Krita and MyPaint open it too. |
+
+JPEG, PNG and the other formats hold only one picture, so the layers are **merged** when you save to them. The Image Editor asks once per file: **Save Merged**, or **Save As…** to choose another format. With **Also keep … with the layers** ticked, it also writes an OpenRaster file of the same name next to it (`lake.jpg` and `lake.ora`), to go on working on later. *Save As* offers OpenRaster first for a picture with layers.
 
 The dialog says whether the new file **replaces** the original or keeps it. If you close the window or open another picture with changes not yet saved, the Image Editor asks whether to save them.
 
@@ -154,10 +199,10 @@ A photo from a camera or phone carries more than the picture: when it was taken 
 The Image Editor also removes the small preview picture that cameras store inside the photo, because it would still show the uncropped picture in some programs. Other formats are saved without these data.
 
 ??? hood "Under the hood"
-    The Image Editor keeps the original and the list of steps; the picture after each step is kept while memory allows and is otherwise computed again, so even long histories need little memory. Lossless turns of JPEGs use `jpegtran` from the package `libjpeg-turbo-progs`, WebP pictures are written by `cwebp` from the package `webp`. A file is written under a temporary name first and then put in place, so a failed save never leaves half a picture behind. The settings of the save dialog per format are kept in `~/.config/amadeos/imageeditor/imageeditor.properties`.
+    The Image Editor keeps the original and the list of steps; the picture after each step is kept while memory allows and is otherwise computed again, so even long histories need little memory. Lossless turns of JPEGs use `jpegtran` from the package `libjpeg-turbo-progs`, WebP pictures are written by `cwebp` from the package `webp`. A file is written under a temporary name first and then put in place, so a failed save never leaves half a picture behind. A brush stroke is kept as its points, brush and colour, not as pixels, so painting does not fill the memory either. The settings of the save dialog per format, the colours, the brush and the shape settings are kept in `~/.config/amadeos/imageeditor/imageeditor.properties`. OpenRaster is a ZIP file with one PNG per layer and a list of the layers; the texts are written into that list as well, so the Image Editor can open them again as text.
 
 !!! planned "Planned"
-    Painting, text and shapes on the picture, layers, red-eye removal, sharpening and blurring, and writing the title, caption and keywords.
+    Selections (a part of the picture to paint in, copy or move), blend modes and layer masks, red-eye removal, sharpening and blurring, and writing the title, caption and keywords.
 
 ## Image Scan
 

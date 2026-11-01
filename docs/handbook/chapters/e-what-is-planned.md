@@ -24,7 +24,6 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 | More or fewer than four workspaces | 37 |
 | The Front Panel at the top or a side of the screen | 37 |
 | A fully customizable Front Panel: cells added, removed and ordered, with extra cells such as a processor and memory graph | 37, 59 |
-| Formats of dates and numbers apart from the language | 38 |
 | Automatic proxy configuration (PAC, WPAD) | 38 |
 | Pictures of the users, automatic login, rules for good passwords, giving a folder to a group in Files | 53 |
 | Fixed addresses, VPNs and a hotspot on the Network page of Settings | 38, 54 |

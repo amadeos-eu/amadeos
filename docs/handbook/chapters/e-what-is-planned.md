@@ -28,7 +28,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 | Pictures of the users, automatic login, rules for good passwords, giving a folder to a group in Files | 53 |
 | Fixed addresses, VPNs and a hotspot on the Network page of Settings | 38, 54 |
 | More panels than the CDE Front Panel and the Horizon top bar | 55 |
-| Horizon: a search bar, desktop widgets, reordering the dock by dragging, folder icons on the desktop, flat amadeOS applications and a Horizon icon set; choosing the look at the login screen | 29 |
+| Horizon: desktop widgets, reordering the dock by dragging, folder icons on the desktop, flat amadeOS applications and a Horizon icon set; choosing the look at the login screen | 29 |
 | More languages | 25 |
 
 ## The applications

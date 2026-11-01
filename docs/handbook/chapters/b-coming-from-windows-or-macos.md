@@ -7,6 +7,7 @@ Where to find on amadeOS what you know from Windows or macOS.
 | On Windows | On macOS | On amadeOS | Chapter |
 |---|---|---|---|
 | Start menu | Launchpad | The drawers of the Front Panel, sorted by kind; the Application Manager in the Tools slot | 22 |
+| Search in the Start menu | Spotlight (++cmd+space++) | ++super+space++ or the magnifier in Horizon's top bar: programs, Settings, files and sums | 29 |
 | Taskbar | Dock | The Front Panel; minimised windows as icons at the top left of the desktop | 22, 23 |
 | Notification area | Menu bar extras | The status slot of the Front Panel: network, sound, notifications and updates | 22, 27 |
 | Notifications, Action Center, Focus assist | Notification Centre, Focus | Notifications in a corner, the history behind the bell, Do not disturb | 28 |

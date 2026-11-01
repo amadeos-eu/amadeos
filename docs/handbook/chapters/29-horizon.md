@@ -124,6 +124,18 @@ You can add a widget more than once, for example two notes or a photo of each of
 
 The widgets and their places are kept: they are back after the next login. Widgets are a part of Horizon; in the Classic look the desktop shows the minimised windows instead (chapter 23).
 
+## Programs and icons
+
+![The Calendar in Horizon's dark scheme](images/29/programs.jpg)
+
+In Horizon the amadeOS programs are flat too. Buttons are rounded and have no bevel; the button that Enter presses is filled with the accent colour. Text fields have a thin frame that turns into a ring in the accent colour while you type in them. Scroll bars are slim and have no arrows, tabs are underlined in the accent colour, and ticked check boxes and radio buttons are filled with it. The text is plain instead of bold. Toolbar buttons show only their icon until the mouse is over them. The programs switch between the flat look and the Motif look together with the desktop, while they run.
+
+![The dock with the Horizon icons](images/29/icons.jpg)
+
+Horizon has its own icons, **amadeOS Horizon**: rounded tiles with a soft horizon for the programs and games, blue folders for the places, and pages with a coloured band for the file types. The dock, the system menu, the search and the File Manager use them. Programs that the set has no icon for keep their NsCDE or their own icon.
+
+Each look keeps its own icon theme. In Horizon, the *Icon theme* list on the Color page (chapter 31) chooses the icons of Horizon; the Classic look keeps NsCDE, or whatever you chose there.
+
 ## The window frames
 
 ![A Horizon window frame](images/29/frame.jpg)
@@ -137,7 +149,7 @@ A Horizon frame has a flat title bar in the window's own colour. A thin line in 
 The corners are rounded with the X Shape extension. Without a compositor the edge is cut pixel by pixel, so the corners look slightly stepped; the soft shadow of other desktops is not there.
 
 !!! planned "Planned: the rest of Horizon"
-    Planned next: widgets from more programs (what Audio Station is playing, the newest News); folder icons on the desktop; dragging programs within the dock to reorder them; a flat look for the amadeOS applications and a Horizon icon set. Until then, the amadeOS applications keep their Motif buttons in Horizon's colours.
+    Planned next: widgets from more programs (what Audio Station is playing, the newest News); folder icons on the desktop; dragging programs within the dock to reorder them; choosing the look at the login screen. Other programs (Firefox, LibreOffice) keep their own look in Horizon.
 
 !!! info "Under the hood"
-    The look is stored in `~/.config/amadeos/look.conf` (`look=horizon`, `scheme=dark`, `accent=teal`); the classic palette stays in `theme.conf`. The top bar, the dock and the search are the package **amadeos-panel-horizon**, one program; the dock's favourites, icon size and parts are in `~/.config/amadeos/dock.conf`. The dock sets `_AMADEOS_DOCK_TAKES_MINIMIZED` on its window, so the window manager gives minimised windows no desktop icon while it runs. The window manager catches ++super+space++ and hands it to the search over a socket in `$XDG_RUNTIME_DIR` (`amadeos-search-_0.socket`); in the Classic look nobody listens there and the key does nothing. The search window carries `_AMADEOS_FRAMELESS`, so the window manager shows it without a frame and gives it the keyboard. `amadeos-session` starts the panel of the look; when the look changes, the running panel ends with exit code 75 and the session starts the other one (chapter 55). Without amadeos-panel-horizon, the Front Panel stays in both looks. ++super+d++ uses the window manager's `_NET_SHOWING_DESKTOP`, the standard way, so other programs can ask for it too. The widgets are one program, **amadeos-widgets**, which the top bar starts; their places are in `~/.config/amadeos/widgets.conf` and the settings of each widget in `~/.config/amadeos/widgets/`. Programs bring their own widgets with a file in `/usr/share/amadeos/widgets/`, as the Calendar does.
+    The look is stored in `~/.config/amadeos/look.conf` (`look=horizon`, `scheme=dark`, `accent=teal`); the classic palette stays in `theme.conf`. The top bar, the dock and the search are the package **amadeos-panel-horizon**, one program; the dock's favourites, icon size and parts are in `~/.config/amadeos/dock.conf`. The dock sets `_AMADEOS_DOCK_TAKES_MINIMIZED` on its window, so the window manager gives minimised windows no desktop icon while it runs. The window manager catches ++super+space++ and hands it to the search over a socket in `$XDG_RUNTIME_DIR` (`amadeos-search-_0.socket`); in the Classic look nobody listens there and the key does nothing. The search window carries `_AMADEOS_FRAMELESS`, so the window manager shows it without a frame and gives it the keyboard. `amadeos-session` starts the panel of the look; when the look changes, the running panel ends with exit code 75 and the session starts the other one (chapter 55). Without amadeos-panel-horizon, the Front Panel stays in both looks. ++super+d++ uses the window manager's `_NET_SHOWING_DESKTOP`, the standard way, so other programs can ask for it too. The widgets are one program, **amadeos-widgets**, which the top bar starts; their places are in `~/.config/amadeos/widgets.conf` and the settings of each widget in `~/.config/amadeos/widgets/`. Programs bring their own widgets with a file in `/usr/share/amadeos/widgets/`, as the Calendar does. The Horizon icons are the package **amadeos-icons-horizon** in `/usr/share/icons/amadeos-horizon`, PNG files from 16 to 256 pixels; icons it does not have come from NsCDE and hicolor. Horizon's choice of icon theme is the line `icons=` in `look.conf`; the Classic look's stays in `icon_theme.conf`.

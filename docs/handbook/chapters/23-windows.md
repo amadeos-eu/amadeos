@@ -71,7 +71,7 @@ Programs can ask for the whole screen, for example the games with ++f11++. The f
 
 ## Closing a program
 
-Closing the last window of a program usually ends the program. A program with unsaved work asks first, as the Text Editor does with a changed document. The close buttons ask the program to close its window; a program that does not understand that request is ended at once. A program that hangs may not answer at all; chapter 57 shows how to end it.
+Closing the last window of a program usually ends the program. A program with unsaved work asks first, as the Text Editor does with a changed document. The close buttons ask the program to close its window; a program that does not understand that request is ended at once. A program that hangs may not answer at all: after 5 seconds its title says *(Not Responding)*, and a dialog offers to wait or to end it. The Task Manager (++ctrl+shift+esc++, chapter 59) ends any program.
 
 ??? hood "Under the hood"
     The frames come from the window manager `amadeos-wm`, a Java program that talks to the X server through the X11 library. It *reparents* each window into a frame window of its own and follows the conventions ICCCM and EWMH, so programs that are not written in Java, Firefox for example, get the same frame. The ++alt+tab++ switcher is part of it too; without a compositor the X server keeps no picture of covered windows, which is why the window manager reads each window from the screen while it is in full view. It is started by the session and restarted at once should it ever end. Its log is `~/.cache/amadeos/logs/wm.log`.

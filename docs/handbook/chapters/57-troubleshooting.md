@@ -39,6 +39,7 @@ Lines with *SEVERE*, *ERROR*, *Exception* or *failed* are usually the ones that 
 
 | Problem | What to try |
 |---|---|
+| **A program hangs**, its title says *(Not Responding)* | Wait a moment, or choose *End Program* in the dialog. ++ctrl+shift+esc++ opens the Task Manager, which ends any program and shows what keeps the computer busy (chapter 59). |
 | **A program does not start**, or closes at once | Open its log in Session Diagnostics & Logs. Start it in a terminal to see its messages directly, for example `amade-mail`. |
 | **No network**, the network cell says *Network service is not running* | `sudo systemctl restart NetworkManager` in a terminal. |
 | **No WLAN networks** in the list | The WLAN may be switched off by a key or switch on the laptop. `nmcli radio wifi on` switches it on; *System information* shows whether a WLAN device was found at all. |

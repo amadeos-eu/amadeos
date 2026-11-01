@@ -9,6 +9,7 @@ The keys and mouse actions of the desktop, in one place. The keys of each progra
 | ++super+l++ | Locks the screen. ++super++ is the key with the Windows logo. | 26 |
 | ++alt+tab++ | Switches between the windows of the workspace; ++alt+shift+tab++ goes the other way. | 23 |
 | ++ctrl+alt+v++ | Shows the clipboard history. | 36 |
+| ++ctrl+shift+esc++ or ++ctrl+alt+del++ | Opens the Task Manager. | 59 |
 | ++ctrl+c++ / ++ctrl+x++ / ++ctrl+v++ | Copy / cut / paste, in the amadeOS programs and most others. | 21 |
 | ++ctrl+q++ | Quits the program, in most amadeOS programs. | 21 |
 | ++f11++ | Full screen and back, in the games, Fractals and Firefox. | 23 |

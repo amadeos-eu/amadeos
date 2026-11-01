@@ -15,6 +15,7 @@ Where to find on amadeOS what you know from Windows or macOS.
 | ++win+l++ | ++ctrl+cmd+q++ | ++super+l++, or the padlock in the Front Panel | 26 |
 | ++alt+tab++ | ++cmd+tab++ | ++alt+tab++, with pictures of the windows of the workspace | 23 |
 | ++win+v++ | — | ++ctrl+alt+v++, the clipboard history | 36 |
+| ++ctrl+shift+esc++, ++ctrl+alt+del++ | ++cmd+opt+esc++ | ++ctrl+shift+esc++ or ++ctrl+alt+del++, the Task Manager | 59 |
 | Settings, Personalisation | System Settings | Settings | Part IV |
 | Shut down in the Start menu | Apple menu | EXIT in the Front Panel | 26 |
 
@@ -41,7 +42,8 @@ Where to find on amadeOS what you know from Windows or macOS.
 | Recycle Bin | Bin | Trash Can in the Front Panel | 41 |
 | Microsoft Store | App Store | Software, without an account | 51 |
 | Windows Update | Software Update | The updates cell and Software | 52 |
-| Task Manager, Event Viewer | Activity Monitor, Console | Hardware & System Info, Session Diagnostics & Logs | 57 |
+| Task Manager | Activity Monitor | Task Manager, in the Tools drawer | 59 |
+| Event Viewer, System Information | Console, System Information | Session Diagnostics & Logs, Hardware & System Info | 57 |
 | Printers & scanners | Printers & Scanners | Print Manager | 27, 54 |
 | Command Prompt, PowerShell | Terminal | Terminal (xterm) in the Tools drawer | 22 |
 

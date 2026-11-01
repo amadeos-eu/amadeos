@@ -103,7 +103,7 @@ Every step that changes a drive asks for the **administrator's password** (chapt
 
 ### The system disk is protected
 
-The partitions the running system uses are **locked**: the system itself (`/`), `/boot` and `/boot/efi`, and the swap space. Disks says so below the details (*Locked: this partition holds the running system*). A locked partition cannot be formatted, deleted or shrunk, and the system disk as a whole cannot be formatted or overwritten with an image. You can still look at it, check its health, create a partition in free space on it, and let a partition grow into free space right after it.
+The partitions the running system uses are **locked**: the system itself (`/`), `/boot` and `/boot/efi`, `/home` and the other system folders when they are partitions of their own, and the swap space. Parts of LVM volume groups and RAID arrays are locked too; Disks leaves them alone. Disks says so below the details (*Locked: this partition holds the running system*). A locked partition cannot be formatted, deleted or shrunk, and the system disk as a whole cannot be formatted or overwritten with an image. You can still look at it, check its health, create a partition in free space on it, and let a partition grow into free space right after it.
 
 ### Formatting a USB stick or a memory card
 

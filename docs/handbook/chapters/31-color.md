@@ -2,6 +2,9 @@
 
 **Color** chooses the **palette**, the set of colours for the whole desktop: window frames, buttons, menus, the Front Panel, the four workspaces, and every amadeOS application. It also chooses the **icon theme**.
 
+!!! note "Horizon"
+    The palettes belong to the Classic look. In the Horizon look (chapter 29) the colours come from its scheme and accent colour on the *Desktop look* page; the Color page then only chooses the icon theme, and your palette comes back when you switch to Classic again.
+
 ![The Color page](images/31/settings-color.jpg)
 
 ## The palettes

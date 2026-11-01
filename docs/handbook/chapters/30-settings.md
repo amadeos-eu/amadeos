@@ -16,7 +16,8 @@ On the left, the controls are grouped by what they set. Click one, or move throu
 
 | Group | Control | What it sets | Chapter |
 |---|---|---|---|
-| Appearance | **Color** | The colour palette of the desktop and the icon theme | 31 |
+| Appearance | **Desktop look** | Classic or Horizon, and Horizon's scheme and accent colour | 29 |
+| | **Color** | The colour palette of the desktop and the icon theme | 31 |
 | | **Font** | The size of the text | 35 |
 | | **Backdrop** | The pattern, picture or colour behind the windows | 32 |
 | | **Workspaces** | The names of the four workspaces | 37 |
@@ -83,4 +84,4 @@ In that window, **OK** saves, applies and closes; **Apply** saves and applies an
     CDE's Style Manager, `dtstyle`, was a row of buttons, each opening a small window. That worked for a handful of controls; amadeOS has more to set, so the sidebar groups them and a search finds them. The compact view keeps the CDE row for those who prefer it.
 
 ??? hood "Under the hood"
-    Settings writes small text files to `~/.config/amadeos/`, one per control: `theme.conf` and `icon_theme.conf` (Color), `font.conf` (Font), `wallpaper.conf` (Backdrop), `input.conf` (Keyboard, Mouse and Beep), `display.conf` (Display), `screen.conf` (Screen), `power.conf` (Power), `window.conf` (Window), `notifications.conf` (Notifications), `clipboard.conf` (Clipboard), `workspaces.conf` (Workspaces), `panel.conf` (Front Panel), `startup.conf` (Startup), `locale.conf` (Language) and `formats.conf` (Date and Time); the default applications are in `~/.config/mimeapps.list`; the programs started at login are in `~/.config/autostart/`; its own view is kept in `settings.conf`. The desktop and the amadeOS applications watch these files, so a change reaches them at once. Chapter 56 lists all settings files.
+    Settings writes small text files to `~/.config/amadeos/`, one per control: `look.conf` (Desktop look), `theme.conf` and `icon_theme.conf` (Color), `font.conf` (Font), `wallpaper.conf` (Backdrop), `input.conf` (Keyboard, Mouse and Beep), `display.conf` (Display), `screen.conf` (Screen), `power.conf` (Power), `window.conf` (Window), `notifications.conf` (Notifications), `clipboard.conf` (Clipboard), `workspaces.conf` (Workspaces), `panel.conf` (Front Panel), `startup.conf` (Startup), `locale.conf` (Language) and `formats.conf` (Date and Time); the default applications are in `~/.config/mimeapps.list`; the programs started at login are in `~/.config/autostart/`; its own view is kept in `settings.conf`. The desktop and the amadeOS applications watch these files, so a change reaches them at once. Chapter 56 lists all settings files.

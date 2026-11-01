@@ -8,6 +8,7 @@ The keys and mouse actions of the desktop, in one place. The keys of each progra
 |---|---|---|
 | ++super+l++ | Locks the screen. ++super++ is the key with the Windows logo. | 26 |
 | ++alt+tab++ | Switches between the windows of the workspace; ++alt+shift+tab++ goes the other way. | 23 |
+| ++ctrl+alt+t++ | Opens a Terminal. | 42 |
 | ++ctrl+alt+v++ | Shows the clipboard history. | 36 |
 | ++ctrl+shift+esc++ or ++ctrl+alt+del++ | Opens the Task Manager. | 59 |
 | ++ctrl+c++ / ++ctrl+x++ / ++ctrl+v++ | Copy / cut / paste, in the amadeOS programs and most others. | 21 |
@@ -52,7 +53,7 @@ On a touchpad, the right button is a click at the bottom right or with two finge
 |---|---|
 | File Manager | Chapter 41 |
 | Backup & Sync | Chapter 41 |
-| Text Editor | Chapter 42 |
+| Text Editor, Terminal | Chapter 42 |
 | WritePad | Chapter 43 |
 | News | Chapter 44 |
 | Calendar | Chapter 45 |

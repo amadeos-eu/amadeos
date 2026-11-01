@@ -21,7 +21,7 @@ amadeOS follows the **Common Desktop Environment** (CDE), the desktop of the lar
 | Mailer (`amade-mail`) | `dtmail` | Folders of the mail server in a column, several accounts, HTML mail shown safely; CDE's letters `N`, `A`, `!`, `@` in the list. | 44 |
 | Calendar (`amade-calendar`) | `dtcm` | Stored as iCalendar, the standard format of other calendars. | 45 |
 | Print Manager (`amadeos-print`) | `dtprintinfo` | Talks to CUPS, the print system of Linux. | 27, 54 |
-| Terminal | `dtterm` | `xterm`, the terminal of X11. | 22 |
+| Terminal (`amade-terminal`) | `dtterm` | Tabs, colour schemes and a warning before pasting several lines; behaves like `xterm` for the programs. | 42 |
 | This handbook | The Help Viewer `dthelpview` | Web pages, opened in Firefox, also without a network. | 48 |
 | Session Diagnostics & Logs | The session log `~/.dt/errorlog` | One window for the logs of the session, the programs and the system. | 57 |
 

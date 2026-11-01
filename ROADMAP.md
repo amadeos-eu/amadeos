@@ -72,7 +72,7 @@ Gap analysis of 2026-10-31: what a typical desktop has and amadeOS does not yet,
 5. ~~Default applications: a Settings page for the program that opens web links, mail, PDFs, pictures, music and videos (`xdg-mime`).~~ Built 2026-10-31 (Settings > Default Applications, `~/.config/mimeapps.list`).
 6. ~~Date and time: date and number formats (marked *Planned* on the Language page), network time on or off, setting the time by hand.~~ Built 2026-10-31 (Settings > Date and Time with the time zone, network time, the clock by hand and formats of a region of their own).
 7. ~~Task manager / system monitor: processes, CPU and memory graphs, ending a program that hangs (System Information shows only a report).~~ Built 2026-10-31 (amadeos-system #61: `amadeos-taskmanager`, Ctrl+Shift+Esc and Ctrl+Alt+Del, the window manager marks windows that do not respond).
-8. Terminal: an own terminal or the decision to keep xterm (see M13).
+8. ~~Terminal: an own terminal or the decision to keep xterm (see M13).~~ Built 2026-11-01: `amade-terminal`, an own terminal with its own emulator (amade-terminal #1); xterm stays in the image for one release.
 9. Disk tool: formatting a USB stick, partitions, disk health (SMART).
 10. Settings pages *Keyboard shortcuts* and *Accessibility* (larger mouse pointer, high-contrast theme, sticky keys).
 11. Firewall: a simple on/off switch with nftables.
@@ -96,13 +96,13 @@ Nice to have: sticky notes, weather, a character map and font viewer, maps.
 
 ### M13 — Application suite
 
-- Terminal: an own terminal emulator, or a decision to keep xterm.
+- ~~Terminal: an own terminal emulator, or a decision to keep xterm.~~ Built 2026-11-01 (`amade-terminal`).
 - Network settings: fixed addresses, VPN and a hotspot on the Settings Network page; connections, hidden WLANs and the proxy are there already, the rest is still `nmtui`.
 - amade-mail: test Gmail OAuth2 and decide whether to ship a datazuul OAuth client; IMAP IDLE with new-mail state in the in-tray; autoconfig (Thunderbird ISPDB, DNS SRV).
 - amade-contacts: meeting attendees in the Calendar, CardDAV.
 - amade-imageviewer: map tiles not yet tried against the live tile server.
 
-**Exit criteria:** each Front Panel slot opens an amadeOS application instead of an `xterm` command, and all applications follow the Settings theme. Only the terminal and parts of the network settings are left.
+**Exit criteria:** each Front Panel slot opens an amadeOS application instead of an `xterm` command, and all applications follow the Settings theme. Only parts of the network settings are left.
 
 ### M14 — Installation to disk
 
@@ -136,6 +136,10 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 ## Timeline
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
+
+### 2026-11-01
+
+- New application [`amade-terminal`](https://github.com/amadeos-eu/amade-terminal) (#1): the amadeOS terminal with its own xterm compatible emulator on a pseudo terminal (Java FFM, no native library); tabs, copy and paste (selection and middle click, Ctrl+Shift+C/V), a warning before pasting several lines, find in the scrollback, links, colour schemes. Registered as `x-terminal-emulator`; the Tools drawer, the desktop menu, `Terminal=true` programs and the new Ctrl+Alt+T start it (system #62); `bash-completion` in the image; User's Handbook chapter 42.
 
 ### 2026-10-31
 

@@ -45,7 +45,7 @@ Where to find on amadeOS what you know from Windows or macOS.
 | Task Manager | Activity Monitor | Task Manager, in the Tools drawer | 59 |
 | Event Viewer, System Information | Console, System Information | Session Diagnostics & Logs, Hardware & System Info | 57 |
 | Printers & scanners | Printers & Scanners | Print Manager | 27, 54 |
-| Command Prompt, PowerShell | Terminal | Terminal (xterm) in the Tools drawer | 22 |
+| Command Prompt, PowerShell | Terminal | Terminal in the Tools drawer, ++ctrl+alt+t++ | 42 |
 
 ## Ideas that work differently
 

@@ -3,7 +3,7 @@
 **Color** chooses the **palette**, the set of colours for the whole desktop: window frames, buttons, menus, the Front Panel, the four workspaces, and every amadeOS application. It also chooses the **icon theme**.
 
 !!! note "Horizon"
-    The palettes belong to the Classic look. In the Horizon look (chapter 29) the colours come from its scheme and accent colour on the *Desktop look* page; the Color page then only chooses the icon theme, and your palette comes back when you switch to Classic again.
+    The palettes belong to the Classic look. In the Horizon look (chapter 29) the colours come from its scheme and accent colour on the *Desktop look* page; the Color page then only chooses the icon theme of Horizon (at first amadeOS Horizon), and your palette and your icon theme come back when you switch to Classic again.
 
 ![The Color page](images/31/settings-color.jpg)
 
@@ -33,7 +33,7 @@ Click **Apply**. The window frames, the Front Panel and the open amadeOS applica
 
 ## The icon theme
 
-Under **Icons**, the *Icon theme* list chooses the icons of the Front Panel, the File Manager and the menus. The row below it shows a few icons of the chosen theme. amadeOS ships the theme **NsCDE**, icons in the style of CDE.
+Under **Icons**, the *Icon theme* list chooses the icons of the Front Panel, the File Manager and the menus. The row below it shows a few icons of the chosen theme. amadeOS ships the theme **NsCDE**, icons in the style of CDE, and **amadeOS Horizon**, the flat icons of the Horizon look (chapter 29).
 
 ## Your own palette
 
@@ -55,4 +55,4 @@ The Halloween palette is such a file too, `/etc/amadeos/themes/halloween/theme.p
 Only `base` is required; amadeOS works out the edges, shadows and other colours from it. Copying the file of a palette that is already there and changing a few values is the easiest way to start.
 
 ??? hood "Under the hood"
-    The chosen palette is stored in `~/.config/amadeos/theme.conf`, the icon theme in `~/.config/amadeos/icon_theme.conf`. The window manager and the Front Panel also tell each other the palette through a property on the X11 root window, `_AMADEOS_THEME`. Applications built on the amadeOS library *amade-commons* watch `theme.conf` and repaint themselves when it changes.
+    The chosen palette is stored in `~/.config/amadeos/theme.conf`, the icon theme in `~/.config/amadeos/icon_theme.conf` (in Horizon: the line `icons=` in `look.conf`). The window manager and the Front Panel also tell each other the palette through a property on the X11 root window, `_AMADEOS_THEME`. Applications built on the amadeOS library *amade-commons* watch `theme.conf` and repaint themselves when it changes.

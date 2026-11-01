@@ -34,6 +34,7 @@ From left to right the top bar holds:
 | **The program name** | The name of the program you are working in, in bold, or *Desktop*. A click opens a small menu to minimise or close its window. |
 | **The four dots** | The workspaces; the current one is the wider dot in the accent colour. Click a dot to switch, hold the mouse over it to see the workspace's name. |
 | **The status cells** | Network, sound, battery, Bluetooth, notifications, waiting updates and the camera light: the same cells as in the Front Panel (chapter 27), chosen under *Settings → Front Panel* (chapter 37). |
+| **The magnifier** | Opens the search (see below), as ++super+space++ does. |
 | **The clock** | Weekday, date and time. A click opens the Calendar. |
 
 Windows stay below the top bar: a maximised window fills the screen under it, and a window cannot be dragged under it.
@@ -66,6 +67,27 @@ To add a program to the dock, start it, then choose *Keep in dock* from its menu
 
 Windows stay above the dock, as they stay below the top bar: a maximised window fills the space between the two.
 
+## The search
+
+![The search finds programs and files](images/29/search.jpg)
+
+Press ++super+space++ (++super++ is the key with the Windows logo), or click the **magnifier** in the top bar, and a search field opens in the upper middle of the screen. Start typing; the results appear as you type, grouped by kind:
+
+| Kind | What it finds |
+|---|---|
+| **Calculation** | A sum such as `12*7+3`, `(1250+380)*1,19`, `2^10`, `80*15%` (fifteen percent of 80) or `sqrt(2)`. A comma counts as a decimal point. |
+| **Programs** | The installed programs, by their name (*WritePad*), by what they are (*word processor*, *web browser*) and by a word of their description. |
+| **Settings** | The pages of Settings, by their name and by the words the search of Settings knows: *wallpaper* finds *Backdrop*, *volume* finds *Sound*. |
+| **Files** | Files and folders in your home folder, by their name, with the folder they are in. Hidden files and folders are left out. |
+
+![A sum in the search](images/29/search-sum.jpg)
+
+The first result is chosen; ++down++ and ++up++ (or ++tab++) choose another, and the mouse does too. ++enter++ or a click opens it: a program starts, a page of Settings opens, a file opens in its program and a folder in Files. The result of a sum goes onto the clipboard, ready to paste. ++esc++, ++super+space++ again or a click on another window close the search, and the window you were working in gets the keyboard back.
+
+![A page of Settings found by its name](images/29/search-settings.jpg)
+
+The search reads your home folder each time it opens, up to six folders deep, so a file you saved a moment ago is found. It does not look inside files.
+
 ## The window frames
 
 ![A Horizon window frame](images/29/frame.jpg)
@@ -79,7 +101,7 @@ A Horizon frame has a flat title bar in the window's own colour. A thin line in 
 The corners are rounded with the X Shape extension. Without a compositor the edge is cut pixel by pixel, so the corners look slightly stepped; the soft shadow of other desktops is not there.
 
 !!! planned "Planned: the rest of Horizon"
-    Planned next: a **search bar** for programs, settings and files; **desktop widgets** (calendar, to-dos, a photo, a clock); folder icons on the desktop; dragging programs within the dock to reorder them; a flat look for the amadeOS applications and a Horizon icon set. Until then, the amadeOS applications keep their Motif buttons in Horizon's colours.
+    Planned next: **desktop widgets** (calendar, to-dos, a photo, a clock); folder icons on the desktop; dragging programs within the dock to reorder them; a flat look for the amadeOS applications and a Horizon icon set. Until then, the amadeOS applications keep their Motif buttons in Horizon's colours.
 
 !!! info "Under the hood"
-    The look is stored in `~/.config/amadeos/look.conf` (`look=horizon`, `scheme=dark`, `accent=teal`); the classic palette stays in `theme.conf`. The top bar and the dock are the package **amadeos-panel-horizon**, one program; the dock's favourites, icon size and parts are in `~/.config/amadeos/dock.conf`. The dock sets `_AMADEOS_DOCK_TAKES_MINIMIZED` on its window, so the window manager gives minimised windows no desktop icon while it runs. `amadeos-session` starts the panel of the look; when the look changes, the running panel ends with exit code 75 and the session starts the other one (chapter 55). Without amadeos-panel-horizon, the Front Panel stays in both looks.
+    The look is stored in `~/.config/amadeos/look.conf` (`look=horizon`, `scheme=dark`, `accent=teal`); the classic palette stays in `theme.conf`. The top bar, the dock and the search are the package **amadeos-panel-horizon**, one program; the dock's favourites, icon size and parts are in `~/.config/amadeos/dock.conf`. The dock sets `_AMADEOS_DOCK_TAKES_MINIMIZED` on its window, so the window manager gives minimised windows no desktop icon while it runs. The window manager catches ++super+space++ and hands it to the search over a socket in `$XDG_RUNTIME_DIR` (`amadeos-search-_0.socket`); in the Classic look nobody listens there and the key does nothing. The search window carries `_AMADEOS_FRAMELESS`, so the window manager shows it without a frame and gives it the keyboard. `amadeos-session` starts the panel of the look; when the look changes, the running panel ends with exit code 75 and the session starts the other one (chapter 55). Without amadeos-panel-horizon, the Front Panel stays in both looks.

@@ -7,6 +7,7 @@ The keys and mouse actions of the desktop, in one place. The keys of each progra
 | Keys | What they do | Chapter |
 |---|---|---|
 | ++super+l++ | Locks the screen. ++super++ is the key with the Windows logo. | 26 |
+| ++super+space++ | Opens the search of the Horizon look: programs, Settings, files and sums. | 29 |
 | ++alt+tab++ | Switches between the windows of the workspace; ++alt+shift+tab++ goes the other way. | 23 |
 | ++ctrl+alt+t++ | Opens a Terminal. | 42 |
 | ++ctrl+alt+v++ | Shows the clipboard history. | 36 |

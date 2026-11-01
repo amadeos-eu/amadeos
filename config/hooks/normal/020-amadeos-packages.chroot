@@ -21,9 +21,11 @@ if [ -f /lib/systemd/system/wsdd.service ] || [ -f /usr/lib/systemd/system/wsdd.
     systemctl disable wsdd.service || true
 fi
 
-# The locales of the five desktop languages, selectable at login and in the front panel.
+# The locales of the five desktop languages, selectable at login and in the front panel, and the regions that
+# Settings > Date and Time offers for formats of their own (amade-commons RegionalFormats.REGIONS).
 if [ -f /etc/locale.gen ]; then
-    for locale in de_DE en_US fr_FR es_ES it_IT; do
+    for locale in de_DE en_US fr_FR es_ES it_IT en_GB en_IE en_CA de_AT de_CH de_LU fr_BE fr_CH fr_LU fr_CA \
+            es_MX it_CH nl_NL nl_BE pt_PT da_DK sv_SE nb_NO fi_FI pl_PL cs_CZ; do
         grep -q "^$locale.UTF-8 UTF-8" /etc/locale.gen || echo "$locale.UTF-8 UTF-8" >> /etc/locale.gen
     done
     locale-gen || true

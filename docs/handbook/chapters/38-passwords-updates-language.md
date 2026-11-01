@@ -1,6 +1,6 @@
 # 38. Network, Devices and System
 
-Two groups of Settings reach below the desktop. *Network and Devices* connects the computer: the wired network and the WLAN with the proxy through which programs reach the internet, the Bluetooth devices and the printers. *System* has the accounts of the computer (chapter 53), the keyring with your passwords, the updates of the system, and the language and time zone.
+Two groups of Settings reach below the desktop. *Network and Devices* connects the computer: the wired network and the WLAN with the proxy through which programs reach the internet, the Bluetooth devices and the printers. *System* has the accounts of the computer (chapter 53), the keyring with your passwords, the updates of the system, the language, and the date and time.
 
 ## Network
 
@@ -126,10 +126,29 @@ Below, the page shows when the package lists were last checked and how many upda
 
 **Language of the desktop** is the language of the menus and windows: English, Deutsch, Français, Español or Italiano. It is the same choice as the language button of the Front Panel and the login screen (chapter 25). Programs started after **Apply** speak the new language; the Front Panel, the window manager and the terminals follow at the next login.
 
-**Time zone** sets the time zone of the computer's clock. The time zone holds for all users of the computer, so **Apply** asks for the administrator's password.
+The time zone and the formats of dates and numbers have their own page, *Date and Time*.
 
-!!! planned "Planned: formats of their own"
-    Dates, times and numbers follow the language of the desktop. Choosing their format separately, for example English texts with German dates, is planned.
+## Date and Time
+
+![The Date and Time page](images/38/settings-datetime.jpg)
+
+At the top, the page shows the date and the time as the clock of the computer has them, second by second.
+
+**Set the clock automatically from the internet (network time)** is on from the start: the time service `systemd-timesyncd` asks a time server and keeps the clock right to a fraction of a second. The line below says whether it has reached a server yet. A computer that is never online, or a clock you want wrong on purpose, needs the switch off; then **Date** and **Time** below become editable, and **Apply** sets the clock to what they show.
+
+**Time zone** sets the time zone of the computer's clock, for example *Europe / Berlin*. The changes between summer and winter time follow by themselves. The login screen offers the time zone as well (chapter 20).
+
+The clock and the time zone hold for all users of the computer, so **Apply** asks for the administrator's password (once for a few minutes, however many of the three you change).
+
+**Formats of** chooses how dates, times, numbers and money are written, independently of the language: English menus with German dates, for example, or the Swiss way of writing numbers in a German-speaking desktop. *Same as the language* is the start: the formats of the language of the desktop. Below the list, the page shows what the choice means: the short and the long date, the time, a number, a sum of money, the first day of the week, the measures and the paper size. The formats are your own setting; another user of the computer keeps theirs. Programs started after **Apply** use them; the Front Panel and the terminals follow at the next login.
+
+| Region | Date | Time | Number | Week starts |
+|---|---|---|---|---|
+| English (United States) | 10/31/26 | 11:39 PM | 1,234,567.89 | Sunday |
+| English (United Kingdom) | 31/10/2026 | 23:39 | 1,234,567.89 | Monday |
+| Deutsch (Deutschland) | 31.10.26 | 23:39 | 1.234.567,89 | Monday |
+| Deutsch (Schweiz) | 31.10.26 | 23:39 | 1’234’567.89 | Monday |
+| Français (France) | 31/10/2026 | 23:39 | 1 234 567,89 | Monday |
 
 ??? hood "Under the hood"
-    The *Connections* tab asks NetworkManager with `nmcli` (`device status`, `device wifi list`, `device show`) and changes connections with `nmcli device connect` and `nmcli device wifi connect`, which members of the group `netdev` may do without a password. The Bluetooth page speaks with the Bluetooth service `bluetoothd` (BlueZ) over the system bus, and answers the pairing questions as its agent; the user needs to be in the group `bluetooth`. The Printers page speaks IPP to CUPS like the Print Manager, finds printers with `lpinfo`, adds them with `lpadmin -m everywhere` (members of the group `lpadmin` may) and saves the defaults with `lpadmin -o`. The Proxy tab writes `~/.config/amadeos/proxy.conf`; the password is in the keyring under `service amadeos account proxy`. The amade applications follow the file at once. At login the session turns it into the variables `http_proxy`, `https_proxy` and `no_proxy` (`/usr/libexec/amadeos-proxy-env`), and programs started from the desktop get them as they are at that moment. For apt, `/usr/libexec/amadeos-packages proxy` writes `/etc/apt/apt.conf.d/80amadeos-proxy`, which only root can read. The Passwords page talks to the keyring over the freedesktop.org Secret Service on the session bus; locking and unlocking use GNOME Keyring's own interface for its master password. The Updates page reads the same state as the updates cell and writes the automatic setting through `/usr/libexec/amadeos-packages` and `pkexec`. The language is written to `~/.config/amadeos/locale.conf`; the time zone is set with `timedatectl set-timezone`, which polkit allows to administrators.
+    The *Connections* tab asks NetworkManager with `nmcli` (`device status`, `device wifi list`, `device show`) and changes connections with `nmcli device connect` and `nmcli device wifi connect`, which members of the group `netdev` may do without a password. The Bluetooth page speaks with the Bluetooth service `bluetoothd` (BlueZ) over the system bus, and answers the pairing questions as its agent; the user needs to be in the group `bluetooth`. The Printers page speaks IPP to CUPS like the Print Manager, finds printers with `lpinfo`, adds them with `lpadmin -m everywhere` (members of the group `lpadmin` may) and saves the defaults with `lpadmin -o`. The Proxy tab writes `~/.config/amadeos/proxy.conf`; the password is in the keyring under `service amadeos account proxy`. The amade applications follow the file at once. At login the session turns it into the variables `http_proxy`, `https_proxy` and `no_proxy` (`/usr/libexec/amadeos-proxy-env`), and programs started from the desktop get them as they are at that moment. For apt, `/usr/libexec/amadeos-packages proxy` writes `/etc/apt/apt.conf.d/80amadeos-proxy`, which only root can read. The Passwords page talks to the keyring over the freedesktop.org Secret Service on the session bus; locking and unlocking use GNOME Keyring's own interface for its master password. The Updates page reads the same state as the updates cell and writes the automatic setting through `/usr/libexec/amadeos-packages` and `pkexec`. The language is written to `~/.config/amadeos/locale.conf`. The Date and Time page reads the clock with `timedatectl show` and changes it with `timedatectl set-timezone`, `set-ntp` and `set-time`, which polkit allows to administrators. The formats are written to `~/.config/amadeos/formats.conf`, one line such as `de_CH.UTF-8`. The amade applications make it the Java locale for formats; for other programs the session sets `LC_TIME`, `LC_NUMERIC`, `LC_MONETARY`, `LC_PAPER` and `LC_MEASUREMENT` (`LANG` keeps the language), and programs started from the desktop get them as they are at that moment. The image generates the locales of all regions in the list.

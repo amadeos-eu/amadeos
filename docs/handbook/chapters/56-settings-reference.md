@@ -32,6 +32,7 @@ Your settings are in your home folder, in folders whose names start with a dot a
 | `settings.conf` | Settings: the sidebar or the compact view | 30 |
 | `proxy.conf` | Settings: Network (the password is in the keyring) | 38 |
 | `locale.conf` | The greeter and the language button | 25 |
+| `formats.conf` | Settings: Date and Time (formats apart from the language) | 38 |
 | `session.conf` | You, by hand | 55 |
 | `autostart.d/` | You, by hand | 55 |
 
@@ -40,6 +41,8 @@ Your settings are in your home folder, in folders whose names start with a dot a
 The amade applications keep their settings in a folder of their own below `~/.config/amadeos/` (the Mailer in `~/.config/amadeos/mail`, for example) and their data below `~/.local/share/amadeos/` (the scores of the games in `~/.local/share/amadeos/games/<game>/`). Passwords, such as those of mail accounts, are not in these files but in your login keyring (chapter 58).
 
 The programs that start at login are desktop entries in `~/.config/autostart/` (Settings: Startup, chapter 35); your own login scripts are in `~/.config/amadeos/autostart.d/` (chapter 55).
+
+The default applications (Settings: Default Applications, chapter 40) are in `~/.config/mimeapps.list`, as the freedesktop.org standard has it; amadeOS's own defaults are in `/etc/xdg/mimeapps.list`.
 
 Firefox keeps its profile in `~/.mozilla/firefox/`, LibreOffice in `~/.config/libreoffice/`.
 

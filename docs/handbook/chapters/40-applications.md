@@ -38,10 +38,36 @@ Every amade application has its source code in a repository of its own on GitHub
 
 - Click the icon or open the drawer of its slot in the **Front Panel** (chapter 22).
 - Choose it in the **Application Manager**: click the icon of the **Tools** slot.
-- Double-click a file in the **File Manager**: it opens in the program made for it, a `.txt` in the Text Editor, an `.odt` in WritePad, a photo in the Image Viewer, a `.pdf` in the PDF Viewer, an `.epub` in Books, an `.ics` in the Calendar.
+- Double-click a file in the **File Manager**: it opens in the program made for it, a `.txt` in the Text Editor, an `.odt` in WritePad, a photo in the Image Viewer, a `.pdf` in the PDF Viewer, an `.epub` in Books, an `.ics` in the Calendar. Which program that is, you choose in Settings (below).
 - Type its command in a terminal, such as `amade-pad letter.txt`. Each section below names the command.
 
 While a program starts, the pointer shows the busy cursor until its window appears.
+
+## Which program opens what
+
+![The Default Applications page in Settings](images/40/settings-applications.jpg)
+
+The page **Default Applications** in Settings (group *Desktop*) chooses the program that opens a kind of file or link: web links, mail addresses (`mailto:` links in a web page), folders, text files, documents, pictures, PDF files, e-books and comics, music, videos, calendar files and contacts. The File Manager, the links in the Mailer and in the other programs, and everything started with `xdg-open` follow it.
+
+Each list offers only the installed programs that say they can open that kind of file; a program installed later appears in it by itself. *(amadeOS default)* marks the program amadeOS chose. To read `.docx` files in LibreOffice Writer instead of WritePad, for example, choose *LibreOffice Writer* next to *Documents* and click **Apply**. **Use amadeOS Defaults** selects amadeOS's choice in every list again.
+
+| Kind | amadeOS default | Other programs in the image |
+|---|---|---|
+| Web browser | Firefox ESR | |
+| Mail | Mailer | |
+| Folders | File Manager | |
+| Text files | Text Editor | WritePad |
+| Documents | WritePad | LibreOffice Writer |
+| Pictures | Image Viewer | Image Editor, Imagescan |
+| PDF files | PDF Viewer | |
+| E-books and comics | Books | |
+| Music | Audio | |
+| Videos | Video | |
+| Calendar files | Calendar | |
+| Contacts | Contacts | |
+
+??? hood "Under the hood"
+    The page follows the freedesktop.org *MIME Applications* specification. Your choices go to `~/.config/mimeapps.list`, under `[Default Applications]`, one line per type (`application/pdf=amade-pdfviewer.desktop;`); amadeOS's choices are in `/etc/xdg/mimeapps.list`. The first file that names an installed program wins. Choosing amadeOS's default again removes your line, so that a later change of the default in an update reaches you. Lines that other programs write to the same file, such as Firefox's, stay as they are. The programs a list offers are the desktop entries in `/usr/share/applications` whose `MimeType=` names the kind.
 
 ## The Application Manager
 

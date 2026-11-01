@@ -8,7 +8,7 @@ amadeOS speaks five languages: **English**, **Deutsch**, **Français**, **Españ
 
 **In the Front Panel.** The language button under the padlock, in the middle of the panel, shows the current language as a code such as *EN* or *DE*. Click it and choose another language from the menu. Programs you start from then on use the new language; the Front Panel itself and the terminals follow at the next login.
 
-**In Settings.** The *Language* page (chapter 38) offers the same choice, next to the time zone of the computer.
+**In Settings.** The *Language* page (chapter 38) offers the same choice. The time zone and the formats of dates and numbers, which can differ from the language, are on the *Date and Time* page next to it.
 
 **In a single application.** Many amadeOS applications have a language setting of their own in their *Settings* or *Options*. It overrides the desktop language for that application only.
 

@@ -62,6 +62,8 @@ Before you pull a stick out, click it with the right mouse button and choose **S
 
 If a program still has a file on the stick open, the File Manager tells you: *Holiday Photos is still in use. Close the files and programs that use it, then try again.*
 
+To **format** a stick or a memory card, choose **Format…** in its menu: Disks opens with the format dialog for it (chapter 59).
+
 !!! switching "Coming from Windows or macOS"
     *Safely Remove* is Windows' *Eject* in the Explorer or *Safely Remove Hardware* in the taskbar, and the eject arrow next to a stick in the Finder of macOS.
 

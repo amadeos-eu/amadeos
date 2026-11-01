@@ -44,7 +44,7 @@ Click the **right mouse button on the backdrop** to open the Workspace Menu.
 | **Programs** | All installed programs, sorted by kind, the same ones as in the drawers. |
 | **New Window** | A *Terminal Emulator*, the *Text Editor* or a *File Manager* window with your home folder. |
 | **Workspaces** | Switches to *Workspace 1: One* to *Workspace 4: Four*, under the names you gave them; the current one has a tick. |
-| **Window Management** | *Shuffle Up* and *Shuffle Down* bring the bottom window to the front or send the front window to the back, one at a time; *Minimize All Windows* clears the workspace, *Restore All Windows* brings them back. |
+| **Window Management** | *Show Desktop* (++super+d++) clears all windows away and brings them back (chapter 29); *Shuffle Up* and *Shuffle Down* bring the bottom window to the front or send the front window to the back, one at a time; *Minimize All Windows* clears the workspace, *Restore All Windows* brings them back. |
 | **Settings…** | Opens Settings (Part IV). |
 | **Refresh Desktop** | Draws the desktop and all frames anew, if something on the screen looks wrong. |
 | **Lock Screen** | Locks the screen (chapter 26). |

@@ -30,8 +30,9 @@ From left to right the top bar holds:
 
 | Part | What it does |
 |---|---|
-| **The ring** | Opens the system menu: *About this computer*, **Programs** (every installed program, sorted like the drawers of the Front Panel), *Files*, *Settings*, *Software*, *Task Manager*, *Lock screen* and *Log out or shut down…* (the Exit dialog of chapter 26). |
+| **The ring** | Opens the system menu: *About this computer*, **Programs** (every installed program, sorted like the drawers of the Front Panel), *Files*, *Settings*, *Software*, *Task Manager*, *Widgets…*, *Lock screen* and *Log out or shut down…* (the Exit dialog of chapter 26). |
 | **The program name** | The name of the program you are working in, in bold, or *Desktop*. A click opens a small menu to minimise or close its window. |
+| **The screen button** | Shows the desktop: all windows of the workspace step aside, as with ++super+d++ (see below). It is filled with the accent colour while the desktop is shown; a second click brings the windows back. |
 | **The four dots** | The workspaces; the current one is the wider dot in the accent colour. Click a dot to switch, hold the mouse over it to see the workspace's name. |
 | **The status cells** | Network, sound, battery, Bluetooth, notifications, waiting updates and the camera light: the same cells as in the Front Panel (chapter 27), chosen under *Settings → Front Panel* (chapter 37). |
 | **The magnifier** | Opens the search (see below), as ++super+space++ does. |
@@ -67,6 +68,8 @@ To add a program to the dock, start it, then choose *Keep in dock* from its menu
 
 Windows stay above the dock, as they stay below the top bar: a maximised window fills the space between the two.
 
+**The dock's own menu.** The right mouse button on the dock, between the icons, opens a menu with *Show desktop*, *Widgets…* and *Dock settings…* (the Desktop look page of Settings).
+
 ## The search
 
 ![The search finds programs and files](images/29/search.jpg)
@@ -88,6 +91,39 @@ The first result is chosen; ++down++ and ++up++ (or ++tab++) choose another, and
 
 The search reads your home folder each time it opens, up to six folders deep, so a file you saved a moment ago is found. It does not look inside files.
 
+## Showing the desktop
+
+Press ++super+d++, click the screen button in the top bar or choose *Show desktop* from the dock's menu: all windows of the workspace step aside and you see the desktop with its widgets. The windows are not minimised; they wait, and nothing changes in the dock.
+
+The windows come back when you press ++super+d++ again, click the screen button again, click a program in the dock, switch with ++alt+tab++, open a new window or switch to another workspace. The window you were working in gets the keyboard again.
+
+In the Classic look ++super+d++ works the same way; the Workspace Menu (chapter 24) has it as *Show Desktop* under *Window Management*.
+
+## Widgets
+
+![Widgets on the desktop: a to-do note, the calendar and a clock](images/29/widgets.jpg)
+
+Widgets are small cards on the desktop that show something at a glance. They always stay below the windows; ++super+d++ shows them when windows cover them.
+
+To add one, choose **Widgets…** from the system menu (the ring) or from the dock's menu. The gallery lists every widget there is; click **Add** next to one. A new widget goes into the first free place along the right edge of the screen.
+
+![The widget gallery](images/29/widget-gallery.jpg)
+
+| Widget | What it shows | Its settings |
+|---|---|---|
+| **Calendar** | This month with today in the accent colour, a dot under every day with an appointment, and your next appointments. A click opens the Calendar (chapter 45). It comes with the Calendar. | How many of the next appointments it lists (0 to 8) |
+| **Clock** | The time on a clock face with a second hand, or in large digits, and the date. | Clock face or digits |
+| **Photo** | One picture, or the pictures of a folder one after the other. | The picture or folder, and every how many minutes the picture changes |
+| **To-do note** | A short list: type a line and press ++enter++, tick off what is done, *Remove done* clears the ticked lines. | The title of the note |
+
+You can add a widget more than once, for example two notes or a photo of each of two folders.
+
+- **Move** a widget by dragging it.
+- **Resize** it by dragging its lower right corner.
+- The **right mouse button** on a widget opens a menu with *Settings…*, *Add widgets…* and *Remove from desktop*.
+
+The widgets and their places are kept: they are back after the next login. Widgets are a part of Horizon; in the Classic look the desktop shows the minimised windows instead (chapter 23).
+
 ## The window frames
 
 ![A Horizon window frame](images/29/frame.jpg)
@@ -101,7 +137,7 @@ A Horizon frame has a flat title bar in the window's own colour. A thin line in 
 The corners are rounded with the X Shape extension. Without a compositor the edge is cut pixel by pixel, so the corners look slightly stepped; the soft shadow of other desktops is not there.
 
 !!! planned "Planned: the rest of Horizon"
-    Planned next: **desktop widgets** (calendar, to-dos, a photo, a clock); folder icons on the desktop; dragging programs within the dock to reorder them; a flat look for the amadeOS applications and a Horizon icon set. Until then, the amadeOS applications keep their Motif buttons in Horizon's colours.
+    Planned next: widgets from more programs (what Audio Station is playing, the newest News); folder icons on the desktop; dragging programs within the dock to reorder them; a flat look for the amadeOS applications and a Horizon icon set. Until then, the amadeOS applications keep their Motif buttons in Horizon's colours.
 
 !!! info "Under the hood"
-    The look is stored in `~/.config/amadeos/look.conf` (`look=horizon`, `scheme=dark`, `accent=teal`); the classic palette stays in `theme.conf`. The top bar, the dock and the search are the package **amadeos-panel-horizon**, one program; the dock's favourites, icon size and parts are in `~/.config/amadeos/dock.conf`. The dock sets `_AMADEOS_DOCK_TAKES_MINIMIZED` on its window, so the window manager gives minimised windows no desktop icon while it runs. The window manager catches ++super+space++ and hands it to the search over a socket in `$XDG_RUNTIME_DIR` (`amadeos-search-_0.socket`); in the Classic look nobody listens there and the key does nothing. The search window carries `_AMADEOS_FRAMELESS`, so the window manager shows it without a frame and gives it the keyboard. `amadeos-session` starts the panel of the look; when the look changes, the running panel ends with exit code 75 and the session starts the other one (chapter 55). Without amadeos-panel-horizon, the Front Panel stays in both looks.
+    The look is stored in `~/.config/amadeos/look.conf` (`look=horizon`, `scheme=dark`, `accent=teal`); the classic palette stays in `theme.conf`. The top bar, the dock and the search are the package **amadeos-panel-horizon**, one program; the dock's favourites, icon size and parts are in `~/.config/amadeos/dock.conf`. The dock sets `_AMADEOS_DOCK_TAKES_MINIMIZED` on its window, so the window manager gives minimised windows no desktop icon while it runs. The window manager catches ++super+space++ and hands it to the search over a socket in `$XDG_RUNTIME_DIR` (`amadeos-search-_0.socket`); in the Classic look nobody listens there and the key does nothing. The search window carries `_AMADEOS_FRAMELESS`, so the window manager shows it without a frame and gives it the keyboard. `amadeos-session` starts the panel of the look; when the look changes, the running panel ends with exit code 75 and the session starts the other one (chapter 55). Without amadeos-panel-horizon, the Front Panel stays in both looks. ++super+d++ uses the window manager's `_NET_SHOWING_DESKTOP`, the standard way, so other programs can ask for it too. The widgets are one program, **amadeos-widgets**, which the top bar starts; their places are in `~/.config/amadeos/widgets.conf` and the settings of each widget in `~/.config/amadeos/widgets/`. Programs bring their own widgets with a file in `/usr/share/amadeos/widgets/`, as the Calendar does.

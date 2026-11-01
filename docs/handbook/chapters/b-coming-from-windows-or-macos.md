@@ -11,6 +11,8 @@ Where to find on amadeOS what you know from Windows or macOS.
 | Taskbar | Dock | The Front Panel; minimised windows as icons at the top left of the desktop | 22, 23 |
 | Notification area | Menu bar extras | The status slot of the Front Panel: network, sound, notifications and updates | 22, 27 |
 | Notifications, Action Center, Focus assist | Notification Centre, Focus | Notifications in a corner, the history behind the bell, Do not disturb | 28 |
+| Show desktop (++win+d++) | Show Desktop | ++super+d++, or the screen button in Horizon's top bar | 29 |
+| Widgets | Widgets | Widgets on the Horizon desktop: calendar, clock, photo, to-do note | 29 |
 | Virtual desktops | Spaces | Four workspaces, each with its own colour | 24 |
 | Desktop context menu | — | The Workspace Menu, right mouse button on the backdrop | 24 |
 | ++win+l++ | ++ctrl+cmd+q++ | ++super+l++, or the padlock in the Front Panel | 26 |

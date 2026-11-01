@@ -15,6 +15,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | **LibreOffice Math** | Mathematical formulas | Text & Office | 43 | Debian |
 | **Mailer** | E-mail from one or more accounts | Mail & Internet | 44 | [amade-mail](https://github.com/amadeos-eu/amade-mail) |
 | **News** | Websites, blogs and podcasts by their feeds, and Europe's public broadcasters by country | Mail & Internet | 44 | [amade-news](https://github.com/amadeos-eu/amade-news) |
+| **Terminal** | Commands in tabs, with Tab completion and copy and paste | Tools drawer, ++ctrl+alt+t++ | 42 | [amade-terminal](https://github.com/amadeos-eu/amade-terminal) |
 | **Calendar** | Appointments, reminders and To Do items | Calendar | 45 | [amade-calendar](https://github.com/amadeos-eu/amade-calendar) |
 | **Contacts** | Addresses, phone numbers and birthdays | Text & Office, Mail & Internet | 45 | [amade-contacts](https://github.com/amadeos-eu/amade-contacts) |
 | **Audio Station** | Audio CDs, music files and internet radio | Sound & Video | 46 | [amade-audio](https://github.com/amadeos-eu/amade-audio) |

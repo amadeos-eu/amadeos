@@ -48,7 +48,7 @@ The middle of the panel holds the controls of the session:
 |---|---|
 | Settings | Colours, text size, backdrop, keyboard, mouse, beep, screen saver, windows and clipboard (Part IV). |
 | Application Manager | All installed programs, sorted by kind. |
-| Terminal (xterm) | A terminal window for commands. |
+| Terminal | A terminal window for commands (chapter 42); also ++ctrl+alt+t++. |
 | Root Console (sudo) | A terminal with administrator rights; asks for your password (chapter 50). |
 | Clipboard History | Your last copies, to paste them again (chapter 36). |
 | Backup & Sync | Backups of your home folder to an external disk, and folder syncs (chapter 41). |

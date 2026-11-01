@@ -15,7 +15,11 @@ xserver-xorg-input-all
 xserver-xorg-video-all
 xserver-xorg-legacy
 xinit
+# xterm stays for one release next to amade-terminal, the amadeOS terminal; the failsafe session uses it
 xterm
+# Tab completion for the options of apt, git, systemctl and other commands in bash (amade-terminal
+# recommends it, but the image installs no recommends)
+bash-completion
 dbus
 dbus-x11
 libpam-systemd

@@ -64,7 +64,7 @@ sudo update-alternatives --config amadeos-panel
 
 A single user can choose another one for themselves with `AUTOSTART_APP` in their `session.conf`.
 
-The **Horizon look** (chapter 29) brings its own panel, the top bar `amadeos-panel-horizon`. It is not chosen with `update-alternatives`: while `look.conf` says `look=horizon` and the top bar is installed, the session starts it instead of the panel above. When you switch the look in Settings, the running panel ends with exit code 75, and the session starts the panel of the new look without logging you out. Any other exit code ends the session as before.
+The **Horizon look** (chapter 29) brings its own panel, the top bar and dock `amadeos-panel-horizon`. It is not chosen with `update-alternatives`: while `look.conf` says `look=horizon` and the top bar is installed, the session starts it instead of the panel above. When you switch the look in Settings, the running panel ends with exit code 75, and the session starts the panel of the new look without logging you out. Any other exit code ends the session as before.
 
 !!! planned "Planned"
     Besides the Horizon top bar, the CDE Front Panel is the only panel of amadeOS. The way to replace it is there so that other desktops can follow without changing the rest of the system.

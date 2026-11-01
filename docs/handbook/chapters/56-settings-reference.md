@@ -16,6 +16,8 @@ Your settings are in your home folder, in folders whose names start with a dot a
 
 | File in `~/.config/amadeos/` | Written by | Chapter |
 |---|---|---|
+| `look.conf` | Settings: Desktop look (Classic or Horizon, scheme, accent colour) | 29 |
+| `dock.conf` | Settings: Desktop look (dock size and parts), the dock's Keep in dock and Remove from dock | 29 |
 | `theme.conf`, `icon_theme.conf` | Settings: Color | 31 |
 | `font.conf` | Settings: Font | 35 |
 | `wallpaper.conf` | Settings: Backdrop | 32 |

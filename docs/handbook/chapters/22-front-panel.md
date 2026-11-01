@@ -55,6 +55,7 @@ The middle of the panel holds the controls of the session:
 | Session Diagnostics & Logs | The logs of the desktop and the programs (chapter 57). |
 | Hardware & System Info | Processor, memory, disks, graphics, network and battery on one page (chapter 57). |
 | Task Manager | Running programs and processes, how busy the computer is, ending a program that hangs (chapter 59). |
+| Disks | Drives, partitions and their health; formats USB sticks and writes disk images (chapter 59). |
 
 Below them come the other installed settings and system programs: *amadeOS Print Manager*, *amadeOS Software* for updates (chapters 51 and 52), *Install amadeOS* in the live system (chapter 14), the File Manager and the terminals.
 

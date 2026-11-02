@@ -37,7 +37,7 @@ When a check of the mail finds new messages in an inbox, a notification in the c
 
 ### Writing mail
 
-*Compose → New Message*, or *Reply to Sender*, *Reply to All* and *Forward*. The compose window has *From* (the account), *To*, *Cc*, *Subject* and the attachments; *Format → Show Bcc Field* adds *Bcc*. Files dropped on the window become attachments.
+*Compose → New Message*, or *Reply to Sender*, *Reply to All* and *Forward*. The compose window has *From* (the account), *To*, *Cc*, *Subject* and the attachments; *Format → Show Bcc Field* adds *Bcc*. Files dropped on the window become attachments. *Format → Special Characters…* (++ctrl+shift+u++) puts characters your keyboard lacks into the text, the subject or an address ([chapter 40](40-applications.md#special-characters)).
 
 **Addresses from your contacts.** Start typing a name, a nickname or a part of an address into *To*, *Cc* or *Bcc*, and a list below the field shows the matching people from [Contacts](45-calendar.md#contacts); "mull" also finds "Müller". ++arrow-down++ and ++arrow-up++ choose, ++enter++ or ++tab++ takes the address, ++esc++ closes the list. A group from Contacts, such as *Chor*, puts in the addresses of all its members at once.
 

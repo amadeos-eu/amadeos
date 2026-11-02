@@ -20,6 +20,27 @@ Open **Settings → Desktop look** (the first page of the *Appearance* group).
 
 ![Horizon with the Light scheme and the violet accent](images/29/horizon-light.jpg)
 
+### Ten more Horizon wallpapers
+
+Besides the two scheme pictures, Horizon brings ten wallpapers in the same flat style. Choose them under **Settings → Backdrop** (chapter 32); they look good with Classic too.
+
+![The ten Horizon wallpapers](images/29/horizon-wallpapers.jpg)
+
+| Picture | What it shows |
+|---|---|
+| *horizon-dunes.jpg* | Sand dunes at dusk under a low sun |
+| *horizon-peaks.jpg* | Mountain ranges in morning mist (light) |
+| *horizon-lake.jpg* | Mountains mirrored in a still lake at night |
+| *horizon-aurora.jpg* | Northern lights in teal and violet over snowy hills |
+| *horizon-waves.jpg* | Bands of sea in teal and blue (light) |
+| *horizon-forest.jpg* | Rows of pines in teal mist under the moon |
+| *horizon-bloom.jpg* | Large soft shapes in violet, mint and coral (light) |
+| *horizon-orbit.jpg* | A ringed planet over a moon's horizon |
+| *horizon-city.jpg* | A city skyline at night with lit windows |
+| *horizon-fields.jpg* | Rolling green hills under a warm sun (light) |
+
+They are made for screens up to 3840×2160; choose *Fill Screen (Crop)* so they fill other screen shapes too. A wallpaper you pick stays when you change the scheme or go back to Classic; only *horizon-dark.png* and *horizon-light.png* follow the scheme.
+
 The window frames change at once, the Front Panel gives way to the top bar and the dock (or the other way round), and the open amadeOS applications take the new colours. You do not need to log out. Your choices are kept: switch back to Classic and you get your last palette again; switch to Horizon and you get your last scheme and accent colour.
 
 ## The top bar

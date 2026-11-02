@@ -16,7 +16,7 @@ From top to bottom:
 - **The page** on a dark desk, with its margins.
 - **The status bar** with the page and the paper, and the zoom.
 
-The toolbar, format bar, ruler and status bar can each be hidden in the *View* menu. *View → Zoom* goes from 50 % to 300 %. *Insert → Sample Text* fills a few pages, to try things out. *Insert → Special Characters…* (++ctrl+shift+u++) puts in characters your keyboard lacks, such as € „ “ – or é ([chapter 40](40-applications.md#special-characters)).
+The toolbar, format bar, ruler and status bar can each be hidden in the *View* menu. *View → Zoom* goes from 50 % to 300 %. *Insert → Sample Text* fills a few pages, to try things out. *Insert → Special Characters…* (++ctrl+shift+u++) puts in characters your keyboard lacks, such as € „ “ – or é, and *Smileys and Emoji…* (++ctrl+period++) smileys ([chapter 40](40-applications.md#special-characters)).
 
 ## Paragraphs, tabs and lists
 

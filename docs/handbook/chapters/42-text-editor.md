@@ -22,6 +22,7 @@ Start it with the Text & Office slot of the Front Panel, or with `amade-pad file
 | ++ctrl+f++ / ++f3++ | Find / find next |
 | ++ctrl+h++ | Replace |
 | ++ctrl+shift+u++ | Special characters ([chapter 40](40-applications.md#special-characters)) |
+| ++ctrl+period++ | Smileys and emoji ([chapter 40](40-applications.md#smileys-and-emoji)) |
 | ++ctrl+q++ | Exit |
 
 ## Encodings and line ends

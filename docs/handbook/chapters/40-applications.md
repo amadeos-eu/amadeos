@@ -96,7 +96,13 @@ The € on a keyboard without it, „German“ or «French» quotes, the dash �
 - *Copy* puts the character on the clipboard instead, for another program. ++esc++ closes the window.
 - *Recently used* holds the last 24 characters you inserted, in all the programs together.
 
-The large preview names the character and shows its code. If the font of your text lacks the character, the window draws it in another font and says so; choose a different font in WritePad if it should look the same everywhere. Colour emoji are not offered, because the programs cannot draw them yet; *Symbols* has the black and white ones (★ ♥ ✓ ☀ ☂ ✈ ☺).
+The large preview names the character and shows its code. If the font of your text lacks the character, the window draws it in another font and says so; choose a different font in WritePad if it should look the same everywhere.
+
+### Smileys and emoji
+
+*Smileys and Emoji…*, right below *Special Characters…* in the same menu, or ++ctrl+period++, opens the same window on the group *Smileys and emoji*: faces, hands, hearts, animals, food, celebrations, travel and weather, things and signs. The search knows them too: `smile`, `thumbs up`, `cat`, and in your language, for example `lachen`, `Daumen hoch` or `Katze`.
+
+The programs draw emoji in black and white, with the font *Symbola*, because they cannot draw coloured emoji. They are the same characters as on a phone, though: someone who reads your mail on a phone or in a web browser sees them in colour.
 
 !!! sovereignty "Your data"
     None of the amade applications sends anything about you anywhere. They connect to the network only for what you asked for: your mail server, the radio station you chose, the title list of a CD you inserted.

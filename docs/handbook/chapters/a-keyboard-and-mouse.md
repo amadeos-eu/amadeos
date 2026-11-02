@@ -16,6 +16,7 @@ The keys and mouse actions of the desktop, in one place. The keys of each progra
 | ++ctrl+c++ / ++ctrl+x++ / ++ctrl+v++ | Copy / cut / paste, in the amadeOS programs and most others. | 21 |
 | ++ctrl+q++ | Quits the program, in most amadeOS programs. | 21 |
 | ++ctrl+shift+u++ | Special Characters, in WritePad, the Text Editor and the Mailer's message window. | 40 |
+| ++ctrl+period++ | Smileys and Emoji, in the same programs. | 40 |
 | ++f11++ | Full screen and back, in the games, Fractals and Firefox. | 23 |
 | ++alt++ and the underlined letter | Opens a menu of the menu bar, or presses a button with an underlined letter. | — |
 | ++esc++ | Closes a menu, and most dialogs, without choosing. | — |

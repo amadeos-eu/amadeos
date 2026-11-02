@@ -59,6 +59,11 @@ polkitd
 # USB sticks, memory cards and discs in the File Manager (amade-files): udisksctl mounts them below
 # /media/USER for the user at the screen and switches USB disks off for Safely Remove
 udisks2
+# Disks (amadeos-disks) formats through udisks: exFAT and NTFS need their mkfs tools, cryptsetup makes
+# password-protected sticks (LUKS); FAT and ext4 come from dosfstools and e2fsprogs (below)
+exfatprogs
+ntfs-3g
+cryptsetup
 # Network drives in the File Manager (amade-files): gvfs connects SMB shares of NAS boxes and PCs, NFS,
 # WebDAV, FTP and SFTP as the user (gio mount), gvfs-fuse shows them as folders below /run/user/UID/gvfs;
 # gvfs runs wsdd to find Windows PCs and NAS boxes by WS-Discovery (its own announcing service is switched

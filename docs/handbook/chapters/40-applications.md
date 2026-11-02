@@ -83,6 +83,26 @@ The Application Manager lists **every installed program** with a desktop entry, 
 - **Your settings stay with you.** Each program keeps its settings in a folder of its own under `~/.config/amadeos/`, readable only by you.
 - **Safe saving.** A file is written to a temporary file first and put in place when it is complete, so a crash or a full disk never leaves half a document behind.
 - **No surprises from files.** Files that could run a program, such as `.sh`, `.jar` or `.desktop` files, are not opened from the File Manager or a mail without asking first.
+- **Special characters.** The same window for characters your keyboard does not have, in WritePad, the Text Editor and the Mailer: see below.
+
+### Special characters
+
+The € on a keyboard without it, „German“ or «French» quotes, the dash –, the degree sign °, ½, or the é in a name: press ++ctrl+shift+u++, or choose *Special Characters…* (in WritePad from the *Insert* menu, in the Text Editor from *Edit*, in the Mailer's window for a new message from *Format*).
+
+![The Special Characters window: groups on the left, accented letters in the middle, a large à with its name on the right](images/40/special-characters.png)
+
+- **Find a character** by its group on the left (*Recently used*, *Accented letters*, *Quotes and dashes*, *Currency*, *Maths and numbers*, *Arrows*, *Greek*, *Symbols*, *All characters*), or type into *Search*. The search knows English names (`euro`, `dash`), the usual words of your language (`Gedankenstrich`, `guillemet`) and codes such as `U+20AC`. A single letter, say `e`, shows that letter with every accent: é è ê ë ē ě …
+- **Insert it** with a double click, ++enter++ or *Insert*. It goes where your cursor was in the program, and the window stays open for the next one. So ++ctrl+shift+u++, `euro`, ++enter++ types € without the mouse.
+- *Copy* puts the character on the clipboard instead, for another program. ++esc++ closes the window.
+- *Recently used* holds the last 24 characters you inserted, in all the programs together.
+
+The large preview names the character and shows its code. If the font of your text lacks the character, the window draws it in another font and says so; choose a different font in WritePad if it should look the same everywhere.
+
+### Smileys and emoji
+
+*Smileys and Emoji…*, right below *Special Characters…* in the same menu, or ++ctrl+period++, opens the same window on the group *Smileys and emoji*: faces, hands, hearts, animals, food, celebrations, travel and weather, things and signs. The search knows them too: `smile`, `thumbs up`, `cat`, and in your language, for example `lachen`, `Daumen hoch` or `Katze`.
+
+The programs draw emoji in black and white, with the font *Symbola*, because they cannot draw coloured emoji. They are the same characters as on a phone, though: someone who reads your mail on a phone or in a web browser sees them in colour.
 
 !!! sovereignty "Your data"
     None of the amade applications sends anything about you anywhere. They connect to the network only for what you asked for: your mail server, the radio station you chose, the title list of a CD you inserted.

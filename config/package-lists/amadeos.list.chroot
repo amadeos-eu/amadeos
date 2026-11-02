@@ -34,6 +34,9 @@ libxss1
 openjdk-25-jre
 fontconfig
 fonts-dejavu-core
+# Black and white emoji for the Smileys and Emoji window of the amade programs (Java2D cannot draw
+# the colour emoji font)
+fonts-symbola
 ca-certificates
 # Sound: PipeWire with PulseAudio and ALSA compatibility (Java Sound plays through ALSA),
 # wpctl (WirePlumber) and pactl for volume and output selection in amade-audio

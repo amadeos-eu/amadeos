@@ -80,7 +80,7 @@ Gap analysis of 2026-10-31: what a typical desktop has and amadeOS does not yet,
 12. More network settings: VPN, fixed addresses, hotspot (see M13).
 13. A fully customizable Front Panel: add, remove and order its cells and controls in Settings > Front Panel (today the cells can only be switched on and off), with optional extra cells such as a CPU and memory graph that opens the Task Manager.
 
-Nice to have: sticky notes, weather, a character map and font viewer, maps.
+Nice to have: sticky notes, weather, a font viewer, maps. ~~A character map~~: built 2026-11-02 as the Special Characters window in the amade programs (Ctrl+Shift+U); a stand-alone one for other programs is still open.
 
 ### M12 — Compatibility, security and release hardening
 
@@ -102,6 +102,7 @@ Nice to have: sticky notes, weather, a character map and font viewer, maps.
 - amade-mail: test Gmail OAuth2 and decide whether to ship a datazuul OAuth client; IMAP IDLE with new-mail state in the in-tray; autoconfig (Thunderbird ISPDB, DNS SRV).
 - amade-contacts: meeting attendees in the Calendar, CardDAV.
 - amade-imageviewer: map tiles not yet tried against the live tile server.
+- amade-writepad: save as HTML (asked for on 2026-11-02): headings, bold and italic, lists, tables and pictures as a web page; written by WritePad itself, or through LibreOffice like DOC.
 
 **Exit criteria:** each Front Panel slot opens an amadeOS application instead of an `xterm` command, and all applications follow the Settings theme. Only parts of the network settings are left.
 
@@ -137,6 +138,10 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 ## Timeline
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
+
+### 2026-11-02
+
+- **Special Characters** (commons, amade-writepad, amade-pad, amade-mail): one window in all amade programs for characters the keyboard lacks: accented letters, quotes and dashes, currency, maths, arrows, Greek, symbols and all of Unicode, with a search by name, by the usual word in the user's language or by code (`U+20AC`); a double click or Enter inserts at the cursor and the window stays open; *Recently used* is shared by all programs. Ctrl+Shift+U in WritePad (*Insert*), the Text Editor (*Edit*) and the Mailer's message window (*Format*); *Smileys and Emoji…* (Ctrl+.) opens it on the emoji, drawn in black and white with `fonts-symbola`, new in the image. User's Handbook chapter 40, developer's handbook chapter 49.
 
 ### 2026-11-01
 

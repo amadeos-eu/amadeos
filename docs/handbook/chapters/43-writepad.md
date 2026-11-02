@@ -10,7 +10,7 @@ Start it from the Text & Office drawer, by double-clicking an `.odt` file, or wi
 
 From top to bottom:
 
-- **The toolbar**: new, open, save, print, cut, copy, paste, undo, redo, and *Insert Picture*.
+- **The toolbar**: new, open, save, print, cut, copy, paste, undo, redo, *Insert Table* and *Insert Picture*.
 - **The format bar**: font and size, bold, italic, underline, strike-through, text colour, the four alignments, bullets and numbering. It always shows the formatting where the cursor is.
 - **The ruler**, in centimetres (in inches in the US).
 - **The page** on a dark desk, with its margins.
@@ -49,6 +49,28 @@ The toolbar, format bar, ruler and status bar can each be hidden in the *View* m
 
 Pictures are saved inside the document, in ODT, DOCX and RTF; a plain text file leaves them out. LibreOffice and Word show them in the same place.
 
+## Tables
+
+*Insert → Table…* (++ctrl+f12++) asks for the number of columns and rows, whether the first row is a **heading** (bold, on a grey background, and repeated at the top of every page the table runs onto), which lines to draw and how wide the table is. Faster: the table button of the toolbar shows a grid; move the mouse over it to choose the size and click.
+
+![The Insert Table dialog](images/43/insert-table-dialog.jpg)
+
+Inside the table, ++tab++ goes to the next cell and selects its text, ++shift+tab++ to the one before. ++tab++ in the last cell adds a new row. To type a real tab inside a cell, press ++ctrl+tab++. ++enter++ starts a new paragraph in the same cell. When a table is the very first thing in the document (or follows right after another table), ++enter++ at the start of its first cell makes room for a paragraph above it.
+
+![The Table menu](images/43/writepad-table.jpg)
+
+The **Table menu**, after *Format*, and the **right-click menu** in a cell insert rows above or below and columns to the left or right, delete the row, the column or the whole table, and select the row or the table. To make a column wider or narrower, **drag the line** between two columns; a dashed guide shows where it will go.
+
+*Cell Background…* colours the cell the cursor is in, or all the selected cells. *Table Properties…* has three pages:
+
+![The Table Properties dialog](images/43/table-properties.jpg)
+
+- **Table**: the width of the table and of each column (*Equal Widths* shares the width out evenly), its place between the margins (left, centred, right), and whether the heading row repeats on every page.
+- **Lines**: around every cell, around the table only, between the rows only, or none, with their width and colour, and the space between the lines and the text. A table without lines shows thin dashed guides on the screen, which are not printed.
+- **Cells**: the background and whether the text sits at the top, in the middle or at the bottom of the cell, for the selected cells.
+
+A long table breaks between rows onto the next page; a row is never cut in half. Undo takes back each table change in one step.
+
 ## Pages and printing
 
 *File → Page Setup…*, or *Format → Paper Size* and *Orientation*, choose **A5, A4, Letter or Legal**, portrait or landscape, and the margins. *File → Print…* prints through the printers of the Print Manager (chapter 27).
@@ -65,17 +87,17 @@ Pictures are saved inside the document, in ODT, DOCX and RTF; a plain text file 
 
 Choose the format in *File → Save As…*. The title bar shows the file name and a `*` while there are unsaved changes; *New*, *Open* and *Exit* ask before throwing them away.
 
-Pictures in a document from elsewhere are shown (PNG, JPEG and GIF; drawings and other formats are left out). Tables, notes and comments are left out for now; tables come next. Open such documents in LibreOffice Writer instead.
+Pictures in a document from elsewhere are shown (PNG, JPEG and GIF; drawings and other formats are left out). Tables come in with their columns, lines, heading row and cell colours; **merged cells** are split again (the text stays in the first cell) and a table inside a table comes in as its text. In a plain text file a table becomes one line per row, its cells separated by tabs. Notes and comments are left out for now. Open such documents in LibreOffice Writer instead.
 
 !!! sovereignty "Your data"
     ODT is an open, international standard (ISO/IEC 26300), used by many European administrations to exchange documents. A document in ODT can still be opened in many years, by many programs, without a licence from anybody.
 
 !!! planned "Planned"
-    Tables next, then header and footer, print preview and *Find*, spell checking and saving as PDF.
+    Merged cells, then header and footer, print preview and *Find*, spell checking and saving as PDF.
 
 ## LibreOffice
 
-For everything WritePad does not do yet, tables, tables of contents, PDF export, **LibreOffice Writer** is installed in amadeOS, in the Text & Office drawer, in the five languages of amadeOS. It reads and writes the same ODT files.
+For everything WritePad does not do yet, merged cells, tables of contents, PDF export, **LibreOffice Writer** is installed in amadeOS, in the Text & Office drawer, in the five languages of amadeOS. It reads and writes the same ODT files.
 
 Next to Writer, the drawer holds the other LibreOffice programs:
 

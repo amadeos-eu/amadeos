@@ -17,7 +17,7 @@ The list on the left offers, from top to bottom:
 - **No Backdrop (color only)**: a plain colour, the colour below.
 - **amadeOS Default**: the amadeOS picture of a new account.
 - **The CDE backdrops**: the 26 patterns of the original CDE, from *Ankh*, *BrickWall* and *Corduroy* to *Pebbles*, *RicePaper*, *SkyDark*, *WaterDrops* and *Wooly*.
-- **The amadeOS pictures**: *mountain-lake.png*, a mountain lake, *halloween.png*, a graveyard under the full moon with witches, werewolves, skeletons and zombies, made for the *Halloween* palette, and two pictures for the *Christmas* palette (chapter 31): *christmas.png*, a snowy village with the nativity under the star, little angels, a Christmas tree, a snowman, gingerbread men and an elf, and *christmas-santa.png*, Santa's sleigh with Rudolph over houses trimmed with lights.
+- **The amadeOS pictures**: *mountain-lake.png*, a mountain lake, *halloween.png*, a graveyard under the full moon with witches, werewolves, skeletons and zombies, made for the *Halloween* palette, and two pictures for the *Christmas* palette (chapter 31): *christmas.png*, a snowy village with the nativity under the star, little angels, a Christmas tree, a snowman, gingerbread men and an elf, and *christmas-santa.png*, Santa's sleigh with Rudolph over houses trimmed with lights. The Horizon pictures are here too: *horizon-dark.png* and *horizon-light.png* and the ten wallpapers *horizon-dunes.jpg* to *horizon-fields.jpg* (chapter 29).
 - **Your pictures**: the pictures in the folders below.
 
 Click an entry and the **Preview** on the right shows the desktop with it. **Apply** puts it on the screen.

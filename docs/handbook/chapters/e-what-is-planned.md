@@ -37,7 +37,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 |---|---|---|
 | Backup & Sync | A Front Panel cell with the state of the backups; backups to a network share or SFTP; an engine of its own | 41 |
 | File Manager | Folders that refresh by themselves, quick search, tabs and bookmarks, an icon view with a folder tree, drag and drop, *Open With…*, archives as folders, folders on other computers | 41 |
-| WritePad | Opening and saving OpenDocument, Word and RTF; pictures, header and footer, print preview, *Find*, tables, spell checking, PDF | 4, 43 |
+| WritePad | Merged table cells, header and footer, print preview, *Find*, spell checking, PDF | 4, 43 |
 | Mailer | New mail shown at once, folder management, drafts and templates, search, threads, printing, reading without a network | 44 |
 | News | The whole article shown inside News, podcasts handed to the Audio Station, Europe's News updated between releases | 44 |
 | Calendar | One place for all accounts, other calendars next to your own, keeping in step with a CalDAV server | 45 |

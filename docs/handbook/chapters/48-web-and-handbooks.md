@@ -211,7 +211,13 @@ Start it from the Text & Office drawer, or with `amade-bookeditor` (with the nam
 - **Children's Book**: large type, pictures in the full width.
 - **Poetry**: lines kept exactly as you wrote them.
 
-You can change the look at any time in *Format → Look of the Book*. The book starts with an empty first chapter, or **from a text file** you already have: a `.txt` file is split into chapters at lines such as "Chapter 3" or "Kapitel IV", a Markdown file (`.md`) at its `#` headings, with its emphasis, links, footnotes and the pictures next to it. Word-processor documents (ODT, DOCX) can be imported in a later version; until then save them as text from WritePad or LibreOffice.
+You can change the look at any time in *Format → Look of the Book*. The book starts with an empty first chapter, or **from a file** you already have:
+
+- a **document** from WritePad, LibreOffice or Word (`.odt`, `.docx`, and through LibreOffice also `.doc` and `.rtf`): a new chapter starts at each chapter heading (*Heading 1*, or *Heading 2* if you used *Heading 1* only once for the title), and bold and italic, footnotes, pictures with their captions, quotations, links and tables come along. Lists become paragraphs starting with "•" or their number. The title and author lines at the top of the document are left out, because the book gets a title page of its own;
+- a **text file**: a `.txt` file is split into chapters at lines such as "Chapter 3" or "Kapitel IV", a Markdown file (`.md`) at its `#` headings, with its emphasis, links, footnotes and the pictures next to it.
+
+!!! tip "Headings make chapters"
+    The Book Editor finds your chapters by the paragraph styles of your document, not by the look of the text. If a chapter title is only bold and large, set it to *Heading 1* in your word processor before you start the book.
 
 ### Writing
 
@@ -249,16 +255,26 @@ The **cover** page lets you choose a picture of your own or **make a cover**: ti
 
 *Book → Save* (++ctrl+s++) saves the book as an `.epub` file; the first time it asks where. After that the Book Editor saves **every two minutes by itself** (*Options → Save Automatically*), and it keeps the last ten versions of every book in `~/.cache/amadeos/book-editor/backups/`, in case you want an older one back. Open the saved book in Books to read it, copy it to your e-reader, or upload it to a shop.
 
-This version opens only books it made itself. Another EPUB opens in Books instead.
+### Books from other programs
+
+![A book from another program, with a table, a list and a formula kept as grey boxes](images/48/bookeditor-kept.jpg)
+
+*Book → Open* also opens EPUB books that another program made, such as a book you bought without copy protection, a free classic, or your own book from another editor. The Book Editor then asks whether to **edit a copy** of it, or to open it in Books for reading.
+
+When you edit a copy, the editor takes the book over into a new one: the chapters, headings, paragraphs, quotations, scene breaks, pictures with their descriptions, footnotes and endnotes, links between chapters, and bold, italic and centred text. The cover stays; the title page and the contents are made anew. The book gets the look *Classic*, which you can change as for any book.
+
+Some things have no style in the Book Editor: **tables, lists, formulas and drawings**. They stay exactly as they were and appear as **grey boxes** with their first words. They are in the saved book as before, you just cannot change them here. Double-click a box to turn it into normal paragraphs (a line for each row or list item) that you can edit; the table or list itself is then gone. Videos, sounds and forms cannot come along; a message after opening says how many things that were.
+
+The copy has no file yet. The first *Save* asks where, and suggests the name of the book with "(edited)", so the **original stays as it was**. Books with copy protection (DRM) cannot be opened at all.
 
 !!! sovereignty "Your data"
     The Book Editor works without the internet and sends nothing anywhere. Your book is one file on your computer in an open standard, readable by any e-reader and any other EPUB program, now and in many years.
 
 !!! planned "Planned"
-    Editing EPUB books from other programs, importing ODT and DOCX documents, tables and lists, fonts of your own, and a PDF for print.
+    Tables and lists you can edit in place, fonts of your own, and a PDF for print.
 
 ??? hood "Under the hood"
-    The editor keeps the book as chapters of paragraphs, pictures and scene breaks, and writes them as EPUB 3: one XHTML file per chapter, a style sheet for the look, a navigation document, an NCX for older readers and schema.org accessibility metadata. It saves through a temporary file, so a crash never leaves half a book. The preview uses the typesetter of Books from amade-commons. The settings are in `~/.config/amadeos/book-editor/book-editor.properties`.
+    The editor keeps the book as chapters of paragraphs, pictures, scene breaks and kept content, and writes them as EPUB 3: one XHTML file per chapter, a style sheet for the look, a navigation document, an NCX for older readers and schema.org accessibility metadata. It saves through a temporary file, so a crash never leaves half a book. The preview uses the typesetter of Books from amade-commons. The settings are in `~/.config/amadeos/book-editor/book-editor.properties`.
 
 ## Firefox
 

@@ -105,7 +105,10 @@ libreoffice-l10n-de
 libreoffice-l10n-fr
 libreoffice-l10n-es
 libreoffice-l10n-it
-# Hyphenation patterns of the five desktop languages for amade-books, which justifies and hyphenates
+# EPUBCheck for amade-bookeditor's Check Book, which checks books against the EPUB standard with it;
+# recommended by the package but the image installs no recommends
+epubcheck
+# Hyphenation patterns of the five desktop languages for amade-books (and the Book Editor's preview), which justifies and hyphenates
 # the text of e-books itself; recommended by the package but the image installs no recommends
 hyphen-en-us
 hyphen-de

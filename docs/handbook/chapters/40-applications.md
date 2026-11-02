@@ -28,6 +28,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | **Fractals** | Exploring the Mandelbrot set | Graphics | 47 | [amade-fractals](https://github.com/amadeos-eu/amade-fractals) |
 | **PDF Viewer** | Reading PDF documents, searching and printing them | Text & Office | 48 | [amade-pdfviewer](https://github.com/amadeos-eu/amade-pdfviewer) |
 | **Books** | E-books (EPUB) and comics (CBZ) on a bookshelf of your own | Text & Office | 48 | [amade-books](https://github.com/amadeos-eu/amade-books) |
+| **Book Editor** | Writing a book and saving it as an e-book (EPUB) | Text & Office | 48 | [amade-bookeditor](https://github.com/amadeos-eu/amade-bookeditor) |
 | **Calculator** | Basic, scientific and programmer calculations | Text & Office | 48 | [amade-calculator](https://github.com/amadeos-eu/amade-calculator) |
 | **Firefox** | The web | Mail & Internet | 48 | Debian |
 | **Documentation Viewer** | The documentation installed on the computer | Help | 48 | [amade-web](https://github.com/amadeos-eu/amade-web) |

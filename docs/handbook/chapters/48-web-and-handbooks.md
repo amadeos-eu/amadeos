@@ -1,4 +1,4 @@
-# 48. Calculator, PDF Viewer, Books, Web Browser and Handbooks
+# 48. Calculator, PDF Viewer, Books, Book Editor, Web Browser and Handbooks
 
 ## Calculator
 
@@ -193,6 +193,72 @@ A **manga** is read from right to left: the first page is on the right, and the 
 
 ??? hood "Under the hood"
     Books sets the text itself instead of showing it as a web page: it reads the XHTML of the book with jsoup, understands the most used parts of its CSS, and breaks the lines with Java's text layout, with the hyphenation patterns of the `hyphen-*` packages, which also LibreOffice uses. That is what makes real pages with justified text, page numbers and pictures with the text flowing around them possible. The settings are in `~/.config/amadeos/books/books.properties`, the reading positions, bookmarks and collections in `~/.local/share/amadeos/books/library.json`.
+
+## Book Editor
+
+The **Book Editor** turns your text into an e-book. You write in a window that works like a word processor, choose how the book should look, and save an EPUB file that every e-reader, every reading app and every e-book shop accepts. You do not need to know anything about HTML, CSS or the EPUB format: the file you save *is* the book.
+
+Start it from the Text & Office drawer, or with `amade-bookeditor` (with the name of a book to open it).
+
+![A chapter of a novel with the outline of the book](images/48/bookeditor.jpg)
+
+### A new book
+
+*Book → New Book* (++ctrl+n++) asks for the title, your name and the language of the book, and for one of four **looks**:
+
+- **Classic**: a serif font and indented paragraphs, like a printed novel.
+- **Modern**: a sans-serif font and space between paragraphs, for non-fiction.
+- **Children's Book**: large type, pictures in the full width.
+- **Poetry**: lines kept exactly as you wrote them.
+
+You can change the look at any time in *Format → Look of the Book*. The book starts with an empty first chapter, or **from a text file** you already have: a `.txt` file is split into chapters at lines such as "Chapter 3" or "Kapitel IV", a Markdown file (`.md`) at its `#` headings, with its emphasis, links, footnotes and the pictures next to it. Word-processor documents (ODT, DOCX) can be imported in a later version; until then save them as text from WritePad or LibreOffice.
+
+### Writing
+
+The list on the left is the **outline** of the book: the cover, the title page, a dedication if you add one, the contents, your chapters, the pictures and the book details. Click a line to open it. **+ Chapter** (++ctrl+enter++) adds a chapter after the one you are in, the arrow buttons move it (++ctrl+shift+arrow-up++ and ++arrow-down++), **−** deletes it. *Chapter → Split Here* starts a new chapter at the paragraph with the cursor, *Join with Next* does the opposite. A chapter that should not be numbered, such as a prologue, loses its number with *Chapter → Counted*.
+
+Each paragraph has a **style**, chosen in the box of the toolbar or in the *Format* menu: *Text* (++ctrl+0++), *Chapter Title* (++ctrl+1++), *Heading* (++ctrl+2++), *Subheading* (++ctrl+3++), *Quotation*, *Epigraph* (the short quotation at the start of a chapter), *Poem*, *Letter*, *Code* and *Centred*. **B** and *I* (++ctrl+b++, ++ctrl+i++) make words bold and italic. The style decides how the paragraph looks in the book; you do not set fonts or sizes yourself, so the book looks right on every screen.
+
+The *Insert* menu and the toolbar add:
+
+- a **picture**, with a **description** for readers who cannot see it (their reading app reads it aloud), a caption and a size;
+- a **footnote** (++ctrl+alt+f++): the reader taps its number to read it;
+- a **link** (++ctrl+k++) to another chapter or to a web page;
+- a **scene break** (\* \* \*), a pause inside a chapter;
+- a **dedication**, on a page of its own after the title page.
+
+Double-click a picture or a footnote number to change it. *Edit → Undo* (++ctrl+z++) takes back the last changes in the chapter.
+
+### Cover, title page and details
+
+The editor makes the **title page** and the **contents** itself, from the chapter titles and the book details. *Book → Book Details* (++alt+enter++) holds what the book says about itself: title and subtitle, the people (author, illustrator, translator…), language, series, publisher, date of publication, ISBN, keywords, a **description** for shops and reading apps, the **rights** (all rights reserved or a Creative Commons licence) and a summary for readers with a disability. An ISBN is optional; without one the book gets its own fixed number.
+
+The **cover** page lets you choose a picture of your own or **make a cover**: title, subtitle and author on a colour or a photo, in 1600 × 2400 pixels, the size shops ask for.
+
+### Preview and Check Book
+
+![The preview as on an e-reader](images/48/bookeditor-preview.jpg)
+
+**Preview** (++f8++) shows the chapter set into pages exactly as Books shows it, on a phone, a tablet or an e-reader, in day, sepia or night colours. It follows your typing after a moment.
+
+![Check Book: two things to look at](images/48/bookeditor-check.jpg)
+
+**Check Book** (++f7++) says in plain words what is missing or wrong before you publish: a picture without description, a link to a deleted chapter, an empty chapter, no cover yet. Each line has a button that takes you there. Then it checks the book with **EPUBCheck**, the tool that shops use; amadeOS installs it. With *Options → Check While Writing* the status line always shows whether the book is ready to publish.
+
+### Saving
+
+*Book → Save* (++ctrl+s++) saves the book as an `.epub` file; the first time it asks where. After that the Book Editor saves **every two minutes by itself** (*Options → Save Automatically*), and it keeps the last ten versions of every book in `~/.cache/amadeos/book-editor/backups/`, in case you want an older one back. Open the saved book in Books to read it, copy it to your e-reader, or upload it to a shop.
+
+This version opens only books it made itself. Another EPUB opens in Books instead.
+
+!!! sovereignty "Your data"
+    The Book Editor works without the internet and sends nothing anywhere. Your book is one file on your computer in an open standard, readable by any e-reader and any other EPUB program, now and in many years.
+
+!!! planned "Planned"
+    Editing EPUB books from other programs, importing ODT and DOCX documents, tables and lists, fonts of your own, and a PDF for print.
+
+??? hood "Under the hood"
+    The editor keeps the book as chapters of paragraphs, pictures and scene breaks, and writes them as EPUB 3: one XHTML file per chapter, a style sheet for the look, a navigation document, an NCX for older readers and schema.org accessibility metadata. It saves through a temporary file, so a crash never leaves half a book. The preview uses the typesetter of Books from amade-commons. The settings are in `~/.config/amadeos/book-editor/book-editor.properties`.
 
 ## Firefox
 

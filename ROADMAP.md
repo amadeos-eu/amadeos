@@ -141,6 +141,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-11-02
 
+- WritePad **paragraph styles and headings** (amade-writepad, commons): Normal, Title, Subtitle, Heading 1 to 6, Quote and Code in a style box of the format bar and in *Format → Paragraph Style* (Ctrl+0 to Ctrl+6); Enter after a heading goes on in Normal; *Format → Styles…* (F11) changes a style in the whole document; *Clear Direct Formatting* (Ctrl+M). ODT, DOCX and RTF keep the styles under LibreOffice's and Word's names. User's Handbook chapter 43, developer's handbook chapter 23.
 - **Special Characters** (commons, amade-writepad, amade-pad, amade-mail): one window in all amade programs for characters the keyboard lacks: accented letters, quotes and dashes, currency, maths, arrows, Greek, symbols and all of Unicode, with a search by name, by the usual word in the user's language or by code (`U+20AC`); a double click or Enter inserts at the cursor and the window stays open; *Recently used* is shared by all programs. Ctrl+Shift+U in WritePad (*Insert*), the Text Editor (*Edit*) and the Mailer's message window (*Format*); *Smileys and Emoji…* (Ctrl+.) opens it on the emoji, drawn in black and white with `fonts-symbola`, new in the image. User's Handbook chapter 40, developer's handbook chapter 49.
 
 ### 2026-11-01

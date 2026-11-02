@@ -11,7 +11,7 @@ Start it from the Text & Office drawer, by double-clicking an `.odt` file, or wi
 From top to bottom:
 
 - **The toolbar**: new, open, save, print, cut, copy, paste, undo, redo, *Insert Table* and *Insert Picture*.
-- **The format bar**: font and size, bold, italic, underline, strike-through, text colour, the four alignments, bullets and numbering. It always shows the formatting where the cursor is.
+- **The format bar**: the paragraph style, font and size, bold, italic, underline, strike-through, text colour, the four alignments, bullets and numbering. It always shows the formatting where the cursor is.
 - **The ruler**, in centimetres (in inches in the US).
 - **The page** on a dark desk, with its margins.
 - **The status bar** with the page and the paper, and the zoom.
@@ -27,6 +27,29 @@ The toolbar, format bar, ruler and status bar can each be hidden in the *View* m
 **Lists**: the bullet and numbering buttons of the format bar, or *Format → Bullets* and *Numbering*. ++tab++ at the start of an item moves it a level down, ++shift+tab++ back up. ++enter++ on an empty item ends the list. *Restart Numbering* begins again at 1, *Continue Numbering* carries on from the list above.
 
 ++shift+enter++ starts a new line inside the same paragraph, without a new bullet or number.
+
+## Headings and paragraph styles
+
+![The style box of the format bar, in the Horizon look](images/43/writepad-styles.jpg)
+
+A **paragraph style** gives a paragraph its look in one step: font, size, colour, spacing above and below. WritePad has eleven of them: **Normal** for the body text, **Title** and **Subtitle** for the top of a document, **Heading 1 to Heading 6** for chapters, sections and their parts, **Quote** for quotations, indented and in italics, and **Code** in a fixed-width font.
+
+Choose a style in the **style box** at the left end of the format bar, which shows each style in its own look, or in *Format → Paragraph Style*. Faster are the keys:
+
+| Keys | Style |
+|---|---|
+| ++ctrl+0++ | Normal |
+| ++ctrl+1++ to ++ctrl+6++ | Heading 1 to Heading 6 |
+
+++enter++ at the end of a heading goes on in Normal, so you type a heading, press ++enter++ and write the text below it. After a quote or code you stay in that style.
+
+**Changing a style** changes every paragraph in it. *Format → Styles…* (++f11++) opens the dialog: choose a style on the left and set its font, size, colour, bold, italic and underline, and its alignment, line spacing, spacing and indents. The preview shows the result. *Match Selection* takes over the look of the text where the cursor is, so you can format one heading by hand and make all headings look like it; *Reset to Default* brings back WritePad's look. *OK* changes the document, and ++ctrl+z++ undoes it in one step.
+
+![The Styles dialog](images/43/styles-dialog.jpg)
+
+Formatting you set by hand, a bold word or a centred paragraph, stays on top of the style. *Format → Clear Direct Formatting* (++ctrl+m++) removes it from the selected text, or from the whole paragraph, and the text takes its style's look again.
+
+The styles are saved in the file under the names that LibreOffice and Word use: a Heading 1 from WritePad is a Heading 1 there, appears in their navigator and table of contents, and comes back as Heading 1. WritePad's eleven styles are fixed for now; a document with styles of its own keeps their look, and its paragraphs open in the built-in style theirs is based on, usually Normal.
 
 ## Pictures
 
@@ -93,7 +116,7 @@ Pictures in a document from elsewhere are shown (PNG, JPEG and GIF; drawings and
     ODT is an open, international standard (ISO/IEC 26300), used by many European administrations to exchange documents. A document in ODT can still be opened in many years, by many programs, without a licence from anybody.
 
 !!! planned "Planned"
-    Merged cells, then header and footer, print preview and *Find*, spell checking and saving as PDF.
+    Your own paragraph styles, a table of contents from the headings, merged cells, then header and footer, print preview and *Find*, spell checking and saving as PDF.
 
 ## LibreOffice
 

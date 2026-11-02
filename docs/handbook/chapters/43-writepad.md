@@ -10,7 +10,7 @@ Start it from the Text & Office drawer, by double-clicking an `.odt` file, or wi
 
 From top to bottom:
 
-- **The toolbar**: new, open, save, print, cut, copy, paste, undo, redo.
+- **The toolbar**: new, open, save, print, cut, copy, paste, undo, redo, and *Insert Picture*.
 - **The format bar**: font and size, bold, italic, underline, strike-through, text colour, the four alignments, bullets and numbering. It always shows the formatting where the cursor is.
 - **The ruler**, in centimetres (in inches in the US).
 - **The page** on a dark desk, with its margins.
@@ -28,6 +28,27 @@ The toolbar, format bar, ruler and status bar can each be hidden in the *View* m
 
 ++shift+enter++ starts a new line inside the same paragraph, without a new bullet or number.
 
+## Pictures
+
+*Insert → Picture…* (or the picture button of the toolbar) puts a photo or drawing into the text: PNG, JPEG, GIF, BMP or TIFF. The file chooser shows a preview of the selected file and starts in your *Pictures* folder. A new picture goes on a line of its own, centred, and is made small enough to fit the page. You can also paste a picture (a screenshot, for example) or drag image files from the File Manager into the text.
+
+![A picture at the left, the text flowing beside it](images/43/writepad-pictures.jpg)
+
+**Click** a picture to select it: a frame with eight handles appears. Drag a **corner** to make it larger or smaller, keeping its proportions (hold ++shift++ to stretch it freely), or drag the middle of an **edge** to change only the width or height. ++delete++ removes the selected picture, and cut, copy, paste and undo work as for text.
+
+**Double-click** a picture, or choose *Format → Picture…*, for all its settings:
+
+![The Picture dialog](images/43/picture-dialog.jpg)
+
+- **Size**, in centimetres (inches in the US). *Original Size* goes back to the picture's own size, *Fit to Width* makes it as wide as the text.
+- **Position**: *in the line, like a letter*; *on its own line*, at the left, in the centre or at the right; or *text flows around it*, with the picture at the left or right margin and the text of the paragraph running down beside it.
+- **Border**: none, a thin or a thick line.
+- **Description**: a short text about what the picture shows. Screen readers read it out, and other programs show it when they cannot show the picture.
+
+*Replace…* puts another picture in its place and keeps the size and position. The **right-click menu** of a picture also has *Original Size* and *Save Picture As…*, which saves the image as a file of its own.
+
+Pictures are saved inside the document, in ODT, DOCX and RTF; a plain text file leaves them out. LibreOffice and Word show them in the same place.
+
 ## Pages and printing
 
 *File → Page Setup…*, or *Format → Paper Size* and *Orientation*, choose **A5, A4, Letter or Legal**, portrait or landscape, and the margins. *File → Print…* prints through the printers of the Print Manager (chapter 27).
@@ -44,17 +65,17 @@ The toolbar, format bar, ruler and status bar can each be hidden in the *View* m
 
 Choose the format in *File → Save As…*. The title bar shows the file name and a `*` while there are unsaved changes; *New*, *Open* and *Exit* ask before throwing them away.
 
-Tables, pictures, notes and comments in a document from elsewhere are left out for now. Open such documents in LibreOffice Writer instead.
+Pictures in a document from elsewhere are shown (PNG, JPEG and GIF; drawings and other formats are left out). Tables, notes and comments are left out for now; tables come next. Open such documents in LibreOffice Writer instead.
 
 !!! sovereignty "Your data"
     ODT is an open, international standard (ISO/IEC 26300), used by many European administrations to exchange documents. A document in ODT can still be opened in many years, by many programs, without a licence from anybody.
 
 !!! planned "Planned"
-    Pictures, header and footer, print preview and *Find*, then tables, spell checking and saving as PDF.
+    Tables next, then header and footer, print preview and *Find*, spell checking and saving as PDF.
 
 ## LibreOffice
 
-For everything WritePad does not do yet, tables, pictures, tables of contents, PDF export, **LibreOffice Writer** is installed in amadeOS, in the Text & Office drawer, in the five languages of amadeOS. It reads and writes the same ODT files.
+For everything WritePad does not do yet, tables, tables of contents, PDF export, **LibreOffice Writer** is installed in amadeOS, in the Text & Office drawer, in the five languages of amadeOS. It reads and writes the same ODT files.
 
 Next to Writer, the drawer holds the other LibreOffice programs:
 

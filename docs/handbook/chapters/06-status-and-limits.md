@@ -10,7 +10,7 @@ amadeOS 1.0.0 is the **first release**, and development goes on. This chapter sa
 | Installation | The assistant *Install amadeOS* installs the system onto a hard disk, on a whole disk or on a free partition. A whole-disk installation with BIOS boots into the desktop in QEMU. |
 | Login | Login screen with language and time zone, password check through PAM. |
 | Desktop | Window manager with Motif frames, four workspaces, desktop menu, Front Panel with drawers, screen lock and screen saver. |
-| Settings | Colour, text size, backdrop, keyboard, mouse, beep, screen, windows and clipboard. |
+| Settings | Colour, text size, backdrop, keyboard, keyboard shortcuts, mouse, beep, accessibility, screen, windows and clipboard. |
 | Languages | English, Deutsch, Français, Español, Italiano. |
 | Network | Ethernet by itself; wireless networks through a text dialog. |
 | Printing | Network and USB printers without drivers (IPP Everywhere, AirPrint); Print Manager for printers and jobs. |

@@ -4,7 +4,7 @@
 
 amadeOS has four **workspaces**, four desktops side by side, called *One*, *Two*, *Three* and *Four* until you give them names of your own. Each holds its own windows and can have its own backdrop. You might keep your mail and calendar in *One*, a letter you are writing in *Two* and a game in *Four*, and switch between them without moving a single window.
 
-The four buttons in the middle of the Front Panel switch between the workspaces. Each has its own colour from the palette, and the button of the current workspace is pressed in. A new window opens in the workspace you are in.
+The four buttons in the middle of the Front Panel switch between the workspaces. Each has its own colour from the palette, and the button of the current workspace is pressed in. A new window opens in the workspace you are in. From the keyboard, ++super+1++ to ++super+4++ go to a workspace and ++ctrl+alt+left++ and ++ctrl+alt+right++ to the one beside it; *Settings > Keyboard Shortcuts* changes these keys (chapter 33).
 
 ![Workspace Two, still empty, with the windows of workspace One out of sight](images/24/workspace-two.jpg)
 

@@ -24,6 +24,12 @@ dbus
 dbus-x11
 libpam-systemd
 x11-xserver-utils
+# Settings > Accessibility: xkbset switches sticky, slow, bounce and mouse keys on and off; dmz-cursor-theme
+# has the white and black pointers in 24, 32 and 48 pixels (amadeos-settings keeps X's classic pointer as the
+# default cursor theme). Both are dependencies of amadeos-settings, listed here because the image is built with
+# them in mind.
+xkbset
+dmz-cursor-theme
 xauth
 x11-utils
 xdg-utils

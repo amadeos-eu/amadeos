@@ -152,7 +152,7 @@ These are the keyboard aids of the X server (*AccessX*):
 
 ### Pointer without a mouse
 
-**Mouse keys** moves the pointer with the number pad: ++1++ to ++9++ around ++5++ move it in that direction, faster the longer you hold the key; ++5++ clicks; ++slash++, ++asterisk++ and ++minus++ choose the left, middle or right button for the clicks; ++plus++ double-clicks; ++0++ holds the button down for dragging and ++period++ lets it go.
+**Mouse keys** moves the pointer with the number pad: ++num1++ to ++num9++ around ++num5++ move it in that direction, faster the longer you hold the key; ++num5++ clicks; ++num-slash++, ++num-asterisk++ and ++num-minus++ choose the left, middle or right button for the clicks; ++num-plus++ double-clicks; ++num0++ holds the button down for dragging and ++num-separator++ lets it go.
 
 !!! planned "Planned"
     A screen reader and a magnifier. Orca does not read the Java programs of the desktop yet; a magnifier that follows the pointer is a program of its own.

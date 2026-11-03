@@ -39,7 +39,7 @@ Start it from the Sound & Video drawer, by double-clicking a video file, or with
 |---|---|
 | **A file** | *File → Open File…*: MP4, MKV, WebM, AVI, MOV, MPEG-2 and nearly everything else |
 | **A stream** | *File → Open URL…*: a video address, HLS (`.m3u8`) and DASH |
-| **A DVD** | *File → Open DVD…*, also an `.iso` image or a `VIDEO_TS` folder; titles and chapters, without the DVD menus |
+| **A DVD** | Put it in, or *File → Open DVD…*, also an `.iso` image or a `VIDEO_TS` folder; it starts with the main film, without the DVD menus |
 
 | Key | What it does |
 |---|---|
@@ -48,11 +48,17 @@ Start it from the Sound & Video drawer, by double-clicking a video file, or with
 | ++arrow-left++ / ++arrow-right++ | 10 seconds back / forward |
 | ++page-up++ / ++page-down++ | Previous / next chapter |
 
+### DVDs
+
+While the Video Player is open, put in a video DVD and its main film starts after a few seconds. The main film is the longest title on the disc. If something else is playing, the Video Player doesn't interrupt it; open the DVD with *File → Open DVD…* instead. To stop DVDs from starting by themselves, untick *DVD → Play DVDs When Inserted*.
+
+The **DVD** menu lists all titles of the disc with their lengths: the main film, and also trailers, extras or the episodes of a series. The title playing is ticked, the main film is marked *(main film)*. Click another title to play it. ++page-up++ and ++page-down++ jump between the chapters of a title.
+
 !!! warning "Encrypted DVDs"
     Most bought DVDs are encrypted. To play them the Video Player needs the library *libdvdcss*, which amadeOS does not install, because in some countries, Germany among them, getting round copy protection is not allowed. Find out what applies where you live. Home-made DVDs play without it.
 
 !!! planned "Planned"
-    The Video Player is at an early stage. Next come a face in the style of the Audio Station, lists of DVD titles and chapters, recent files, a playlist, audio and subtitle tracks, full screen, the volume, and remembering where you stopped in a file.
+    The Video Player is at an early stage. Next come a face in the style of the Audio Station, a list of chapters, recent files, a playlist, audio and subtitle tracks, full screen, the volume, and remembering where you stopped in a file.
 
 ## TV
 

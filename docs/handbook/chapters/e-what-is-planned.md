@@ -43,7 +43,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 | Calendar | One place for all accounts, other calendars next to your own, keeping in step with a CalDAV server | 45 |
 | Contacts | Attendees from your contacts in the Calendar, keeping in step with a CardDAV server, merging two contacts by hand | 45 |
 | TV | The on-demand programs of the broadcasters (their media libraries) with search, downloads and a watch-later list | 46 |
-| Video Player | A face like the Audio Station's, DVD titles and chapters, playlists, audio and subtitle tracks, full screen, volume | 46 |
+| Video Player | A face like the Audio Station's, a chapter list, playlists, audio and subtitle tracks, full screen, volume | 46 |
 | Image Viewer | A picture as the backdrop of a workspace, moving GIF and WebP pictures, HEIC photos, editing title and keywords | 47 |
 | Image Editor | Selections, blend modes and layer masks, red-eye removal, sharpening and blurring, editing title and keywords | 47 |
 | Image Scan | Several pages into one PDF, brightness and contrast, straightening, the scanner's button | 47 |

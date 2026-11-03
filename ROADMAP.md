@@ -57,6 +57,7 @@ Merged and installed by `buildDistribution.sh`, but so far only checked under Xv
 - File Manager: USB sticks, memory cards and discs (mount, unmount, Safely Remove through `udisks2`) so far only with a fake drive list under Xvfb; needs a real stick in QEMU (`-device usb-storage`) or on hardware, also with the polkit rules of udisks for the active session. Extract and Compress are tested by unit tests.
 - Power (Settings > Power, Suspend/Hibernate in EXIT, lid and power button): only unit tests and pictures under Xvfb; needs logind on a real laptop (lid, battery, suspend and resume, hibernate with swap).
 - Horizon look: switching Classic and Horizon in a real session (the panel hand-over through `amadeos-session`), the rounded frames and the shaped dock on real graphics, the top bar's status cells on hardware, Super+Space and the search window's keyboard focus, Super+D and the desktop widgets staying below the windows; the flat programs and the Horizon icons in the dock, menus and File Manager.
+- Keyboard Shortcuts and Accessibility: the keys were tested with `xdotool` against the window manager under Xvfb; the pointer sizes, sticky and slow keys and mouse keys need a real keyboard and screen.
 - Alt+Tab switcher, clipboard manager, bell through the sound card (Xvfb ignores `xset b`), gnome-keyring unlocked at login.
 - Software (M15): the end-to-end test in QEMU — first start loads the package lists, the polkit password window appears, a package gets installed, an update goes through the panel cell.
 - Installer (M14): the UEFI path (`run-qemu.sh --uefi`) and installing next to Windows, then the Zephyrus laptop (UEFI, NVMe, Secure Boot with the signed shim).
@@ -75,7 +76,7 @@ Gap analysis of 2026-10-31: what a typical desktop has and amadeOS does not yet,
 7. ~~Task manager / system monitor: processes, CPU and memory graphs, ending a program that hangs (System Information shows only a report).~~ Built 2026-10-31 (amadeos-system #61: `amadeos-taskmanager`, Ctrl+Shift+Esc and Ctrl+Alt+Del, the window manager marks windows that do not respond).
 8. ~~Terminal: an own terminal or the decision to keep xterm (see M13).~~ Built 2026-11-01: `amade-terminal`, an own terminal with its own emulator (amade-terminal #1); xterm stays in the image for one release.
 9. ~~Disk tool: formatting a USB stick, partitions, disk health (SMART).~~ Built 2026-11-01 (amadeos-system #68: `amadeos-disks` with format by use, partitions, check, health with self-tests, write and save disk images; User's Handbook chapter 59).
-10. Settings pages *Keyboard shortcuts* and *Accessibility* (larger mouse pointer, high-contrast theme, sticky keys).
+10. ~~Settings pages *Keyboard shortcuts* and *Accessibility* (larger mouse pointer, high-contrast theme, sticky keys).~~ Built 2026-11-03 (Settings > Keyboard Shortcuts with own commands, the window manager follows `shortcuts.conf`; Settings > Accessibility with two high contrast palettes, white and black pointers in three sizes, sticky, slow, bounce and mouse keys; User's Handbook chapter 33).
 11. Firewall: a simple on/off switch with nftables.
 12. More network settings: VPN, fixed addresses, hotspot (see M13).
 13. A fully customizable Front Panel: add, remove and order its cells and controls in Settings > Front Panel (today the cells can only be switched on and off), with optional extra cells such as a CPU and memory graph that opens the Task Manager.
@@ -138,6 +139,10 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 ## Timeline
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
+
+### 2026-11-03
+
+- Settings **Keyboard Shortcuts** and **Accessibility** (system, commons): the desktop's keys in one list (lock, terminal, File Manager, Settings, Task Manager, search, clipboard history, screenshots, close/maximize/minimize, show desktop, workspaces 1 to 4 and left/right) and own commands; new keys are pressed in a dialog, keys another shortcut has are taken after asking; the window manager grabs the keys from `~/.config/amadeos/shortcuts.conf` and follows a change at once (Ctrl+Alt+V moved there from the clipboard manager). Accessibility: high contrast (white on black, black on white), a white or black pointer in 24, 32 or 48 pixels, sticky, slow and bounce keys, the Shift gestures and mouse keys; the image adds `xkbset` and `dmz-cursor-theme`. User's Handbook chapter 33 and appendix A, developer's handbook chapter 62.
 
 ### 2026-11-02
 

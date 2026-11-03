@@ -22,6 +22,8 @@ Your settings are in your home folder, in folders whose names start with a dot a
 | `font.conf` | Settings: Font | 35 |
 | `wallpaper.conf` | Settings: Backdrop | 32 |
 | `input.conf` | Settings: Keyboard, Mouse, Beep | 33 |
+| `shortcuts.conf` | Settings: Keyboard Shortcuts (only keys that differ from the defaults, and your own shortcuts); the window manager follows it at once | 33 |
+| `accessibility.conf` | Settings: Accessibility (pointer, keyboard aids, the palette before high contrast) | 33 |
 | `display.conf` | Settings: Display (one arrangement per set of monitors) | 39 |
 | `screen.conf` | Settings: Screen | 34 |
 | `power.conf` | Settings: Power | 34 |

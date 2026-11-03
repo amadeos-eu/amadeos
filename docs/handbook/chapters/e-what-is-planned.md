@@ -17,7 +17,7 @@ The *Planned* boxes of this book, collected in one place, sorted by where they b
 
 | What | Chapter |
 |---|---|
-| More keys for the windows: moving a window to another workspace, switching workspaces | 21, A |
+| A key that moves the active window to another workspace | 21, A |
 | Moving a window to another workspace, or showing it on all of them | 24 |
 | Opening the windows of the last session again at login | 35, 55 |
 | Maximizing on one monitor, and the Front Panel on the primary monitor, with several monitors | 39 |

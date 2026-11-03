@@ -1,6 +1,6 @@
 # A. Keyboard and Mouse
 
-The keys and mouse actions of the desktop, in one place. The keys of each program are in its chapter; the table at the end points to them.
+The keys and mouse actions of the desktop, in one place. The keys of each program are in its chapter; the table at the end points to them. The desktop's keys can be changed under *Settings > Keyboard Shortcuts* (chapter 33); the tables show them as they come.
 
 ## The desktop
 
@@ -12,7 +12,14 @@ The keys and mouse actions of the desktop, in one place. The keys of each progra
 | ++alt+tab++ | Switches between the windows of the workspace; ++alt+shift+tab++ goes the other way. | 23 |
 | ++ctrl+alt+t++ | Opens a Terminal. | 42 |
 | ++ctrl+alt+v++ | Shows the clipboard history. | 36 |
-| ++ctrl+shift+esc++ or ++ctrl+alt+del++ | Opens the Task Manager. | 59 |
+| ++ctrl+shift+esc++ or ++ctrl+alt+del++ | Opens the Task Manager. ++ctrl+alt+del++ cannot be changed. | 59 |
+| ++super+e++ | Opens the File Manager. | 41 |
+| ++super+i++ | Opens the Settings. | 30 |
+| ++print++ / ++shift+print++ | Saves a screenshot of the whole screen / of an area you draw in *Pictures*. | 33 |
+| ++alt+f4++ | Closes the active window. | 23 |
+| ++super+up++ / ++super+down++ | Maximizes or restores / minimizes the active window. | 23 |
+| ++super+1++ to ++super+4++ | Goes to workspace 1 to 4. | 24 |
+| ++ctrl+alt+left++ / ++ctrl+alt+right++ | Goes to the workspace on the left / right. | 24 |
 | ++ctrl+c++ / ++ctrl+x++ / ++ctrl+v++ | Copy / cut / paste, in the amadeOS programs and most others. | 21 |
 | ++ctrl+q++ | Quits the program, in most amadeOS programs. | 21 |
 | ++ctrl+shift+u++ | Special Characters, in WritePad, the Text Editor and the Mailer's message window. | 40 |
@@ -24,7 +31,7 @@ The keys and mouse actions of the desktop, in one place. The keys of each progra
 | ++ctrl+alt+f7++ | Switches back to the graphical screen. | 57 |
 
 !!! planned "Planned"
-    More keys for the windows: moving a window to another workspace, switching workspaces from the keyboard (chapters 21 and 24).
+    A key that moves the active window to another workspace (chapters 21 and 24).
 
 ## The mouse
 

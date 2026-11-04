@@ -16,7 +16,7 @@ On the left, the controls are grouped by what they set. Click one, or move throu
 
 | Group | Control | What it sets | Chapter |
 |---|---|---|---|
-| Appearance | **Desktop look** | Classic or Horizon, and Horizon's scheme and accent colour | 29 |
+| Appearance | **Desktop look** | Horizon or Classic, and Horizon's scheme and accent colour | 29 |
 | | **Color** | The colour palette of the desktop and the icon theme | 31 |
 | | **Font** | The size of the text | 35 |
 | | **Backdrop** | The pattern, picture or colour behind the windows | 32 |

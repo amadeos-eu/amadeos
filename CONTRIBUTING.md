@@ -331,7 +331,7 @@ scripts/check-config.sh
 ./build.sh
 ```
 
-`build.sh` checks the configuration, sets up the live-build tree, and executes `live-build` in a temporary workspace (by default `/tmp/amadeos-live-build`, configurable via `AMADEOS_BUILD_ROOT`). The image installs the packages from `config/packages.chroot/` (the desktop packages `amadeos-dm`, `amadeos-session`, `amadeos-wm`, `amadeos-panel-cde` and `amadeos-settings` among them) and starts the display manager at boot. Once an ISO has been built, inspect and test it with:
+`build.sh` checks the configuration, sets up the live-build tree, and executes `live-build` in a temporary workspace (by default `/var/tmp/amadeos-live-build` on the disk, because `/tmp` is often a RAM disk that is too small; configurable via `AMADEOS_BUILD_ROOT`). The image installs the packages from `config/packages.chroot/` (the desktop packages `amadeos-dm`, `amadeos-session`, `amadeos-wm`, `amadeos-panel-cde` and `amadeos-settings` among them) and starts the display manager at boot. Once an ISO has been built, inspect and test it with:
 
 ```bash
 cd amadeos

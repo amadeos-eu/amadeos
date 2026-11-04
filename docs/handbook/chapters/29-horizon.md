@@ -75,7 +75,7 @@ The dock floats at the bottom of the screen. Thin lines divide it into three par
 |---|---|
 | **Programs** | Your favourite programs, then the programs that are running without being favourites. A dot under an icon means the program is running; a ring means all its windows are minimised. |
 | **Drawers** | The groups of the Front Panel's drawers: Text & Office, Mail & Internet, Sound & Video, Graphics, Games and Tools. A small triangle marks a drawer. |
-| **Folders and Trash** | Downloads and Documents, then the Trash. |
+| **Folders and Trash** | Downloads and Documents, then the Trash. The folders have names in your language (*Dokumente* in German); amadeOS creates them when you log in, and a click creates a missing one. |
 
 **Programs.** A click on a program that is not running starts it. A click on a running program brings its window to the front; a click on the program you are working in minimises its window, or, with several windows, goes on to the next one. A click with the middle mouse button opens a new window. The right mouse button opens a menu with the program's windows, *New window*, *Keep in dock* or *Remove from dock*, and *Close* (or *Close all windows*).
 

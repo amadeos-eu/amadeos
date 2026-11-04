@@ -12,7 +12,7 @@ At the top left the screen names the computer (*amadeOS UNIX Workstation* and th
 |---|---|
 | **User Name** | Proposed with the user who logged in last. Type another name to log in as someone else. |
 | **Password** | Your password. The cursor waits here, so you can type at once. |
-| **Session** | *amadeOS CDE Desktop*, the normal desktop, or *Failsafe Terminal*, a single terminal window for repairs when the desktop does not start (chapter 57). |
+| **Session** | *amadeOS Desktop*, the normal desktop in the look of your last session; *amadeOS Classic (CDE)* or *amadeOS Horizon*, the desktop in that look, which then stays for later logins (chapter 29); or *Failsafe Terminal*, a single terminal window for repairs when the desktop does not start (chapter 57). |
 | **Language** | The language of the desktop and the applications: English, Deutsch, Français, Español or Italiano. Your last choice is preselected. |
 | **Keyboard** | The keyboard layout, preselected with the one of the computer (chosen in the installer; German on the live system). Another layout switches at once, before you type the password. |
 | **Time Zone** | The time zone of the computer's clock. The current one is preselected; a change holds for the whole computer, not only for you. |

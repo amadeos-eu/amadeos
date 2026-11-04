@@ -55,9 +55,11 @@ From left to right the top bar holds:
 | **The program name** | The name of the program you are working in, in bold, or *Desktop*. A click opens a small menu to minimise or close its window. |
 | **The screen button** | Shows the desktop: all windows of the workspace step aside, as with ++super+d++ (see below). It is filled with the accent colour while the desktop is shown; a second click brings the windows back. |
 | **The four dots** | The workspaces; the current one is the wider dot in the accent colour. Click a dot to switch, hold the mouse over it to see the workspace's name. |
+| **The busy light** | A short dark strip with ten small lights, the busy light of the Front Panel (chapter 22): all ten blink yellow while a program starts, an amber run of lights means software is being installed, a violet one a backup; otherwise green lights on the left show the disks at work and cyan ones on the right the network. Point at it to see the rates; a click opens *Hardware & System Info*. *Settings → Front Panel* switches the disk and network halves off, as in Classic. |
 | **The status cells** | Network, sound, battery, Bluetooth, notifications, waiting updates and the camera light: the same cells as in the Front Panel (chapter 27), chosen under *Settings → Front Panel* (chapter 37). |
 | **The magnifier** | Opens the search (see below), as ++super+space++ does. |
 | **The clock** | Weekday, date and time. A click opens the Calendar. |
+| **The power button** | The round symbol at the right end. A click opens a menu with *Lock screen* and *Log out or shut down…* (the Exit dialog of chapter 26). ++super+l++ locks the screen without a click. |
 
 Windows stay below the top bar: a maximised window fills the screen under it, and a window cannot be dragged under it.
 

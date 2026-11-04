@@ -79,7 +79,7 @@ The dock floats at the bottom of the screen. Thin lines divide it into three par
 
 **Programs.** A click on a program that is not running starts it. A click on a running program brings its window to the front; a click on the program you are working in minimises its window, or, with several windows, goes on to the next one. A click with the middle mouse button opens a new window. The right mouse button opens a menu with the program's windows, *New window*, *Keep in dock* or *Remove from dock*, and *Close* (or *Close all windows*).
 
-To add a program to the dock, start it, then choose *Keep in dock* from its menu; it stays after you close it. *Remove from dock* takes it out again. The first favourites are Files, Firefox, Mail, Calendar, WritePad, Audio Station, Terminal and Software, those of them that are installed.
+To add a program to the dock, start it, then choose *Keep in dock* from its menu; it stays after you close it. *Remove from dock* takes it out again. The first favourites are Files, Firefox, Mail, Calendar, Text Editor (Pad), Audio Station, Terminal and Software, those of them that are installed. WritePad is in the Text & Office drawer.
 
 **Minimised windows** go into their program's icon in the dock, not onto the desktop: click the icon, or choose the window from its menu, to bring it back. In the Classic look they become desktop icons again.
 

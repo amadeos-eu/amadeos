@@ -57,6 +57,17 @@ The **DVD** menu lists all titles of the disc with their lengths: the main film,
 !!! warning "Encrypted DVDs"
     Most bought DVDs are encrypted. To play them the Video Player needs the library *libdvdcss*, which amadeOS does not install, because in some countries, Germany among them, getting round copy protection is not allowed. Find out what applies where you live. Home-made DVDs play without it.
 
+    Debian has no package called libdvdcss, so `sudo apt install libdvdcss` finds nothing. Instead, the helper package *libdvd-pkg* downloads the source code of libdvdcss from VideoLAN and builds the library on your computer. Open a terminal and type:
+
+    ```
+    sudo apt install libdvd-pkg
+    sudo dpkg-reconfigure libdvd-pkg
+    ```
+
+    The second command does the download and the building. Answer *Yes* when it asks about automatic upgrades, so that libdvdcss is rebuilt when libdvd-pkg gets an update. Then start the Video Player again.
+
+    *Help → Encrypted DVDs…* in the Video Player tells you whether libdvdcss is installed and shows the two commands; **Copy Commands** puts them on the clipboard for the terminal. When a DVD can't be played and libdvdcss is missing, the Video Player shows this help by itself.
+
 !!! planned "Planned"
     The Video Player is at an early stage. Next come a face in the style of the Audio Station, a list of chapters, recent files, a playlist, audio and subtitle tracks, full screen, the volume, and remembering where you stopped in a file.
 

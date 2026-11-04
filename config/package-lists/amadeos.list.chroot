@@ -30,6 +30,9 @@ x11-xserver-utils
 # them in mind.
 xkbset
 dmz-cursor-theme
+# The user's folders in the session's language (~/Dokumente, ~/Downloads ...), created at login by
+# /etc/amadeos/autostart.d/05-xdg-user-dirs of amadeos-session.
+xdg-user-dirs
 xauth
 x11-utils
 xdg-utils

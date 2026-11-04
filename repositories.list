@@ -1,6 +1,8 @@
 # The repositories of the amadeOS distribution. buildDistribution.sh clones the missing ones next to
 # this repository (https://github.com/amadeos-eu/<name>) and builds every one with an installToAmadeOs
-# task into the image. A new application or game is added here, and is then installed by default.
+# task into the image. A new application or game is added here, and is then installed by default; the
+# meta package amadeos-desktop (scripts/package-desktop-meta.sh) recommends it under the repository's name,
+# so installed systems get it with their next update.
 
 # Libraries (built through the composite builds of the packages that use them)
 amade-commons

@@ -67,6 +67,14 @@ The image of amadeOS 1.0.0 came out before the amadeOS package repository went o
 
 From then on the updates cell shows amadeOS updates as well. Images after 1.0.0 have the repository from the start.
 
+## New programs arrive with updates
+
+An update brings new versions of the programs you have, and also the programs that a later amadeOS release adds. The package `amadeos-desktop` takes care of that: it holds no program itself, but *recommends* every program, game and system package of amadeOS. When a new release recommends a new program, the next update installs it.
+
+A program you removed stays removed: updates only add what is new in a release, not what you chose to take away. To get a removed program back, install it again in Software.
+
+Systems installed before `amadeos-desktop` existed (amadeOS 1.0.0 and 1.1.0) get it through an update of the desktop session, and with it the programs that came since. Only if you removed the session's recommendations by hand, install it yourself: `sudo apt install amadeos-desktop`.
+
 ## In the terminal
 
 ```sh
@@ -76,4 +84,4 @@ sudo apt upgrade         # install the updates
 ```
 
 ??? hood "Under the hood"
-    The daily check is Debian's `apt-daily.timer`. The updates cell and Software read the result with apt as you; installing runs `/usr/libexec/amadeos-packages upgrade` (or `upgrade --security-only`) through `pkexec`. Security updates are those from `trixie-security`. The automatic setting writes `/etc/apt/apt.conf.d/50amadeos-unattended` and installs `unattended-upgrades` when it is first turned on. An update that needs a restart leaves `/run/reboot-required`. What was installed is logged in `/var/log/amadeos-packages.log` and `/var/log/apt/history.log`.
+    The daily check is Debian's `apt-daily.timer`. The updates cell and Software read the result with apt as you; installing runs `/usr/libexec/amadeos-packages upgrade` (or `upgrade --security-only`) through `pkexec`. Security updates are those from `trixie-security`. The automatic setting writes `/etc/apt/apt.conf.d/50amadeos-unattended` and installs `unattended-upgrades` when it is first turned on. An update that needs a restart leaves `/run/reboot-required`. What was installed is logged in `/var/log/amadeos-packages.log` and `/var/log/apt/history.log`. New programs come as new recommendations of `amadeos-desktop`, which apt installs on an upgrade (`apt-get upgrade --with-new-pkgs`) because they were not recommended before; a recommendation that was already there and is not installed is left alone. This needs apt's default `APT::Install-Recommends "true"`.

@@ -82,6 +82,8 @@ After the image, the amadeOS packages are updated through the **amadeOS package 
 
 The key that signs the repository has two parts: the main key stays offline with the maintainer, and only a signing subkey, which expires after two years and is renewed in time, is used by the workflow. The package `amadeos-archive-keyring` brings the public key to your computer.
 
+Which packages make up amadeOS is written down once, in the package `amadeos-desktop`. It depends on the core of the desktop and recommends the rest: every program and game of `repositories.list` and the Debian packages of the image's package list, without the parts only the live system and the installer need. The image installs it, the release of the `amadeos` repository carries it to the package repository, and so a program that joins amadeOS reaches installed computers with their next update.
+
 !!! planned "Planned"
     Signed images with a release manifest (M12), and the suites `testing` and `dev` of the package repository for those who want to try new versions early.
 

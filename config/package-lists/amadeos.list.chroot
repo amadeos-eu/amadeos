@@ -75,12 +75,11 @@ ntfs-3g
 cryptsetup
 # Network drives in the File Manager (amade-files): gvfs connects SMB shares of NAS boxes and PCs, NFS,
 # WebDAV, FTP and SFTP as the user (gio mount), gvfs-fuse shows them as folders below /run/user/UID/gvfs;
-# gvfs runs wsdd to find Windows PCs and NAS boxes by WS-Discovery (its own announcing service is switched
-# off in 020-amadeos-packages.chroot), avahi (below) finds the rest by mDNS
+# avahi (below) finds servers by mDNS. wsdd (WS-Discovery, for Windows PCs) is not in Debian trixie, so
+# servers that only announce themselves that way are connected with File > Connect to Server
 gvfs
 gvfs-backends
 gvfs-fuse
-wsdd
 # notify-send, for scripts that show a notification (Settings > Notifications)
 libnotify-bin
 # Firmware for the common WLAN and Ethernet chips (live-build's --firmware-chroot would add all of it)

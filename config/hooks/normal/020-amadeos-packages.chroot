@@ -15,7 +15,7 @@ apt-get update
 apt-get dist-upgrade --yes --no-install-recommends
 [ ! -f "$amadeos_sources.build" ] || mv "$amadeos_sources.build" "$amadeos_sources"
 
-# wsdd is there for gvfs, which starts it itself to find Windows PCs and NAS boxes (network:/// in the File
+# wsdd is not in trixie; should a later release bring it back, it is there for gvfs, which starts it itself to find Windows PCs and NAS boxes (network:/// in the File
 # Manager). Its own service would announce this computer as a Windows server; amadeOS shares nothing.
 if [ -f /lib/systemd/system/wsdd.service ] || [ -f /usr/lib/systemd/system/wsdd.service ]; then
     systemctl disable wsdd.service || true

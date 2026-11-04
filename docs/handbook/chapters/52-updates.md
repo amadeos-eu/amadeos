@@ -26,6 +26,7 @@ amadeOS looks for updates once a day by itself, when the computer is on and has 
 **Show updates…**, or the *Updates* tab in Software (chapter 51), lists every waiting update with the installed and the new version and its source; security updates come first and say *Security update*. Choose one to see what it is.
 
 - Tick the updates you want and press **Install selected**; *Select all* and *Select none* help.
+- The ticks are shared with the other tabs of Software: to install updates together with new programs or removals, mark those in their tabs and press **Apply changes** below (chapter 51, *Several changes at once*).
 - **Security updates only** installs just those.
 - **Software → Check for updates** asks the mirror again.
 

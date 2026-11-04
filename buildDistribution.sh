@@ -80,6 +80,16 @@ main() {
         git -C "$ci_dir" pull --ff-only --quiet origin main
     fi
 
+    # True if the repository's build.gradle on origin's branch (main if it has no such branch) has an
+    # installToAmadeOs task.
+    is_app_on_branch() {
+        local dir="$1" wanted="$2"
+        git -C "$dir" rev-parse --git-dir >/dev/null 2>&1 || return 1
+        git -C "$dir" ls-remote --exit-code --heads origin "$wanted" >/dev/null 2>&1 || wanted=main
+        git -C "$dir" fetch --quiet origin "$wanted" 2>/dev/null || return 1
+        git -C "$dir" show "origin/$wanted:build.gradle" 2>/dev/null | grep -qs "installToAmadeOs"
+    }
+
     local apps=() app
     if [ -n "$apps_arg" ]; then
         for app in $apps_arg; do
@@ -95,7 +105,13 @@ main() {
             [ -d "$dir" ] || continue
             app="$(basename "$dir")"
             [ "$app" = "amade-commons" ] && continue
-            grep -qs "installToAmadeOs" "$dir/build.gradle" && apps+=("$app")
+            if grep -qs "installToAmadeOs" "$dir/build.gradle"; then
+                apps+=("$app")
+            elif [ "$pull" = 1 ] && is_app_on_branch "$dir" "$branch"; then
+                # A checkout on another branch than the one built (a fresh clone is on main, which in a
+                # new repository may hold only the licence): the pull below switches it.
+                apps+=("$app")
+            fi
         done
     fi
     [ ${#apps[@]} -gt 0 ] || { echo "No amade apps found in $parent_dir" >&2; return 1; }

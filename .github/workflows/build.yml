@@ -2,7 +2,7 @@ name: Build
 
 # develop builds X.Y.Z-dev.N, release X.Y.Z-pre.N and main the release X.Y.Z, which the release job
 # tags (see CONTRIBUTING.md, "Commits and versions"). The ISO itself is built locally with
-# buildDistribution.sh, so the release has no files.
+# buildDistribution.sh; the release carries the meta package amadeos-desktop, which apt.amadeos.eu collects.
 on:
   push:
     branches: [develop, release, main]
@@ -28,6 +28,10 @@ jobs:
       # tested in their own repositories (amadeos-system, amade-*).
       - name: Check the image configuration
         run: scripts/check-config.sh
+      - name: Build the meta package amadeos-desktop
+        run: |
+          deb="$(scripts/package-desktop-meta.sh --version "${{ steps.version.outputs.version }}" dist | tail -n 1)"
+          dpkg-deb --info "$deb"
 
   # Only on main, after the release branch was promoted: tag vX.Y.Z and publish the GitHub Release.
   release:
@@ -40,9 +44,12 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+      - name: Build the meta package amadeos-desktop
+        run: scripts/package-desktop-meta.sh --version "${{ needs.check.outputs.version }}" dist
       - uses: amadeos-eu/amadeos-ci/release@main
         with:
           version: ${{ needs.check.outputs.version }}
+          files: dist/*.deb
 
   commits:
     if: github.event_name == 'pull_request'

@@ -134,6 +134,9 @@ if ! compgen -G "$CONFIG_DIR/packages.chroot/amadeos-backdrops-cde_*.deb" >/dev/
     "$ROOT_DIR/scripts/package-cde-backdrops.sh" --install-iso \
         || echo "[build-image] Warning: amadeos-backdrops-cde could not be built; continuing without CDE backdrops." >&2
 fi
+# The meta package amadeos-desktop recommends every program and Debian package of the image; installed systems
+# get the programs of later releases through it (apt.amadeos.eu has the same package from the release on main).
+"$ROOT_DIR/scripts/package-desktop-meta.sh" --install-iso --version "$VERSION" "$ROOT_DIR/build" >/dev/null
 if [ -n "${SUDO_USER:-}" ]; then
     chown -R "$SUDO_USER:" "$ARTIFACT_DIR" 2>/dev/null || true
 fi

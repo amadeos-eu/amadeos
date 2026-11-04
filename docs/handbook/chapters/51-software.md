@@ -30,6 +30,17 @@ A progress bar shows the download and the installation. **Details** at the botto
 
 If another program is installing software at the same time, Software says *Another program is installing software right now* and does nothing; try again a moment later.
 
+## Several changes at once
+
+Every list in Software has a check box in front of each package, and the ticks count across all tabs. Tick a few applications, a command-line tool in the next tab and the updates you want, then install everything in one go, with one password:
+
+1. Tick the packages. The tick means what fits the package: a program that is not installed is marked *To be installed*, one with a waiting update *To be updated*, an installed one *To be removed*. The *Status* column says it, a removal in red.
+2. For another choice, right-click the package: **Mark for installation**, **Mark for update**, **Mark for removal** or **Unmark**. The space bar ticks or unticks the chosen package.
+3. A bar above the progress bar counts what is marked, for example *4 packages are marked: 2 to install, 1 to update, 1 to remove*. **Clear marks** starts again.
+4. Press **Apply changes** (or **Software → Apply changes**, Ctrl+Enter). Software lists what it will install, update and remove, and what else comes with it, such as packages a program needs. Press **OK** and type your password once.
+
+All of it runs as one installation, so the package system works out the dependencies of everything together. The ticks of the *Updates* tab (chapter 52) are the same marks: waiting updates are ticked from the start, and an update you untick in the *Updates* tab is unticked in the catalog too.
+
 !!! tip
     Removing a program keeps its settings files in the system and your own files in your home folder. Installing it again brings it back as you left it.
 
@@ -68,4 +79,4 @@ Everything Software does, `apt` does in a terminal:
 | `apt list --installed` | Lists what is installed. |
 
 ??? hood "Under the hood"
-    Software reads the package lists with apt as you, without rights, and sorts the packages with the AppStream data of the Debian archive (package `appstream`); the amade applications bring their own descriptions in `/usr/share/metainfo/`. To install, update or remove, it runs the helper `/usr/libexec/amadeos-packages` through `pkexec`, the only part that runs as root. The helper writes what apt and dpkg said to `/var/log/amadeos-packages.log`.
+    Software reads the package lists with apt as you, without rights, and sorts the packages with the AppStream data of the Debian archive (package `appstream`); the amade applications bring their own descriptions in `/usr/share/metainfo/`. To install, update or remove, it runs the helper `/usr/libexec/amadeos-packages` through `pkexec`, the only part that runs as root. **Apply changes** is one call of `amadeos-packages apply --install … --upgrade … --remove …`, which runs a single `apt-get install` (removals as `PACKAGE-`); updated packages that were installed only as dependencies stay marked so, so that `apt autoremove` still knows them. The helper writes what apt and dpkg said to `/var/log/amadeos-packages.log`.

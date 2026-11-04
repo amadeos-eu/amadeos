@@ -25,7 +25,9 @@ ISO_NAME="amadeos-$VERSION-amd64.iso"
 ISO_PATH="$ARTIFACT_DIR/$ISO_NAME"
 # Points to the newest image, for run-qemu.sh and the commands in the README.
 ISO_LINK="$ARTIFACT_DIR/amadeos-amd64.iso"
-BUILD_ROOT="${AMADEOS_BUILD_ROOT:-${TMPDIR:-/tmp}/amadeos-live-build}"
+# On the disk, not in /tmp: /tmp is often a RAM disk (tmpfs) of half the memory, and the unpacked system,
+# the squashfs and the ISO need far more than that.
+BUILD_ROOT="${AMADEOS_BUILD_ROOT:-/var/tmp/amadeos-live-build}"
 
 # BUILD_ROOT is deleted with sudo before every full build: refuse anything that is not a
 # dedicated directory at least two levels deep (e.g. "/", "/home", a relative path).

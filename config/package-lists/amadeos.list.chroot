@@ -80,6 +80,8 @@ cryptsetup
 gvfs
 gvfs-backends
 gvfs-fuse
+# gio, the command the File Manager connects and lists network drives with (gvfs does not pull it in)
+libglib2.0-bin
 # notify-send, for scripts that show a notification (Settings > Notifications)
 libnotify-bin
 # Firmware for the common WLAN and Ethernet chips (live-build's --firmware-chroot would add all of it)

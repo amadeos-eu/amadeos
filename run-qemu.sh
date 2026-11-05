@@ -8,6 +8,9 @@
 #   --boot-disk [PATH]     boot that disk instead of the ISO: the installed system
 #   --uefi                 boot with UEFI firmware (OVMF) instead of BIOS; the firmware variables are kept in
 #                          artifacts/ovmf-vars.fd, so an installed boot entry survives a restart
+#   --share DIR            share that host folder with the guest (default ~/qemu-share, created when missing);
+#                          in the guest: sudo mount -t 9p -o trans=virtio,version=9p2000.L hostshare /mnt
+#   --no-share             share no folder
 #   QEMU_RAM=4096          memory in MB (default 2048)
 #   QEMU_WLAN_USB=vvvv:pppp hand a USB WLAN stick to the guest (see below)
 #
@@ -25,6 +28,7 @@ RAM="${QEMU_RAM:-2048}"  # Default to 2GB RAM if QEMU_RAM is not set
 DISK=""
 BOOT_DISK=0
 UEFI=0
+SHARE_DIR="$HOME/qemu-share"
 QEMU_EXTRA=()
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -34,7 +38,12 @@ while [[ $# -gt 0 ]]; do
             if [[ $# -gt 1 && "$2" != -* ]]; then DISK="$2"; shift; fi
             ;;
         --uefi) UEFI=1 ;;
-        -h|--help) sed -n '2,15p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
+        --share)
+            [[ $# -gt 1 && "$2" != -* ]] || { echo "Error: --share needs a folder" >&2; exit 1; }
+            SHARE_DIR="$2"; shift
+            ;;
+        --no-share) SHARE_DIR="" ;;
+        -h|--help) sed -n '2,17p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
         --) shift; QEMU_EXTRA+=("$@"); break ;;
         *) QEMU_EXTRA+=("$1") ;;
     esac
@@ -84,6 +93,17 @@ if [[ "$UEFI" = 1 ]]; then
                -drive "if=pflash,format=raw,file=$VARS_COPY")
 fi
 
+# A host folder shared with the guest over virtio-9p, for screenshots and other files. Mount it in the guest with
+#   sudo mount -t 9p -o trans=virtio,version=9p2000.L hostshare /mnt
+# mapped-xattr: files the guest writes belong to the host user; guest owners and modes are kept in extended attributes.
+SHARE_ARGS=()
+if [[ -n "$SHARE_DIR" ]]; then
+    mkdir -p "$SHARE_DIR"
+    SHARE_DIR="$(cd "$SHARE_DIR" && pwd)"
+    SHARE_ARGS=(-virtfs "local,path=$SHARE_DIR,mount_tag=hostshare,security_model=mapped-xattr,id=hostshare")
+    echo "Sharing $SHARE_DIR with the guest (mount tag hostshare)"
+fi
+
 # QEMU cannot emulate WLAN. To try WLAN in the guest, hand a USB WLAN stick to it:
 #   QEMU_WLAN_USB=0bda:8179 ./run-qemu.sh        (vendor:product from lsusb)
 # The host loses the stick while the guest runs; /dev/bus/usb access may need sudo or a udev rule.
@@ -113,5 +133,6 @@ exec qemu-system-x86_64 \
     -nic user,model=virtio-net-pci \
     -audiodev pipewire,id=audio0 \
     -device intel-hda -device hda-duplex,audiodev=audio0 \
+    "${SHARE_ARGS[@]}" \
     "${WLAN_ARGS[@]}" \
     "${QEMU_EXTRA[@]}"

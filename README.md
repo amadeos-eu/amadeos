@@ -126,7 +126,7 @@ cd amadeos-system && ./gradlew :desktop:installToAmadeOs && cd ../amadeos   # th
 
 scripts/check-config.sh   # the checks CI runs on the configuration
 ./build.sh                # build artifacts/amadeos-<version>-amd64.iso (uses sudo for live-build)
-./run-qemu.sh             # boot the ISO in QEMU
+./run-qemu.sh             # boot the ISO in QEMU, sharing ~/qemu-share with the guest (--no-share: none)
 ./run-qemu.sh --install-disk          # ... with an empty 20 GB disk to install amadeOS onto
 ./run-qemu.sh --boot-disk [--uefi]    # boot the installed system (--uefi: OVMF instead of BIOS)
 ```

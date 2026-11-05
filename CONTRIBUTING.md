@@ -241,7 +241,7 @@ Because every name is tried in the current theme before falling back to `hicolor
 The background of the BIOS boot menu is drawn the same way: edit `icons/src/boot-splash.svg` and render it with `rsvg-convert -w 640 -h 480 icons/src/boot-splash.svg -o config/bootloaders/isolinux/splash.png`. Keep the lower part (below y = 330) free for the menu. The default wallpaper comes from `icons/src/wallpaper.svg` and is rendered to both places it is used:
 
 ```bash
-for f in config/includes.chroot/usr/share/backgrounds/amadeos/wallpaper.png ../amadeos-system/desktop/src/main/resources/wallpapers/default.png; do
+for f in config/includes.chroot/usr/share/backgrounds/amadeos/wallpaper.png ../amadeos-system/base/src/main/resources/wallpapers/default.png; do
   rsvg-convert -w 1920 -h 1080 icons/src/wallpaper.svg -o "$f"
 done
 ```

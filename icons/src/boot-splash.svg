@@ -10,20 +10,12 @@
   </defs>
   <rect width="640" height="480" fill="url(#bg)"/>
 
-  <!-- Emblem: the four workspaces of the front panel, "One" active, with Motif bevels -->
-  <g shape-rendering="crispEdges">
-    <rect x="132" y="78" width="28" height="22" fill="#4E7A96"/>
-    <path d="M132 78h28v1h-27v21h-1z" fill="#27384A"/>
-    <path d="M160 78v23h-28v-1h27v-22z" fill="#9CB8D0"/>
-    <rect x="164" y="78" width="28" height="22" fill="#C8BEB4"/>
-    <path d="M164 78h28v1h-27v21h-1z" fill="#F0ECE8"/>
-    <path d="M192 78v23h-28v-1h27v-22z" fill="#6E6660"/>
-    <rect x="132" y="104" width="28" height="22" fill="#C8BEB4"/>
-    <path d="M132 104h28v1h-27v21h-1z" fill="#F0ECE8"/>
-    <path d="M160 104v23h-28v-1h27v-22z" fill="#6E6660"/>
-    <rect x="164" y="104" width="28" height="22" fill="#C8BEB4"/>
-    <path d="M164 104h28v1h-27v21h-1z" fill="#F0ECE8"/>
-    <path d="M192 104v23h-28v-1h27v-22z" fill="#6E6660"/>
+  <!-- Emblem: the four workspaces as flat tiles, "One" active in the Horizon teal -->
+  <g>
+    <rect x="143" y="78" width="23" height="23" rx="6" fill="#2FB8B0"/>
+    <rect x="169" y="78" width="23" height="23" rx="6" fill="#8C8EA2" fill-opacity="0.55"/>
+    <rect x="143" y="104" width="23" height="23" rx="6" fill="#8C8EA2" fill-opacity="0.55"/>
+    <rect x="169" y="104" width="23" height="23" rx="6" fill="#8C8EA2" fill-opacity="0.55"/>
   </g>
 
   <text x="210" y="124" font-family="DejaVu Sans" font-weight="bold" font-size="56" fill="#E0E8F0">amadeOS</text>

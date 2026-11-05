@@ -53,7 +53,7 @@ From left to right the top bar holds:
 
 | Part | What it does |
 |---|---|
-| **The ring** | Opens the system menu: *About this computer*, **Programs** (every installed program, sorted like the drawers of the Front Panel), *Files*, *Settings*, *Software*, *Task Manager*, *Widgets…*, *Lock screen* and *Log out or shut down…* (the Exit dialog of chapter 26). |
+| **The amadeOS logo** (four small tiles) | Opens the system menu: *About this computer*, **Programs** (every installed program, sorted like the drawers of the Front Panel), *Files*, *Settings*, *Software*, *Task Manager*, *Widgets…*, *Lock screen* and *Log out or shut down…* (the Exit dialog of chapter 26). |
 | **The program name** | The name of the program you are working in, in bold, or *Desktop*. A click opens a small menu to minimise or close its window. |
 | **The screen button** | Shows the desktop: all windows of the workspace step aside, as with ++super+d++ (see below). It is filled with the accent colour while the desktop is shown; a second click brings the windows back. |
 | **The four dots** | The workspaces; the current one is the wider dot in the accent colour. Click a dot to switch, hold the mouse over it to see the workspace's name. |
@@ -130,7 +130,7 @@ In the Classic look ++super+d++ works the same way; the Workspace Menu (chapter 
 
 Widgets are small cards on the desktop that show something at a glance. They always stay below the windows; ++super+d++ shows them when windows cover them.
 
-To add one, choose **Widgets…** from the system menu (the ring) or from the dock's menu. The gallery lists every widget there is; click **Add** next to one. A new widget goes into the first free place along the right edge of the screen.
+To add one, choose **Widgets…** from the system menu (the amadeOS logo at the left of the top bar) or from the dock's menu. The gallery lists every widget there is; click **Add** next to one. A new widget goes into the first free place along the right edge of the screen.
 
 ![The widget gallery](images/29/widget-gallery.jpg)
 

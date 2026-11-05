@@ -56,4 +56,10 @@ You can also start the image in a *virtual machine*, a computer simulated by a p
 ./run-qemu.sh --boot-disk        # start the amadeOS installed on that disk
 ```
 
-`--uefi` starts the machine with UEFI firmware instead of BIOS. VirtualBox and other virtual machines work too: create a 64-bit Linux machine with 2 GB of memory, choose the image as its optical disk and start it.
+`--uefi` starts the machine with UEFI firmware instead of BIOS. The script shares the folder `~/qemu-share` of your computer with the virtual machine (`--share FOLDER` picks another one, `--no-share` none). In amadeOS you open it in the Terminal with
+
+```bash
+sudo mount -t 9p -o trans=virtio,version=9p2000.L hostshare /mnt
+```
+
+and whatever you save to `/mnt`, a screenshot for example, appears in `~/qemu-share`. VirtualBox and other virtual machines work too: create a 64-bit Linux machine with 2 GB of memory, choose the image as its optical disk and start it.

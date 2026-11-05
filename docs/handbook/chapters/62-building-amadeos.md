@@ -46,7 +46,7 @@ cd amadeos
 ./run-qemu.sh --boot-disk --uefi      # ... with UEFI firmware instead of BIOS
 ```
 
-`QEMU_RAM=4096 ./run-qemu.sh` gives the virtual machine more memory. Chapter 12 shows how to write the image to a USB stick.
+`QEMU_RAM=4096 ./run-qemu.sh` gives the virtual machine more memory. The host folder `~/qemu-share` is shared with the guest over virtio-9p (`--share DIR` for another folder, `--no-share` to switch it off); in the guest, `sudo mount -t 9p -o trans=virtio,version=9p2000.L hostshare /mnt` mounts it. The QEMU monitor (Ctrl+Alt+2) also saves a picture of the screen straight to the host: `screendump /home/you/shot.png -f png`. Chapter 12 shows how to write the image to a USB stick.
 
 ## Changing the image
 

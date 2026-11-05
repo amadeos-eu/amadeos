@@ -2,11 +2,11 @@
 
 What is open and planned comes first, then a timeline of what has been achieved, newest first. A feature counts as verified only with evidence from the QEMU live image or real hardware; merged work without that evidence is listed under *Waiting for a test*. The detailed notes of each milestone up to 2026-10-24 are in the git history (ROADMAP.md at commit `b58c372`).
 
-Status date: 2026-10-31
+Status date: 2026-11-05
 
 ## Project direction
 
-amadeOS is a free, European, Java-centred desktop system based on a minimal Debian x86-64 live image, with its own Java window manager, CDE-style Front Panel, display manager and applications. The architectural decisions and rejected alternatives are in [`CONCEPT.md`](CONCEPT.md).
+amadeOS is a free, European, Java-centred desktop system based on a minimal Debian x86-64 live image, with its own Java window manager, two desktop looks (Horizon with top bar and dock, the default since 1.1.0, and Classic with the CDE-style Front Panel), display manager and applications. Current release: **1.1.0** (2026-11-04). The architectural decisions and rejected alternatives are in [`CONCEPT.md`](CONCEPT.md).
 
 ```mermaid
 flowchart TD
@@ -42,7 +42,7 @@ flowchart TD
 | M12 Compatibility, security and release hardening | In progress |
 | M13 Application suite | In progress, nearly complete |
 | M14 Installation to disk | In progress |
-| M15 Updates and software management | Built, waiting for the QEMU test |
+| M15 Updates and software management | Built (with the meta package `amadeos-desktop`), waiting for the QEMU test |
 | M16 amadeOS package repository | stable suite online at apt.amadeos.eu, waiting for the QEMU test |
 
 ## Open and planned
@@ -56,8 +56,12 @@ Merged and installed by `buildDistribution.sh`, but so far only checked under Xv
 - Settings pages Network connections, Sound, Bluetooth and Printers: so far only with fake services under Xvfb; pairing, the sound card profiles and adding a printer need real devices.
 - File Manager: USB sticks, memory cards and discs (mount, unmount, Safely Remove through `udisks2`) so far only with a fake drive list under Xvfb; needs a real stick in QEMU (`-device usb-storage`) or on hardware, also with the polkit rules of udisks for the active session. Extract and Compress are tested by unit tests.
 - Power (Settings > Power, Suspend/Hibernate in EXIT, lid and power button): only unit tests and pictures under Xvfb; needs logind on a real laptop (lid, battery, suspend and resume, hibernate with swap).
-- Horizon look: switching Classic and Horizon in a real session (the panel hand-over through `amadeos-session`), the rounded frames and the shaped dock on real graphics, the top bar's status cells on hardware, Super+Space and the search window's keyboard focus, Super+D and the desktop widgets staying below the windows; the flat programs and the Horizon icons in the dock, menus and File Manager.
+- Horizon look: the choice of look in the login screen's session field, Horizon as the default for new accounts, switching Classic and Horizon in a real session (the panel hand-over through `amadeos-session`), the rounded frames and the shaped dock on real graphics, the top bar's status cells on hardware, Super+Space and the search window's keyboard focus, Super+D and the desktop widgets staying below the windows; the flat programs and the Horizon icons in the dock, menus and File Manager.
 - Keyboard Shortcuts and Accessibility: the keys were tested with `xdotool` against the window manager under Xvfb; the pointer sizes, sticky and slow keys and mouse keys need a real keyboard and screen.
+- Settings pages Users and Groups, Default Applications and Date and Time (`useradd`/`chpasswd` through polkit, `timedatectl`), Notifications with real programs (Firefox, `notify-send`), the Task Manager on a loaded system.
+- Disks: formatting, LUKS encryption and SMART self-tests on a real stick and disk; File Manager network drives against a real NAS (SMB, NFS, WebDAV).
+- Terminal with full-screen programs (htop, vim, mc) in the live image; Webcam with a real camera; the Video Player's DVD menu with a real drive.
+- The new logo (2026-11-05) in the boot menu, screen saver and Horizon top bar.
 - Alt+Tab switcher, clipboard manager, bell through the sound card (Xvfb ignores `xset b`), gnome-keyring unlocked at login.
 - Software (M15): the end-to-end test in QEMU — first start loads the package lists, the polkit password window appears, a package gets installed, an update goes through the panel cell.
 - Installer (M14): the UEFI path (`run-qemu.sh --uefi`) and installing next to Windows, then the Zephyrus laptop (UEFI, NVMe, Secure Boot with the signed shim).
@@ -85,7 +89,7 @@ Nice to have: sticky notes, weather, a font viewer, maps. ~~A character map~~: b
 
 ### M12 — Compatibility, security and release hardening
 
-- Versions and releases (plan of 2026-10-24, tooling in [amadeos-ci](https://github.com/amadeos-eu/amadeos-ci)): Semantic Versioning from 1.0.0, computed from Conventional Commits; branches `develop` (builds `-dev.N`), `release` (`-pre.N`) and `main` (releases, tag `vX.Y.Z`, GitHub Release), moved forward by the Promote workflow. Open: the one-time branch setup (`setup-release-branches.sh` of amadeos-ci), the secret `PROMOTE_TOKEN`, then every repository's build workflow; amade-calculator is the pilot.
+- ~~Versions and releases~~: in place since 2026-10-25 for every repository (Semantic Versioning from Conventional Commits, branches develop/release/main moved by the Promote workflow of [amadeos-ci](https://github.com/amadeos-eu/amadeos-ci), `check-release-setup.sh` checks them). amadeOS 1.0.0 and 1.1.0 are released; amade-commons and amade-game-engine also go to Maven Central as `eu.amadeos`. Open: the GitHub Release of the ISO is still uploaded by hand, without a `.sha256` file.
 - A documented release process: release manifest (image version, package inputs, checksum, test results), reproducible-build checks, image signing, artifact provenance, rollback and recovery.
 - Pin and document the supported Java baseline.
 - Test fonts, HiDPI scaling, keyboard layouts, focus and modality, and representative Swing/AWT applications.
@@ -118,10 +122,10 @@ Nice to have: sticky notes, weather, a font viewer, maps. ~~A character map~~: b
 
 ### M15 — Updates and software management
 
-Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexec`, polkit action `eu.amadeos.packages.manage`), the library module `packages`, the updates cell in the Front Panel, the program **Software** (Updates, Applications, Command line, Libraries; AppStream data) and an own Motif polkit agent. Open:
+Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexec`, polkit action `eu.amadeos.packages.manage`), the library module `packages`, the updates cell in the Front Panel, the program **Software** (Updates, Applications, Command line, Libraries; AppStream data; several packages marked in all tabs and applied in one run) and an own Motif polkit agent. Open:
 
 - The QEMU end-to-end test (see *Waiting for a test*).
-- An `amadeos-desktop` meta package (today `buildDistribution.sh` installs every package of `repositories.list`).
+- ~~An `amadeos-desktop` meta package~~: built 2026-11-04 (#151, system #86); it recommends every package of `repositories.list`, so installed systems get new programs with their next update.
 - Offering `dpkg --configure -a` after an interrupted run; no snapshots or rollback yet. Flatpak and Snap are out of scope.
 
 **Exit criteria:** on an installed system a pending Debian security update shows in the Front Panel and can be installed with a progress display, and a GUI and a command-line program can be found, installed and removed in Software; verified in QEMU.
@@ -140,17 +144,37 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
 
+### 2026-11-05
+
+- **New logo** (#153, system #88, amadeos.eu #14): four flat workspace tiles, "One" in teal, in the boot menu, the default wallpaper, the Floating Logo screen saver, the Horizon top bar's system button (in the accent colour) and on the website.
+- **Website in the Horizon look** with a switch to Classic, amadeOS 1.1.0 for download, all applications and the 18 games (amadeos.eu #14).
+
+### 2026-11-04
+
+- **amadeOS 1.1.0 released** (tag `v1.1.0`, ISO on the GitHub Release): the Horizon look, Image Editor, Book Editor, Terminal, Webcam, Task Manager, Disks, Rivet and the new Settings pages since 1.0.0.
+- **Horizon is the default look** for accounts that never chose one, and the login screen's session field offers *Classic (CDE)* and *Horizon* (system #74, #82, #142, #148); a power button with Lock screen and the busy light at the right of the top bar (system #72, #138); tooltips in the top bar and dock, the Workspace Menu in the desktop language with *Add Widgets…* (system #76, #79, #83).
+- **Meta package `amadeos-desktop`** (#151, system #86) and Software marks several packages and applies them in one run (system #87, #152); the package list loads without a stall (system #81).
+- Dark palettes: switched-off buttons, combo boxes and toolbars stay readable in every amade program (commons #87 and one fix per program).
+- Audio CDs play smoothly with a safe Stop (amade-audio #18); the Video Player explains libdvdcss for encrypted DVDs (amade-video #18, #149); xdg-user-dirs in the image (#147); the image builds in `/var/tmp` (#141).
+- amade-commons 1.1.0 and amade-game-engine on Maven Central as `eu.amadeos` (commons #58, engine #44, #47).
+
 ### 2026-11-03
 
+- Video Player: a **DVD menu** with the disc's titles, and the main film starts on insert (amade-video #15, #136).
+- Sliders and progress bars in the theme's colours (commons #84).
 - Settings **Keyboard Shortcuts** and **Accessibility** (system, commons): the desktop's keys in one list (lock, terminal, File Manager, Settings, Task Manager, search, clipboard history, screenshots, close/maximize/minimize, show desktop, workspaces 1 to 4 and left/right) and own commands; new keys are pressed in a dialog, keys another shortcut has are taken after asking; the window manager grabs the keys from `~/.config/amadeos/shortcuts.conf` and follows a change at once (Ctrl+Alt+V moved there from the clipboard manager). Accessibility: high contrast (white on black, black on white), a white or black pointer in 24, 32 or 48 pixels, sticky, slow and bounce keys, the Shift gestures and mouse keys; the image adds `xkbset` and `dmz-cursor-theme`. User's Handbook chapter 33 and appendix A, developer's handbook chapter 62.
 
 ### 2026-11-02
 
+- New application [`amade-bookeditor`](https://github.com/amadeos-eu/amade-bookeditor) (#1, #2): **Book Editor** writes books in a word-processor window and saves valid EPUB 3; it takes over copies of other EPUBs and starts books from ODT and DOCX (#134, #135). The Books typesetter moved into amade-commons (commons #81).
+- WritePad: **pictures** with text flow and **tables** (amade-writepad #28, #29; #130, #131).
+- Ten **Horizon wallpapers** (system #69, #133).
 - WritePad **paragraph styles and headings** (amade-writepad, commons): Normal, Title, Subtitle, Heading 1 to 6, Quote and Code in a style box of the format bar and in *Format → Paragraph Style* (Ctrl+0 to Ctrl+6); Enter after a heading goes on in Normal; *Format → Styles…* (F11) changes a style in the whole document; *Clear Direct Formatting* (Ctrl+M). ODT, DOCX and RTF keep the styles under LibreOffice's and Word's names. User's Handbook chapter 43, developer's handbook chapter 23.
 - **Special Characters** (commons, amade-writepad, amade-pad, amade-mail): one window in all amade programs for characters the keyboard lacks: accented letters, quotes and dashes, currency, maths, arrows, Greek, symbols and all of Unicode, with a search by name, by the usual word in the user's language or by code (`U+20AC`); a double click or Enter inserts at the cursor and the window stays open; *Recently used* is shared by all programs. Ctrl+Shift+U in WritePad (*Insert*), the Text Editor (*Edit*) and the Mailer's message window (*Format*); *Smileys and Emoji…* (Ctrl+.) opens it on the emoji, drawn in black and white with `fonts-symbola`, new in the image. User's Handbook chapter 40, developer's handbook chapter 49.
 
 ### 2026-11-01
 
+- Settings **Default Applications** and **Date and Time** (system #60, #120, commons #69): the program for web links, mail, PDFs, pictures, music and videos; time zone, network time, the clock by hand and the formats of a region.
 - **Disks** (`amadeos-disks`, system #68): the drives with a partition map; formats a USB stick or a card by what it is used with (FAT32, exFAT, ext4, NTFS, or encrypted with a password), creates, deletes, renames, grows and shrinks partitions, checks and repairs, shows the health of NVMe and SATA disks with self-tests, writes `.iso`/`.img`/`.img.xz` images to a stick with checksum and read-back compare and saves a stick as an image. All through udisks and the polkit password dialog; the running system is locked. The File Manager's drive menu has *Format…*; the image adds exfatprogs, ntfs-3g and cryptsetup. User's Handbook chapter 59.
 - Horizon look, step 5 (commons, system): the amadeOS programs are **flat in Horizon** (rounded buttons, the default button in the accent colour, fields with an accent ring, slim scroll bars, underlined tabs, plain fonts; `HorizonUI` in amade-commons, switched live with the look, Classic unchanged) and Horizon has its own **icon set** `amadeos-horizon` (new package `amadeos-icons-horizon`: programs, games, groups, places, devices and file types, PNG from 16 to 256 pixels, NsCDE as fallback); each look keeps its own icon theme. User's Handbook chapters 29 and 31, developer's handbook chapter 42. The programs get the flat look with their next amade-commons pin.
 - Horizon look, step 4 (system, commons, amade-calendar): **show desktop** with Super+D, the screen button in the top bar, the dock's new right-click menu or Workspace Menu > Window Management (EWMH `_NET_SHOWING_DESKTOP`; windows are hidden, not minimised); **desktop widgets**: the new package `amadeos-widgets` with a gallery, drag and resize, settings per widget; clock, photo frame and to-do note built in, a month widget from the Calendar; applications add widgets through `eu.amadeos.commons.widget`. User's Handbook chapter 29, developer's handbook chapter 70.
@@ -161,6 +185,8 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-10-31
 
+- Settings **Users and Groups** (system #55, #110): accounts, passwords, administrators and groups through polkit.
+- Image Editor step 2: **painting, text and layers**, saved as OpenRaster (amade-imageeditor #3, #113).
 - Task Manager (`amadeos-taskmanager`, system #61): the program windows with their load, Switch To and End Program; all processes as a tree with end, force end, pause, continue and priority; the last minute of processor, memory, network and disk as graphs. Ctrl+Shift+Esc and Ctrl+Alt+Del open it. The window manager pings windows (`_NET_WM_PING`); one that does not answer for 5 seconds gets *(Not Responding)* in its title and a dialog to wait or end it; User's Handbook chapter 59.
 - Notifications (system #58, commons #66): `amadeos-session notifications` owns `org.freedesktop.Notifications`, so Firefox, `notify-send` and the amade programs show pop-ups in a corner above the Front Panel; a history of 7 days, a bell with the count of new ones in the status slot, Do not disturb (for a while, on a schedule, while a window is full screen) and Settings → Notifications with a choice per program; the Front Panel announces new updates. amade-commons has the `Notifications` API for the programs; `libnotify-bin` (`notify-send`) in the image; User's Handbook chapter 28.
 - File Manager: network drives under *Network* in the folder tree: servers found through Avahi and WS-Discovery, Windows shares (SMB) with workgroup, user and password, NFS, WebDAV, SFTP and FTP through GVfs; the password can stay in the login keyring and shares can connect again at login; *File → Connect to Server…* (amade-files #14); `gvfs-backends` and `gvfs-fuse` in the image (no `wsdd`: not in trixie); User's Handbook chapter 41.
@@ -169,9 +195,17 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 - File Manager: USB sticks, memory cards, external disks and discs in the folder tree, mounted when plugged in or chosen, with Unmount and Safely Remove (Eject for discs) through `udisksctl`; archives open by extracting, with Extract Here, Extract To… and Compress… (zip, tar.gz, tar.xz; also reads 7z, tar.bz2, gz, bz2, xz) (amade-files #13); `udisks2` in the image; User's Handbook chapter 41.
 - New application [`amade-imageeditor`](https://github.com/amadeos-eu/amade-imageeditor) (#1): crop with aspect ratios, straighten, turn, colours, resize, unlimited undo; saves JPEG, PNG, WebP, TIFF and BMP and keeps or drops camera data and location. The Image Viewer opens the shown picture in it (amade-imageviewer #9); `webp` in the image for WebP saving; User's Handbook chapter 47.
 
+### 2026-10-30
+
+- **The repositories moved to the GitHub organization [amadeos-eu](https://github.com/amadeos-eu)** (#105 to #107 and one PR per repository); the handbooks are online at [docs.amadeos.eu](https://docs.amadeos.eu/); servers are deployed from [`amadeos-devops`](https://github.com/amadeos-eu/amadeos-devops).
+
 ### 2026-10-29
 
 - Rivet, the 18th game ([`amade-rivet-game`](https://github.com/amadeos-eu/amade-rivet-game) #1, game engine #40): a first-person shooter in 3D on the engine's new raycaster, with machines rendered from 3D models; Part VI of the Game Developer's Handbook.
+
+### 2026-10-28
+
+- TV searches the ARD media library through the own API [`amadeos-tv-api`](https://github.com/amadeos-eu/amadeos-tv-api) at api.amadeos.eu (amade-tv #7; API 1.0.0 live).
 
 ### 2026-10-27
 
@@ -180,7 +214,16 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-10-26
 
+- New applications [`amade-backup`](https://github.com/amadeos-eu/amade-backup) (**Backup & Sync**: encrypted versioned backups with restic, restore, folder sync, a helper that runs them by schedule; #90, #94) and [`amade-news`](https://github.com/amadeos-eu/amade-news) (**News**, a feed reader with a catalogue of European news; #96).
+- [`amade-templar-game`](https://github.com/amadeos-eu/amade-templar-game): **The Seal of the Templars**, a point-and-click adventure in three acts (#91; game engine #35 to #37).
+- TV records programs from the live stream and has channel groups; `yt-dlp` in the image (amade-tv #3 to #5, #89, #92).
+- **One proxy for the desktop** on Settings > Network, followed by Audio, Mail, Image Viewer, TV and News (system #48, commons #49, #93).
 - Artillery, the 17th game ([`amade-artillery-game`](https://github.com/amadeos-eu/amade-artillery-game) #1, game engine #38): tanks take turns on breakable ground, with wind and computer players at three levels.
+
+### 2026-10-25
+
+- **amadeOS 1.0.0 released**, with version 1.0.0 of every repository (deb, msi and zip on the GitHub Releases); the ISO followed on 2026-10-27 (#86, #87, #99, amadeos.eu #3).
+- New application [`amade-tv`](https://github.com/amadeos-eu/amade-tv): **TV** with live channels and a programme guide (amade-tv #1, #88).
 
 ### 2026-10-24
 

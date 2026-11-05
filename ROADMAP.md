@@ -39,9 +39,10 @@ flowchart TD
 | M0 Reproducible build | Done 2026-10-09 |
 | M1 Boot (BIOS and UEFI) · M2 Session launcher · M3 Native X11 · M4 Floating WM · M5 Integrated session · M6 Power and lifecycle · M7 Reparenting and decorations · M8 Front Panel and themes · M9 Java display manager · M10 XDG discovery and .deb apps | Done 2026-10-10 |
 | M11 Virtual workspaces and root menu | Done 2026-10-11 |
-| M12 Compatibility, security and release hardening | In progress |
-| M13 Application suite | In progress, nearly complete |
-| M14 Installation to disk | In progress |
+| M12 Releases and versions | Done 2026-10-25 (1.0.0; 1.1.0 on 2026-11-04) |
+| M12 Compatibility and security hardening | In progress |
+| M13 Application suite | Done 2026-11-05; the rest is under *Later* |
+| M14 Installation to disk | In progress: BIOS install verified in QEMU; UEFI and hardware open |
 | M15 Updates and software management | Built (with the meta package `amadeos-desktop`), waiting for the QEMU test |
 | M16 amadeOS package repository | stable suite online at apt.amadeos.eu, waiting for the QEMU test |
 
@@ -78,19 +79,22 @@ Gap analysis of 2026-10-31: what a typical desktop has and amadeOS does not yet,
 5. ~~Default applications: a Settings page for the program that opens web links, mail, PDFs, pictures, music and videos (`xdg-mime`).~~ Built 2026-10-31 (Settings > Default Applications, `~/.config/mimeapps.list`).
 6. ~~Date and time: date and number formats (marked *Planned* on the Language page), network time on or off, setting the time by hand.~~ Built 2026-10-31 (Settings > Date and Time with the time zone, network time, the clock by hand and formats of a region of their own).
 7. ~~Task manager / system monitor: processes, CPU and memory graphs, ending a program that hangs (System Information shows only a report).~~ Built 2026-10-31 (amadeos-system #61: `amadeos-taskmanager`, Ctrl+Shift+Esc and Ctrl+Alt+Del, the window manager marks windows that do not respond).
-8. ~~Terminal: an own terminal or the decision to keep xterm (see M13).~~ Built 2026-11-01: `amade-terminal`, an own terminal with its own emulator (amade-terminal #1); xterm stays in the image for one release.
+8. ~~Terminal: an own terminal or the decision to keep xterm (see *Later*).~~ Built 2026-11-01: `amade-terminal`, an own terminal with its own emulator (amade-terminal #1); xterm stays in the image for one release.
 9. ~~Disk tool: formatting a USB stick, partitions, disk health (SMART).~~ Built 2026-11-01 (amadeos-system #68: `amadeos-disks` with format by use, partitions, check, health with self-tests, write and save disk images; User's Handbook chapter 59).
 10. ~~Settings pages *Keyboard shortcuts* and *Accessibility* (larger mouse pointer, high-contrast theme, sticky keys).~~ Built 2026-11-03 (Settings > Keyboard Shortcuts with own commands, the window manager follows `shortcuts.conf`; Settings > Accessibility with two high contrast palettes, white and black pointers in three sizes, sticky, slow, bounce and mouse keys; User's Handbook chapter 33).
 11. Firewall: a simple on/off switch with nftables.
-12. More network settings: VPN, fixed addresses, hotspot (see M13).
+12. More network settings: VPN, fixed addresses, hotspot (see *Later*).
 13. A fully customizable Front Panel: add, remove and order its cells and controls in Settings > Front Panel (today the cells can only be switched on and off), with optional extra cells such as a CPU and memory graph that opens the Task Manager.
 
 Nice to have: sticky notes, weather, a font viewer, maps. ~~A character map~~: built 2026-11-02 as the Special Characters window in the amade programs (Ctrl+Shift+U); a stand-alone one for other programs is still open.
 
 ### M12 — Compatibility, security and release hardening
 
-- ~~Versions and releases~~: in place since 2026-10-25 for every repository (Semantic Versioning from Conventional Commits, branches develop/release/main moved by the Promote workflow of [amadeos-ci](https://github.com/amadeos-eu/amadeos-ci), `check-release-setup.sh` checks them). amadeOS 1.0.0 and 1.1.0 are released; amade-commons and amade-game-engine also go to Maven Central as `eu.amadeos`. Open: the GitHub Release of the ISO is still uploaded by hand, without a `.sha256` file.
-- A documented release process: release manifest (image version, package inputs, checksum, test results), reproducible-build checks, image signing, artifact provenance, rollback and recovery.
+**Releases and versions: done.** Semantic Versioning from Conventional Commits in every repository since 2026-10-25, branches develop/release/main moved by the Promote workflow of [amadeos-ci](https://github.com/amadeos-eu/amadeos-ci) (`check-release-setup.sh` checks them); amadeOS 1.0.0 and 1.1.0 are released; amade-commons and amade-game-engine also go to Maven Central as `eu.amadeos`.
+
+**Hardening: open.**
+
+- A documented release process: the ISO on the GitHub Release with a `.sha256` file (today uploaded by hand), release manifest (image version, package inputs, checksum, test results), reproducible-build checks, image signing, artifact provenance, rollback and recovery.
 - Pin and document the supported Java baseline.
 - Test fonts, HiDPI scaling, keyboard layouts, focus and modality, and representative Swing/AWT applications.
 - An own Secret Service daemon in Java (D-Bus `org.freedesktop.secrets`, unlocked by the login password, Motif prompt) to replace gnome-keyring and its GTK prompter.
@@ -100,16 +104,20 @@ Nice to have: sticky notes, weather, a font viewer, maps. ~~A character map~~: b
 
 **Exit criteria:** a documented release process exists, supported hardware and software boundaries are explicit, and another contributor can rebuild and evaluate the image.
 
-### M13 — Application suite
+### M13 — Application suite (done 2026-11-05)
 
-- ~~Terminal: an own terminal emulator, or a decision to keep xterm.~~ Built 2026-11-01 (`amade-terminal`).
-- Network settings: fixed addresses, VPN and a hotspot on the Settings Network page; connections, hidden WLANs and the proxy are there already, the rest is still `nmtui`.
+Every Front Panel slot and the Horizon dock open amadeOS programs, all of them follow the Settings theme, and the gaps of the 2026-10-31 analysis up to item 10 are built. What is left goes on under *Later*.
+
+### Later
+
+Work that is wanted but belongs to no open milestone:
+
+- Network settings: fixed addresses, VPN and a hotspot on the Settings Network page; connections, hidden WLANs and the proxy are there already, the rest is still `nmtui`. A firewall switch (nftables).
 - amade-mail: test Gmail OAuth2 and decide whether to ship a datazuul OAuth client; IMAP IDLE with new-mail state in the in-tray; autoconfig (Thunderbird ISPDB, DNS SRV).
 - amade-contacts: meeting attendees in the Calendar, CardDAV.
 - amade-imageviewer: map tiles not yet tried against the live tile server.
 - amade-writepad: save as HTML (asked for on 2026-11-02): headings, bold and italic, lists, tables and pictures as a web page; written by WritePad itself, or through LibreOffice like DOC.
-
-**Exit criteria:** each Front Panel slot opens an amadeOS application instead of an `xterm` command, and all applications follow the Settings theme. Only parts of the network settings are left.
+- A fully customizable Front Panel (item 13 of *Missing for daily use*).
 
 ### M14 — Installation to disk
 

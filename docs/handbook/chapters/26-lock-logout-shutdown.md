@@ -10,6 +10,10 @@ When you leave the computer for a moment, **lock** it. Your windows stay open be
 
 ![The locked screen](images/26/lock-screen.jpg)
 
+In the Horizon look (chapter 29) the locked screen shows Horizon's picture, dimmed, with the time and date, your round picture and name, and a rounded field with a dot for each character you type:
+
+![The locked screen in the Horizon look](images/26/lock-screen-horizon.jpg)
+
 To unlock, type your password and press ++enter++.
 
 After a time without keyboard or mouse, the **screen saver** starts, and a little later the screen locks by itself. How long that takes, and which picture the screen saver shows, is set on the *Screen* page of Settings (chapter 34).

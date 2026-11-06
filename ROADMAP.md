@@ -154,6 +154,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-11-06
 
+- New application [`amade-call`](https://github.com/amadeos-eu/amade-call) (#1): **Calls**, video and audio calls between amadeOS computers in the local network, straight from computer to computer and end-to-end encrypted (GStreamer WebRTC, TLS 1.3 between the computers' own keys); computers find each other through Avahi, others are called by address; screen sharing and chat in the call, a safety code to compare, a ringing window and missed-call notifications, waiting for calls after login. Horizon icon (system). User's Handbook chapter 44. Calls over the internet (call server and relay on api.amadeos.eu) come later.
 - New application [`amade-fontviewer`](https://github.com/amadeos-eu/amade-fontviewer) (#1): the **Font Viewer** lists every font in itself, shows a sample text from 12 to 64 pt, all characters by Unicode block with a search by name or code, the details from the font file (designer, licence, languages) and compares up to six fonts; a double click on a `.ttf`/`.otf` file in the File Manager opens it with **Install** and **Install for All Users** (pkexec helper); default program for font files. Settings > Font gets *Manage Fonts…*, Software a `--search=` option for *Get More Fonts…* (system #92). Free office-compatible fonts in the image: `fonts-liberation`, `fonts-crosextra-carlito`, `fonts-crosextra-caladea`, `fonts-noto-core`. User's Handbook chapter 35.
 
 ### 2026-11-05

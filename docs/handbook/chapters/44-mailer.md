@@ -1,4 +1,4 @@
-# 44. Mailer and News
+# 44. Mailer, News and Calls
 
 ## Mailer
 
@@ -114,3 +114,65 @@ In the lists, single keys work as in other feed readers:
 
 ??? hood "Under the hood"
     The subscriptions are in `~/.config/amadeos/news/subscriptions.opml`, the preferences in `news.properties` next to it. The articles of each feed are a JSON file in `~/.local/share/amadeos/news/articles/`, the pictures in `~/.cache/amadeos/news/images/`, where they are removed after 30 days. News reads RSS and Atom with its own parser, which does not follow references to other files inside a feed.
+
+## Calls
+
+**Calls** makes video and audio calls to other amadeOS computers. Computers in the same network, at home or in the office, find each other by themselves; picture and sound go straight from one computer to the other, end-to-end encrypted, without a server or an account in between.
+
+Start it from the Mail & Internet drawer of the Front Panel, or with `amade-call`.
+
+![Calls with the people in the network, the one chosen and the recent calls with them](images/44/calls.jpg)
+
+On the left are the **people**: first those whose computer is in the network now, with a green dot, then those you called before, with a grey one. *verified* below a name means you compared the safety code with that person (see *Safety code* below). The search field finds a person by name or address. On the right are the person you chose, the buttons to call them and the recent calls.
+
+The name others see is the one in *Call → Settings…*; at first it is your full name and the name of the computer.
+
+### Calling
+
+Choose a person and click **Video Call** (++ctrl+enter++) or **Audio Call** (++ctrl+shift+enter++). A computer that does not show up in the list, for example one behind a VPN, is called with *Call → Call Address…* (++ctrl+l++): type its name, such as `anna-pc.local`, or its IP address, such as `192.168.1.20`, if needed with the port, such as `192.168.1.20:47475`.
+
+The call window shows the other person large and yourself small in the corner:
+
+![A video call: the other person, the self view, the chat beside it and the switches below](images/44/call-video.jpg)
+
+| Switch | What it does |
+|---|---|
+| **Microphone** (++ctrl+d++) | Switches your microphone off and on; the other side sees a crossed-out microphone |
+| **Camera** (++ctrl+e++) | Switches your camera off and on; the other side sees your initials instead |
+| **Share Screen** | Shows your screen instead of the camera, and back. The other side sees everything on it |
+| **Chat** | Short messages beside the picture, for a link or an address |
+| **Safety Code** | The numbers to compare (below) |
+| **Hang Up** | Ends the call |
+
+++f11++ shows the picture on the whole screen, ++esc++ goes back. When the call ends, the window says why, for example *The call was declined* or *Busy: the other side is in another call*, and closes.
+
+### When someone calls
+
+A call rings with a window of its own, also when the Calls window is closed:
+
+![An incoming video call from a verified person](images/44/call-incoming.jpg)
+
+**Accept** answers with picture and sound, **Sound Only** without your camera (you can switch it on later), **Decline** rejects the call. A call you did not answer becomes a notification with **Call Back** (chapter 28).
+
+To be reachable without opening Calls, switch on *Wait for calls after login* in *Call → Settings…*. Calls then starts in the background when you log in; closing its window keeps it waiting, *Call → Exit* (++ctrl+q++) ends it.
+
+### Safety code
+
+Every computer has its own key. The **safety code** is made from the keys of both computers: 30 digits in six groups. Read them out to each other once, during a call or on the phone. If they are the same on both screens, the call goes straight from your computer to the other one and nobody sits in between; click **They Match**, and the person is *verified* from then on. If they differ, click **They Differ** and do not say anything private until you have found out why.
+
+If another computer answers at the address of a person you know, for example after a new installation there, Calls does not make the call and says *Another computer answered at this address*.
+
+### Settings
+
+*Call → Settings…* (++ctrl+comma++) sets your name, the camera, microphone and speakers (or those of the desktop), whether video calls start with the camera on, echo cancellation for laptops without headphones, *Wait for calls after login* and the network port (47474). It also shows your key.
+
+!!! sovereignty "Your data"
+    - A call goes directly from computer to computer. There is no server, no account and no phone number; nobody else learns who called whom.
+    - Picture and sound are encrypted with WebRTC (DTLS-SRTP), the messages before them with TLS 1.3. The safety code shows that the keys on both ends are the right ones.
+    - Calls announces your name and key in the local network, so that others see you in their list. Who you called and when stays on your computer.
+
+!!! planned "Planned"
+    In Calls: calls over the internet with addresses like `name@call.amadeos.eu`, a relay for networks without a direct way, group calls and a blurred background.
+
+??? hood "Under the hood"
+    The key is in `~/.local/share/amadeos/call/identity.p12`, readable by you only; the settings, the known people and the list of calls are in `~/.config/amadeos/call/`. Computers find each other with Avahi (`_amadeos-call._tcp`); the calls are set up over TCP port 47474 (or the next free one) and the picture and sound go through GStreamer's WebRTC parts with VP8 and Opus. Without Avahi, calls by address still work.

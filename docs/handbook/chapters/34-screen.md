@@ -22,8 +22,26 @@ The screen savers:
 | **Swarm** | A swarm of bees chasing a wasp, after the old X11 screen saver. |
 | **Starfield** | A flight through the stars. |
 | **Floating Logo** | The amadeOS logo and the time, drifting slowly across the screen. |
+| **Lava Lamp** | Soft blobs of warm wax that rise from the bottom, merge, part and sink back again, slowly enough to watch for a while. |
 
 The **preview** to the right of the list runs the chosen screen saver in small. **Test** shows it on the whole screen; any key or mouse click ends it.
+
+### The lava lamp's colours
+
+![The Lava Lamp screen saver](images/34/lava-lamp.jpg)
+
+When **Lava Lamp** (or **Random**) is chosen, **Colours** appears under the preview:
+
+| Colours | Wax and liquid |
+|---|---|
+| **Classic** | Orange-red wax in a deep purple liquid, like the lamps of the seventies. |
+| **Ocean** | Turquoise wax in dark blue. |
+| **Lime** | Yellow-green wax in dark green. |
+| **Rose** | Pink wax in dark violet. |
+| **Amber** | Golden wax in dark brown. |
+| **Changing** | Wax and liquid slowly go round all the colours, once in about two minutes. |
+
+The preview changes as soon as you pick a colour; **Apply** keeps it.
 
 The screen saver ends at the next key press or mouse movement and does not ask for a password. That is the lock's job.
 
@@ -40,7 +58,7 @@ The lock takes over from a running screen saver. Only your login password opens 
     Leave the lock on, especially on a laptop. A screen saver alone only hides the screen; anyone who touches the mouse sees your open windows.
 
 ??? hood "Under the hood"
-    The settings are stored in `~/.config/amadeos/screen.conf`. The screen saver program of the session, started by `/etc/amadeos/autostart.d/50-amadeos-screen`, asks the X server how long there has been no input, starts the screen saver and the lock at the set times, and reads the file again whenever it changes; there is no need to log in again.
+    The settings are stored in `~/.config/amadeos/screen.conf` (the lava lamp's colours as `saver.lava.colors`). The screen saver program of the session, started by `/etc/amadeos/autostart.d/50-amadeos-screen`, asks the X server how long there has been no input, starts the screen saver and the lock at the set times, and reads the file again whenever it changes; there is no need to log in again.
 
 ## Power
 

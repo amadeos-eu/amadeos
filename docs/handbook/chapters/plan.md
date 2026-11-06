@@ -40,7 +40,7 @@ Every chapter of the book, part by part. The book keeps growing with amadeOS: ne
 32. [Backdrop](32-backdrop.md)
 33. [Keyboard, Mouse, Sound, Beep and Accessibility](33-keyboard-mouse-beep.md)
 34. [Screen and Power](34-screen.md)
-35. [Font, Window and Startup](35-font-window-startup.md)
+35. [Font, Font Viewer, Window and Startup](35-font-window-startup.md)
 36. [Clipboard](36-clipboard.md)
 
 ## Part V: The Applications

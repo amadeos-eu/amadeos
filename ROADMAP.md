@@ -86,7 +86,7 @@ Gap analysis of 2026-10-31: what a typical desktop has and amadeOS does not yet,
 12. More network settings: VPN, fixed addresses, hotspot (see *Later*).
 13. A fully customizable Front Panel: add, remove and order its cells and controls in Settings > Front Panel (today the cells can only be switched on and off), with optional extra cells such as a CPU and memory graph that opens the Task Manager.
 
-Nice to have: sticky notes, weather, a font viewer, maps. ~~A character map~~: built 2026-11-02 as the Special Characters window in the amade programs (Ctrl+Shift+U); a stand-alone one for other programs is still open.
+Nice to have: sticky notes, weather, ~~a font viewer~~ (built 2026-11-06, `amade-fontviewer`), maps. ~~A character map~~: built 2026-11-02 as the Special Characters window in the amade programs (Ctrl+Shift+U); a stand-alone one for other programs is still open.
 
 ### M12 — Compatibility, security and release hardening
 
@@ -151,6 +151,10 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 ## Timeline
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
+
+### 2026-11-06
+
+- New application [`amade-fontviewer`](https://github.com/amadeos-eu/amade-fontviewer) (#1): the **Font Viewer** lists every font in itself, shows a sample text from 12 to 64 pt, all characters by Unicode block with a search by name or code, the details from the font file (designer, licence, languages) and compares up to six fonts; a double click on a `.ttf`/`.otf` file in the File Manager opens it with **Install** and **Install for All Users** (pkexec helper); default program for font files. Settings > Font gets *Manage Fonts…*, Software a `--search=` option for *Get More Fonts…* (system #92). Free office-compatible fonts in the image: `fonts-liberation`, `fonts-crosextra-carlito`, `fonts-crosextra-caladea`, `fonts-noto-core`. User's Handbook chapter 35.
 
 ### 2026-11-05
 

@@ -4,7 +4,8 @@
 # (amade-imagescan also accepts them and stays under "Open with"), PDF files in amade-pdfviewer,
 # e-books (EPUB) and comics (CBZ) in amade-books, mail links in amade-mail, folders in amade-files, text in
 # amade-pad, documents in amade-writepad (LibreOffice Writer stays under "Open with"), music in amade-audio,
-# videos in amade-video, calendar files in amade-calendar and vCards in amade-contacts.
+# videos in amade-video, calendar files in amade-calendar, vCards in amade-contacts and font files
+# (TrueType, OpenType, collections) in amade-fontviewer.
 # Settings > Default Applications shows these as "amadeOS default" and writes the user's choices.
 [Default Applications]
 x-scheme-handler/http=firefox-esr.desktop
@@ -51,3 +52,9 @@ video/x-m4v=amade-video.desktop
 text/calendar=amade-calendar.desktop
 text/vcard=amade-contacts.desktop
 text/x-vcard=amade-contacts.desktop
+font/ttf=amade-fontviewer.desktop
+font/otf=amade-fontviewer.desktop
+font/collection=amade-fontviewer.desktop
+application/x-font-ttf=amade-fontviewer.desktop
+application/x-font-otf=amade-fontviewer.desktop
+application/vnd.ms-opentype=amade-fontviewer.desktop

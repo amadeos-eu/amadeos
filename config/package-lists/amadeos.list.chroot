@@ -46,6 +46,14 @@ fonts-dejavu-core
 # Black and white emoji for the Smileys and Emoji window of the amade programs (Java2D cannot draw
 # the colour emoji font)
 fonts-symbola
+# Free fonts with the measures of the common office fonts, so that Word, Excel and PowerPoint files keep their
+# line and page breaks: Liberation for Times New Roman, Arial and Courier New, Carlito for Calibri, Caladea for
+# Cambria; Noto for the scripts of Europe and beyond (about 45 MB). LibreOffice brings none of them without
+# recommends. The Font Viewer (amade-fontviewer) shows them all.
+fonts-liberation
+fonts-crosextra-carlito
+fonts-crosextra-caladea
+fonts-noto-core
 ca-certificates
 # Sound: PipeWire with PulseAudio and ALSA compatibility (Java Sound plays through ALSA),
 # wpctl (WirePlumber) and pactl for volume and output selection in amade-audio

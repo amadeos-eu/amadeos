@@ -20,6 +20,10 @@ amadeOS is a free, Java-powered European desktop operating system: a bootable x8
 based on Debian, with a desktop written in Java. Display manager, window manager, front panel and
 settings tools are Swing applications on Xorg, styled after the Common Desktop Environment (CDE).
 
+![The amadeOS desktop in the Horizon look](docs/screenshots/amadeos-horizon.jpg)
+
+![Programs on the Horizon desktop](docs/screenshots/amadeos-horizon-windows.jpg)
+
 ## Why amadeOS
 
 - **Open source, all the way up.** Everything from the login screen to the text editor is free

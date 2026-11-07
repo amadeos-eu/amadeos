@@ -2,11 +2,11 @@
 
 What is open and planned comes first, then a timeline of what has been achieved, newest first. A feature counts as verified only with evidence from the QEMU live image or real hardware; merged work without that evidence is listed under *Waiting for a test*. The detailed notes of each milestone up to 2026-10-24 are in the git history (ROADMAP.md at commit `b58c372`).
 
-Status date: 2026-11-05
+Status date: 2026-11-07
 
 ## Project direction
 
-amadeOS is a free, European, Java-centred desktop system based on a minimal Debian x86-64 live image, with its own Java window manager, two desktop looks (Horizon with top bar and dock, the default since 1.1.0, and Classic with the CDE-style Front Panel), display manager and applications. Current release: **1.1.0** (2026-11-04). The architectural decisions and rejected alternatives are in [`CONCEPT.md`](CONCEPT.md).
+amadeOS is a free, European, Java-centred desktop system based on a minimal Debian x86-64 live image, with its own Java window manager, two desktop looks (Horizon with top bar and dock, the default since 1.1.0, and Classic with the CDE-style Front Panel), display manager and applications. Current release: **1.2.0** (2026-11-07). The architectural decisions and rejected alternatives are in [`CONCEPT.md`](CONCEPT.md).
 
 ```mermaid
 flowchart TD
@@ -39,7 +39,7 @@ flowchart TD
 | M0 Reproducible build | Done 2026-10-09 |
 | M1 Boot (BIOS and UEFI) · M2 Session launcher · M3 Native X11 · M4 Floating WM · M5 Integrated session · M6 Power and lifecycle · M7 Reparenting and decorations · M8 Front Panel and themes · M9 Java display manager · M10 XDG discovery and .deb apps | Done 2026-10-10 |
 | M11 Virtual workspaces and root menu | Done 2026-10-11 |
-| M12 Releases and versions | Done 2026-10-25 (1.0.0; 1.1.0 on 2026-11-04) |
+| M12 Releases and versions | Done 2026-10-25 (1.0.0; 1.1.0 on 2026-11-04; 1.2.0 on 2026-11-07) |
 | M12 Compatibility and security hardening | In progress |
 | M13 Application suite | Done 2026-11-05; the rest is under *Later* |
 | M14 Installation to disk | In progress: BIOS install verified in QEMU; UEFI and hardware open |
@@ -90,7 +90,7 @@ Nice to have: sticky notes, weather, ~~a font viewer~~ (built 2026-11-06, `amade
 
 ### M12 — Compatibility, security and release hardening
 
-**Releases and versions: done.** Semantic Versioning from Conventional Commits in every repository since 2026-10-25, branches develop/release/main moved by the Promote workflow of [amadeos-ci](https://github.com/amadeos-eu/amadeos-ci) (`check-release-setup.sh` checks them); amadeOS 1.0.0 and 1.1.0 are released; amade-commons and amade-game-engine also go to Maven Central as `eu.amadeos`.
+**Releases and versions: done.** Semantic Versioning from Conventional Commits in every repository since 2026-10-25, branches develop/release/main moved by the Promote workflow of [amadeos-ci](https://github.com/amadeos-eu/amadeos-ci) (`check-release-setup.sh` checks them); amadeOS 1.0.0, 1.1.0 and 1.2.0 are released; amade-commons and amade-game-engine also go to Maven Central as `eu.amadeos`.
 
 **Hardening: open.**
 
@@ -152,6 +152,12 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 ## Timeline
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
+
+### 2026-11-07
+
+- **amadeOS 1.2.0 released** (tag `v1.2.0`, ISO and `amadeos-desktop_1.2.0_all.deb` on the GitHub Release; amadeos.eu #22): Calls, the Font Viewer, the new logo, login and lock screens in the Horizon look, the Lava Lamp screen saver, and the meta package `amadeos-desktop`, which brings new programs with updates. With it amadeos-system 1.2.0, amade-contacts 1.2.0 (call buttons), amade-bookeditor 1.1.0 (icon toolbar), amade-call and amade-fontviewer 1.0.0, amade-commons and amade-game-engine 1.1.1 (also on Maven Central), and patch releases with the Horizon README pictures for the other programs and games.
+- Calls: text chat with kept, encrypted chats, pictures and files in the chat, call links, and Video/Audio/Chat buttons on Contacts cards (amade-call #4, #5, amade-contacts #10, #11, #169, #171, commons #102).
+- Handbook pictures open at full size with a click (#170, commons #101, engine #48); Horizon Dark pictures in all handbooks and on the website.
 
 ### 2026-11-06
 

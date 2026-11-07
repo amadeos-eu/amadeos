@@ -81,7 +81,7 @@ The window has three columns:
 
 - On the left, **All Contacts**, your **groups** and **Birthdays**, which lists everyone whose birthday is in the next 30 days, the soonest first. The numbers say how many contacts each has.
 - In the middle, the contacts, with their photo or initials and an e-mail address or phone number below the name. *View → Sort by First Name* or *Sort by Last Name* sets the order.
-- On the right, the **card** of the selected contact. Next to a phone number is **Call**, next to an e-mail address **Write**, next to an address **Map**, next to a website **Open**.
+- On the right, the **card** of the selected contact. Next to a phone number is **Call**, next to an e-mail address **Write**, next to an address **Map**, next to a website **Open**. A person you added from [Calls](44-mailer.md#chat) has a line *amadeOS Calls* with buttons for a video call, an audio call and a chat.
 
 **Search** (++ctrl+f++) finds contacts by any part of what is on their card: the name, the organization, an e-mail address, a city, a group or the notes. Phone numbers are found by their digits, so `5550123` finds `+49 170 555 0123`, and accents do not count: `muller` finds *Müller*. ++down++ moves from the search field into the list, ++esc++ clears the search.
 

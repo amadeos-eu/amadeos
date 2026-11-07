@@ -129,7 +129,7 @@ The name others see is the one in *Call → Settings…*; at first it is your fu
 
 ### Calling
 
-Choose a person and click **Video Call** (++ctrl+enter++) or **Audio Call** (++ctrl+shift+enter++). A computer that does not show up in the list, for example one behind a VPN, is called with *Call → Call Address…* (++ctrl+l++): type its name, such as `anna-pc.local`, or its IP address, such as `192.168.1.20`, if needed with the port, such as `192.168.1.20:47475`.
+Choose a person and click **Video Call** (++ctrl+enter++), **Audio Call** (++ctrl+shift+enter++) or **Chat** (++ctrl+t++). The buttons show pictures; their names appear when the pointer rests on them. A computer that does not show up in the list, for example one behind a VPN, is called with *Call → Call Address…* (++ctrl+l++): type its name, such as `anna-pc.local`, or its IP address, such as `192.168.1.20`, if needed with the port, such as `192.168.1.20:47475`.
 
 The call window shows the other person large and yourself small in the corner:
 
@@ -140,11 +140,23 @@ The call window shows the other person large and yourself small in the corner:
 | **Microphone** (++ctrl+d++) | Switches your microphone off and on; the other side sees a crossed-out microphone |
 | **Camera** (++ctrl+e++) | Switches your camera off and on; the other side sees your initials instead |
 | **Share Screen** | Shows your screen instead of the camera, and back. The other side sees everything on it |
-| **Chat** | Short messages beside the picture, for a link or an address |
+| **Chat** | Messages, pictures and files beside the picture (see *Chat* below) |
 | **Safety Code** | The numbers to compare (below) |
 | **Hang Up** | Ends the call |
 
 ++f11++ shows the picture on the whole screen, ++esc++ goes back. When the call ends, the window says why, for example *The call was declined* or *Busy: the other side is in another call*, and closes.
+
+### Chat
+
+A **chat** is a conversation in writing, without picture and sound: choose a person and click **Chat** (++ctrl+t++). The other side sees *wants to chat with you* and accepts as with a call. Your messages are on the right in the colour of your theme, theirs on the left. The camera and handset buttons below end the chat and call the same person; the messages so far move into the call window.
+
+![A chat with a picture of a floor plan](images/44/call-chat.jpg)
+
+**Pictures and files** go with the paper clip next to the text field, or by dragging them from the File Manager onto the chat, up to 2 GB each. Pictures show small in the chat; a click opens a picture or file with its program. Received files are in the folder *Downloads/amade-call*; a file there is never overwritten, a second *photo.jpg* becomes *photo (2).jpg*. A received program or script is not started by a click; its folder opens instead.
+
+The chat with each person is **kept**, encrypted, and the next chat or call with them shows it above, lighter and with the date. *Person → Clear Chat History…* deletes it, and *Keep chats* in the settings turns it off.
+
+**From Contacts.** *Person → Add to Contacts…* puts the person into [Contacts](45-calendar.md#contacts), into a contact of the same name or a new one. Their card there then has a line *amadeOS Calls* with buttons for a video call, an audio call and a chat.
 
 ### When someone calls
 
@@ -175,4 +187,4 @@ If another computer answers at the address of a person you know, for example aft
     In Calls: calls over the internet with addresses like `name@call.amadeos.eu`, a relay for networks without a direct way, group calls and a blurred background.
 
 ??? hood "Under the hood"
-    The key is in `~/.local/share/amadeos/call/identity.p12`, readable by you only; the settings, the known people and the list of calls are in `~/.config/amadeos/call/`. Computers find each other with Avahi (`_amadeos-call._tcp`); the calls are set up over TCP port 47474 (or the next free one) and the picture and sound go through GStreamer's WebRTC parts with VP8 and Opus. Without Avahi, calls by address still work.
+    The key is in `~/.local/share/amadeos/call/identity.p12`, readable by you only; the settings, the known people and the list of calls are in `~/.config/amadeos/call/`. Kept chats are in `~/.local/share/amadeos/call/chats/`, one file per person, encrypted with AES-256-GCM; the key lies in your login keyring. Pictures and files travel in pieces through the same encrypted connection as the messages and are checked with SHA-256 when they arrive. Computers find each other with Avahi (`_amadeos-call._tcp`); the calls are set up over TCP port 47474 (or the next free one) and the picture and sound go through GStreamer's WebRTC parts with VP8 and Opus. Without Avahi, calls by address still work.

@@ -20,7 +20,7 @@
 #                 main (the releases); a repository without that branch is built from main
 #   --no-clone    do not clone missing repositories; build only what is checked out
 #   --no-pull     build the checkouts as they are (no git fetch, no branch switch)
-#   --skip-tests  skip the unit tests of amade-commons and the apps
+#   --skip-tests  skip the unit tests of amade-commons and the apps (they run under xvfb-run otherwise)
 #   --quick       repack the previous image instead of a full live-build (AMADEOS_QUICK=1)
 #   --apps LIST   build only these apps (directory names, space-separated)
 #
@@ -154,8 +154,20 @@ main() {
     local gradle_args=(--no-daemon clean)
     if [ "$tests" = 1 ]; then gradle_args+=(build); else gradle_args+=(assemble); fi
 
+    # The tests run on a private X server (Xvfb), as in CI. On the real desktop they would fail or do
+    # harm: the screen lock test grabs keyboard and pointer and types passwords through XTest, and
+    # other tests open windows and click into them.
+    local display_wrapper=()
+    if [ "$tests" = 1 ]; then
+        if ! command -v xvfb-run >/dev/null; then
+            echo "The tests need xvfb-run: sudo apt install xvfb (or build with --skip-tests)" >&2
+            return 1
+        fi
+        display_wrapper=(xvfb-run -a -s "-screen 0 1440x900x24")
+    fi
+
     step "Building amade-commons"
-    (cd "$commons_dir" && ./gradlew "${gradle_args[@]}")
+    (cd "$commons_dir" && "${display_wrapper[@]}" ./gradlew "${gradle_args[@]}")
 
     # Remove the app packages of earlier builds, so an app whose version changed is not installed
     # twice. The icon theme and backdrop packages stay; build.sh only builds them when missing.
@@ -191,7 +203,7 @@ main() {
             main) git -C "$parent_dir/$app" tag --points-at HEAD | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$' && channel=release ;;
         esac
         version=$(cd "$parent_dir/$app" && GITHUB_RUN_NUMBER=0 "$parent_dir/amadeos-ci/scripts/next-version.sh" "$channel")
-        (cd "$parent_dir/$app" && ./gradlew "${gradle_args[@]}" -PappVersion="$version" installToAmadeOs)
+        (cd "$parent_dir/$app" && "${display_wrapper[@]}" ./gradlew "${gradle_args[@]}" -PappVersion="$version" installToAmadeOs)
     done
 
     # amade-commons carries the Application Developer's Handbook (docs/handbook), which shows code from

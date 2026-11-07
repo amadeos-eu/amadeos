@@ -2,7 +2,7 @@
 
 After the installation, the computer starts amadeOS from its disk. A few seconds after the boot menu, the login screen appears, now with the user you created.
 
-![The login screen of amadeOS](images/20/login-screen.jpg)
+![The login screen of amadeOS](images/20/login-screen-horizon.jpg)
 
 Type your password and press ++enter++. The language, keyboard and time zone you chose in the installer are already set. Chapter 20 explains every field of the login screen.
 

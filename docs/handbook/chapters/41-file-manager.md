@@ -243,9 +243,7 @@ While a backup runs, a **violet** run of dashes moves from right to left in the 
 
 A notification (chapter 28) comes only when you need to do something. When a backup is overdue (two days for a daily one, nine for a weekly one) and its disk is not connected, it reminds you, at most once a day; *Open Backup & Sync* opens the program. A backup that fails, for example because the disk is full, gets a notification with the reason that stays on the screen until you close it.
 
-Where no notification service runs (another desktop without one), the helper shows a small window instead:
-
-![The reminder window](images/41/backup-reminder.jpg)
+Where no notification service runs (another desktop without one), the helper shows a small window *Backup Reminder* instead. It says, for example, *The backup "Documents" was last made on 2 November, 5 days ago. Connect the disk Backup to back up.*, and has the buttons *Open Backup & Sync* and *Later*. A failed backup comes in the same way, as a window *Backup Problem* with the reason and the buttons *Open Backup & Sync* and *Close*.
 
 A sync with a schedule runs by itself too, for example *Music for the car* whenever the stick is plugged in. If it only copies, it simply runs. If it would remove or replace files on the target, its preview comes first, and nothing happens until you click *Sync Now*.
 

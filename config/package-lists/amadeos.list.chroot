@@ -145,6 +145,16 @@ yt-dlp
 # v4l2-ctl for amade-webcam, which lists the sizes of a camera and sets its picture controls with it;
 # a dependency of the package, listed here because the image is built with it in mind
 v4l-utils
+# Calls (amade-call): GStreamer's WebRTC parts (webrtcbin in plugins-bad, libnice for the connection), VP8 and
+# the camera (plugins-good), Opus (plugins-base) and PulseAudio/PipeWire for microphone and speakers;
+# avahi-utils announces the program and finds the others in the network. Dependencies of the package,
+# listed here because the image is built with it in mind
+gstreamer1.0-plugins-base
+gstreamer1.0-plugins-good
+gstreamer1.0-plugins-bad
+gstreamer1.0-nice
+gstreamer1.0-pulseaudio
+avahi-utils
 # Bluetooth: BlueZ (bluetoothd), which Settings > Bluetooth and the Bluetooth cell of the front panel
 # drive over D-Bus; libspa-0.2-bluetooth lets PipeWire play on Bluetooth headphones and speakers.
 # The live user is in the bluetooth group (/etc/live/config.conf), so pairing needs no password.

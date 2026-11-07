@@ -115,7 +115,7 @@ Work that is wanted but belongs to no open milestone:
 - Network settings: fixed addresses, VPN and a hotspot on the Settings Network page; connections, hidden WLANs and the proxy are there already, the rest is still `nmtui`. A firewall switch (nftables).
 - amade-mail: test Gmail OAuth2 and decide whether to ship a datazuul OAuth client; IMAP IDLE with new-mail state in the in-tray; autoconfig (Thunderbird ISPDB, DNS SRV).
 - amade-contacts: meeting attendees in the Calendar, CardDAV.
-- amade-call: a blurred background in video calls (asked for on 2026-11-07; person segmentation with a small ONNX model, switched on in the settings); sending pictures and files in the chat (preview in the chat, saved under Downloads); calls over the internet (call server and TURN relay on api.amadeos.eu, addresses `name@call.amadeos.eu`).
+- amade-call: a blurred background in video calls (asked for on 2026-11-07; person segmentation with a small ONNX model, switched on in the settings); calls over the internet (call server and TURN relay on api.amadeos.eu, addresses `name@call.amadeos.eu`).
 - amade-imageviewer: map tiles not yet tried against the live tile server.
 - amade-writepad: save as HTML (asked for on 2026-11-02): headings, bold and italic, lists, tables and pictures as a web page; written by WritePad itself, or through LibreOffice like DOC.
 - A fully customizable Front Panel (item 13 of *Missing for daily use*).

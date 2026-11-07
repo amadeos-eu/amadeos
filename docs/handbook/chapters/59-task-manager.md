@@ -65,9 +65,7 @@ A click on a graph shows it large; a second click shows all four again. The grap
 
 ## When a program does not respond
 
-![A program that does not respond](images/59/not-responding.jpg)
-
-Every two seconds the window manager asks the active window whether its program is still there, and again when you click a window's close button. A program that has not answered for **5 seconds** gets *(Not Responding)* after its title, and a dialog asks what to do:
+Every two seconds the window manager asks the active window whether its program is still there, and again when you click a window's close button. A program that has not answered for **5 seconds** gets *(Not Responding)* after its title, and a small dialog *Not Responding* appears in the middle of the screen. It names the program, for example *“Mozilla Firefox” is not responding.*, says that you can wait for it or end it, and that unsaved changes are lost if you end it. Below that it names the program's process, when the window tells which one it is. It has three buttons:
 
 - **Wait** closes the dialog. A program that is busy with a long task often answers again; then the dialog closes by itself, and the title loses the mark.
 - **End Program** ends it, as above.

@@ -20,6 +20,7 @@ Every chapter of the book, part by part. The book keeps growing with amadeOS: ne
 14. [Installing amadeOS](14-installing.md)
 15. [Next to Windows](15-next-to-windows.md)
 16. [The First Start](16-first-start.md)
+17. [On an Existing Debian or Ubuntu](17-existing-debian-or-ubuntu.md)
 
 ## Part III: Using the Desktop
 

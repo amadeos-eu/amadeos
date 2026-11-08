@@ -6,6 +6,9 @@ amadeOS comes as one file, the *image*, named after the version: `amadeos-1.0.0-
 
 Every amadeOS release offers its image for download on the [download page](https://www.amadeos.eu/download.html) and on the [releases page](https://github.com/amadeos-eu/amadeos/releases/latest) of the amadeos repository, for example `amadeos-1.0.0-amd64.iso` for version 1.0.0, together with its checksum file and the release notes. The image is about 1.5 GB.
 
+!!! tip "Already running Debian or Ubuntu?"
+    You can add the amadeOS desktop to an existing Debian 13 or Ubuntu 26.04 system without the image: chapter 17, [On an Existing Debian or Ubuntu](17-existing-debian-or-ubuntu.md).
+
 ## Building the image yourself
 
 Instead of downloading it, you can build the image yourself. On a computer with Debian or Ubuntu Linux, the script `buildDistribution.sh` of the [amadeos](https://github.com/amadeos-eu/amadeos) repository builds every package of amadeOS from the current source code and then the image:

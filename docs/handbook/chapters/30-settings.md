@@ -4,7 +4,7 @@
 
 ## Opening it
 
-- Open the **Tools** drawer of the Front Panel and choose **Settings** (chapter 22),
+- Click **Settings** in the Front Panel, the palette between the Print Manager and Tools (chapter 22), or the Settings icon in Horizon's dock (chapter 29); it is also in the **Tools** drawer,
 - or choose **Settings…** in the Workspace Menu (right mouse button on the backdrop, chapter 24),
 - or type `amadeos-settings` in a terminal. `amadeos-settings mouse` opens it at the *Mouse* page, and so on for every control; `amadeos-settings proxy` opens the *Proxy* tab of the Network page. The old name `amadeos-style` still works.
 

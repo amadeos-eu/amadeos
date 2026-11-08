@@ -156,7 +156,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-11-08
 
-- Pinball, the 19th game ([`amade-pinball-game`](https://github.com/amadeos-eu/amade-pinball-game) #1, game engine #49): three original tables in perspective with real ball physics, ramps, upper playfields, multiball and modes; the engine's new `pinball` package; Part VII of the Game Developer's Handbook.
+- Pinball, the 19th game ([`amade-pinball-game`](https://github.com/amadeos-eu/amade-pinball-game) #1, game engine #50, system #115): three original tables in perspective with real ball physics, ramps, upper playfields, multiball and modes; the engine's new `pinball` package; Part VII of the Game Developer's Handbook.
 
 ### 2026-11-07
 

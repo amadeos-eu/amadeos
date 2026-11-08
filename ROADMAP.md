@@ -154,6 +154,10 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
 
+### 2026-11-08
+
+- Pinball, the 19th game ([`amade-pinball-game`](https://github.com/amadeos-eu/amade-pinball-game) #1, game engine #49): three original tables in perspective with real ball physics, ramps, upper playfields, multiball and modes; the engine's new `pinball` package; Part VII of the Game Developer's Handbook.
+
 ### 2026-11-07
 
 - **amadeOS 1.2.0 released** (tag `v1.2.0`, ISO and `amadeos-desktop_1.2.0_all.deb` on the GitHub Release; amadeos.eu #22): Calls, the Font Viewer, the new logo, login and lock screens in the Horizon look, the Lava Lamp screen saver, and the meta package `amadeos-desktop`, which brings new programs with updates. With it amadeos-system 1.2.0, amade-contacts 1.2.0 (call buttons), amade-bookeditor 1.1.0 (icon toolbar), amade-call and amade-fontviewer 1.0.0, amade-commons and amade-game-engine 1.1.1 (also on Maven Central), and patch releases with the Horizon README pictures for the other programs and games.

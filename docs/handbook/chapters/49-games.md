@@ -1,13 +1,13 @@
 # 49. Games
 
-amadeOS comes with **eighteen games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
+amadeOS comes with **nineteen games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
 
 ## What all games share
 
 - **Best scores and times**, ten for each game (*Game → High Scores…* in Mines and Solitaire).
 - Every game speaks the five languages of amadeOS.
 
-The fifteen action and strategy games also share:
+The sixteen action and strategy games also share:
 
 | Key | What it does |
 |---|---|
@@ -78,6 +78,20 @@ A first-person shooter in 3D. An engineer goes down into Kessel Deep, a mine und
 - ++tab++ shows the map of what you have seen. ++p++ or ++esc++ pauses.
 - The first start takes a few seconds while the machines are built in 3D; later starts are quick.
 
+## A pinball machine
+
+### Pinball
+
+![Pinball](images/49/pinball.jpg){ width="400" }
+
+Three pinball tables, seen from the player's end of the cabinet: **Lantern Fair** (easy), a fairground at night with a Ferris wheel; **Coral Deep** (medium), a wreck on a reef with a mini playfield in the hold; **Orbit Yard** (hard), a dockyard in orbit with an upper playfield on the Moon Dock. Ramps, pop bumpers, drop targets, a ball lock and multiball, eight modes and a wizard mode on each table. Up to four players take turns.
+
+- On the title, ++arrow-left++ and ++arrow-right++ choose the table, ++arrow-up++, ++arrow-down++ or ++1++ to ++4++ the number of players, ++enter++ starts.
+- The **left** and **right** ++shift++ keys work the flippers (or ++z++ and ++minus++). Hold ++space++ to pull the plunger and let go to shoot: the longer, the harder. The right strength scores the skill shot.
+- ++x++, ++period++ and ++arrow-up++ nudge the table. Nudge too often and the ball tilts.
+- Shoot what blinks: the lamps show what a mode wants, where the jackpots are and what lights the lock.
+- Each table has its own list of best scores. Gamepads work too: the shoulder buttons are the flippers, **A** the plunger.
+
 ## A story
 
 ### The Seal of the Templars
@@ -113,6 +127,7 @@ Every game has its source code in a repository of its own on GitHub. If a game m
 | Hover Cab | [amade-hover-cab-game](https://github.com/amadeos-eu/amade-hover-cab-game) | [Report a problem](https://github.com/amadeos-eu/amade-hover-cab-game/issues) |
 | Artillery | [amade-artillery-game](https://github.com/amadeos-eu/amade-artillery-game) | [Report a problem](https://github.com/amadeos-eu/amade-artillery-game/issues) |
 | Rivet | [amade-rivet-game](https://github.com/amadeos-eu/amade-rivet-game) | [Report a problem](https://github.com/amadeos-eu/amade-rivet-game/issues) |
+| Pinball | [amade-pinball-game](https://github.com/amadeos-eu/amade-pinball-game) | [Report a problem](https://github.com/amadeos-eu/amade-pinball-game/issues) |
 | Towers | [amade-towers-game](https://github.com/amadeos-eu/amade-towers-game) | [Report a problem](https://github.com/amadeos-eu/amade-towers-game/issues) |
 | Sands | [amade-sands-game](https://github.com/amadeos-eu/amade-sands-game) | [Report a problem](https://github.com/amadeos-eu/amade-sands-game/issues) |
 | Colony | [amade-colony-game](https://github.com/amadeos-eu/amade-colony-game) | [Report a problem](https://github.com/amadeos-eu/amade-colony-game/issues) |

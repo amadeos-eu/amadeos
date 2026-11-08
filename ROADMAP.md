@@ -156,6 +156,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-11-08
 
+- Cruise, the 20th game ([`amade-cruise-game`](https://github.com/amadeos-eu/amade-cruise-game) #1, game engine #51, system #116): a relaxing pseudo-3D drive through endless landscapes made on the way, with traffic, time of day, weather and life at the roadside; a race against the computer or a second player on a split screen; a garage of three cars; a playlist of the player's own music and tracker modules; the engine's new `drive` package; chapter 61 of the Game Developer's Handbook.
 - Pinball, the 19th game ([`amade-pinball-game`](https://github.com/amadeos-eu/amade-pinball-game) #1, game engine #50, system #115): three original tables in perspective with real ball physics, ramps, upper playfields, multiball and modes; the engine's new `pinball` package; Part VII of the Game Developer's Handbook.
 - The Audio Station plays tracker modules (MOD, XM, S3M, IT and older formats) through libopenmpt, with title, length and seeking (amade-audio #21, commons #106); `libopenmpt0t64` in the image.
 

@@ -3,9 +3,30 @@
 **Color** chooses the **palette**, the set of colours for the whole desktop: window frames, buttons, menus, the Front Panel, the four workspaces, and every amadeOS application. It also chooses the **icon theme**.
 
 !!! note "Horizon"
-    The palettes belong to the Classic look. In the Horizon look (chapter 29) the Color page shows Horizon's colours instead: the **Scheme**, *Dark* or *Light*, the **Accent colour** and **Use the Horizon background picture**, the same controls as on the *Desktop look* page. Changing them keeps the Horizon look; only the *Desktop look* page switches between Horizon and Classic. The icon theme below is Horizon's (at first amadeOS Horizon), and your palette and your icon theme come back when you switch to Classic again.
+    The palettes belong to the Classic look. In the Horizon look (chapter 29) the Color page shows Horizon's colours instead: the **Scheme**, *Dark* or *Light*, the **Palette** of the scheme, the **Accent colour** and **Use the Horizon background picture**, the same controls as on the *Desktop look* page (see *Horizon's palettes* below). Changing them keeps the Horizon look; only the *Desktop look* page switches between Horizon and Classic. The icon theme below is Horizon's (at first amadeOS Horizon), and your palette and your icon theme come back when you switch to Classic again.
 
 ![The Color page](images/31/settings-color.jpg)
+
+## Horizon's palettes
+
+Like the Classic look, Horizon has palettes, a few for each scheme. They change the grey of the windows, the fields and lists, and the top bar and dock; the accent colour stays the one you chose. Each palette is shown as a small window with its name under it; click one, then **Apply**.
+
+| Scheme | Palette | Colours |
+|---|---|---|
+| Light | *Paper* | The brightest: white fields on a very light grey. Horizon's first light palette and the default. |
+| Light | *Mist* | A cool light grey, a step darker than Paper. |
+| Light | *Sand* | Warm beige, like recycled paper. |
+| Light | *Sage* | A soft grey-green. |
+| Light | *Stone* | A medium grey, the darkest of the light palettes, with the strongest contrast. |
+| Dark | *Night* | Dark blue-grey. Horizon's first dark palette and the default. |
+| Dark | *Graphite* | A neutral dark grey without blue. |
+| Dark | *Ocean* | A deep navy blue. |
+
+If the light scheme is too bright for your screen, try *Mist* or *Stone*. Changing the scheme selects that scheme's default palette; your choice comes back when you switch to Classic and to Horizon again.
+
+![Horizon's light palettes on the Color page, with Mist chosen](images/31/horizon-palettes.jpg)
+
+![The dark palettes, with Ocean chosen](images/31/horizon-palettes-dark.jpg)
 
 ## The palettes
 

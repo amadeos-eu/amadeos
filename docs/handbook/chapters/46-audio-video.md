@@ -14,10 +14,16 @@ The window has no frame of its own: its top rack is the title bar. Drag it to mo
 |---|---|
 | **Mixer** | A fader for each device, the microphone, the output (speakers, headphones, HDMI), bass and treble, and the master volume. *Mute* silences everything. |
 | **CD** | Plays audio CDs. The titles come from the CD itself or from the free MusicBrainz database, the cover from the Cover Art Archive; a CD it knows needs no network. *Edit Titles…* names the tracks by hand. |
-| **Player** | Plays MP3, Ogg Vorbis, AAC, FLAC, WAV, AIFF and MIDI files. Drop files or folders on the list below the racks. |
+| **Player** | Plays MP3, Ogg Vorbis, AAC, FLAC, WAV, AIFF and MIDI files, and tracker modules (MOD, XM, S3M, IT). Drop files or folders on the list below the racks. |
 | **Web Radio** | Thousands of internet radio stations from radio-browser.info: search by name, genre or country, keep your favourites. *Stations…* opens the list. |
 
 Below the racks, the **list** shows the playlist, the tracks of the CD or the stations, with a large cover beside it.
+
+### Tracker modules
+
+Tracker modules are the music of Amiga and DOS games and of the demo scene: songs made of short sound samples and notes, in a few kilobytes. The Player plays the four common kinds, **MOD**, **XM**, **S3M** and **IT**, and older ones such as MTM, 669, STM, MED, OKT, FAR, ULT and UMX. Files from Amiga collections often have the kind in front of the name, `mod.Song title`; these play too. The list shows the song's title from the module itself and its length; you can jump to any point with the position slider. A module plays once to its end, even if the song itself would loop forever.
+
+Collections of free modules are at *The Mod Archive* (modarchive.org) and *Aminet* (aminet.net).
 
 ### Recording the radio
 
@@ -216,4 +222,4 @@ On the right are the **picture controls** the camera offers: brightness, contras
     A blurred or replaced background, and recording the screen together with the camera.
 
 ??? hood "Under the hood"
-    The Audio Station plays music in Java itself and reads CDs with libcdio; its settings are in `~/.config/amadeos/audio/`, the CD titles and covers in `~/.cache/amadeos/audio/discs/`. The Video Player leaves the playing to *libmpv*, the engine of the mpv player, with FFmpeg and libdvdnav. TV plays with libmpv too and records with *ffmpeg*, which copies the stream into the file without converting it. It takes the stream addresses and what runs now from the Zapp service of the MediathekView project, the addresses of the other channels from the IPTV list of the Kodinerds community, and the guide from the ARD and the ZDF; the guide and the channel logos are kept in `~/.cache/amadeos/tv/`, the settings, reminders and recordings list in `~/.config/amadeos/tv/`. Webcam reads the camera through *ffmpeg* (Video4Linux) and its picture controls with `v4l2-ctl`, records with a second ffmpeg (H.264 and AAC for MP4, VP9 and Opus for WebM), and reads QR codes with the ZXing library; its settings, including the picture controls of each camera, are in `~/.config/amadeos/webcam/`.
+    The Audio Station plays music in Java itself, tracker modules with *libopenmpt*, the library of the OpenMPT tracker, and reads CDs with libcdio; its settings are in `~/.config/amadeos/audio/`, the CD titles and covers in `~/.cache/amadeos/audio/discs/`. The Video Player leaves the playing to *libmpv*, the engine of the mpv player, with FFmpeg and libdvdnav. TV plays with libmpv too and records with *ffmpeg*, which copies the stream into the file without converting it. It takes the stream addresses and what runs now from the Zapp service of the MediathekView project, the addresses of the other channels from the IPTV list of the Kodinerds community, and the guide from the ARD and the ZDF; the guide and the channel logos are kept in `~/.cache/amadeos/tv/`, the settings, reminders and recordings list in `~/.config/amadeos/tv/`. Webcam reads the camera through *ffmpeg* (Video4Linux) and its picture controls with `v4l2-ctl`, records with a second ffmpeg (H.264 and AAC for MP4, VP9 and Opus for WebM), and reads QR codes with the ZXing library; its settings, including the picture controls of each camera, are in `~/.config/amadeos/webcam/`.

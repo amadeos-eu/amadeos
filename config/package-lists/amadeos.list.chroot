@@ -64,11 +64,13 @@ wireplumber
 pulseaudio-utils
 alsa-utils
 # amade-audio: audio CDs (libcdio, error correction with libcdio-paranoia), General MIDI
-# SoundFont, eject; recommended by the package but the image installs no recommends
+# SoundFont, tracker modules (libopenmpt: MOD, XM, S3M, IT), eject; recommended by the package
+# but the image installs no recommends
 libcdio19t64
 libcdio-cdda2t64
 libcdio-paranoia2t64
 fluid-soundfont-gm
+libopenmpt0t64
 eject
 # Network: NetworkManager (Ethernet via DHCP, WLAN via wpasupplicant, nmcli/nmtui), driven by the
 # network cell of the front panel; polkitd lets the netdev group manage connections without root

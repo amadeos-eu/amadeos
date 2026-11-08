@@ -18,6 +18,8 @@ Open **Settings → Desktop look** (the first page of the *Appearance* group).
 4. Under **Dock**, choose the **Icon size** (*Small*, *Medium* or *Large*) and whether the dock shows the program drawers and the Downloads and Documents folders.
 5. Click **Apply**.
 
+Scheme, accent colour and background picture are on the **Color** page (chapter 31) as well, in place of the classic palettes, so you can change Horizon's colours there without leaving Horizon.
+
 You can also choose the look when you log in: pick **amadeOS Horizon** or **amadeOS Classic (CDE)** in the *Session* list of the login screen (chapter 20). The desktop then starts in that look, which stays for your later logins, exactly as if you had chosen it here. Scheme, accent and dock are the ones you last chose on this page; the background picture does not change. The login screen itself already shows the look of the session you choose, and the locked screen (chapter 26), the password questions of the system and the Exit dialog follow the look of your desktop.
 
 ![Horizon with the Light scheme and the violet accent](images/29/horizon-light.jpg)

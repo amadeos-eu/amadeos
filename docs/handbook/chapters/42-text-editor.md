@@ -1,6 +1,6 @@
 # 42. Text Editor and Terminal
 
-The **Text Editor** is for plain text without formatting: notes, shopping lists, a README, the settings files of the system. For letters with fonts and pages, use WritePad (chapter 43).
+The **Text Editor** is for plain text without formatting: notes, shopping lists, a README, the settings files of the system, and program code such as scripts, web pages or configuration in JSON, XML or YAML. For letters with fonts and pages, use WritePad (chapter 43).
 
 Start it with the Text & Office slot of the Front Panel, or with `amade-pad file.txt`.
 
@@ -10,7 +10,7 @@ Start it with the Text & Office slot of the Front Panel, or with `amade-pad file
 
 - **Several files in tabs.** Each open file has a tab; a `*` in the tab means unsaved changes. Closing a tab or the window asks before throwing changes away.
 - **Line numbers** on the left (*View → Line Numbers*) and **word wrap** for long lines (*View → Word Wrap*).
-- **The status line** shows the line and column of the cursor, the encoding, the kind of line ends and the number of characters.
+- **The status line** shows the language and indentation of the file, the line and column of the cursor, the encoding, the kind of line ends and the number of characters.
 - **Find and replace** in a window that stays open while you work, with *Match case* and *Wrap around*.
 
 | Key | What it does |
@@ -21,9 +21,26 @@ Start it with the Text & Office slot of the Front Panel, or with `amade-pad file
 | ++ctrl+z++ / ++ctrl+y++ | Undo / redo |
 | ++ctrl+f++ / ++f3++ | Find / find next |
 | ++ctrl+h++ | Replace |
+| ++ctrl+shift+f++ | Format the document (JSON and XML) |
+| ++tab++ / ++shift+tab++ | Indent / unindent the selected lines |
 | ++ctrl+shift+u++ | Special characters ([chapter 40](40-applications.md#special-characters)) |
 | ++ctrl+period++ | Smileys and emoji ([chapter 40](40-applications.md#smileys-and-emoji)) |
 | ++ctrl+q++ | Exit |
+
+## Program code: colours and indentation
+
+When you open a script, a web page or a settings file, the Text Editor colours it: keywords, text in quotes, numbers and comments each get their own colour, in shades that suit the light or dark colours of your desktop. It recognises about 35 languages, among them shell scripts, Python, Java, C and C++, JavaScript, HTML, CSS, XML, JSON, YAML, Markdown, SQL, Makefiles and Dockerfiles, by the name of the file (`backup.sh`, `Makefile`) or by its first line (`#!/usr/bin/env python3`). The language is shown at the left of the status line. If the guess is wrong, choose the language in *View → Syntax*.
+
+![Indentation settings for a Java file in the Horizon Dark look](images/42/text-editor-syntax.png)
+
+- **Indentation.** When you press ++enter++, the new line starts as far in as the previous one, and one level further after `{` or `:`. ++tab++ and ++shift+tab++ move selected lines in or out, and ++backspace++ at the start of a line goes back a whole level. One level is two spaces unless you choose otherwise in *Options → Indentation*: a width of 2, 4 or 8, and *Use Tabs Instead of Spaces*. Your choice applies to the current file and to every new one. A file that is already indented keeps its own way. Makefiles and Go always use tabs, and YAML never does. The status line shows the indentation, for example *Spaces: 2*.
+- **Blocks and brackets.** The small arrows next to the line numbers fold a block, such as a function, so only its first line shows. When the cursor is at a bracket, the matching one is marked. Both can be switched off in the *View* menu.
+- **Format Document.** *Edit → Format Document* (++ctrl+shift+f++) indents a whole JSON or XML file neatly, for example a settings file that came as one long line. Values and texts stay exactly as they were. If the file has an error, it is left unchanged, and a message names the line. ++ctrl+z++ undoes the formatting in one step.
+
+![A JSON file after Format Document](images/42/text-editor-format.png)
+
+!!! switching "Coming from Windows or macOS"
+    For program code, the Text Editor does what Notepad++ adds to Notepad on Windows: colours and indentation. For larger programming projects, a programming editor such as Geany can be installed from Software.
 
 ## Encodings and line ends
 

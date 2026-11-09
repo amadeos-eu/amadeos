@@ -1,13 +1,13 @@
 # 49. Games
 
-amadeOS comes with **nineteen games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
+amadeOS comes with **twenty games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
 
 ## What all games share
 
 - **Best scores and times**, ten for each game (*Game → High Scores…* in Mines and Solitaire).
 - Every game speaks the five languages of amadeOS.
 
-The sixteen action and strategy games also share:
+The seventeen action and strategy games also share:
 
 | Key | What it does |
 |---|---|
@@ -78,6 +78,20 @@ A first-person shooter in 3D. An engineer goes down into Kessel Deep, a mine und
 - ++tab++ shows the map of what you have seen. ++p++ or ++esc++ pauses.
 - The first start takes a few seconds while the machines are built in 3D; later starts are quick.
 
+## On the road
+
+### Cruise
+
+![Cruise](images/49/cruise.jpg){ width="400" }
+
+A relaxing drive through landscapes that are made as the road goes on: larch valleys, sunflower plains, a coast with lighthouses, a red canyon with tunnels, a mountain pass, a neon city at night, and two dreams, fields of giant mushrooms and a road above the clouds. The sun goes down and comes up again, rain and fog come and go, deer, birds and a train pass by, and there is always a truck to overtake. In the **garage** you choose your car (an open roadster, a sports coupé or a camper van) and its colour; in a **race** you drive against the computer or against a second player at the same keyboard, the screen split in two.
+
+- ++arrow-up++ is the gas, ++arrow-down++ the brake, ++arrow-left++ and ++arrow-right++ steer; the second player drives with ++w++ ++a++ ++s++ ++d++. ++space++ is the horn.
+- At a fork, the sign names two regions: keep to the left or the right lane to choose.
+- ++c++ lets the car drive by itself, ++p++ saves a photo in *Pictures/Cruise*, ++j++ shows the journal with the regions you found.
+- ++ctrl+r++ silences the music, ++r++ changes the station (the game's own tunes, your playlist, or only the wind), ++n++ plays the next track.
+- *Game → Settings* sets the loudness of music, car and landscape, the playlist (your own MP3, Ogg, FLAC files and tracker modules), the time of day, the weather and how busy the roads are.
+
 ## A pinball machine
 
 ### Pinball
@@ -127,6 +141,7 @@ Every game has its source code in a repository of its own on GitHub. If a game m
 | Hover Cab | [amade-hover-cab-game](https://github.com/amadeos-eu/amade-hover-cab-game) | [Report a problem](https://github.com/amadeos-eu/amade-hover-cab-game/issues) |
 | Artillery | [amade-artillery-game](https://github.com/amadeos-eu/amade-artillery-game) | [Report a problem](https://github.com/amadeos-eu/amade-artillery-game/issues) |
 | Rivet | [amade-rivet-game](https://github.com/amadeos-eu/amade-rivet-game) | [Report a problem](https://github.com/amadeos-eu/amade-rivet-game/issues) |
+| Cruise | [amade-cruise-game](https://github.com/amadeos-eu/amade-cruise-game) | [Report a problem](https://github.com/amadeos-eu/amade-cruise-game/issues) |
 | Pinball | [amade-pinball-game](https://github.com/amadeos-eu/amade-pinball-game) | [Report a problem](https://github.com/amadeos-eu/amade-pinball-game/issues) |
 | Towers | [amade-towers-game](https://github.com/amadeos-eu/amade-towers-game) | [Report a problem](https://github.com/amadeos-eu/amade-towers-game/issues) |
 | Sands | [amade-sands-game](https://github.com/amadeos-eu/amade-sands-game) | [Report a problem](https://github.com/amadeos-eu/amade-sands-game/issues) |

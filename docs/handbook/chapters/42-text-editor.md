@@ -40,7 +40,7 @@ When you open a script, a web page or a settings file, the Text Editor colours i
 ![A JSON file after Format Document](images/42/text-editor-format.png)
 
 !!! switching "Coming from Windows or macOS"
-    For program code, the Text Editor covers what Notepad++ or TextEdit cannot: colours and indentation. For larger programming projects, a programming editor such as Geany can be installed from Software.
+    For program code, the Text Editor does what Notepad++ adds to Notepad on Windows: colours and indentation. For larger programming projects, a programming editor such as Geany can be installed from Software.
 
 ## Encodings and line ends
 

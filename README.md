@@ -11,7 +11,7 @@ freely available under the European Union Public Licence, so anyone can inspect,
 [![Debian 13 trixie](https://img.shields.io/badge/Debian-13%20trixie-A81D33?logo=debian&logoColor=white)](https://www.debian.org/releases/trixie/)
 [![Display: X11](https://img.shields.io/badge/display-Xorg%2FX11-555555)](https://www.x.org/)
 [![Boot: BIOS + UEFI](https://img.shields.io/badge/boot-BIOS%20%2B%20UEFI-555555)](#getting-started)
-[![Status: pre-release](https://img.shields.io/badge/status-pre--release-yellow)](ROADMAP.md)
+[![Release](https://img.shields.io/github/v/release/amadeos-eu/amadeos)](docs/releases/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/amadeos-eu/amadeos)](https://github.com/amadeos-eu/amadeos/commits/main)
 
 ---
@@ -46,10 +46,10 @@ package `amadeos-handbook` and opened from the Help drawer of the Front Panel.
 
 ## Status
 
-amadeOS is in active development and has not had a release yet. Milestones M0 to M11 are complete
-(bootable image, Java window manager, desktop shell, display manager, application discovery,
-virtual workspaces); M12, release hardening, is in progress. Progress is tracked in
-[`ROADMAP.md`](ROADMAP.md), the design decisions and rejected alternatives in
+amadeOS is released: the first release, 1.0.0, came out on 25 October 2026, and the image of the newest
+one is on [www.amadeos.eu](https://www.amadeos.eu/download.html). What changed in each release, collected from
+all repositories of the distribution, is in [`docs/releases`](docs/releases/README.md). What comes next
+is tracked in [`ROADMAP.md`](ROADMAP.md), the design decisions and rejected alternatives in
 [`CONCEPT.md`](CONCEPT.md).
 
 ## Architecture

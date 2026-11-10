@@ -1,4 +1,4 @@
-# 45. Calendar and Contacts
+# 45. Calendar, Contacts and Family Tree
 
 The Calendar keeps your appointments, the Contacts program the people you deal with. Both store their data in open standard formats that phones and other programs read as well.
 
@@ -133,3 +133,71 @@ Contacts whose e-mail address is already in your address book are **merged** wit
 
 ??? hood "Under the hood"
     Every contact is a vCard 4.0 file (RFC 6350) of its own in `~/.local/share/amadeos/contacts/personal/`, named after the contact's unique ID; the file `displayname` holds the name of the address book, and further folders next to `personal` are further address books. This is the layout that [vdirsyncer](https://vdirsyncer.pimutils.org/) uses, so it can already keep the folder in step with a CardDAV server. Contacts writes each file anew as a whole and only changes the properties you edited; what other programs put into a card stays. When the window becomes active, it reads files that other programs changed. The sort order is in `~/.config/amadeos/contacts/contacts.properties`.
+
+## Family Tree
+
+**Family Tree** shows and records your family's history: ancestors and relatives with dates, places, sources, notes and photos. It is in the **Text & Office** drawer of the Front Panel; or start `amade-familytree`, or double-click a GEDCOM file (`.ged`, `.gdz`) in the File Manager.
+
+![Family Tree with the person list, the hourglass chart and the details of the person in the middle](images/45/family-tree.jpg)
+
+### Bringing your tree along
+
+Genealogy websites and programs exchange family trees as **GEDCOM** files. Look on the website for *Export tree* or *Download GEDCOM*, usually in the settings of the tree; it gives you a `.ged` file, sometimes a `.zip` file with the photos. *File → Import GEDCOM File…* (++ctrl+i++) reads GEDCOM 5.5.1 and 7.0, GEDZIP (`.gdz`) and a `.zip` with a `.ged` inside, in every character set these files come in.
+
+![What the file holds, before importing](images/45/family-tree-import.jpg)
+
+Before anything is imported, a page shows what the file holds: people, families, sources, places and photos, how many people are probably still alive, and which dates could not be read. Such dates are kept as text, so nothing is lost; *Dates kept as text* in the person list finds them later. The file becomes a **new tree**, or its people are **added to the open tree** (they are added, not merged with people who are already there).
+
+Many websites export photos only as links to their own servers. Tick *Download the linked photos now* on the import page, or choose *File → Download Linked Photos* later, and they are fetched into the tree's own folder (through the proxy of Settings → Network, if you have one). Photos you saved yourself are matched by their file names with *File → Find Photos in a Folder…*.
+
+Lines the program does not know, such as the extra details some websites write, are kept and written back unchanged when you export.
+
+### The views
+
+On the left is the **person list**: type a name, a place or a year into the search field above it. Names that sound alike are found too, so *Meyer* finds *Maier*. The box below the search field shows everyone, the same surname, the ancestors or descendants of the person in the middle, people without parents, people who are probably alive, or people with dates kept as text.
+
+In the middle is the chart of the person in the middle. The buttons above it, or ++ctrl+1++ to ++ctrl+6++, choose the view:
+
+- **Hourglass**: ancestors above, partners and children below.
+- **Ancestors** and **Descendants**: the lines up and down.
+- **Fan Chart**: the ancestors in half circles. The lines of the four grandparents have their own colours, and empty places show where research can go on.
+
+    ![The fan chart](images/45/family-tree-fan.jpg)
+
+- **Family Sheet**: the person, the partner and the children with all their dates, on one page.
+- **Timeline**: the person's events together with those of parents, partners and children, and the age at each.
+
+A click selects a person, a double-click or ++ctrl+m++ puts them in the middle. **−** and **+** (++ctrl+page-down++, ++ctrl+page-up++) show fewer or more generations, ++ctrl+plus++ and ++ctrl+minus++ zoom. **Back** and **Forward** (++alt+left++, ++alt+right++) go through the people you looked at, like in a web browser, and **Home** (++alt+home++) returns to the **home person**, usually yourself; *Person → Set as Home Person* chooses another.
+
+On the right are the details of the selected person: portrait, name, dates and a summary of their family.
+
+### Adding and changing people
+
+**Add Relative ▾** adds a father, mother, partner (++ctrl+shift+p++), son, daughter, brother or sister to the selected person, with the surname already filled in. *Person → Connect Existing Person…* (++ctrl+l++) links a person who is already in the tree, for example when two lines meet.
+
+**Edit** (++ctrl+enter++) opens the person:
+
+![Editing a person](images/45/family-tree-editor.jpg)
+
+- **Names**: given names, surname, call name and birth name (for a married woman, the surname she was born with), sex, *deceased* and *private*.
+- **Facts**: birth, baptism, occupation, residence, emigration, death, burial and many more, each with date, place and details. Dates are written the way people write them, also in German, French, Spanish or Italian: `14.03.1928`, `about 1890`, `before 1900`, `between 1850 and 1855`, `um 1890`. Below the field the editor says how it understood the date.
+- **Family**: parents, and the date and place of each marriage.
+- **Sources**: where a fact comes from, such as a church register with its page.
+- **Photos**: pictures and documents, one of them as the portrait.
+- **Notes**.
+
+Every change is saved at once, and each can be undone with ++ctrl+z++ and done again with ++ctrl+y++. *Edit → Delete Person* (++ctrl+delete++) removes the selected person.
+
+**Relationship to Home Person** (++ctrl+r++) names how the selected person is related to you: *great-great-grandmother*, *second cousin once removed*, *brother-in-law*, with the people in between.
+
+### Sharing and printing
+
+*File → Export GEDCOM File…* (++ctrl+e++) writes the tree for another program or website: **GEDCOM 7.0**, **GEDCOM 5.5.1** for older programs, or **GEDZIP** with the photos. People marked as **private** are always left out. People who are probably alive (born less than 110 years ago, without a death) are written in full, shortened to surname, sex and family links, or left out, as you choose. That protects living relatives when you share the file.
+
+*File → Print…* (++ctrl+p++) prints the chart or page; *Save Chart as Picture…* saves it as a PNG picture.
+
+!!! planned "Planned"
+    Merging two people who are the same; places on a map; reports as PDF (an ancestor list with numbers, a descendant report, a family book); several people marked on a group photo.
+
+??? hood "Under the hood"
+    Each tree is a folder in *Documents/Family Trees* with the tree as a GEDCOM 7.0 file, a `media` folder for photos and documents and a `backups` folder: the first change of each session keeps a copy of the file before it, the last ten copies stay. Any other genealogy program can open the file. *File → Show Tree Folder* opens the folder in the File Manager. The last tree, the home person of each tree and the view are in `~/.config/amadeos/familytree/familytree.properties`.

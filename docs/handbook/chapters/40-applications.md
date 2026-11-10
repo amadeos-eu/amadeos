@@ -19,6 +19,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | **Terminal** | Commands in tabs, with Tab completion and copy and paste | Tools drawer, ++ctrl+alt+t++ | 42 | [amade-terminal](https://github.com/amadeos-eu/amade-terminal) |
 | **Calendar** | Appointments, reminders and To Do items | Calendar | 45 | [amade-calendar](https://github.com/amadeos-eu/amade-calendar) |
 | **Contacts** | Addresses, phone numbers and birthdays | Text & Office, Mail & Internet | 45 | [amade-contacts](https://github.com/amadeos-eu/amade-contacts) |
+| **Family Tree** | Your family's history: ancestors and relatives, charts, GEDCOM files | Text & Office | 45 | [amade-familytree](https://github.com/amadeos-eu/amade-familytree) |
 | **Audio Station** | Audio CDs, music files and internet radio | Sound & Video | 46 | [amade-audio](https://github.com/amadeos-eu/amade-audio) |
 | **Video Player** | Video files, streams and DVDs | Sound & Video | 46 | [amade-video](https://github.com/amadeos-eu/amade-video) |
 | **TV** | Live TV of the public broadcasters, a program guide and recordings | Sound & Video | 46 | [amade-tv](https://github.com/amadeos-eu/amade-tv) |
@@ -42,7 +43,7 @@ Every amade application has its source code in a repository of its own on GitHub
 
 - Click the icon or open the drawer of its slot in the **Front Panel** (chapter 22).
 - Choose it in the **Application Manager**: click the icon of the **Tools** slot.
-- Double-click a file in the **File Manager**: it opens in the program made for it, a `.txt` in the Text Editor, an `.odt` in WritePad, a photo in the Image Viewer, a `.pdf` in the PDF Viewer, an `.epub` in Books, an `.ics` in the Calendar. Which program that is, you choose in Settings (below).
+- Double-click a file in the **File Manager**: it opens in the program made for it, a `.txt` in the Text Editor, an `.odt` in WritePad, a photo in the Image Viewer, a `.pdf` in the PDF Viewer, an `.epub` in Books, an `.ics` in the Calendar, a `.ged` in Family Tree. Which program that is, you choose in Settings (below).
 - Type its command in a terminal, such as `amade-pad letter.txt`. Each section below names the command.
 
 While a program starts, the pointer shows the busy cursor until its window appears.

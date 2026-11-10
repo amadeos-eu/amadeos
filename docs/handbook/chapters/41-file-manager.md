@@ -26,7 +26,7 @@ Click a file with the right mouse button for what you can do with it: *Open*, *V
 
 ![The menu of two selected files](images/41/file-manager-context-menu.jpg)
 
-The right mouse button on a folder in the tree offers *New Folder…*, *Paste into Folder*, *Rename…*, *Compress…*, *Move to Trash* and *Open in Two Panels*, on a USB stick also *Unmount* and *Safely Remove*; on the free space below the files *New Folder…*, *Paste* and *Show Hidden Files*. In the trash the menu offers *Restore* and *Empty Trash…*. Your home folder, the trash, the file system and USB sticks cannot be moved, renamed or deleted.
+A folder, in the tree or in the list, offers *Open in New Window*, *Open in Two Panels*, *New Folder…* and *New File…* (made inside that folder), *Paste into Folder*, *Rename…*, *Compress…*, *Move to Trash*, *Open Terminal Here* and *Copy Path*; on a USB stick also *Unmount* and *Safely Remove*. Click the free space below the files with the right mouse button for the menu of the folder you are in: *New Folder…*, *New File…*, *Paste*, *Open Terminal Here*, *Show Hidden Files* and *Refresh*. *New File…* (++shift+f4++) asks for the name, such as `notes.txt`, and makes an empty file there; ++f4++ then opens it in the Text Editor. *Open Terminal Here* opens the Terminal in that folder. In the trash the menu offers *Restore* and *Empty Trash…*. Your home folder, the trash, the file system and USB sticks cannot be moved, renamed or deleted.
 
 The keys work as in the menus. While the folder tree has the keyboard focus (click a folder, or ++tab++ to switch between tree and list), ++f2++, ++delete++ and ++ctrl+x++ work on the folder chosen in the tree.
 
@@ -180,6 +180,7 @@ Selecting, called **marking**, is separate from the cursor bar. ++insert++ or ++
 | ++ctrl+x++ / ++ctrl+c++ / ++ctrl+v++ | Cut / copy / paste files |
 | ++f2++ | Renames |
 | ++f7++ | Makes a new folder |
+| ++shift+f4++ | Makes a new, empty file |
 | ++f3++ / ++f4++ | Opens the file in its program / in the Text Editor |
 | ++ctrl+shift+c++ | Copies the paths of the files to the clipboard |
 

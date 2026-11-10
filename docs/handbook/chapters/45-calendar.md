@@ -191,7 +191,7 @@ On the right are the details of the selected person: portrait, name, dates and a
 
 Every change is saved at once, and each can be undone with ++ctrl+z++ and done again with ++ctrl+y++. *Edit → Delete Person* (++ctrl+delete++) removes the selected person.
 
-**Relationship to Home Person** (++ctrl+r++) names in a message how the selected person is related to you: *great-great-grandmother*, *second cousin once removed*, *brother-in-law*, with the people in between.
+**Relationship to Home Person** (++ctrl+r++, also in the right-click menu of a person) switches to the relationship view and names in a message how the selected person is related to you: *great-great-grandmother*, *second cousin once removed*, *brother-in-law*, with the people in between.
 
 ### Sharing and printing
 

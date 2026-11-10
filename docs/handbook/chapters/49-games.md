@@ -91,6 +91,7 @@ A relaxing drive through landscapes that are made as the road goes on: larch val
 - ++c++ lets the car drive by itself, ++p++ saves a photo in *Pictures/Cruise*, ++j++ shows the journal with the regions you found.
 - ++ctrl+r++ silences the music, ++r++ changes the station (the game's own tunes, your playlist, or only the wind), ++n++ plays the next track.
 - *Game → Settings* sets the loudness of music, car and landscape, the playlist (your own MP3, Ogg, FLAC files and tracker modules), the time of day, the weather and how busy the roads are.
+- *Game → Graphics* has a third choice here, **Automatic**, and it is the one Cruise starts with: the picture is as sharp as the screen while your computer keeps up, and a little coarser when it does not, so that the drive stays fluid in full screen. The game measures this itself and changes back when the road gets emptier.
 
 ## A pinball machine
 

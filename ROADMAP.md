@@ -156,6 +156,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-11-10
 
+- New application [`amade-labelprinter`](https://github.com/amadeos-eu/amade-labelprinter) (#1, commons #108): **Label Printer** prints address labels, shipping labels, name badges and business cards on sheets of many labels, from a catalogue of about seventy sheet sizes or a sheet measured by hand; mail merge from CSV, spreadsheets, vCard files, the Contacts app or a typed list, with filter, sort, copies and a counter; texts, pictures, shapes, barcodes and QR codes with colours; two-sided business cards with crop marks; printing from the first free label of a used sheet, a printer adjustment and a test page, PDF export. In the Text & Office drawer, opens `.label` files, Ghostscript in the image for PDF; User's Handbook chapter 43.
 - New application [`amade-familytree`](https://github.com/amadeos-eu/amade-familytree) (#1): **Family Tree** shows and records family trees with hourglass, ancestor, descendant and fan charts, a family sheet and a timeline; it imports and exports GEDCOM 5.5.1, 7.0 and GEDZIP with photos, keeps what it does not know, names relationships in five languages and leaves living and private people out of exports on request. In the Text & Office drawer, opens `.ged` and `.gdz` files; User's Handbook chapter 45, Horizon icon (system PR).
 
 ### 2026-11-08

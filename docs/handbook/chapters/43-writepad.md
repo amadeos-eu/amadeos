@@ -1,4 +1,4 @@
-# 43. WritePad
+# 43. WritePad and Label Printer
 
 **WritePad** writes letters and documents on **real pages**: fonts, bold and italic, lists, tab stops, A4 or Letter. What you see on the screen is what comes out of the printer, line for line and page for page. It is the size of program WordPad was on Windows: enough for a letter to the tax office or the club newsletter, quick to start and easy to learn.
 
@@ -136,3 +136,80 @@ Double-click a spreadsheet or a presentation in the File Manager and it opens in
 
 ??? hood "Under the hood"
     WritePad reads and writes ODT and DOCX with its own code, without a large office library; it runs LibreOffice in the background (`soffice --headless`) only to convert DOC files. Its settings are in `~/.config/amadeos/writepad/writepad.properties`.
+
+## Label Printer
+
+**Label Printer** prints labels and business cards on sheets of many labels: address labels for the Christmas mail, a shipping label, name badges for a meeting, labels for jam jars or file folders, your own business cards. You design **one** label, and the program places it on the sheet as often as it fits. With **mail merge**, every label gets the next address from a list.
+
+Start it from the **Text & Office** drawer, with `amade-labelprinter`, or by double-clicking a `.label` file in the File Manager.
+
+![Label Printer with address labels for a club: the design in the middle, the whole sheet on the right](images/43/label-printer.jpg)
+
+### The window
+
+- **The toolbar**: new, open, save; undo and redo; insert a text, a field, a picture, a shape, a barcode or a QR code; front and back; delete; the label sheet and the data; zoom; on the right *Export as PDF* and *Print*. Hold the pointer over a button to see its name.
+- **Fields**, on the left: the columns of your data and three built-in fields. Drag a field onto the label, or double-click it.
+- **The label** in the middle, in its real proportions, with a ruler in millimetres. Above it, with data, the record that is shown, and the arrows to go through them (++ctrl+page-up++, ++ctrl+page-down++).
+- **The properties** below the label: everything about the selected element, or about the label when nothing is selected.
+- **The sheet**, on the right, exactly as it will be printed. Click a label on it to see its record in the design.
+
+### Choosing the label sheet
+
+Label sheets have the size of their labels printed on the package: *70 × 37 mm, 24 labels*. *Label → Label Sheet…* (++ctrl+l++) lists about seventy common sheets by kind: address, shipping and multi-purpose labels, business cards, name badges, file folder spines, round labels, CD and DVD labels, freezer and jar labels. Type the size from the package into *Size*, such as `70x37`, `63.5 x 38.1`, `3x8` or `24`, and the matching sheets are left. The box below the kinds chooses the paper: A4, A5, A6 or Letter.
+
+![Choosing a sheet of business cards](images/43/label-printer-sheets.jpg)
+
+A sheet that is not in the list you measure once with a ruler: *Measure My Sheet…* asks for the paper, how many labels across and down, the size of a label, the distance from the top left corner of the paper to the first label, and the gaps between the labels. Labels can be rectangles with round corners, ellipses or discs with a hole (for CDs). The drawing follows every value you type; a sheet whose labels do not fit on the paper cannot be saved. Your own sheets are under *My sheets*, where *Change…* and *Delete* work on them.
+
+### Designing the label
+
+*Insert* puts a **text**, a **field**, a **picture**, a **shape** (rectangle, ellipse, line), a **barcode** (EAN-13, EAN-8, Code 128, Code 39) or a **QR code** on the label. Drag an element to move it, its handles to size it; the arrow keys move it by half a millimetre, with ++shift++ by 5 mm. ++tab++ selects the next element, ++delete++ removes it, ++ctrl+d++ duplicates it. *Edit → Bring to Front* and *Send to Back* decide what lies on top. Every change can be undone (++ctrl+z++, ++ctrl+y++).
+
+For a **text** the properties hold the text itself, the font and size, bold, italic, underline and the alignment, the **text colour** and a **background colour** behind the text. **Shrink to fit** makes a long name smaller instead of cutting it off. **Leave out empty lines** closes the gap when an address has no company.
+
+With nothing selected, the properties belong to the **label**: a **background** colour or picture, and *Print over the edge (bleed)*, so that a coloured business card has no white rim after cutting.
+
+A text can mix fixed words and fields: `Dear «First name»,`. Type the field names in « » yourself, or drag them in from the list. A QR code or barcode can hold fields too, such as a membership number.
+
+### Mail merge: a label for every address
+
+*Label → Data for Mail Merge…* (++ctrl+m++) chooses where the addresses come from:
+
+- **A file**: a CSV or tab-separated file (as spreadsheets and websites export them; the separator and the character set are recognised), a spreadsheet (`.ods`, `.xlsx`), or a vCard file (`.vcf`) exported from a phone. *First row holds the column names* when the file has a heading row.
+- **Contacts**: all your contacts from the Contacts app ([chapter 45](45-calendar.md#contacts)), or one group, such as *Club*. The columns are name, first and last name, title, company, job title, street, postcode, city, country, phone, e-mail and groups.
+- **Type a list**: type or paste the addresses, with an empty line between two; their lines become the fields *Line 1*, *Line 2* and so on.
+
+![The data for mail merge: the club's member list](images/43/label-printer-data.jpg)
+
+Below, the records are listed. Untick those who should not get a label. *Only* keeps the records that contain a text, or a column with a value: `City = Ulm`, `City != Ulm`. *Sort by* orders them, for example by postcode for a mass mailing, and *Copies* prints each record more than once. When your design has a field the data calls differently, such as *Name* in the design and *Full name* in the file, choose the column on the right.
+
+The file is read again each time you open the design, and with *Label → Reload Data* (++f5++), so changes to the list are always printed.
+
+The three **built-in fields** need no data: *Date (today)*, *Counter* (the properties choose its first number and how many digits it has, `0001`, for numbered tickets or inventory labels) and *Label number*.
+
+### Business cards
+
+Choose a sheet of the kind *Business cards*. With nothing selected, *Sides: Front and back* gives the card a back of its own; the two buttons in the toolbar switch between front and back. The back is printed on the second side of each sheet, mirrored so that it lies behind its front when you print on both sides.
+
+![Business cards with a coloured front, a QR code on the back and crop marks at the edge](images/43/label-printer-cards.jpg)
+
+Business card sheets come with pre-cut cards. For plain card stock, *Cut guides* prints either a **line around each label** or **crop marks at the edge**: short marks outside the cards, at the edge of the sheet, which show where to cut without printing anything on the cards themselves.
+
+### Printing
+
+*File → Print…* (++ctrl+p++) shows the sheet once more.
+
+![Printing on a partly used sheet](images/43/label-printer-print.jpg)
+
+- **A partly used sheet**: click the first free label on the drawing, and printing starts there. The *Result* line says how many sheets you need.
+- **Print**: all records, only the current one, or the current label on the whole sheet, for a sheet full of the same return address or business card.
+- **Fine adjustment**: some printers place everything a little off. Print a test page on plain paper, hold it against a label sheet in front of a window, and enter how many millimetres to move right and down. The values are kept for this printer.
+- *Print label outlines* shows where the labels are, to try on plain paper first.
+
+Choose *Save as PDF file* as the printer, or *File → Export as PDF…* (++ctrl+e++), to print at a copy shop or send the labels to somebody.
+
+!!! planned "Planned"
+    Templates to start from (return address, name badge, jar label, business card) and a photo for each record, for name badges.
+
+??? hood "Under the hood"
+    A `.label` file is a ZIP archive with the design as JSON (`label.json`) and its pictures, so it can be moved to another computer in one piece. Your own sheets are in `~/.config/amadeos/labelprinter/own-sheets.json`, the last sheet, folder, printer and the fine adjustment for each printer in `labelprinter.properties` next to it. *Save as PDF* writes PostScript and turns it into PDF with Ghostscript (`ps2pdf`). Barcodes and QR codes are drawn with the ZXing library.

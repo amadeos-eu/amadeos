@@ -172,6 +172,8 @@ cups-browsed
 ipp-usb
 avahi-daemon
 libnss-mdns
+# Ghostscript: ps2pdf, with which amade-labelprinter saves labels as PDF (a recommends, so named here)
+ghostscript
 # Scanning (amade-imagescan through SANE): sane-airscan finds network scanners and the scanners of
 # all-in-one printers (eSCL/AirScan, WSD) without vendor drivers, also over USB through ipp-usb above
 sane-airscan

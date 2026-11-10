@@ -8,6 +8,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | **Backup & Sync** | Encrypted backups to an external disk, restoring files, syncing folders | Tools | 41 | [amade-backup](https://github.com/amadeos-eu/amade-backup) |
 | **Text Editor** | Plain text: notes, lists, configuration files | Text & Office | 42 | [amade-pad](https://github.com/amadeos-eu/amade-pad) |
 | **WritePad** | Letters and documents on real pages, ODT and Word | Text & Office | 43 | [amade-writepad](https://github.com/amadeos-eu/amade-writepad) |
+| **Label Printer** | Address labels with mail merge, business cards, name badges, on label sheets | Text & Office | 43 | [amade-labelprinter](https://github.com/amadeos-eu/amade-labelprinter) |
 | **LibreOffice Writer** | The full office word processor | Text & Office | 43 | Debian |
 | **LibreOffice Calc** | Spreadsheets, Excel and ODS files | Text & Office | 43 | Debian |
 | **LibreOffice Impress** | Presentations, PowerPoint and ODP files | Text & Office | 43 | Debian |
@@ -43,7 +44,7 @@ Every amade application has its source code in a repository of its own on GitHub
 
 - Click the icon or open the drawer of its slot in the **Front Panel** (chapter 22).
 - Choose it in the **Application Manager**: click the icon of the **Tools** slot.
-- Double-click a file in the **File Manager**: it opens in the program made for it, a `.txt` in the Text Editor, an `.odt` in WritePad, a photo in the Image Viewer, a `.pdf` in the PDF Viewer, an `.epub` in Books, an `.ics` in the Calendar, a `.ged` in Family Tree. Which program that is, you choose in Settings (below).
+- Double-click a file in the **File Manager**: it opens in the program made for it, a `.txt` in the Text Editor, an `.odt` in WritePad, a photo in the Image Viewer, a `.pdf` in the PDF Viewer, an `.epub` in Books, an `.ics` in the Calendar, a `.ged` in Family Tree, a `.label` in Label Printer. Which program that is, you choose in Settings (below).
 - Type its command in a terminal, such as `amade-pad letter.txt`. Each section below names the command.
 
 While a program starts, the pointer shows the busy cursor until its window appears.

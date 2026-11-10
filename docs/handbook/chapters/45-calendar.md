@@ -166,7 +166,7 @@ In the middle is the chart of the person in the middle. The buttons above it, or
 
 - **Family Sheet**: the person, the partner and the children with all their dates, on one page.
 - **Timeline**: the person's events together with those of parents, partners and children, and the age at each.
-- **Relationship**: how the person you click in the list is related to you. The view draws the way from the home person to them, like a route on a map: the nearest common ancestors at the top, your line down on one side and theirs on the other, and above each person what they are to you, such as *grandfather*, *uncle* or *cousin*. A partner on the way, for in-laws, stands next to the person they are married to. Click another person in the list or the chart and the way changes; double-click a person to start the way there instead of at yourself, and **Home** (++alt+home++) starts it at you again.
+- **Relationship**: how the person you click in the list is related to you. The view draws the way from the home person to them, like a route on a map, zoomed out so that the whole way fits: the nearest common ancestors at the top, your line down on one side and theirs on the other, and above each person what they are to you, such as *grandfather*, *uncle* or *cousin*. A partner on the way, for in-laws, stands next to the person they are married to. Click another person in the list or the chart and the way changes; double-click a person to start the way there instead of at yourself, and **Home** (++alt+home++) starts it at you again.
 
     ![The way from Markus to his cousin Lena](images/45/family-tree-relationship.jpg)
 
@@ -191,7 +191,7 @@ On the right are the details of the selected person: portrait, name, dates and a
 
 Every change is saved at once, and each can be undone with ++ctrl+z++ and done again with ++ctrl+y++. *Edit → Delete Person* (++ctrl+delete++) removes the selected person.
 
-**Relationship to Home Person** (++ctrl+r++) names in a message how the selected person is related to you: *great-great-grandmother*, *second cousin once removed*, *brother-in-law*, with the people in between.
+**Relationship to Home Person** (++ctrl+r++, also in the right-click menu of a person) switches to the relationship view and names in a message how the selected person is related to you: *great-great-grandmother*, *second cousin once removed*, *brother-in-law*, with the people in between.
 
 ### Sharing and printing
 

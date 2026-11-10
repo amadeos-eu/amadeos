@@ -154,6 +154,10 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
 
+### 2026-11-10
+
+- New application [`amade-familytree`](https://github.com/amadeos-eu/amade-familytree) (#1): **Family Tree** shows and records family trees with hourglass, ancestor, descendant and fan charts, a family sheet and a timeline; it imports and exports GEDCOM 5.5.1, 7.0 and GEDZIP with photos, keeps what it does not know, names relationships in five languages and leaves living and private people out of exports on request. In the Text & Office drawer, opens `.ged` and `.gdz` files; User's Handbook chapter 45, Horizon icon (system PR).
+
 ### 2026-11-08
 
 - Cruise, the 20th game ([`amade-cruise-game`](https://github.com/amadeos-eu/amade-cruise-game) #1, game engine #51, system #116): a relaxing pseudo-3D drive through endless landscapes made on the way, with traffic, time of day, weather and life at the roadside; a race against the computer or a second player on a split screen; a garage of three cars; a playlist of the player's own music and tracker modules; the engine's new `drive` package; chapter 61 of the Game Developer's Handbook.

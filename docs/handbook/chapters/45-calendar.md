@@ -170,7 +170,7 @@ In the middle is the chart of the person in the middle. The buttons above it, or
 
     ![The way from Markus to his cousin Lena](images/45/family-tree-relationship.jpg)
 
-A click selects a person, a double-click or ++ctrl+m++ puts them in the middle. **−** and **+** (++ctrl+page-down++, ++ctrl+page-up++) show fewer or more generations, ++ctrl+plus++ and ++ctrl+minus++ zoom. **Back** and **Forward** (++alt+left++, ++alt+right++) go through the people you looked at, like in a web browser, and **Home** (++alt+home++) returns to the **home person**, usually yourself; *Person → Set as Home Person* chooses another.
+A click selects a person, a double-click or ++ctrl+m++ puts them in the middle. **−** and **+** (++ctrl+page-down++, ++ctrl+page-up++) show fewer or more generations, ++ctrl+plus++ and ++ctrl+minus++ zoom. **Back** and **Forward** (++alt+left++, ++alt+right++) go through the people you looked at, like in a web browser, and **Home** (++alt+home++) returns to the **home person**, usually yourself; *Person → Set as Home Person* chooses another. The home person has a frame in the person list. Set it once after importing a file: until then the program starts with the first person of the file.
 
 On the right are the details of the selected person: portrait, name, dates and a summary of their family.
 

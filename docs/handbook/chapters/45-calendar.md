@@ -156,7 +156,7 @@ Lines the program does not know, such as the extra details some websites write, 
 
 On the left is the **person list**: type a name, a place or a year into the search field above it. Names that sound alike are found too, so *Meyer* finds *Maier*. The box below the search field shows everyone, the same surname, the ancestors or descendants of the person in the middle, people without parents, people who are probably alive, or people with dates kept as text.
 
-In the middle is the chart of the person in the middle. The buttons above it, or ++ctrl+1++ to ++ctrl+6++, choose the view:
+In the middle is the chart of the person in the middle. The buttons above it, or ++ctrl+1++ to ++ctrl+7++, choose the view:
 
 - **Hourglass**: ancestors above, partners and children below.
 - **Ancestors** and **Descendants**: the lines up and down.
@@ -166,6 +166,9 @@ In the middle is the chart of the person in the middle. The buttons above it, or
 
 - **Family Sheet**: the person, the partner and the children with all their dates, on one page.
 - **Timeline**: the person's events together with those of parents, partners and children, and the age at each.
+- **Relationship**: how the person you click in the list is related to you. The view draws the way from the home person to them, like a route on a map: the nearest common ancestors at the top, your line down on one side and theirs on the other, and above each person what they are to you, such as *grandfather*, *uncle* or *cousin*. A partner on the way, for in-laws, stands next to the person they are married to. Click another person in the list or the chart and the way changes; double-click a person to start the way there instead of at yourself, and **Home** (++alt+home++) starts it at you again.
+
+    ![The way from Markus to his cousin Lena](images/45/family-tree-relationship.jpg)
 
 A click selects a person, a double-click or ++ctrl+m++ puts them in the middle. **−** and **+** (++ctrl+page-down++, ++ctrl+page-up++) show fewer or more generations, ++ctrl+plus++ and ++ctrl+minus++ zoom. **Back** and **Forward** (++alt+left++, ++alt+right++) go through the people you looked at, like in a web browser, and **Home** (++alt+home++) returns to the **home person**, usually yourself; *Person → Set as Home Person* chooses another.
 
@@ -188,7 +191,7 @@ On the right are the details of the selected person: portrait, name, dates and a
 
 Every change is saved at once, and each can be undone with ++ctrl+z++ and done again with ++ctrl+y++. *Edit → Delete Person* (++ctrl+delete++) removes the selected person.
 
-**Relationship to Home Person** (++ctrl+r++) names how the selected person is related to you: *great-great-grandmother*, *second cousin once removed*, *brother-in-law*, with the people in between.
+**Relationship to Home Person** (++ctrl+r++) names in a message how the selected person is related to you: *great-great-grandmother*, *second cousin once removed*, *brother-in-law*, with the people in between.
 
 ### Sharing and printing
 

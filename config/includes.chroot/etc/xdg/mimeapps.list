@@ -5,7 +5,8 @@
 # e-books (EPUB) and comics (CBZ) in amade-books, mail links in amade-mail, folders in amade-files, text in
 # amade-pad, documents in amade-writepad (LibreOffice Writer stays under "Open with"), music in amade-audio,
 # videos in amade-video, calendar files in amade-calendar, vCards in amade-contacts and font files
-# (TrueType, OpenType, collections) in amade-fontviewer and family trees (GEDCOM, GEDZIP) in amade-familytree.
+# (TrueType, OpenType, collections) in amade-fontviewer, family trees (GEDCOM, GEDZIP) in amade-familytree
+# and label designs (.label) in amade-labelprinter.
 # Settings > Default Applications shows these as "amadeOS default" and writes the user's choices.
 [Default Applications]
 x-scheme-handler/http=firefox-esr.desktop
@@ -61,3 +62,4 @@ application/vnd.ms-opentype=amade-fontviewer.desktop
 text/vnd.familysearch.gedcom=amade-familytree.desktop
 application/x-gedcom=amade-familytree.desktop
 application/vnd.familysearch.gedcom+zip=amade-familytree.desktop
+application/x-amadeos-label=amade-labelprinter.desktop

@@ -87,6 +87,7 @@ A first-person shooter in 3D. An engineer goes down into Kessel Deep, a mine und
 A relaxing drive through landscapes that are made as the road goes on: larch valleys, sunflower plains, a coast with lighthouses, a red canyon with tunnels, a mountain pass, a neon city at night, and two dreams, fields of giant mushrooms and a road above the clouds. The sun goes down and comes up again, rain and fog come and go, deer, birds and a train pass by, and there is always a truck to overtake. In the **garage** you choose your car (an open roadster, a sports coupé or a camper van) and its colour; in a **race** you drive against the computer or against a second player at the same keyboard, the screen split in two.
 
 - ++arrow-up++ is the gas, ++arrow-down++ the brake, ++arrow-left++ and ++arrow-right++ steer; the second player drives with ++w++ ++a++ ++s++ ++d++. ++space++ is the horn.
+- A region lasts four to six kilometres. The small display under the clock at the top right names it and says how far the next fork is.
 - At a fork, the sign names two regions: keep to the left or the right lane to choose.
 - ++c++ lets the car drive by itself, ++p++ saves a photo in *Pictures/Cruise*, ++j++ shows the journal with the regions you found.
 - ++ctrl+r++ silences the music, ++r++ changes the station (the game's own tunes, your playlist, or only the wind), ++n++ plays the next track.

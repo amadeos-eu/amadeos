@@ -8,7 +8,8 @@
 #   4. builds artifacts/amadeos-<version>-amd64.iso (./build.sh, uses sudo for live-build)
 #
 # The optional games of repositories.list ("# optional") are not in the image and are neither cloned nor built
-# here; their own CI releases them to apt.amadeos.eu. --all-games builds them into the image as well.
+# here; their own CI releases them to apt.amadeos.eu. --all-games builds them into the image as well, and
+# buildOptionalPackages.sh builds them as packages next to the image (artifacts/optional/).
 #
 # At the end (also when a step fails) it prints how long the whole build and its longer steps took.
 #
@@ -48,7 +49,7 @@ main() {
             --quick) quick=1 ;;
             --apps) shift; apps_arg="${1:?--apps needs a list of app directories}" ;;
             --all-games) all_games=1 ;;
-            -h|--help) sed -n '2,31p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; return 0 ;;
+            -h|--help) sed -n '2,32p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; return 0 ;;
             *) echo "Unknown option: $1 (see --help)" >&2; return 1 ;;
         esac
         shift

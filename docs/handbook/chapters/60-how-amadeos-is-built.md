@@ -36,13 +36,14 @@ Every part of amadeOS is an ordinary **Debian package**, a `.deb` file. The desk
 | `amadeos-panel-cde` | The Front Panel | 22 |
 | `amadeos-settings` | Settings | Part IV |
 | `amadeos-software`, `amadeos-packages` | Software and its helper | 51, 52 |
+| `amadeos-java-options` | The Java options every program and game starts with (`/etc/amadeos/java/`) | 52 |
 | `amadeos-print`, `amadeos-logviewer`, `amadeos-sysinfo` | Print Manager, logs, system information | 54, 57 |
 | `amadeos-installer` | *Install amadeOS* | 14 |
 | `amadeos-handbook` | This book | 48 |
 | `amade-pad`, `amade-mail`, … | The applications | Part V |
 | `amade-mines-game`, … | The games | 49 |
 
-Each Java package puts its program into `/opt/<package>/` and a small start script into `/usr/bin/`. They depend on Debian's Java runtime, `openjdk-25-jre`, like any other program depends on its libraries. `dpkg -L amadeos-wm` lists what one package installs.
+Each Java package puts its program into `/opt/<package>/` and a small start script into `/usr/bin/`. They depend on Debian's Java runtime, `openjdk-25-jre`, like any other program depends on its libraries, and on `amadeos-java-options`, whose files `/etc/amadeos/java/app.options` and `game.options` the start script passes to Java: a memory limit and the other settings all programs share. `dpkg -L amadeos-wm` lists what one package installs.
 
 !!! tip
     Because the desktop is packages, it can be installed on a plain Debian system too, and parts of it can be replaced: chapter 55 shows how another panel takes the Front Panel's place.

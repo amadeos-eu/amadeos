@@ -38,7 +38,7 @@ depends=(amadeos-archive-keyring amadeos-dm amadeos-session amadeos-wm amadeos-p
     amadeos-packages)
 # The other modules of amadeos-system and the packages the image builds itself (scripts/package-*.sh) or that
 # come from the libraries' repositories.
-system=(amadeos-panel-horizon amadeos-widgets amadeos-icons-horizon amadeos-software amadeos-logviewer
+system=(amadeos-panel-horizon amadeos-widgets amadeos-icons-horizon amadeos-java-options amadeos-software amadeos-logviewer
     amadeos-sysinfo amadeos-taskmanager amadeos-print amadeos-disks amadeos-handbook amadeos-backdrops-cde
     nscde-icon-theme amade-app-handbook amade-game-handbook)
 # Repositories of repositories.list without a program of their own: the libraries (their handbooks are above),

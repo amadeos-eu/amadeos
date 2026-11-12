@@ -176,6 +176,11 @@ Options: `--no-clone` (only what is checked out), `--no-pull` (build the checkou
 previous image, see `AMADEOS_QUICK`), `--apps "amade-pad amade-mail"` (only these
 applications) and `--all-games` (the optional games too).
 
+`./buildOptionalPackages.sh` clones, pulls and builds the optional packages the same way (the games marked
+`# optional` in `repositories.list`), without touching the image: the packages and the meta package
+`amadeos-games` land in `artifacts/optional/`, ready for `sudo apt install ./artifacts/optional/*.deb` on an
+amadeOS system. It takes the same `--branch`, `--no-clone`, `--no-pull`, `--skip-tests` and `--apps` options.
+
 ### Writing the image to a USB stick
 
 The ISO is a hybrid image for BIOS and UEFI: it is written to the stick as it is, byte for byte,

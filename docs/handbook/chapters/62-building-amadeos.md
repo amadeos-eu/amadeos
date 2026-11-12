@@ -38,6 +38,8 @@ cd amadeos
 | `--quick` | Packs the previous image again with the new packages, without a full live-build run. |
 | `--all-games` | Also builds the optional games (marked `# optional` in `repositories.list`) and puts them into the image, to try them there. Without it, the image has only Mines and Solitaire. |
 
+The optional games are not in the image. `./buildOptionalPackages.sh` builds them the same way, from the same branch and with the same options (`--branch`, `--no-clone`, `--no-pull`, `--skip-tests`, `--apps`), and puts their packages and the meta package `amadeos-games` into `artifacts/optional/`, with a `Packages` index. Copy that folder into the virtual machine (for example through `~/qemu-share`, below) and install them with `sudo apt install ./*.deb`.
+
 ## Trying the image
 
 ```sh

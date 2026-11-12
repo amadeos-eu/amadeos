@@ -94,10 +94,12 @@ Every independent application `.deb` package should install to standard system l
 
 | Path | Mode | Description |
 | :--- | :--- | :--- |
-| `/usr/bin/<app-name>` | `0755` | Shell wrapper script (`exec /usr/bin/java -jar /opt/<app>/<app>.jar "$@"`) |
+| `/usr/bin/<app-name>` | `0755` | Shell wrapper script: `exec /usr/bin/java "@$OPTIONS" -jar /opt/<app>/<app>.jar "$@"` with `OPTIONS=/etc/amadeos/java/app.options` (games: `game.options`), see below |
 | `/opt/<app-name>/<app-name>.jar` | `0644` | Application fat JAR |
 | `/usr/share/applications/<app-name>.desktop` | `0644` | Freedesktop desktop entry |
 | `/usr/share/icons/hicolor/48x48/apps/<app-name>.png` | `0644` | Application icon |
+
+**Shared Java options.** amadeos-session installs the Java argument files `/etc/amadeos/java/app.options` (programs: serial collector, 256 MB heap cap, unused memory given back) and `game.options` (games: G1, 512 MB cap), both with fork/exec for child processes. Every launcher passes the right file to `java` first. Options after it win, so a program that needs more memory adds its own `-Xmx` (Image Editor `-Xmx1g`, Cruise `-Xmx1536m`). Without the file (a plain Debian system) the launcher falls back to `/dev/null` and Java's defaults. Change these files, not each launcher, for settings every program should get.
 
 ### 3. XDG desktop entry & Front Panel drawer mapping
 
@@ -158,7 +160,12 @@ tasks.register('deb') {
 
         // 2. Launcher script
         def launcher = new File(binDir, "amade-pad")
-        launcher.text = "#!/bin/sh\nexec /usr/bin/java -jar /opt/amade-pad/amade-pad.jar \"\$@\"\n"
+        // Shared Java options (heap cap, garbage collector, fork/exec) first; own options after them win.
+        launcher.text = """#!/bin/sh
+OPTIONS=/etc/amadeos/java/app.options
+[ -r "\$OPTIONS" ] || OPTIONS=/dev/null
+exec /usr/bin/java "@\$OPTIONS" -jar /opt/amade-pad/amade-pad.jar "\$@"
+"""
         launcher.setExecutable(true, false)
 
         // 3. Desktop entry and icons

@@ -27,7 +27,7 @@ cd amadeos
 ./buildDistribution.sh
 ```
 
-`buildDistribution.sh` clones every repository of the distribution next to `amadeos` (the list is in `repositories.list`), builds the desktop, every application and every game with their tests, puts their packages into `config/packages.chroot/` and builds the image. At the end it is in `artifacts/amadeos-<version>-amd64.iso`, with its checksum next to it. The version is that of the amadeos checkout: exactly `1.0.0` on the tagged `main`, `X.Y.Z-pre.0` on `release` and `X.Y.Z-dev.0` on `develop`; `AMADEOS_VERSION=...` sets it by hand. `artifacts/amadeos-amd64.iso` links to the newest image, and an older image is deleted when a new one is built.
+`buildDistribution.sh` clones every repository of the distribution next to `amadeos` (the list is in `repositories.list`), builds the desktop, every application and the games of the image (Mines and Solitaire) with their tests, puts their packages into `config/packages.chroot/` and builds the image. At the end it is in `artifacts/amadeos-<version>-amd64.iso`, with its checksum next to it. The version is that of the amadeos checkout: exactly `1.0.0` on the tagged `main`, `X.Y.Z-pre.0` on `release` and `X.Y.Z-dev.0` on `develop`; `AMADEOS_VERSION=...` sets it by hand. `artifacts/amadeos-amd64.iso` links to the newest image, and an older image is deleted when a new one is built.
 
 | Option | What it does |
 |---|---|
@@ -36,6 +36,7 @@ cd amadeos
 | `--skip-tests` | Skips the tests; faster, but you notice mistakes later. |
 | `--apps "amade-pad amade-mail"` | Builds only these applications. |
 | `--quick` | Packs the previous image again with the new packages, without a full live-build run. |
+| `--all-games` | Also builds the optional games (marked `# optional` in `repositories.list`) and puts them into the image, to try them there. Without it, the image has only Mines and Solitaire. |
 
 ## Trying the image
 

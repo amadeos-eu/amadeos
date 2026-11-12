@@ -154,6 +154,10 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
 
+### 2026-11-12
+
+- The image brings only two games, Mines and Solitaire: a smaller ISO that suits an office computer as well. The other eighteen are marked `# optional` in `repositories.list`, are released to apt.amadeos.eu as before and are installed from Software, one by one or all with the new meta package `amadeos-games`; `amadeos-desktop` only suggests them, `buildDistribution.sh --all-games` still builds a full image. User's Handbook chapter 49 and the website's games page say which games come with the image.
+
 ### 2026-11-10
 
 - New application [`amade-labelprinter`](https://github.com/amadeos-eu/amade-labelprinter) (#1, commons #108): **Label Printer** prints address labels, shipping labels, name badges and business cards on sheets of many labels, from a catalogue of about seventy sheet sizes or a sheet measured by hand; mail merge from CSV, spreadsheets, vCard files, the Contacts app or a typed list, with filter, sort, copies and a counter; texts, pictures, shapes, barcodes and QR codes with colours; two-sided business cards with crop marks; printing from the first free label of a used sheet, a printer adjustment and a test page, PDF export. In the Text & Office drawer, opens `.label` files, Ghostscript in the image for PDF; User's Handbook chapter 43.

@@ -72,7 +72,7 @@ From then on the updates cell shows amadeOS updates as well. Images after 1.0.0 
 
 ## New programs arrive with updates
 
-An update brings new versions of the programs you have, and also the programs that a later amadeOS release adds. The package `amadeos-desktop` takes care of that: it holds no program itself, but *recommends* every program, game and system package of amadeOS. When a new release recommends a new program, the next update installs it.
+An update brings new versions of the programs you have, and also the programs that a later amadeOS release adds. The package `amadeos-desktop` takes care of that: it holds no program itself, but *recommends* every program, game and system package of amadeOS. When a new release recommends a new program, the next update installs it. The optional games are not among them: they come only when you install them, or all of them with `amadeos-games`, which recommends every game in the same way (chapter 49).
 
 A program you removed stays removed: updates only add what is new in a release, not what you chose to take away. To get a removed program back, install it again in Software.
 

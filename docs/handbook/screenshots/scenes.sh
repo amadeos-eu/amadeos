@@ -453,7 +453,9 @@ scene_apps() {
     app_shot 48 documentation-viewer "Documentation Viewer|/usr/share/doc" 140 60 1000 640 amade-web
 }
 
-# The title screen of every game, where the computer plays.
+# The title screen of every game, where the computer plays. Only Mines and Solitaire are in the image; the
+# optional games are in config/packages.chroot only after buildDistribution.sh --all-games. A game that is not
+# installed keeps its old picture.
 scene_games() {
     [ -n "$session_pid" ] || start_session
     local game

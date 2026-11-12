@@ -33,7 +33,7 @@ Without `wget`, open the address in Firefox; it saves the file in *Downloads*, a
 sudo apt install amadeos-desktop
 ```
 
-`amadeos-desktop` is the whole desktop in one package: the login screen, the session, the window manager, the Front Panel, Settings, and the programs and games of amadeOS. Later releases bring their new programs with the normal updates (chapter 52). A few Debian packages that the image uses, such as `firefox-esr`, do not exist on Ubuntu; apt simply leaves them out.
+`amadeos-desktop` is the whole desktop in one package: the login screen, the session, the window manager, the Front Panel, Settings, and the programs of amadeOS with the games Mines and Solitaire; `sudo apt install amadeos-games` adds all the other games (chapter 49). Later releases bring their new programs with the normal updates (chapter 52). A few Debian packages that the image uses, such as `firefox-esr`, do not exist on Ubuntu; apt simply leaves them out.
 
 ## Step 3: Switch the login screen
 

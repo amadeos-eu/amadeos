@@ -3,6 +3,11 @@
 # task into the image. A new application or game is added here, and is then installed by default; the
 # meta package amadeos-desktop (scripts/package-desktop-meta.sh) recommends it under the repository's name,
 # so installed systems get it with their next update.
+#
+# "# optional" after a name keeps that program out of the image and out of amadeos-desktop: it is released
+# and published on apt.amadeos.eu like every other one, and installed from Software or with
+# "sudo apt install <name>". The meta package amadeos-games recommends every game, optional or not.
+# scripts/list-repositories.sh --image / --optional reads the two lists.
 
 # Libraries (built through the composite builds of the packages that use them)
 amade-commons
@@ -44,24 +49,26 @@ amade-writepad
 # Content
 amadeos-sample-books
 
-# Games (Games drawer of the Front Panel)
-amade-artillery-game
-amade-blast-game
-amade-bricks-game
-amade-colony-game
-amade-cruise-game
-amade-hover-cab-game
-amade-jump-game
-amade-maze-game
+# Games in the image (Games drawer of the Front Panel)
 amade-mines-game
-amade-paddle-game
-amade-pinball-game
-amade-rivet-game
-amade-rocks-game
-amade-sands-game
-amade-snake-game
 amade-solitaire-game
-amade-swarm-game
-amade-templar-game
-amade-towers-game
-amade-town-game
+
+# Optional games (only on apt.amadeos.eu: Software, or amadeos-games for all)
+amade-artillery-game    # optional
+amade-blast-game        # optional
+amade-bricks-game       # optional
+amade-colony-game       # optional
+amade-cruise-game       # optional
+amade-hover-cab-game    # optional
+amade-jump-game         # optional
+amade-maze-game         # optional
+amade-paddle-game       # optional
+amade-pinball-game      # optional
+amade-rivet-game        # optional
+amade-rocks-game        # optional
+amade-sands-game        # optional
+amade-snake-game        # optional
+amade-swarm-game        # optional
+amade-templar-game      # optional
+amade-towers-game       # optional
+amade-town-game         # optional

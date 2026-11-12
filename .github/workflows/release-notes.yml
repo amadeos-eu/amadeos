@@ -1,0 +1,106 @@
+name: Release notes
+
+# Collects the release notes of all repositories into docs/releases/<version>.md for each amadeOS release
+# (scripts/aggregate-release-notes.py), puts them on the GitHub Release of amadeos and opens a pull request
+# against develop with the file.
+#
+# Promote releases the repositories within a few minutes of amadeos, in no fixed order, and the script counts
+# a repository release to amadeOS X.Y.Z up to 60 minutes after it. So the notes are written by an hourly check
+# once the newest release of amadeos is older than that, and only if docs/releases/<version>.md does not exist
+# on develop and no branch release-notes/v<version> is waiting yet. "Run workflow" with a version writes them
+# at once (also again, for example after new highlights in docs/releases/highlights/<version>.md).
+#
+# Opening the pull request needs Settings -> Actions -> General -> "Allow GitHub Actions to create and approve
+# pull requests". A pull request opened with the workflow's token starts no other workflows.
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: The amadeOS version (X.Y.Z); empty for the newest release
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: release-notes
+  cancel-in-progress: false
+
+jobs:
+  notes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: develop
+
+      - name: Choose the release
+        id: which
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WANTED: ${{ inputs.version }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          latest=$(gh release list --exclude-drafts --exclude-pre-releases --limit 20 \
+                     --json tagName,publishedAt --jq '[.[] | select(.tagName | test("^v[0-9]+\\.[0-9]+\\.[0-9]+$"))][0]')
+          [ -n "$latest" ] && [ "$latest" != "null" ] || { echo "amadeos has no release yet"; exit 0; }
+          tag=$(jq -r .tagName <<<"$latest")
+          version="${WANTED#v}"
+          if [ -z "$version" ]; then
+            version="${tag#v}"
+          fi
+          if [ "$EVENT" = schedule ]; then
+            published=$(date -d "$(jq -r .publishedAt <<<"$latest")" +%s)
+            if [ $(( $(date +%s) - published )) -lt 3900 ]; then
+              echo "amadeos $version was released less than 65 minutes ago; the other repositories may still follow"
+              exit 0
+            fi
+            if [ -f "docs/releases/$version.md" ]; then
+              echo "docs/releases/$version.md exists already"
+              exit 0
+            fi
+            if git ls-remote --exit-code --heads origin "release-notes/v$version" >/dev/null; then
+              echo "release-notes/v$version is waiting for its pull request already"
+              exit 0
+            fi
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Write the notes
+        if: steps.which.outputs.version != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/aggregate-release-notes.py "${{ steps.which.outputs.version }}"
+
+      - name: Put them on the release of amadeos
+        if: steps.which.outputs.version != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.which.outputs.version }}
+        run: gh release edit "v$VERSION" --notes-file "docs/releases/$VERSION.md"
+
+      - name: Open the pull request
+        if: steps.which.outputs.version != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.which.outputs.version }}
+        run: |
+          if git diff --quiet -- docs/releases && [ -z "$(git ls-files --others --exclude-standard docs/releases)" ]; then
+            echo "docs/releases is up to date"
+            exit 0
+          fi
+          branch="release-notes/v$VERSION"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add docs/releases
+          git commit -m "docs(releases): notes of amadeOS $VERSION"
+          git push --force origin "$branch"
+          gh pr view "$branch" >/dev/null 2>&1 || gh pr create --base develop --head "$branch" \
+            --title "docs(releases): notes of amadeOS $VERSION" \
+            --body "The release notes of all repositories for amadeOS $VERSION, written by scripts/aggregate-release-notes.py (workflow Release notes). They are on the [GitHub Release](https://github.com/${{ github.repository }}/releases/tag/v$VERSION) too."

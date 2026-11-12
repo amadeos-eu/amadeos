@@ -16,6 +16,7 @@ docs/releases/highlights/<VERSION>.md, when present, is put at the top as hand-w
 
 The GitHub API is read without a token (60 requests an hour, enough for one run) or with
 GITHUB_TOKEN / GH_TOKEN when set.
+The workflow .github/workflows/release-notes.yml runs it for each new release once the grace period is over.
 """
 import datetime
 import json
@@ -182,7 +183,8 @@ def main():
     index = ["# amadeOS releases", "",
              "What changed in each release of amadeOS, collected from the release notes of all its",
              "repositories (desktop, applications, games, libraries and installer). Written by",
-             "`scripts/aggregate-release-notes.py`; each repository's own notes are on its GitHub Releases page.",
+             "`scripts/aggregate-release-notes.py` (workflow Release notes, after each release); each repository's own notes",
+             "are on its GitHub Releases page.",
              ""]
     for version in present:
         date = f" ({dates[version]:%-d %B %Y})" if version in dates else ""

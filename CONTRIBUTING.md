@@ -99,7 +99,7 @@ Every independent application `.deb` package should install to standard system l
 | `/usr/share/applications/<app-name>.desktop` | `0644` | Freedesktop desktop entry |
 | `/usr/share/icons/hicolor/48x48/apps/<app-name>.png` | `0644` | Application icon |
 
-**Shared Java options.** amadeos-session installs the Java argument files `/etc/amadeos/java/app.options` (programs: serial collector, 256 MB heap cap, unused memory given back) and `game.options` (games: G1, 512 MB cap), both with fork/exec for child processes. Every launcher passes the right file to `java` first. Options after it win, so a program that needs more memory adds its own `-Xmx` (Image Editor `-Xmx1g`, Cruise `-Xmx1536m`). Without the file (a plain Debian system) the launcher falls back to `/dev/null` and Java's defaults. Change these files, not each launcher, for settings every program should get.
+**Shared Java options.** The package `amadeos-java-options` (from amadeos-system) installs the Java argument files `/etc/amadeos/java/app.options` (programs: serial collector, 256 MB heap cap, unused memory given back) and `game.options` (games: G1, 512 MB cap), both with fork/exec for child processes. Every launcher passes the right file to `java` first. Options after it win, so a program that needs more memory adds its own `-Xmx` (Image Editor `-Xmx1g`, Cruise `-Xmx1536m`). Every program and game lists `amadeos-java-options` in `Depends`, so it gets the files on a plain Debian or Ubuntu without the amadeOS desktop too. Should the file still be missing, the launcher falls back to `/dev/null` and Java's defaults. Change these files, not each launcher, for settings every program should get.
 
 ### 3. XDG desktop entry & Front Panel drawer mapping
 
@@ -178,7 +178,7 @@ Version: ${project.version}
 Section: editors
 Priority: optional
 Architecture: all
-Depends: openjdk-25-jre | java-runtime (>= 25)
+Depends: openjdk-25-jre | java-runtime (>= 25), amadeos-java-options
 Maintainer: amadeOS Project <developers@datazuul.com>
 Description: Authentic Motif/CDE-styled text editor for amadeOS
 """

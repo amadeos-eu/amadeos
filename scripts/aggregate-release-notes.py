@@ -45,7 +45,7 @@ def read_repositories():
                     group = (title, [])
                     groups.append(group)
             elif line and not line.startswith("#") and group:
-                group[1].append(line)
+                group[1].append(line.split("#")[0].strip())  # "amade-x-game  # optional"
     return [g for g in groups if g[1]]
 
 

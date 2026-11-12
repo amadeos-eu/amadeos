@@ -7,6 +7,9 @@
 #   3. drops every app's .deb into config/packages.chroot/ (gradlew installToAmadeOs), and the handbooks
 #   4. builds artifacts/amadeos-<version>-amd64.iso (./build.sh, uses sudo for live-build)
 #
+# The optional games of repositories.list ("# optional") are not in the image and are neither cloned nor built
+# here; their own CI releases them to apt.amadeos.eu. --all-games builds them into the image as well.
+#
 # At the end (also when a step fails) it prints how long the whole build and its longer steps took.
 #
 # Expected layout (an app is every ../amade-*/ or ../amadeos-*/ whose build.gradle has an installToAmadeOs task):
@@ -14,7 +17,7 @@
 #   <parent>/amadeos  <parent>/amade-commons  <parent>/amade-pad  <parent>/amade-mail  ...
 #
 # Usage: ./buildDistribution.sh [--branch develop|release|main] [--no-clone] [--no-pull] [--skip-tests] [--quick]
-#                              [--apps "amade-pad amade-mail"]
+#                              [--apps "amade-pad amade-mail"] [--all-games]
 #
 #   --branch B    build branch B: develop (default, the newest work), release (what is being tested) or
 #                 main (the releases); a repository without that branch is built from main
@@ -23,6 +26,7 @@
 #   --skip-tests  skip the unit tests of amade-commons and the apps (they run under xvfb-run otherwise)
 #   --quick       repack the previous image instead of a full live-build (AMADEOS_QUICK=1)
 #   --apps LIST   build only these apps (directory names, space-separated)
+#   --all-games   also clone and build the optional games and put them into the image (to test them there)
 #
 # Writing the ISO to a USB stick is described in README.md ("Writing the image to a USB stick").
 set -euo pipefail
@@ -34,7 +38,7 @@ main() {
     root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     parent_dir="$(dirname "$root_dir")"
 
-    local clone=1 pull=1 tests=1 quick=0 apps_arg=""
+    local clone=1 pull=1 tests=1 quick=0 apps_arg="" all_games=0
     while [ $# -gt 0 ]; do
         case "$1" in
             --branch) shift; branch="${1:?--branch needs develop, release or main}" ;;
@@ -43,13 +47,19 @@ main() {
             --skip-tests) tests=0 ;;
             --quick) quick=1 ;;
             --apps) shift; apps_arg="${1:?--apps needs a list of app directories}" ;;
-            -h|--help) sed -n '2,25p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; return 0 ;;
+            --all-games) all_games=1 ;;
+            -h|--help) sed -n '2,31p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; return 0 ;;
             *) echo "Unknown option: $1 (see --help)" >&2; return 1 ;;
         esac
         shift
     done
 
     trap report_durations EXIT
+
+    # The optional games (repositories.list, "# optional"): left out unless --all-games.
+    local optional=()
+    [ "$all_games" = 1 ] || mapfile -t optional < <("$root_dir/scripts/list-repositories.sh" --optional)
+    is_optional() { [[ " ${optional[*]} " == *" $1 "* ]]; }
 
     # live-build needs root; ask for the password now instead of after the Java builds.
     if [ "$(id -u)" -ne 0 ]; then
@@ -62,6 +72,7 @@ main() {
         local name
         while read -r name; do
             [ -d "$parent_dir/$name" ] && continue
+            is_optional "$name" && continue
             step "Cloning $name"
             git clone "https://github.com/amadeos-eu/$name.git" "$parent_dir/$name"
         done < <(sed -e 's/#.*//' -e '/^[[:space:]]*$/d' "$root_dir/repositories.list")
@@ -95,6 +106,9 @@ main() {
         for app in $apps_arg; do
             grep -qs "installToAmadeOs" "$parent_dir/$app/build.gradle" || {
                 echo "$parent_dir/$app is no amade app (no installToAmadeOs task in build.gradle)" >&2; return 1; }
+            if is_optional "$app"; then
+                echo "$app is an optional game, not in the image; add --all-games to build it into the image" >&2; return 1
+            fi
             apps+=("$app")
         done
     else
@@ -105,6 +119,7 @@ main() {
             [ -d "$dir" ] || continue
             app="$(basename "$dir")"
             [ "$app" = "amade-commons" ] && continue
+            is_optional "$app" && continue
             if grep -qs "installToAmadeOs" "$dir/build.gradle"; then
                 apps+=("$app")
             elif [ "$pull" = 1 ] && is_app_on_branch "$dir" "$branch"; then
@@ -222,9 +237,9 @@ main() {
 
     step "Building the amadeOS ISO"
     if [ "$quick" = 1 ]; then
-        AMADEOS_QUICK=1 "$root_dir/build.sh"
+        AMADEOS_QUICK=1 AMADEOS_ALL_GAMES="$all_games" "$root_dir/build.sh"
     else
-        "$root_dir/build.sh"
+        AMADEOS_ALL_GAMES="$all_games" "$root_dir/build.sh"
     fi
 
     # amadeos-amd64.iso links to the versioned image that build.sh wrote.

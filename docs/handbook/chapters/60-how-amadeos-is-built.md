@@ -41,7 +41,7 @@ Every part of amadeOS is an ordinary **Debian package**, a `.deb` file. The desk
 | `amadeos-installer` | *Install amadeOS* | 14 |
 | `amadeos-handbook` | This book | 48 |
 | `amade-pad`, `amade-mail`, … | The applications | Part V |
-| `amade-mines-game`, … | The games | 49 |
+| `amade-mines-game`, … | The games; the image brings Mines and Solitaire, the others are optional | 49 |
 
 Each Java package puts its program into `/opt/<package>/` and a small start script into `/usr/bin/`. They depend on Debian's Java runtime, `openjdk-25-jre`, like any other program depends on its libraries, and on `amadeos-java-options`, whose files `/etc/amadeos/java/app.options` and `game.options` the start script passes to Java: a memory limit and the other settings all programs share. `dpkg -L amadeos-wm` lists what one package installs.
 
@@ -83,7 +83,7 @@ After the image, the amadeOS packages are updated through the **amadeOS package 
 
 The key that signs the repository has two parts: the main key stays offline with the maintainer, and only a signing subkey, which expires after two years and is renewed in time, is used by the workflow. The package `amadeos-archive-keyring` brings the public key to your computer.
 
-Which packages make up amadeOS is written down once, in the package `amadeos-desktop`. It depends on the core of the desktop and recommends the rest: every program and game of `repositories.list` and the Debian packages of the image's package list, without the parts only the live system and the installer need. The image installs it, the release of the `amadeos` repository carries it to the package repository, and so a program that joins amadeOS reaches installed computers with their next update.
+Which packages make up amadeOS is written down once, in the package `amadeos-desktop`. It depends on the core of the desktop and recommends the rest: every program and game of `repositories.list` that is not marked *optional*, and the Debian packages of the image's package list, without the parts only the live system and the installer need. The image installs it, the release of the `amadeos` repository carries it to the package repository, and so a program that joins amadeOS reaches installed computers with their next update. The optional games, marked `# optional` in `repositories.list`, are only suggested; a second meta package, `amadeos-games`, recommends every game and is not in the image.
 
 !!! planned "Planned"
     Signed images with a release manifest (M12), and the suites `testing` and `dev` of the package repository for those who want to try new versions early.

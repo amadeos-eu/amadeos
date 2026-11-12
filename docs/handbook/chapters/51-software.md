@@ -62,7 +62,7 @@ Install such files only from a source you trust: a package runs its installation
 
 ## The amadeOS package repository
 
-The amade applications and games, and the desktop itself, come from the **amadeOS package repository** at `apt.amadeos.eu`, next to Debian. Software lists them with their descriptions, icons and screenshots like any Debian program, and you can install a game you left out or remove one you do not play. Their source says *amadeOS*.
+The amade applications and games, and the desktop itself, come from the **amadeOS package repository** at `apt.amadeos.eu`, next to Debian. Software lists them with their descriptions, icons and screenshots like any Debian program, and you can install the optional games (the image brings only Mines and Solitaire, chapter 49) or remove a program you do not use. Their source says *amadeOS*.
 
 The repository is signed with the amadeOS key; the package `amadeos-archive-keyring` holds that key and the entry for apt, in `/etc/apt/sources.list.d/amadeos.sources`. A system installed from amadeOS 1.0.0 does not have it yet: chapter 52 says how to add it.
 

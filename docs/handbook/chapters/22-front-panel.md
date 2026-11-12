@@ -17,7 +17,7 @@ Every slot does two things: **clicking its icon** starts its main program, and *
 | **Mail & Internet** | Starts the Mailer | The mail programs and Contacts, News, then the web browser and other internet programs |
 | **Sound & Video** | Starts the first program of the drawer | Audio Station, Video Player, TV and other media programs |
 | **Graphics** | Starts the first program of the drawer | Image Viewer, Image Scan, Fractals, LibreOffice Draw and other graphics programs |
-| **Games** | Starts the first game of the drawer | All installed games, from Blast to Town (chapter 49) |
+| **Games** | Starts the first game of the drawer | All installed games: Mines and Solitaire, and those you add (chapter 49) |
 
 ![The Text & Office drawer](images/22/drawer-office.jpg)
 

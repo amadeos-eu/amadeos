@@ -1,6 +1,31 @@
 # 49. Games
 
-amadeOS comes with **twenty games**, all in the Games drawer of the Front Panel. They are written for amadeOS with its own game engine, have no advertising, no accounts and no purchases, and need no network.
+amadeOS has **twenty games**, written for amadeOS with its own game engine. They have no advertising, no accounts and no purchases, and need no network.
+
+The image brings two of them, **Mines** and **Solitaire**; they are in the Games drawer of the Front Panel from the start. The other eighteen are **optional**: an office computer does not need them, and the image stays smaller without them. Install the ones you like whenever you want, and they appear in the Games drawer.
+
+## Installing more games
+
+- **One game:** open **Software** (chapter 51), choose *Games* on the left or search for the game's name, and click **Install**. The administrator's password is asked for.
+- **All games at once:** the package `amadeos-games` brings every game of amadeOS. Install it in a terminal:
+
+    ```sh
+    sudo apt install amadeos-games
+    ```
+
+    Games that a later amadeOS release adds then arrive with the normal updates (chapter 52). A game you remove stays removed.
+
+Removing a game works the same way: *Remove* in Software, or `sudo apt remove amade-<name>-game`. Your best scores and saved games stay in your home folder.
+
+!!! note "Systems installed from an older image"
+    Images up to amadeOS 1.2 brought all twenty games. They stay installed with the updates. Only `sudo apt autoremove` would now offer to remove them, because the desktop no longer asks for them; install `amadeos-games` first if you want to keep them all.
+
+| Games | Where they come from | Packages |
+|---|---|---|
+| Mines, Solitaire | the image | `amade-mines-game`, `amade-solitaire-game` |
+| Paddle, Bricks, Snake, Rocks, Swarm, Maze, Blast, Jump, Hover Cab, Artillery | Software or `amadeos-games` | `amade-paddle-game`, `amade-bricks-game`, … |
+| Towers, Sands, Colony, Town | Software or `amadeos-games` | `amade-towers-game`, … |
+| Rivet, Cruise, Pinball, The Seal of the Templars | Software or `amadeos-games` | `amade-rivet-game`, `amade-cruise-game`, `amade-pinball-game`, `amade-templar-game` |
 
 ## What all games share
 
@@ -40,6 +65,8 @@ Klondike, the classic patience. Build the four piles at the top right from ace t
 
 ## Arcade classics
 
+Optional: install them in Software or with `amadeos-games`.
+
 | | Game | What you do |
 |---|---|---|
 | ![](images/49/paddle.jpg){ width="200" } | **Paddle** | The ball game for two paddles: against the computer with the arrow keys, or two players on one keyboard (W and S against the arrows). The first to 11 wins. |
@@ -54,6 +81,8 @@ Klondike, the classic patience. Build the four piles at the top right from ace t
 | ![](images/49/artillery.jpg){ width="200" } | **Artillery** | Two to four tanks take turns on hills of breakable ground, people or the computer at three levels. ++arrow-left++ and ++arrow-right++ turn the barrel, ++arrow-up++ and ++arrow-down++ set the power, ++tab++ picks the weapon, ++space++ fires; or hold the mouse button, point and let go. Mind the wind. The last tank standing wins the round. |
 
 ## Strategy and building
+
+Optional, like all games from here on.
 
 | | Game | What you do |
 |---|---|---|

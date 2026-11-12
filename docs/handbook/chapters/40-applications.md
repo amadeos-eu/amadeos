@@ -36,7 +36,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | **Calculator** | Basic, scientific and programmer calculations | Text & Office | 48 | [amade-calculator](https://github.com/amadeos-eu/amade-calculator) |
 | **Firefox** | The web | Mail & Internet | 48 | Debian |
 | **Documentation Viewer** | The documentation installed on the computer | Help | 48 | [amade-web](https://github.com/amadeos-eu/amade-web) |
-| **Games** | Seventeen games, from Mines to Town | Games | 49 | chapter 49 |
+| **Games** | Mines and Solitaire; eighteen more to install from Software | Games | 49 | chapter 49 |
 
 Every amade application has its source code in a repository of its own on GitHub, linked in the last column. Its *Issues* page is the best place to report a problem with that program or to suggest an improvement; for the desktop itself (Front Panel, windows, Settings, login) use [amadeos-system](https://github.com/amadeos-eu/amadeos-system/issues), and for anything else [amadeos](https://github.com/amadeos-eu/amadeos/issues) (chapter 57).
 

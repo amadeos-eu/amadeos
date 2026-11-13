@@ -157,7 +157,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 ### 2026-11-13
 
 - **amadeOS 1.3.0 released** (tag `v1.3.0`, ISO of 1.8 GB, `amadeos-desktop` and `amadeos-games` debs on the GitHub Release; amadeos.eu website PR): Family Tree and Label Printer, the Horizon palettes, a smaller image with only Mines and Solitaire on board (the other 18 games, now with Cruise and Pinball, install from Software or with `amadeos-games`), the shared Java options in `amadeos-java-options` (less memory, programs keep working during a Java update), the daily update check and the fixed Log Out. With it amadeos-system 1.5.0, amade-commons 1.3.0 and amade-game-engine 1.2.0 (also on Maven Central), the first releases 1.0.0 of amade-familytree, amade-labelprinter, amade-cruise-game and amade-pinball-game, amade-audio and amade-pad 1.2.0, and patch releases of the other programs and games.
-- The image build lists `trixie-updates` only once (#200), so apt no longer warns about targets configured twice.
+- After the release: the image build lists `trixie-updates` only once (#200), so apt no longer warns about targets configured twice.
 
 ### 2026-11-12
 

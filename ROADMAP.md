@@ -2,11 +2,11 @@
 
 What is open and planned comes first, then a timeline of what has been achieved, newest first. A feature counts as verified only with evidence from the QEMU live image or real hardware; merged work without that evidence is listed under *Waiting for a test*. The detailed notes of each milestone up to 2026-10-24 are in the git history (ROADMAP.md at commit `b58c372`).
 
-Status date: 2026-11-07
+Status date: 2026-11-13
 
 ## Project direction
 
-amadeOS is a free, European, Java-centred desktop system based on a minimal Debian x86-64 live image, with its own Java window manager, two desktop looks (Horizon with top bar and dock, the default since 1.1.0, and Classic with the CDE-style Front Panel), display manager and applications. Current release: **1.2.0** (2026-11-07). The architectural decisions and rejected alternatives are in [`CONCEPT.md`](CONCEPT.md).
+amadeOS is a free, European, Java-centred desktop system based on a minimal Debian x86-64 live image, with its own Java window manager, two desktop looks (Horizon with top bar and dock, the default since 1.1.0, and Classic with the CDE-style Front Panel), display manager and applications. Current release: **1.3.0** (2026-11-13). The architectural decisions and rejected alternatives are in [`CONCEPT.md`](CONCEPT.md).
 
 ```mermaid
 flowchart TD
@@ -39,7 +39,7 @@ flowchart TD
 | M0 Reproducible build | Done 2026-10-09 |
 | M1 Boot (BIOS and UEFI) · M2 Session launcher · M3 Native X11 · M4 Floating WM · M5 Integrated session · M6 Power and lifecycle · M7 Reparenting and decorations · M8 Front Panel and themes · M9 Java display manager · M10 XDG discovery and .deb apps | Done 2026-10-10 |
 | M11 Virtual workspaces and root menu | Done 2026-10-11 |
-| M12 Releases and versions | Done 2026-10-25 (1.0.0; 1.1.0 on 2026-11-04; 1.2.0 on 2026-11-07) |
+| M12 Releases and versions | Done 2026-10-25 (1.0.0; 1.1.0 on 2026-11-04; 1.2.0 on 2026-11-07; 1.3.0 on 2026-11-13) |
 | M12 Compatibility and security hardening | In progress |
 | M13 Application suite | Done 2026-11-05; the rest is under *Later* |
 | M14 Installation to disk | In progress: BIOS install verified in QEMU; UEFI and hardware open |
@@ -90,7 +90,7 @@ Nice to have: sticky notes, weather, ~~a font viewer~~ (built 2026-11-06, `amade
 
 ### M12 — Compatibility, security and release hardening
 
-**Releases and versions: done.** Semantic Versioning from Conventional Commits in every repository since 2026-10-25, branches develop/release/main moved by the Promote workflow of [amadeos-ci](https://github.com/amadeos-eu/amadeos-ci) (`check-release-setup.sh` checks them); amadeOS 1.0.0, 1.1.0 and 1.2.0 are released; amade-commons and amade-game-engine also go to Maven Central as `eu.amadeos`.
+**Releases and versions: done.** Semantic Versioning from Conventional Commits in every repository since 2026-10-25, branches develop/release/main moved by the Promote workflow of [amadeos-ci](https://github.com/amadeos-eu/amadeos-ci) (`check-release-setup.sh` checks them, `check-builds.sh` shows the builds after a Promote); amadeOS 1.0.0, 1.1.0, 1.2.0 and 1.3.0 are released; amade-commons and amade-game-engine also go to Maven Central as `eu.amadeos`.
 
 **Hardening: open.**
 
@@ -153,6 +153,11 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 ## Timeline
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
+
+### 2026-11-13
+
+- **amadeOS 1.3.0 released** (tag `v1.3.0`, ISO of 1.8 GB, `amadeos-desktop` and `amadeos-games` debs on the GitHub Release; amadeos.eu website PR): Family Tree and Label Printer, the Horizon palettes, a smaller image with only Mines and Solitaire on board (the other 18 games, now with Cruise and Pinball, install from Software or with `amadeos-games`), the shared Java options in `amadeos-java-options` (less memory, programs keep working during a Java update), the daily update check and the fixed Log Out. With it amadeos-system 1.5.0, amade-commons 1.3.0 and amade-game-engine 1.2.0 (also on Maven Central), the first releases 1.0.0 of amade-familytree, amade-labelprinter, amade-cruise-game and amade-pinball-game, amade-audio and amade-pad 1.2.0, and patch releases of the other programs and games.
+- The image build lists `trixie-updates` only once (#200), so apt no longer warns about targets configured twice.
 
 ### 2026-11-12
 

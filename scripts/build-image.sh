@@ -292,6 +292,7 @@ else
         --parent-mirror-chroot http://deb.debian.org/debian \
         --parent-mirror-binary http://deb.debian.org/debian \
         --security false \
+        --updates false \
         --apt-recommends false \
         --firmware-chroot false \
         --firmware-binary false \

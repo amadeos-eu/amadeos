@@ -1,4 +1,5 @@
 # Security and stable updates for the image build (lb config uses --security false because
-# live-build 3.0 would generate the obsolete "trixie/updates" suite name).
+# live-build 3.0 would generate the obsolete "trixie/updates" suite name). trixie-updates is listed here only,
+# with lb config --updates false, so apt does not see it twice ("configured multiple times").
 deb http://deb.debian.org/debian-security trixie-security main contrib non-free non-free-firmware
 deb http://deb.debian.org/debian trixie-updates main contrib non-free non-free-firmware

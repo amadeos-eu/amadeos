@@ -25,6 +25,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | **Video Player** | Video files, streams and DVDs | Sound & Video | 46 | [amade-video](https://github.com/amadeos-eu/amade-video) |
 | **TV** | Live TV of the public broadcasters, a program guide and recordings | Sound & Video | 46 | [amade-tv](https://github.com/amadeos-eu/amade-tv) |
 | **Webcam** | Photos and videos with the camera, time lapses and QR codes | Sound & Video | 46 | [amade-webcam](https://github.com/amadeos-eu/amade-webcam) |
+| **Music Studio** | Music from styles, sliders and chance, exported as WAV, FLAC, OGG, MOD or MIDI; to install from Software | Sound & Video | 46 | [amade-musicstudio](https://github.com/amadeos-eu/amade-musicstudio) |
 | **Image Viewer** | Photos and pictures, slideshows, camera data and maps | Graphics | 47 | [amade-imageviewer](https://github.com/amadeos-eu/amade-imageviewer) |
 | **Image Editor** | Cropping, straightening, colours and size of photos; painting, text and layers | Graphics | 47 | [amade-imageeditor](https://github.com/amadeos-eu/amade-imageeditor) |
 | **Font Viewer** | Fonts: trying them with your own text, their characters, installing new ones | Graphics | 35 | [amade-fontviewer](https://github.com/amadeos-eu/amade-fontviewer) |

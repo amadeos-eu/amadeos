@@ -1,4 +1,4 @@
-# 46. Audio Station, Video Player, TV and Webcam
+# 46. Audio Station, Video Player, TV, Webcam and Music Studio
 
 ## Audio Station
 
@@ -223,3 +223,69 @@ On the right are the **picture controls** the camera offers: brightness, contras
 
 ??? hood "Under the hood"
     The Audio Station plays music in Java itself, tracker modules with *libopenmpt*, the library of the OpenMPT tracker, and reads CDs with libcdio; its settings are in `~/.config/amadeos/audio/`, the CD titles and covers in `~/.cache/amadeos/audio/discs/`. The Video Player leaves the playing to *libmpv*, the engine of the mpv player, with FFmpeg and libdvdnav. TV plays with libmpv too and records with *ffmpeg*, which copies the stream into the file without converting it. It takes the stream addresses and what runs now from the Zapp service of the MediathekView project, the addresses of the other channels from the IPTV list of the Kodinerds community, and the guide from the ARD and the ZDF; the guide and the channel logos are kept in `~/.cache/amadeos/tv/`, the settings, reminders and recordings list in `~/.config/amadeos/tv/`. Webcam reads the camera through *ffmpeg* (Video4Linux) and its picture controls with `v4l2-ctl`, records with a second ffmpeg (H.264 and AAC for MP4, VP9 and Opus for WebM), and reads QR codes with the ZXing library; its settings, including the picture controls of each camera, are in `~/.config/amadeos/webcam/`.
+
+## Music Studio
+
+**Music Studio** makes music from a style, a few sliders and chance: background music for a video or a game, a loop for a presentation, or just something to listen to. Every note is composed by rules and every sound is calculated on your computer, without internet and without recordings. A short **recipe** describes the piece: the same recipe always gives the same music.
+
+Music Studio is not on the installation medium: install it from **Software** (chapter 51), or with `sudo apt install amade-musicstudio` in a terminal. Then start it from the Sound & Video drawer, or with `amade-musicstudio`.
+
+![Music Studio with a Lo-Fi piece: the styles on the left, the four parts in the middle, the recipe on the right](images/46/music-studio.jpg)
+
+### Styles and parts
+
+The list on the left shows eight styles, each with its own rules for chords, melody and rhythm: *Ambient*, *Lo-Fi*, *Chiptune*, *Piano*, *Electro*, *Meditation*, *Acoustic* and *Adventure*. The *Piece → Style* menu has the same list, with ++alt+1++ to ++alt+8++.
+
+In the middle, every part of the piece has a lane of its own: **Melody**, **Chords**, **Bass** and **Drums**. The notes are shown like a piano roll, high notes at the top; the bar above shows the form (intro, A, B, outro), the waveform below the sound. Click a lane or the waveform to jump there. At the left of each lane:
+
+| Control | What it does |
+|---|---|
+| Instrument list | The instrument of the part, or the drum kit |
+| Keyboard button | The **instrument chooser**: a description, the waveform of a note and a keyboard to try it, with the mouse or the keys ++a++ to ++l++. Attack, release and octave can be changed there too. |
+| **M**, **S** | Mute the part, or hear it alone (solo) |
+| Slider | The volume of the part |
+| **Keep** | *New Piece* leaves this part as it is and only writes the others anew |
+
+There are sixteen instruments (piano, electric piano, organ, bells, marimba, strings, harp, guitar, flute, pads, synth lead, two chip sounds and three basses) and five drum kits. All of them are calculated, so every instrument can play every part.
+
+### Making a piece
+
+| Key | What it does |
+|---|---|
+| ++ctrl+n++ or the die | A new piece: new notes for every part that is not kept; style, sliders and instruments stay |
+| ++ctrl+r++ | A new seed for all parts, also the kept ones |
+| ++ctrl+g++ | **Variations**: eight relatives of the piece (other melody, chords, bass or drums; faster, slower, harder, softer). Listen to each, then take one. |
+| ++space++ | Play and pause |
+| ++ctrl+home++ | Stop and go back to the start |
+| ++ctrl+l++ | Play again and again |
+| ++alt+left++ / ++alt+right++ | Back and forward through the last fifty pieces (also ++ctrl+z++ / ++ctrl+y++) |
+
+The panel on the right holds the recipe:
+
+- **Seed**: the number chance starts from, 0 to 999 999 999. Type one in to get a piece again.
+- **Key** (or the key the seed chooses) and **Length**, from 30 seconds to 5 minutes.
+- **Beat**: *Tempo*, *Hardness* (dull to hard drums), *Swing* (straight to swung), *Energy* (sparse to busy) and *Fills*.
+- **Sound**: *Brightness*, *Reverb* (dry to a hall) and *Vinyl* (the crackle of an old record).
+
+A slider takes effect when you let it go. Composing takes a moment; the sound is then calculated in the background, a minute of music in one or two seconds. Volumes, reverb, crackle, mute and solo change the sound almost at once.
+
+### Saving and exporting
+
+*File → Export* (++ctrl+e++) writes the piece as a sound file:
+
+| Format | For |
+|---|---|
+| **WAV**, **FLAC** | Lossless sound for video editing and further work; FLAC is about half the size |
+| **OGG** | Small files, like MP3 but free |
+| **MOD** | A tracker module with the instruments as samples, for tracker programs and old computers; the Audio Station plays it too |
+| **MIDI** | Only the notes, one track per part, for notation programs and keyboards |
+
+*As a seamless loop* leaves out intro and outro, so the end flows into the start, for games and presentations. *Each part as a separate file* writes the four parts besides the whole piece, for mixing them elsewhere.
+
+Every exported file keeps the recipe inside: opening it in Music Studio (*File → Open*) brings the piece back, to change it further. *File → Save Recipe* writes a small text file (`.musicrecipe`). *Edit → Copy Recipe* puts the recipe on the clipboard as one line, to send in a mail; whoever pastes it with *Edit → Paste Recipe* gets exactly your piece.
+
+??? hood "Under the hood"
+    Every part draws its chance from a seed of its own, which is how *Keep* works. The four parts are calculated side by side on all processor cores and kept apart until the end, so a new volume only mixes them again. FLAC and WAV are written by Music Studio itself; OGG uses the GStreamer tools, which Software installs with it.
+
+!!! planned "Planned"
+    Sung voices: a choir without words (ooh, aah, mmm) with male, female and children's voices, as further instruments.

@@ -156,6 +156,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-11-14
 
+- New application [`amade-musicstudio`](https://github.com/amadeos-eu/amade-musicstudio) (#1): **Music Studio** makes music from a style, sliders and chance, without internet and without recordings: eight styles, four parts (melody, chords, bass, drums) with sixteen synthesized instruments and five drum kits, mute, solo and *Keep* per part, beat and sound sliders, variations to listen to and a history; exports WAV, FLAC, OGG, MOD and MIDI with the recipe inside, so every file opens again. Not in the image: installed from Software or with `sudo apt install amade-musicstudio` (`# optional` in repositories.list), then in the Sound & Video drawer; User's Handbook chapter 46.
 - New application [`amade-artstudio`](https://github.com/amadeos-eu/amade-artstudio) (#1, #2, system #126): **Art Studio** makes pictures from a style, colours and chance, without internet: 27 styles in four groups (lines, areas, nature, 3D), six palettes or the desktop colours, four sliders, variations and a history; a short recipe gives the same picture at any size, saved as PNG with the recipe inside, exported up to 12 000 pixels a side for posters, or set as the backdrop of the current workspace at once. Not in the image: installed from Software or with `sudo apt install amade-artstudio` (`# optional` in repositories.list), then in the Graphics drawer; User's Handbook chapter 47, Horizon icon (system #129).
 
 ### 2026-11-13

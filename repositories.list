@@ -48,6 +48,7 @@ amade-writepad
 
 # Optional applications (only on apt.amadeos.eu: Software, or sudo apt install <name>)
 amade-artstudio        # optional
+amade-musicstudio      # optional
 
 # Content
 amadeos-sample-books

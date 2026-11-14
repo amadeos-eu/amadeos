@@ -6,7 +6,7 @@
 #
 # "# optional" after a name keeps that program out of the image and out of amadeos-desktop: it is released
 # and published on apt.amadeos.eu like every other one, and installed from Software or with
-# "sudo apt install <name>". The meta package amadeos-games recommends every game, optional or not.
+# "sudo apt install <name>": optional applications and most games. The meta package amadeos-games recommends every game, optional or not.
 # scripts/list-repositories.sh --image / --optional reads the two lists.
 
 # Libraries (built through the composite builds of the packages that use them)
@@ -18,7 +18,6 @@ amadeos-installer
 amadeos-system
 
 # Applications
-amade-artstudio
 amade-audio
 amade-backup
 amade-books
@@ -46,6 +45,9 @@ amade-video
 amade-web
 amade-webcam
 amade-writepad
+
+# Optional applications (only on apt.amadeos.eu: Software, or sudo apt install <name>)
+amade-artstudio        # optional
 
 # Content
 amadeos-sample-books

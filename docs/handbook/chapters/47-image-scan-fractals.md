@@ -272,7 +272,7 @@ The panel on the left chooses the **formula**: Mandelbrot, Multibrot, Burning Sh
 
 **Art Studio** makes pictures from a style, colours and chance: for a backdrop, a poster or a card. Choose a style, move a few sliders and let chance do the rest. Every picture is drawn on your computer, without internet, from a short **recipe**: the same recipe always gives the same picture, at any size.
 
-Start it from the Graphics drawer, or with `amade-artstudio`.
+Art Studio is not on the installation medium: install it from **Software** (chapter 51), or with `sudo apt install amade-artstudio` in a terminal. Then start it from the Graphics drawer, or with `amade-artstudio`.
 
 ![Art Studio drawing the style Marble in the Ocean colours](images/47/art-studio.jpg)
 

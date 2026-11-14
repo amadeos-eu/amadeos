@@ -5,9 +5,9 @@
 #
 #   --all       every repository (default)
 #   --image     the repositories whose programs the image brings: all but the optional ones
-#   --optional  the optional ones, marked "# optional" after their name: the games that are not in the image
-#               and come only from the package repository (apt.amadeos.eu, Software), together or as the meta
-#               package amadeos-games
+#   --optional  the optional ones, marked "# optional" after their name: the applications and games that are not
+#               in the image and come only from the package repository (apt.amadeos.eu, Software); the games
+#               also together as the meta package amadeos-games
 set -euo pipefail
 
 list="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/repositories.list"

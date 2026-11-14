@@ -30,6 +30,7 @@ amadeOS comes with its own set of programs, the **amade applications**, written 
 | **Font Viewer** | Fonts: trying them with your own text, their characters, installing new ones | Graphics | 35 | [amade-fontviewer](https://github.com/amadeos-eu/amade-fontviewer) |
 | **Image Scan** | Scanning photos and letters | Graphics | 47 | [amade-imagescan](https://github.com/amadeos-eu/amade-imagescan) |
 | **Fractals** | Exploring the Mandelbrot set | Graphics | 47 | [amade-fractals](https://github.com/amadeos-eu/amade-fractals) |
+| **Art Studio** | Pictures from styles, colours and chance: backdrops and posters | Graphics | 47 | [amade-artstudio](https://github.com/amadeos-eu/amade-artstudio) |
 | **PDF Viewer** | Reading PDF documents, searching and printing them | Text & Office | 48 | [amade-pdfviewer](https://github.com/amadeos-eu/amade-pdfviewer) |
 | **Books** | E-books (EPUB) and comics (CBZ) on a bookshelf of your own | Text & Office | 48 | [amade-books](https://github.com/amadeos-eu/amade-books) |
 | **Book Editor** | Writing a book and saving it as an e-book (EPUB) | Text & Office | 48 | [amade-bookeditor](https://github.com/amadeos-eu/amade-bookeditor) |

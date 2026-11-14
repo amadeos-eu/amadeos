@@ -1,4 +1,4 @@
-# 47. Image Viewer, Image Editor, Image Scan and Fractals
+# 47. Image Viewer, Image Editor, Image Scan, Fractals and Art Studio
 
 ## Image Viewer
 
@@ -267,3 +267,55 @@ The panel on the left chooses the **formula**: Mandelbrot, Multibrot, Burning Sh
 
 ??? hood "Under the hood"
     Fractals uses all processor cores. Below the precision of ordinary numbers, the Mandelbrot set is calculated with *perturbation*: one point with hundreds of digits, and every pixel as a small difference from it.
+
+## Art Studio
+
+**Art Studio** makes pictures from a style, colours and chance: for a backdrop, a poster or a card. Choose a style, move a few sliders and let chance do the rest. Every picture is drawn on your computer, without internet, from a short **recipe**: the same recipe always gives the same picture, at any size.
+
+Start it from the Graphics drawer, or with `amade-artstudio`.
+
+![Art Studio drawing the style Marble in the Ocean colours](images/47/art-studio.jpg)
+
+### Styles
+
+The list on the left shows 27 styles in four groups, each with a small picture in your colours:
+
+| Group | Styles |
+|---|---|
+| **Lines** | Flow, Wave Lines, Tiles, Rosette, Attractor, Wheel Curves |
+| **Areas** | Watercolour, Mosaic, Circles, Colour Grid, Shapes, Dots, Triangles, Halftone, Labyrinth |
+| **Nature** | Plants, Landscape, Marble, Contour Lines, Night Sky, Reaction Patterns, Growth |
+| **3D** | Cubes, Spheres, Wireframe, Tube Knot, Sculpture |
+
+The *Picture → Style* menu has the same list; ++alt+1++ to ++alt+9++ choose the first nine styles.
+
+### Making a picture
+
+| Key | What it does |
+|---|---|
+| ++ctrl+n++ or the die | A new picture: a new seed and, unless the colours are kept, other colours |
+| ++ctrl+r++ | A new seed only |
+| ++ctrl+g++ | **Variations**: nine close relatives of the picture; click one to continue from it |
+| ++alt+left++ / ++alt+right++ | Back and forward through the last forty pictures (also ++ctrl+z++ / ++ctrl+y++) |
+| ++f11++ | Only the picture, on the whole screen |
+
+The panel on the right holds the recipe:
+
+- **Seed**: the number chance starts from, 0 to 999 999 999. Type one in to get a picture again.
+- **Shape**: screen (16:10), widescreen (16:9), square, or paper upright or across.
+- **Colours**: six palettes, *Desktop Colours* (the colours of your theme in Settings, also when you change it later), or your own: click a colour to change it. *Keep colours for new pictures* keeps them while you try new seeds.
+- **Density**, **Size**, **Chaos** and **Line width** (or **Edges**) shape the picture; each style uses them in its own way. *Paper texture* adds a fine grain.
+
+### Backdrop, saving and printing
+
+*File → Set as Backdrop* (++ctrl+b++) draws the picture at the size of your screen and makes it the backdrop of the current workspace at once; the other workspaces keep theirs.
+
+*File → Save Picture* saves the picture as shown, as a PNG with the recipe inside: opening the PNG in Art Studio brings the recipe back. *File → Export Picture* draws it at any size up to 12 000 pixels a side, from Full HD and 4K to A4, A3 and A2 at 300 dpi for printing; the composition stays the same at every size.
+
+*File → Save Recipe* writes a small text file (`.artrecipe`). *Edit → Copy Recipe* puts the recipe on the clipboard as one line, to send in a mail; whoever pastes it with *Edit → Paste Recipe* gets exactly your picture.
+
+??? hood "Under the hood"
+    Every length in a picture is measured in units of a 600th of its shorter side, and every count depends on its shape, never on its pixels: that is why a poster shows the picture on the screen, only sharper. The variations and the small pictures of the styles are drawn on all processor cores at once; a new change cancels the picture that is no longer wanted. Most pictures take well under a second; the Attractor and the Sculpture take a few seconds at Full HD and longer for a poster.
+
+!!! planned "Planned"
+    SVG export of the line styles for plotters and cutting machines, and pictures that move as a screen saver.

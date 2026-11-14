@@ -154,6 +154,10 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
 
+### 2026-11-14
+
+- New application [`amade-artstudio`](https://github.com/amadeos-eu/amade-artstudio) (#1, #2, system #126): **Art Studio** makes pictures from a style, colours and chance, without internet: 27 styles in four groups (lines, areas, nature, 3D), six palettes or the desktop colours, four sliders, variations and a history; a short recipe gives the same picture at any size, saved as PNG with the recipe inside, exported up to 12 000 pixels a side for posters, or set as the backdrop of the current workspace at once. In the Graphics drawer; User's Handbook chapter 47, Horizon icon (system PR).
+
 ### 2026-11-13
 
 - **amadeOS 1.3.0 released** (tag `v1.3.0`, ISO of 1.8 GB, `amadeos-desktop` and `amadeos-games` debs on the GitHub Release; amadeos.eu website PR): Family Tree and Label Printer, the Horizon palettes, a smaller image with only Mines and Solitaire on board (the other 18 games, now with Cruise and Pinball, install from Software or with `amadeos-games`), the shared Java options in `amadeos-java-options` (less memory, programs keep working during a Java update), the daily update check and the fixed Log Out. With it amadeos-system 1.5.0, amade-commons 1.3.0 and amade-game-engine 1.2.0 (also on Maven Central), the first releases 1.0.0 of amade-familytree, amade-labelprinter, amade-cruise-game and amade-pinball-game, amade-audio and amade-pad 1.2.0, and patch releases of the other programs and games.

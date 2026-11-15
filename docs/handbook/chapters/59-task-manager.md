@@ -74,6 +74,18 @@ Every two seconds the window manager asks the active window whether its program 
 !!! note
     Not every program can be checked. Programs that do not take part in the window manager's question, and amadeOS programs whose window still redraws while they are busy, are never marked. They can still be ended in the Task Manager.
 
+## When the memory runs out
+
+Browsers with many tabs, editors such as VS Code and their language servers can take several gigabytes each. amadeOS keeps the desktop usable when the memory gets full, with two things from the package `amadeos-memory`:
+
+- **Compressed swap in memory (zram).** Memory that a program has not touched for a while is compressed and kept in RAM, at a third of its size or less. That is far faster than a swap partition or swap file on the disk, which amadeOS still uses after it.
+- **earlyoom.** When less than 5 % of the memory and less than 10 % of the swap are free, it ends the program that uses the most memory, before the computer stalls. It prefers browsers, VS Code and other programs built on Electron, and spares X, the desktop and its programs and the system services. The program simply closes; unsaved work in it is lost, so save often when the memory gets tight.
+
+The *Performance* tab shows the swap below the memory. `swapon --show` in a terminal lists `/dev/zram0`, and `journalctl -u earlyoom` names every program earlyoom has ended.
+
+!!! info "For the curious"
+    The settings are in `/usr/lib/systemd/zram-generator.conf.d/50-amadeos.conf` (zram as large as the RAM, at most 8 GB, zstd), `/usr/lib/sysctl.d/60-amadeos-memory.conf` (swappiness 180 and the other kernel values that suit zram, and more file watches for editors) and `/usr/lib/systemd/system/earlyoom.service.d/50-amadeos.conf`. A file of the same name in `/etc` (`/etc/systemd/zram-generator.conf.d/`, `/etc/sysctl.d/`, `/etc/systemd/system/earlyoom.service.d/`) replaces each one. Without them the kernel ends a program only when the swap is full too, and until then the computer can stall for many minutes.
+
 ## What the Task Manager cannot do yet
 
 !!! planned "Planned"

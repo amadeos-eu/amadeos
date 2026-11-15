@@ -154,6 +154,10 @@ Built: the privileged helper `/usr/libexec/amadeos-packages` (apt through `pkexe
 
 Newest first. Numbers without a repository name are pull requests in this repository; amadeos-system is abbreviated *system*, amade-commons *commons*.
 
+### 2026-11-15
+
+- Music Studio grows (amade-musicstudio #3, #4): nine **sung voices** without words (man, woman, child and a choir, *ooh*, *aah* and humming) as instruments; two more parts, **Pad** and **Arpeggio**, that can be switched off; a **filter sweep** and a **tremolo** in time with the piece for every instrument; the sliders **Variety** (parts rest and come back, the drums answer with rolls, fills and crashes) and **Harmony** (suspended, seventh, sixth, ninth, dominant, augmented and diminished chords, the third in the bass); Euclidean rhythms for an extra drum and the arpeggio. Modules have twelve channels when pad or arpeggio play. User's Handbook chapter 46.
+
 ### 2026-11-14
 
 - New application [`amade-musicstudio`](https://github.com/amadeos-eu/amade-musicstudio) (#1): **Music Studio** makes music from a style, sliders and chance, without internet and without recordings: eight styles, four parts (melody, chords, bass, drums) with sixteen synthesized instruments and five drum kits, mute, solo and *Keep* per part, beat and sound sliders, variations to listen to and a history; exports WAV, FLAC, OGG, MOD and MIDI with the recipe inside, so every file opens again. Not in the image: installed from Software or with `sudo apt install amade-musicstudio` (`# optional` in repositories.list), then in the Sound & Video drawer; User's Handbook chapter 46.

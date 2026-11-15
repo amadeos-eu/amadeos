@@ -257,6 +257,8 @@ In the instrument chooser, every instrument can **move** in time with the piece:
 | **Filter sweep** | The sound closes, becomes dull, and opens again. *One sweep lasts* eight bars down to an eighth note: slow for pads, fast for a pulsing sound. |
 | **Tremolo** | The volume sinks and rises again, over the length chosen under *One wave lasts*. |
 
+Both lists end with two entries for **the whole piece**. The movement then runs only once, from the first bar to the last: the filter *opening* or *closing*, the volume *growing louder* or *fading*. A pad that slowly opens over the piece, or strings that swell towards the end, are made this way. In a loop the course starts anew with every round.
+
 Both follow the bars of the piece, so they are heard in the piece and not on a single note of the keyboard.
 
 ### Making a piece

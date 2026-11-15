@@ -37,6 +37,7 @@ Every part of amadeOS is an ordinary **Debian package**, a `.deb` file. The desk
 | `amadeos-settings` | Settings | Part IV |
 | `amadeos-software`, `amadeos-packages` | Software and its helper | 51, 52 |
 | `amadeos-java-options` | The Java options every program and game starts with (`/etc/amadeos/java/`) | 52 |
+| `amadeos-memory` | Compressed swap in memory (zram) and earlyoom, which keep the computer usable when a program uses up the memory | 57 |
 | `amadeos-print`, `amadeos-logviewer`, `amadeos-sysinfo` | Print Manager, logs, system information | 54, 57 |
 | `amadeos-installer` | *Install amadeOS* | 14 |
 | `amadeos-handbook` | This book | 48 |

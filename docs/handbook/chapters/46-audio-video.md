@@ -234,7 +234,23 @@ Music Studio is not on the installation medium: install it from **Software** (ch
 
 ### Styles and parts
 
-The list on the left shows eight styles, each with its own rules for chords, melody and rhythm: *Ambient*, *Lo-Fi*, *Chiptune*, *Piano*, *Electro*, *Meditation*, *Acoustic* and *Adventure*. The *Piece → Style* menu has the same list, with ++alt+1++ to ++alt+8++.
+The list on the left shows fourteen styles, each with its own rules for chords, melody and rhythm. The *Piece → Style* menu has the same list, with ++alt+1++ to ++alt+9++ for the first nine.
+
+| Style | What it sounds like |
+|---|---|
+| *Ambient*, *Meditation* | Long, quiet sounds without drums. |
+| *Lo-Fi* | Relaxed beats with an electric piano. |
+| *Chiptune* | The sound chips of old video games. |
+| *Piano* | A piano piece. |
+| *Electro* | Dance music with a synthesizer and a steady bass drum. |
+| *Acoustic* | A strummed guitar, as at a campfire. |
+| *Adventure* | Film music with strings, harp and big drums. |
+| *Heavy Metal* | A distorted electric guitar plays low power chords and muted riffs, two bass drums drive it on. |
+| *Rock* | The same guitar, slower and more open, over a plain rock beat. |
+| *Pop* | A catchy song with piano, bass guitar and a light beat. |
+| *Lounge* | A quiet bossa with vibraphone, electric piano, upright bass and brushes. |
+| *Jazz* | A swing quartet: saxophone, piano, a walking upright bass and the ride cymbal. |
+| *Reggae* | Short guitar chords off the beat, a heavy bass, and drums that fall on two and four. |
 
 In the middle, every part of the piece has a lane of its own: **Melody**, **Chords**, **Bass** and **Drums**, and two extras a piece can do without: the **Pad**, two long notes of every chord that fill the sound, and the **Arpeggio**, the notes of the chord played one after another. The notes are shown like a piano roll, high notes at the top; the bar above shows the form (intro, A, B, outro), the waveform below the sound. Click a lane or the waveform to jump there. At the left of each lane:
 
@@ -246,7 +262,7 @@ In the middle, every part of the piece has a lane of its own: **Melody**, **Chor
 | Slider | The volume of the part |
 | **Keep** | *New Piece* leaves this part as it is and only writes the others anew |
 
-There are sixteen instruments (piano, electric piano, organ, bells, marimba, strings, harp, guitar, flute, pads, synth lead, two chip sounds and three basses) and five drum kits. All of them are calculated, so every instrument can play every part.
+There are twenty-one instruments (piano, electric piano, organ, bells, marimba, vibraphone, strings, harp, plucked, electric and distorted guitar, flute, saxophone, pads, synth lead, two chip sounds and four basses) and seven drum kits, among them a *Rock Kit* and a *Brush Kit*. All of them are calculated, so every instrument can play every part.
 
 Nine more instruments are **sung voices** without words: a man, a woman and a child singing *ooh* or *aah*, and a choir of six singing *ooh*, *aah* or humming. They are calculated like the others and can sing every part; a choir on the pad or the chords and a single voice on the melody go well together.
 
@@ -278,7 +294,7 @@ The panel on the right holds the recipe:
 - **Seed**: the number chance starts from, 0 to 999 999 999. Type one in to get a piece again.
 - **Key** (or the key the seed chooses) and **Length**, from 30 seconds to 5 minutes.
 - **Harmony** (plain to colourful): at *plain* every chord is the simple chord of the key. The more colourful, the more chords are suspended, get a seventh, sixth or ninth, lead home more strongly, or have another note in the bass.
-- **Beat**: *Tempo*, *Hardness* (dull to hard drums), *Swing* (straight to swung), *Energy* (sparse to busy), *Fills* and *Variety*.
+- **Beat**: *Tempo*, *Hardness* (dull to hard drums), *Swing* (straight to swung; Jazz and Reggae swing in eighths like a shuffle, the other styles in sixteenths), *Energy* (sparse to busy), *Fills* and *Variety*.
 - **Sound**: *Brightness*, *Reverb* (dry to a hall) and *Vinyl* (the crackle of an old record).
 
 **Variety** (steady to changing) decides how much happens in the course of a piece. At *steady* all parts play from start to end. The more it changes, the more often melody, bass, drums, pad and arpeggio come in a few bars late or rest for four or eight bars, while the chords carry on. The drums answer: a roll before they come back, a last hit when they stop, a short fill and a crash when another part comes in. A busy piece also gets one more drum, whose hits are spread evenly over the bar.

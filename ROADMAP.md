@@ -156,6 +156,7 @@ Newest first. Numbers without a repository name are pull requests in this reposi
 
 ### 2026-11-15
 
+- Music Studio gets six more styles (amade-musicstudio #6): **Heavy Metal**, **Rock**, **Pop**, **Lounge**, **Jazz** and **Reggae**, with five more instruments (distorted guitar, electric guitar, vibraphone, saxophone, upright bass), a rock and a brush drum kit, and swing in eighths for Jazz and Reggae. User's Handbook chapter 46.
 - Music Studio grows (amade-musicstudio #3, #4): nine **sung voices** without words (man, woman, child and a choir, *ooh*, *aah* and humming) as instruments; two more parts, **Pad** and **Arpeggio**, that can be switched off; a **filter sweep** and a **tremolo** in time with the piece for every instrument, in waves or once over the whole piece (#5); the sliders **Variety** (parts rest and come back, the drums answer with rolls, fills and crashes) and **Harmony** (suspended, seventh, sixth, ninth, dominant, augmented and diminished chords, the third in the bass); Euclidean rhythms for an extra drum and the arpeggio. Modules have twelve channels when pad or arpeggio play. User's Handbook chapter 46.
 
 ### 2026-11-14

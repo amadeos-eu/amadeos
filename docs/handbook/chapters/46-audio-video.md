@@ -230,23 +230,34 @@ On the right are the **picture controls** the camera offers: brightness, contras
 
 Music Studio is not on the installation medium: install it from **Software** (chapter 51), or with `sudo apt install amade-musicstudio` in a terminal. Then start it from the Sound & Video drawer, or with `amade-musicstudio`.
 
-![Music Studio with a Lo-Fi piece: the styles on the left, the four parts in the middle, the recipe on the right](images/46/music-studio.jpg)
+![Music Studio with an Electro piece: the styles on the left, the six parts in the middle, the recipe on the right](images/46/music-studio.jpg)
 
 ### Styles and parts
 
 The list on the left shows eight styles, each with its own rules for chords, melody and rhythm: *Ambient*, *Lo-Fi*, *Chiptune*, *Piano*, *Electro*, *Meditation*, *Acoustic* and *Adventure*. The *Piece → Style* menu has the same list, with ++alt+1++ to ++alt+8++.
 
-In the middle, every part of the piece has a lane of its own: **Melody**, **Chords**, **Bass** and **Drums**. The notes are shown like a piano roll, high notes at the top; the bar above shows the form (intro, A, B, outro), the waveform below the sound. Click a lane or the waveform to jump there. At the left of each lane:
+In the middle, every part of the piece has a lane of its own: **Melody**, **Chords**, **Bass** and **Drums**, and two extras a piece can do without: the **Pad**, two long notes of every chord that fill the sound, and the **Arpeggio**, the notes of the chord played one after another. The notes are shown like a piano roll, high notes at the top; the bar above shows the form (intro, A, B, outro), the waveform below the sound. Click a lane or the waveform to jump there. At the left of each lane:
 
 | Control | What it does |
 |---|---|
-| Instrument list | The instrument of the part, or the drum kit |
-| Keyboard button | The **instrument chooser**: a description, the waveform of a note and a keyboard to try it, with the mouse or the keys ++a++ to ++l++. Attack, release and octave can be changed there too. |
+| Instrument list | The instrument of the part, or the drum kit. For pad and arpeggio the first entry is *Off*: the part does not play. |
+| Keyboard button | The **instrument chooser**: a description, the waveform of a note and a keyboard to try it, with the mouse or the keys ++a++ to ++l++. Attack, release and octave can be changed there too, and the two movements described below. |
 | **M**, **S** | Mute the part, or hear it alone (solo) |
 | Slider | The volume of the part |
 | **Keep** | *New Piece* leaves this part as it is and only writes the others anew |
 
 There are sixteen instruments (piano, electric piano, organ, bells, marimba, strings, harp, guitar, flute, pads, synth lead, two chip sounds and three basses) and five drum kits. All of them are calculated, so every instrument can play every part.
+
+Nine more instruments are **sung voices** without words: a man, a woman and a child singing *ooh* or *aah*, and a choir of six singing *ooh*, *aah* or humming. They are calculated like the others and can sing every part; a choir on the pad or the chords and a single voice on the melody go well together.
+
+In the instrument chooser, every instrument can **move** in time with the piece:
+
+| Movement | What it does |
+|---|---|
+| **Filter sweep** | The sound closes, becomes dull, and opens again. *One sweep lasts* eight bars down to an eighth note: slow for pads, fast for a pulsing sound. |
+| **Tremolo** | The volume sinks and rises again, over the length chosen under *One wave lasts*. |
+
+Both follow the bars of the piece, so they are heard in the piece and not on a single note of the keyboard.
 
 ### Making a piece
 
@@ -264,8 +275,11 @@ The panel on the right holds the recipe:
 
 - **Seed**: the number chance starts from, 0 to 999 999 999. Type one in to get a piece again.
 - **Key** (or the key the seed chooses) and **Length**, from 30 seconds to 5 minutes.
-- **Beat**: *Tempo*, *Hardness* (dull to hard drums), *Swing* (straight to swung), *Energy* (sparse to busy) and *Fills*.
+- **Harmony** (plain to colourful): at *plain* every chord is the simple chord of the key. The more colourful, the more chords are suspended, get a seventh, sixth or ninth, lead home more strongly, or have another note in the bass.
+- **Beat**: *Tempo*, *Hardness* (dull to hard drums), *Swing* (straight to swung), *Energy* (sparse to busy), *Fills* and *Variety*.
 - **Sound**: *Brightness*, *Reverb* (dry to a hall) and *Vinyl* (the crackle of an old record).
+
+**Variety** (steady to changing) decides how much happens in the course of a piece. At *steady* all parts play from start to end. The more it changes, the more often melody, bass, drums, pad and arpeggio come in a few bars late or rest for four or eight bars, while the chords carry on. The drums answer: a roll before they come back, a last hit when they stop, a short fill and a crash when another part comes in. A busy piece also gets one more drum, whose hits are spread evenly over the bar.
 
 A slider takes effect when you let it go. Composing takes a moment; the sound is then calculated in the background, a minute of music in one or two seconds. Volumes, reverb, crackle, mute and solo change the sound almost at once.
 
@@ -277,15 +291,12 @@ A slider takes effect when you let it go. Composing takes a moment; the sound is
 |---|---|
 | **WAV**, **FLAC** | Lossless sound for video editing and further work; FLAC is about half the size |
 | **OGG** | Small files, like MP3 but free |
-| **MOD** | A tracker module with the instruments as samples, for tracker programs and old computers; the Audio Station plays it too |
+| **MOD** | A tracker module with the instruments as samples, for tracker programs and old computers; the Audio Station plays it too. It has eight channels, or twelve when pad or arpeggio play; filter sweep and tremolo are left out. |
 | **MIDI** | Only the notes, one track per part, for notation programs and keyboards |
 
-*As a seamless loop* leaves out intro and outro, so the end flows into the start, for games and presentations. *Each part as a separate file* writes the four parts besides the whole piece, for mixing them elsewhere.
+*As a seamless loop* leaves out intro and outro, so the end flows into the start, for games and presentations. *Each part as a separate file* writes every part that plays besides the whole piece, for mixing them elsewhere.
 
 Every exported file keeps the recipe inside: opening it in Music Studio (*File → Open*) brings the piece back, to change it further. *File → Save Recipe* writes a small text file (`.musicrecipe`). *Edit → Copy Recipe* puts the recipe on the clipboard as one line, to send in a mail; whoever pastes it with *Edit → Paste Recipe* gets exactly your piece.
 
 ??? hood "Under the hood"
-    Every part draws its chance from a seed of its own, which is how *Keep* works. The four parts are calculated side by side on all processor cores and kept apart until the end, so a new volume only mixes them again. FLAC and WAV are written by Music Studio itself; OGG uses the GStreamer tools, which Software installs with it.
-
-!!! planned "Planned"
-    Sung voices: a choir without words (ooh, aah, mmm) with male, female and children's voices, as further instruments.
+    Every part draws its chance from a seed of its own, which is how *Keep* works. Rests are made after the notes are written: a part plays the same notes whether or not it rested before, and with *Harmony* at plain, *Variety* at steady and pad and arpeggio off a piece is as simple as it gets. The evenly spread hits are Euclidean rhythms, the pattern behind many dance rhythms of the world. The parts are calculated side by side on all processor cores and kept apart until the end, so a new volume only mixes them again. FLAC and WAV are written by Music Studio itself; OGG uses the GStreamer tools, which Software installs with it.

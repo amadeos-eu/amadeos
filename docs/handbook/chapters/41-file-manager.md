@@ -17,7 +17,7 @@ Start it with the File Manager slot of the Front Panel, which opens your home fo
 
 - **The folder tree** on the left starts with your **Home** folder, the **Trash**, the **File System** (everything, from `/`) every USB stick, memory card or disc that is plugged in, and the **Network** with the servers and network drives of your home or office; a stick appears a few seconds after you plug it in (see *USB sticks and discs* and *Network drives* below). Click the small handle in front of a folder to open it. Click a folder to see what is in it.
 - **The list** on the right shows the files of that folder with name, size, date and permissions. Click a column heading to sort by it. Click a file to select it, ++ctrl++-click to add more, ++shift++-click to select a range. Double-click opens a folder or opens a file with its program.
-- **The path bar** at the top shows where you are, one button per folder (see *Typing a path* below).
+- **The path bar** at the top shows where you are, one button per folder (see *Typing a path* below). In front of it are four buttons: **Back** and **Forward** walk through the folders you looked at, as in a web browser, **Up** goes to the folder above, and **Home** to your home folder. The *Go* menu has the same commands.
 - **The status line** at the bottom shows the selected files with their size and the free space on the disk, and on the right what the File Manager has just done.
 
 #### The menu on the right mouse button
@@ -61,6 +61,15 @@ A stick that was already plugged in when the File Manager started is shown in *i
 Before you pull a stick out, click it with the right mouse button and choose **Safely Remove**. The File Manager finishes writing, unmounts the stick and switches it off; the status line says *Holiday Photos can be removed now.* Pulling a stick out without this can lose the files you have just copied onto it. *Unmount* does the same, but leaves the stick plugged in and switched on. For a CD or DVD the command is called **Eject**, and it opens the tray.
 
 If a program still has a file on the stick open, the File Manager tells you: *Holiday Photos is still in use. Close the files and programs that use it, then try again.*
+
+#### When a disk was pulled out without Safely Remove
+
+A loose plug, a hub without enough power, or pulling the stick out too early cuts the connection while the disk is mounted. The File Manager notices it within a few seconds: a window that showed the disk goes to your home folder, and the status line says *TOSHIBA EXT was disconnected.* Plug the disk in again and click it, even if it now has another device name.
+
+A disk that was cut off this way is marked as "not cleanly removed", and Linux will not mount it until it has been checked. This is most common with NTFS disks from Windows. The File Manager then asks: *TOSHIBA EXT was not removed safely (or lost its connection) and must be checked before it can be used. Check and repair it now, then open it?* Click **OK**. You may be asked for your password, the check runs (a few minutes on a large disk), and the disk opens. The File Manager can check NTFS, FAT, exFAT and ext2/3/4 disks.
+
+!!! tip "A disk that keeps dropping out"
+    An external hard disk that clicks and disappears every half minute usually does not get enough power. Plug it straight into the computer, or use a USB hub with its own power supply.
 
 To **format** a stick or a memory card, choose **Format…** in its menu: Disks opens with the format dialog for it (chapter 59).
 
@@ -138,7 +147,8 @@ The archive appears in the same folder, selected. The File Manager reads zip, ta
 
 ![The two-panel view](images/41/file-manager-two-panels.jpg)
 
-- **The path bar** above each panel has one button per folder of the path, as in CDE: click one to go to that folder. The active panel has the coloured path bar.
+- **The places bar** at the very top of each panel has a button for your **Home** folder, the **Trash**, the **File System**, every **USB stick, disk or disc** that is plugged in, your **network drives**, and **Connect…** for a new one. Click one and the panel shows it; a disk that is not mounted yet (its name is in *italics*) is mounted first, a network drive is connected first. The right mouse button on a disk offers *Unmount*, *Safely Remove* and *Format…*, on a network drive *Disconnect*. The button of the place the panel is in looks pressed.
+- **The path bar** above each panel has one button per folder of the path, as in CDE: click one to go to that folder. The active panel has the coloured path bar. The buttons Back, Forward, Up and Home in front of it work as in the tree view.
 - **The list** shows name, size, date and permissions; the line `..` leads to the folder above.
 - **The status line** below each panel shows the selected files with their size, and the free space on the disk.
 - **The function-key bar** at the bottom: each button does what its key does.
@@ -158,7 +168,9 @@ The right mouse button on the path bar offers *Copy Path*, which copies the path
 | Key | What it does |
 |---|---|
 | ++enter++ or double-click | Opens a folder, or opens a file with its program |
-| ++backspace++ | Goes to the folder above |
+| ++backspace++ or ++alt+up++ | Goes to the folder above |
+| ++alt+left++ / ++alt+right++ | Back / forward to the folders you looked at |
+| ++alt+home++ | Goes to your home folder |
 | ++ctrl+1++ / ++ctrl+2++ | Tree view / two-panel view |
 | ++tab++ | Switches to the other panel; in the tree view between tree and list |
 | ++ctrl+l++ | Type a path in the path bar (`~` for your home folder, ++tab++ completes) |

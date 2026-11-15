@@ -147,7 +147,8 @@ The archive appears in the same folder, selected. The File Manager reads zip, ta
 
 ![The two-panel view](images/41/file-manager-two-panels.jpg)
 
-- **The path bar** above each panel has one button per folder of the path, as in CDE: click one to go to that folder. The active panel has the coloured path bar.
+- **The places bar** at the very top of each panel has a button for your **Home** folder, the **Trash**, the **File System**, every **USB stick, disk or disc** that is plugged in, your **network drives**, and **Connect…** for a new one. Click one and the panel shows it; a disk that is not mounted yet (its name is in *italics*) is mounted first, a network drive is connected first. The right mouse button on a disk offers *Unmount*, *Safely Remove* and *Format…*, on a network drive *Disconnect*. The button of the place the panel is in looks pressed.
+- **The path bar** above each panel has one button per folder of the path, as in CDE: click one to go to that folder. The active panel has the coloured path bar. The buttons Back, Forward, Up and Home in front of it work as in the tree view.
 - **The list** shows name, size, date and permissions; the line `..` leads to the folder above.
 - **The status line** below each panel shows the selected files with their size, and the free space on the disk.
 - **The function-key bar** at the bottom: each button does what its key does.
